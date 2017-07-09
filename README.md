@@ -34,6 +34,8 @@ Monster Boss系统：更强大的怪物首领;
 并保存了所有订阅了它的属性更新和方法调用的委托，当有 属性/方法 更新/调用 的时候，fireOut一个 OnUpdatePropertys/onRemoteMethodCall_（这里通过修改kbe插件实现），
 并由世界中介器 WorldMediator 接收处理，WorldMediator 通过 属性名/方法名 找到对应的委托列表进行调用，这样就免去了许多重复的代码。
 
+游戏整体使用View-Mediator-Model（Entity）模式，可视对象 View 通过订阅 Model 的属性更新来适时的更新UI或可视物体。
+
 #服务端核心代码概述：
 ##任务的数据结构
 [任务Npc名称，任务索引，是否完成，是否已提交]

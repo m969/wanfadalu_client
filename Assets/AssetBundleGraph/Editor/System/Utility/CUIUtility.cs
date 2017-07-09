@@ -43,7 +43,9 @@ namespace AssetBundleGraph {
 			try {
 				var arguments = new List<string>(System.Environment.GetCommandLineArgs());
 
-                Application.stackTraceLogType = StackTraceLogType.None;
+				Application.SetStackTraceLogType(LogType.Log, 		StackTraceLogType.None);
+				Application.SetStackTraceLogType(LogType.Error, 	StackTraceLogType.None);
+				Application.SetStackTraceLogType(LogType.Warning, 	StackTraceLogType.None);
 
 				BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
 

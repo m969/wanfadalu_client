@@ -3,6 +3,7 @@
     using UnityEngine;
     using UnityEditor;
     using System.Collections;
+    using MagicFire;
 
     public class CreateSampleAssetList
     {
@@ -11,7 +12,7 @@
         {
             //Debug.Log("CreateSampleAssetListMethod" + SampleAssetList.instance);
             //Debug.Log(AssetDatabase.GetAssetPath(SampleAssetList.instance));
-            Debug.Log(ScriptableSingleton<SceneList>.instance);
+            //Debug.Log(ScriptableSingleton<SceneList>.instance);
             AssetDatabase.SaveAssets();
             //Debug.Log(AssetDatabase.DeleteAsset());
             

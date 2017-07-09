@@ -37,7 +37,7 @@ namespace AssetBundleGraph {
 			//Show target configuration tab
 			DrawPlatformSelector(node);
 			using (new EditorGUILayout.VerticalScope(GUI.skin.box)) {
-				var disabledScope = DrawOverrideTargetToggle(node, node.Data.LoaderLoadPath.ContainsValueOf(currentEditingGroup), (bool b) => {
+				var DisabledGroupScope = DrawOverrideTargetToggle(node, node.Data.LoaderLoadPath.ContainsValueOf(currentEditingGroup), (bool b) => {
 					using(new RecordUndoScope("Remove Target Load Path Settings", node, true)) {
 						if(b) {
 							node.Data.LoaderLoadPath[currentEditingGroup] = node.Data.LoaderLoadPath.DefaultValue;
@@ -47,7 +47,7 @@ namespace AssetBundleGraph {
 					}
 				});
 
-				using (disabledScope) {
+				using (DisabledGroupScope) {
 					var path = node.Data.LoaderLoadPath[currentEditingGroup];
 					EditorGUILayout.LabelField("Load Path:");
 
@@ -62,7 +62,7 @@ namespace AssetBundleGraph {
 					bool dirExists = Directory.Exists(dirPath);
 
 					using (new EditorGUILayout.HorizontalScope()) {
-                        using (new EditorGUI.DisabledGroupScope(string.IsNullOrEmpty(newLoadPath) || !dirExists)) 
+						using(new EditorGUI.DisabledGroupScope(string.IsNullOrEmpty(newLoadPath)||!dirExists)) 
 						{
 							GUILayout.FlexibleSpace();
 							if(GUILayout.Button("Select in Project Window", GUILayout.Width(150))) {
@@ -250,8 +250,7 @@ namespace AssetBundleGraph {
 
 						MonoScript s = TypeUtility.LoadMonoScript(node.Data.ScriptClassName);
 
-                        using (new EditorGUI.DisabledGroupScope(s == null))
-                        {
+						using(new EditorGUI.DisabledGroupScope(s == null)) {
 							if(GUILayout.Button("Edit", GUILayout.Width(50))) {
 								AssetDatabase.OpenAsset(s, 0);
 							}
@@ -276,7 +275,7 @@ namespace AssetBundleGraph {
 					m_modifier = null;
 				}
 				using (new EditorGUILayout.VerticalScope()) {
-					var disabledScope = DrawOverrideTargetToggle(node, node.Data.InstanceData.ContainsValueOf(currentEditingGroup), (bool enabled) => {
+					var DisabledGroupScope = DrawOverrideTargetToggle(node, node.Data.InstanceData.ContainsValueOf(currentEditingGroup), (bool enabled) => {
 						if(enabled) {
 							node.Data.InstanceData[currentEditingGroup] = node.Data.InstanceData.DefaultValue;
 						} else {
@@ -285,7 +284,7 @@ namespace AssetBundleGraph {
 						m_modifier = null;						
 					});
 
-					using (disabledScope) {
+					using (DisabledGroupScope) {
 						//reload modifierModifier instance from saved modifierModifier data.
 						if (m_modifier == null) {
 							m_modifier = ModifierUtility.CreateModifier(node.Data, currentEditingGroup);
@@ -327,7 +326,7 @@ namespace AssetBundleGraph {
 			//Show target configuration tab
 			DrawPlatformSelector(node);
 			using (new EditorGUILayout.VerticalScope(GUI.skin.box)) {
-				var disabledScope = DrawOverrideTargetToggle(node, node.Data.GroupingKeywords.ContainsValueOf(currentEditingGroup), (bool enabled) => {
+				var DisabledGroupScope = DrawOverrideTargetToggle(node, node.Data.GroupingKeywords.ContainsValueOf(currentEditingGroup), (bool enabled) => {
 					using(new RecordUndoScope("Remove Target Grouping Keyword Settings", node, true)){
 						if(enabled) {
 							node.Data.GroupingKeywords[currentEditingGroup] = node.Data.GroupingKeywords.DefaultValue;
@@ -337,7 +336,7 @@ namespace AssetBundleGraph {
 					}
 				});
 
-				using (disabledScope) {
+				using (DisabledGroupScope) {
 					var newGroupingKeyword = EditorGUILayout.TextField("Grouping Keyword",node.Data.GroupingKeywords[currentEditingGroup]);
 					EditorGUILayout.HelpBox(
 						"Grouping Keyword requires \"*\" in itself. It assumes there is a pattern such as \"ID_0\" in incoming paths when configured as \"ID_*\" ", 
@@ -384,8 +383,7 @@ namespace AssetBundleGraph {
 
 						MonoScript s = TypeUtility.LoadMonoScript(node.Data.ScriptClassName);
 
-                        using (new EditorGUI.DisabledGroupScope(s == null))
-                        {
+						using(new EditorGUI.DisabledGroupScope(s == null)) {
 							if(GUILayout.Button("Edit", GUILayout.Width(50))) {
 								AssetDatabase.OpenAsset(s, 0);
 							}
@@ -419,7 +417,7 @@ namespace AssetBundleGraph {
 					m_prefabBuilder = null;
 				}
 				using (new EditorGUILayout.VerticalScope()) {
-					var disabledScope = DrawOverrideTargetToggle(node, node.Data.InstanceData.ContainsValueOf(currentEditingGroup), (bool enabled) => {
+					var DisabledGroupScope = DrawOverrideTargetToggle(node, node.Data.InstanceData.ContainsValueOf(currentEditingGroup), (bool enabled) => {
 						if(enabled) {
 							node.Data.InstanceData[currentEditingGroup] = node.Data.InstanceData.DefaultValue;
 						} else {
@@ -428,7 +426,7 @@ namespace AssetBundleGraph {
 						m_prefabBuilder = null;
 					});
 
-					using (disabledScope) {
+					using (DisabledGroupScope) {
 						//reload prefabBuilder instance from saved instance data.
 						if (m_prefabBuilder == null) {
 							m_prefabBuilder = PrefabBuilderUtility.CreatePrefabBuilder(node.Data, currentEditingGroup);
@@ -480,8 +478,7 @@ namespace AssetBundleGraph {
 					}
 				}
 
-                using (new EditorGUI.DisabledGroupScope(newUseGroupAsVariantValue))
-                {
+				using (new EditorGUI.DisabledGroupScope(newUseGroupAsVariantValue)) {
 					GUILayout.Label("Variants:");
 					var variantNames = node.Data.Variants.Select(v => v.Name).ToList();
 					Variant removing = null;
@@ -533,7 +530,7 @@ namespace AssetBundleGraph {
 			//Show target configuration tab
 			DrawPlatformSelector(node);
 			using (new EditorGUILayout.VerticalScope(GUI.skin.box)) {
-				var disabledScope = DrawOverrideTargetToggle(node, node.Data.BundleNameTemplate.ContainsValueOf(currentEditingGroup), (bool enabled) => {
+				var DisabledGroupScope = DrawOverrideTargetToggle(node, node.Data.BundleNameTemplate.ContainsValueOf(currentEditingGroup), (bool enabled) => {
 					using(new RecordUndoScope("Remove Target Bundle Name Template Setting", node, true)){
 						if(enabled) {
 							node.Data.BundleNameTemplate[currentEditingGroup] = node.Data.BundleNameTemplate.DefaultValue;
@@ -543,7 +540,7 @@ namespace AssetBundleGraph {
 					}
 				});
 
-				using (disabledScope) {
+				using (DisabledGroupScope) {
 					var bundleNameTemplate = EditorGUILayout.TextField("Bundle Name Template", node.Data.BundleNameTemplate[currentEditingGroup]).ToLower();
 
 					if (bundleNameTemplate != node.Data.BundleNameTemplate[currentEditingGroup]) {
@@ -568,7 +565,7 @@ namespace AssetBundleGraph {
 			//Show target configuration tab
 			DrawPlatformSelector(node);
 			using (new EditorGUILayout.VerticalScope(GUI.skin.box)) {
-				var disabledScope = DrawOverrideTargetToggle(node, node.Data.BundleBuilderBundleOptions.ContainsValueOf(currentEditingGroup), (bool enabled) => {
+				var DisabledGroupScope = DrawOverrideTargetToggle(node, node.Data.BundleBuilderBundleOptions.ContainsValueOf(currentEditingGroup), (bool enabled) => {
 					using(new RecordUndoScope("Remove Target Bundle Options", node, true)){
 						if(enabled) {
 							node.Data.BundleBuilderBundleOptions[currentEditingGroup] = node.Data.BundleBuilderBundleOptions.DefaultValue;
@@ -578,7 +575,7 @@ namespace AssetBundleGraph {
 					}
 				} );
 
-				using (disabledScope) {
+				using (DisabledGroupScope) {
 					int bundleOptions = node.Data.BundleBuilderBundleOptions[currentEditingGroup];
 
 					bool isDisableWriteTypeTreeEnabled  = 0 < (bundleOptions & (int)BuildAssetBundleOptions.DisableWriteTypeTree);
@@ -598,8 +595,7 @@ namespace AssetBundleGraph {
 							(option.option == BuildAssetBundleOptions.DisableWriteTypeTree  && isIgnoreTypeTreeChangesEnabled) ||
 							(option.option == BuildAssetBundleOptions.IgnoreTypeTreeChanges && isDisableWriteTypeTreeEnabled);
 
-                        using (new EditorGUI.DisabledGroupScope(isToggleDisabled))
-                        {
+						using(new EditorGUI.DisabledGroupScope(isToggleDisabled)) {
 							var result = EditorGUILayout.ToggleLeft(option.description, isEnabled);
 							if (result != isEnabled) {
 								using(new RecordUndoScope("Change Bundle Options", node, true)){
@@ -632,7 +628,7 @@ namespace AssetBundleGraph {
 			//Show target configuration tab
 			DrawPlatformSelector(node);
 			using (new EditorGUILayout.VerticalScope(GUI.skin.box)) {
-				var disabledScope = DrawOverrideTargetToggle(node, node.Data.ExporterExportPath.ContainsValueOf(currentEditingGroup), (bool enabled) => {
+				var DisabledGroupScope = DrawOverrideTargetToggle(node, node.Data.ExporterExportPath.ContainsValueOf(currentEditingGroup), (bool enabled) => {
 					using(new RecordUndoScope("Remove Target Export Settings", node, true)){
 						if(enabled) {
 							node.Data.ExporterExportPath[currentEditingGroup] = node.Data.ExporterExportPath.DefaultValue;
@@ -642,7 +638,7 @@ namespace AssetBundleGraph {
 					}
 				} );
 
-				using (disabledScope) {
+				using (DisabledGroupScope) {
 					ExporterExportOption opt = (ExporterExportOption)node.Data.ExporterExportOption[currentEditingGroup];
 					var newOption = (ExporterExportOption)EditorGUILayout.EnumPopup("Export Option", opt);
 					if(newOption != opt) {
@@ -854,7 +850,7 @@ namespace AssetBundleGraph {
 		private EditorGUI.DisabledGroupScope DrawOverrideTargetToggle(NodeGUI node, bool status, Action<bool> onStatusChange) {
 
 			if( currentEditingGroup == BuildTargetUtility.DefaultTarget ) {
-                return new EditorGUI.DisabledGroupScope(false);
+				return new EditorGUI.DisabledGroupScope(false);
 			}
 
 			bool newStatus = GUILayout.Toggle(status, 
@@ -863,7 +859,7 @@ namespace AssetBundleGraph {
 			if(newStatus != status && onStatusChange != null) {
 				onStatusChange(newStatus);
 			}
-            return new EditorGUI.DisabledGroupScope(!newStatus);
+			return new EditorGUI.DisabledGroupScope(!newStatus);
 		}
 	}
 }

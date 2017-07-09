@@ -30,7 +30,7 @@ namespace MagicFire.Mmorpg
             //Model.SubscribeMethodCall("")
         }
 
-        public override void OnDie(object[] args)
+        protected override void OnDie(object[] args)
         {
             base.OnDie(args);
         }

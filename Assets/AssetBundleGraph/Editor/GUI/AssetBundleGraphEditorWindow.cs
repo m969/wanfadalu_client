@@ -567,8 +567,7 @@ namespace AssetBundleGraph {
 					Setup(ActiveBuildTarget, true);
 				}
 
-                using (new EditorGUI.DisabledGroupScope(controller.IsAnyIssueFound))
-                {
+				using(new EditorGUI.DisabledGroupScope(controller.IsAnyIssueFound)) {
 					if (GUILayout.Button("Build", EditorStyles.toolbarButton, GUILayout.Height(AssetBundleGraphSettings.GUI.TOOLBAR_HEIGHT))) {
 						SaveGraph();
 						Run(ActiveBuildTarget);

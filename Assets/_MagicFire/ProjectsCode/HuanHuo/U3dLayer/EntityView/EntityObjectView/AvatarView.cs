@@ -119,7 +119,7 @@ namespace MagicFire.Mmorpg
             base.OnModelDestrooy(objects);
         }
 
-        public override void OnDie(object[] args)
+        protected override void OnDie(object[] args)
         {
             _avatarState = _deadState;
             PlayerInputController.instance.enabled = false;
@@ -128,7 +128,7 @@ namespace MagicFire.Mmorpg
             base.OnDie(args);
         }
 
-        public override void OnRespawn(object[] args)
+        protected override void OnRespawn(object[] args)
         {
             gameObject.transform.position = (Vector3)args[0];
             PlayerInputController.instance.enabled = true;

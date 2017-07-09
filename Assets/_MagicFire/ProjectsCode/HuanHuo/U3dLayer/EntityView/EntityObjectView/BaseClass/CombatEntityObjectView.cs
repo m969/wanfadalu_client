@@ -25,19 +25,19 @@ namespace MagicFire.Mmorpg
             model.SubscribeMethodCall("OnRespawn", OnRespawn);
         }
 
-        public virtual void OnDie(object[] args)
+        protected virtual void OnDie(object[] args)
         {
             Instantiate(
                 AssetTool.LoadAsset_Database_Or_Bundle(
-                    AssetTool.Assets__Resources_Ours__Prefabs_ + "DieEffect.prefab",
+                    AssetTool.Assets__Resources_Ours__Prefabs_ + "Effect/DieEffect.prefab",
                     "Prefabs",
-                    "trigger_bundle",
-                    "Trigger"),
+                    "effect_bundle",
+                    "DieEffect"),
                 transform.position, 
                 transform.rotation);
         }
 
-        public virtual void OnRespawn(object[] args)
+        protected virtual void OnRespawn(object[] args)
         {
             
         }

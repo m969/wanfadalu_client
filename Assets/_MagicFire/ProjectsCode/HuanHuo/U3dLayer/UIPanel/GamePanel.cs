@@ -25,10 +25,10 @@ namespace MagicFire.Mmorpg.UI
         {
             base.Start();
             StretchLayout();
-            ShowPanelByName("BagPanel");
-            ShowPanelByName("StorePanel");
-            ShowPanelByName("TaskInfoListPanel");
-            ShowPanelByName("FriendsListPanel");
+            //ShowPanelByName("BagPanel");
+            //ShowPanelByName("TheStorePanel");
+            //ShowPanelByName("TaskInfoListPanel");
+            //ShowPanelByName("FriendsListPanel");
             ShowPanelByName("CharacterInfoPanel");
         }
 
@@ -48,25 +48,24 @@ namespace MagicFire.Mmorpg.UI
         public void OnMainAvatarInvalid(KBEngine.Model avatar)
         {
             Debug.Log("GamePanel.OnAvatarInvalid");
-            if (_avatar != null)
-                Desubscribe();
+            Desubscribe();
         }
 
         private void OnEnable()
         {
-            if (_avatar != null)
-                Subscribe();
+            Subscribe();
         }
 
         private void OnDisable()
         {
-            if (_avatar != null)
-                Desubscribe();
+            Desubscribe();
         }
 
         //订阅属性更新、方法调用
         private void Subscribe()
         {
+            if (_avatar == null)
+                return;
             Hp_Up(null);
             Mp_Up(null);
             HpMax_Up(null);
@@ -80,6 +79,8 @@ namespace MagicFire.Mmorpg.UI
 
         private void Desubscribe()
         {
+            if (_avatar == null)
+                return;
             _avatar.DesubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
             _avatar.DesubscribePropertyUpdate(AvatarPropertys.Msp, Mp_Up);
             _avatar.DesubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
@@ -150,14 +151,6 @@ namespace MagicFire.Mmorpg.UI
 
         public void ExitGame()
         {
-#if UNITY_EDITOR
-
-#endif
-            //if (UnityEngine.Application.isEditor)
-            //{
-            //    UnityEditor.EditorApplication.isPlaying = false;
-            //    return;
-            //}
             UnityEngine.Application.Quit();
         }
 

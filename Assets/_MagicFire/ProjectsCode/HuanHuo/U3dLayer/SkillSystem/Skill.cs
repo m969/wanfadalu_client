@@ -22,7 +22,7 @@
                 var className = this.GetType().Name;
                 var prefab = 
                     AssetTool.LoadAsset_Database_Or_Bundle(
-                        AssetTool.Assets__Resources_Ours__Prefabs_ + "Trigger/Skill/" + className + "/" + className + "_SkillTrajectory.prefab",
+                        AssetTool.Assets__Prefabs_ + "Trigger/Skill/" + className + "/" + className + "_SkillTrajectory.prefab",
                         "Prefabs",
                         "trigger_bundle",
                         className + "_SkillTrajectory");
@@ -46,7 +46,7 @@
             {
                 var prefab = 
                     AssetTool.LoadAsset_Database_Or_Bundle(
-                        AssetTool.Assets__Resources_Ours__Prefabs_ + "Trigger/Skill/" + this.GetType().Name + "/SkillTrajectory.prefab",
+                        AssetTool.Assets__Prefabs_ + "Trigger/Skill/" + this.GetType().Name + "/SkillTrajectory.prefab",
                         "Prefabs",
                         "trigger_bundle",
                         this.GetType().Name + "_SkillTrajectory");

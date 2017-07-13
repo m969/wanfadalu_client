@@ -9,6 +9,7 @@
 
     public class UiManager : MagicFire.BaseSingleton<UiManager>, IUiManager
     {
+        private GameObject _canvas3D;
         private GameObject _canvas;
         private GameObject _eventSystem;
         private Dictionary<string, GameObject> _panels = new Dictionary<string, GameObject>();
@@ -25,6 +26,40 @@
             }
         }
 
+        public GameObject Canvas3D
+        {
+            get
+            {
+                if (_canvas3D)
+                    return _canvas3D;
+                else
+                {
+                    _canvas3D = GameObject.Find("3DCanvas");
+                    if (_canvas3D)
+                    {
+                        return _canvas3D;
+                    }
+                    else
+                    {
+                        _canvas3D =
+                            Object.Instantiate(
+                                AssetTool.LoadAsset_Database_Or_Bundle(
+                                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "3DCanvas.prefab",
+                                    "Prefabs",
+                                    "uipanel_bundle",
+                                    "3DCanvas"),
+                                new Vector3(0, 0, 0),
+                                Quaternion.identity) as GameObject;
+                        if (_canvas3D != null)
+                        {
+                            _canvas3D.transform.eulerAngles = new Vector3(90, 0, 0);
+                        }
+                        return _canvas3D;
+                    }
+                }
+            }
+        }
+
         public GameObject Canvas
         {
             get
@@ -34,7 +69,6 @@
                 else
                 {
                     _canvas = GameObject.Find("Canvas");
-                    //_canvas = GameObject.FindObjectOfType<Canvas>().gameObject;
                     if (_canvas)
                     {
                         return _canvas;
@@ -44,16 +78,19 @@
                         _eventSystem =
                             Object.Instantiate(
                                 AssetTool.LoadAsset_Database_Or_Bundle(
-                                    AssetTool.Assets__Resources_Ours__UIPanel_ + "Views/" + "EventSystem.prefab",
+                                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "EventSystem.prefab",
                                     "Prefabs",
                                     "uipanel_bundle",
                                     "EventSystem"),
                                 new Vector3(0, 0, 0),
                                 Quaternion.identity) as GameObject;
+
+                        instance.Canvas3D.ToString();
+
                         return _canvas = 
                             Object.Instantiate(
                                 AssetTool.LoadAsset_Database_Or_Bundle(
-                                    AssetTool.Assets__Resources_Ours__UIPanel_ + "Views/" + "Canvas.prefab",
+                                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "Canvas.prefab",
                                     "Prefabs",
                                     "uipanel_bundle",
                                     "Canvas"),
@@ -101,7 +138,7 @@
             }
         }
 
-        public CanvasLayer CanvasLayers = new CanvasLayer();
+        public readonly CanvasLayer CanvasLayers = new CanvasLayer();
 
 
         public class CanvasLayer
@@ -140,7 +177,7 @@
                 tempPanel = 
                     Object.Instantiate(
                         AssetTool.LoadAsset_Database_Or_Bundle(
-                            AssetTool.Assets__Resources_Ours__UIPanel_ + "Views/" + panelName + ".prefab",
+                            AssetTool.Assets__Prefabs_UIPanel_Panels_ + panelName + ".prefab",
                             "Prefabs",
                             "uipanel_bundle",
                             panelName)) as GameObject;
@@ -154,7 +191,7 @@
                     tempPanel = 
                         Object.Instantiate(
                             AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Resources_Ours__UIPanel_ + "Views/" + panelName + ".prefab",
+                                AssetTool.Assets__Prefabs_UIPanel_Panels_ + panelName + ".prefab",
                                 "Prefabs",
                                 "uipanel_bundle",
                                 panelName)) as GameObject;

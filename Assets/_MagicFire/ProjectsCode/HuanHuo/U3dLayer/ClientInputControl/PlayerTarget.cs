@@ -7,7 +7,7 @@
     using MagicFire.Common.Plugin;
 
     [PrefabMonoSingleton(
-        AssetTool.Assets__Resources_Ours__Prefabs_ + "AuxiliaryPrefabs/PlayerTarget.prefab",
+        AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/PlayerTarget.prefab",
         "Prefabs",
         "auxiliaryprefabs_bundle",
         "PlayerTarget")]

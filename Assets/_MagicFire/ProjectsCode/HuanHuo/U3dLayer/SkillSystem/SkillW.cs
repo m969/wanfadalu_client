@@ -38,7 +38,7 @@ namespace MagicFire.Mmorpg.Skill
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
-                    Physics.Raycast(ray, out hit, 100, 1 << LayerMask.NameToLayer("Terrian"));
+                    Physics.Raycast(ray, out hit, PlayerInputController.RayCastHitDist, 1 << LayerMask.NameToLayer("Terrian"));
                     SkillTrajectory.transform.position = hit.point;
                     SkillTrajectory.transform.position = new Vector3(SkillTrajectory.transform.position.x, SkillTrajectory.transform.position.y + 0.5f, SkillTrajectory.transform.position.z);
                     if (Input.GetMouseButtonDown(0))

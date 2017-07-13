@@ -25,6 +25,7 @@ namespace MagicFire {
     public class EntityViewFactory : IBaseFactory
     {
         private Object _entityPanelViewPrefab;
+        private Object _entity3DPanelViewPrefab;
         private readonly Dictionary<Type, Dictionary<string, Object>> _products = new Dictionary<Type, Dictionary<string, Object>>();
 
         public TProductType CreateProduct<TProductType>(params object[] productParameters)
@@ -39,9 +40,9 @@ namespace MagicFire {
                 return null;
             if (productType == typeof(EntityObjectView))
                 return CreateRenderObjectView(entity, entity.className);
-            if (productType != typeof(EntityPanelView))
-                return CreateEntityPanelView(entity); ;
-            return CreateEntityPanelView(entity);
+            if (productType == typeof(EntityPanelView))
+                CreateEntityPanelView(entity);
+            return null;
         }
 
         private EntityObjectView CreateRenderObjectView(Entity entity, string viewType)
@@ -85,9 +86,9 @@ namespace MagicFire {
                 switch (viewType)
                 {
                     case "Avatar":
-                        productPrefabPath = "Player/Player";
+                        productPrefabPath = "Player/Avatar";
                         bundleName = "player_bundle";
-                        assetName = "Player";
+                        assetName = "Avatar";
                         break;
                     case "Monster":
                         productPrefabPath = "Monster/" + entity.getDefinedProperty("modelName");
@@ -105,7 +106,7 @@ namespace MagicFire {
                         assetName = "Trigger";
                         break;
                 }
-                databasePath = "Assets/_Resources/Ours/_Prefabs/" + productPrefabPath + ".prefab";
+                databasePath = AssetTool.Assets__Prefabs_ + productPrefabPath + ".prefab";
                 productPrefab = AssetTool.LoadAsset_Database_Or_Bundle(databasePath, bundlePath, bundleName, assetName);
                 if (productPrefab != null)
                 {
@@ -130,7 +131,7 @@ namespace MagicFire {
                 }
                 else
                 {
-                    Debug.LogError(entity.getDefinedProperty("entityName") + " no " + entity.getDefinedProperty("modelName") + " prefab!");
+                    Debug.LogError(entity.className + " " + entity.getDefinedProperty("entityName") + " no " + entity.getDefinedProperty("modelName") + " prefab!");
                     return null;
                 }
             }
@@ -154,48 +155,89 @@ namespace MagicFire {
             return entityView;
         }
 
-        private EntityPanelView CreateEntityPanelView(Entity entity)
+        private void CreateEntityPanelView(Entity entity)
         {
             if (!_entityPanelViewPrefab)
             {
                 _entityPanelViewPrefab = 
                     AssetTool.LoadAsset_Database_Or_Bundle(
-                        AssetTool.Assets__Resources_Ours__UIPanel_ + "EntityPanel.prefab",
+                        AssetTool.Assets__Prefabs_UIPanel_Panels_ + "EntityPanel.prefab",
                         "Prefabs",
                         "uipanel_bundle",
                         "EntityPanel");
                 if (_entityPanelViewPrefab == null)
                 {
                     Debug.LogError("_entityPanelViewPrefab == null!");
-                    return null;
+                    return;
                 }
             }
 
-            var tempVector = Camera.main.WorldToScreenPoint(entity.position);
-            tempVector = new Vector3(tempVector.x, tempVector.y, 0);
-            GameObject gObj;
+            if (!_entity3DPanelViewPrefab)
+            {
+                _entity3DPanelViewPrefab =
+                    AssetTool.LoadAsset_Database_Or_Bundle(
+                        AssetTool.Assets__Prefabs_UIPanel_Panels_ + "3DEntityPanel.prefab",
+                        "Prefabs",
+                        "uipanel_bundle",
+                        "3DEntityPanel");
+                if (_entity3DPanelViewPrefab == null)
+                {
+                    Debug.LogError("_entity3DPanelViewPrefab == null!");
+                    return;
+                }
+            }
+
+            var entityPanelPosition = Camera.main.WorldToScreenPoint(entity.position);
+            entityPanelPosition = new Vector3(entityPanelPosition.x, entityPanelPosition.y, 0);
+            var entity3DPanelPosition = new Vector3(entity.position.x, entity.position.z, -1);
+            GameObject entityPanelObj;
+            GameObject entity3DPanelObj;
             switch (entity.className)
             {
                 case "Avatar":
-                    gObj = Object.Instantiate(_entityPanelViewPrefab, tempVector, Quaternion.identity) as GameObject;
-                    if (gObj != null) gObj.AddComponent<AvatarPanelView>();
+
+                    entityPanelObj = Object.Instantiate(_entityPanelViewPrefab) as GameObject;
+                    if (entityPanelObj != null) entityPanelObj.AddComponent<AvatarPanelView>();
+
+                    entity3DPanelObj = Object.Instantiate(_entity3DPanelViewPrefab) as GameObject;
+                    if (entity3DPanelObj != null) entity3DPanelObj.AddComponent<AvatarThreeDPanelView>();
+
                     break;
                 case "Monster":
-                    gObj = Object.Instantiate(_entityPanelViewPrefab, tempVector, Quaternion.identity) as GameObject;
-                    if (gObj != null) gObj.AddComponent<MonsterPanelView>();
+
+                    entityPanelObj = Object.Instantiate(_entityPanelViewPrefab) as GameObject;
+                    if (entityPanelObj != null) entityPanelObj.AddComponent<MonsterPanelView>();
+
+                    entity3DPanelObj = Object.Instantiate(_entity3DPanelViewPrefab) as GameObject;
+                    if (entity3DPanelObj != null) entity3DPanelObj.AddComponent<MonsterThreeDPanelView>();
+
                     break;
                 case "Npc":
-                    gObj = Object.Instantiate(_entityPanelViewPrefab, tempVector, Quaternion.identity) as GameObject;
-                    if (gObj != null) gObj.AddComponent<NpcPanelView>();
+
+                    entityPanelObj = Object.Instantiate(_entityPanelViewPrefab) as GameObject;
+                    if (entityPanelObj != null) entityPanelObj.AddComponent<NpcPanelView>();
+
+                    entity3DPanelObj = Object.Instantiate(_entity3DPanelViewPrefab) as GameObject;
+                    if (entity3DPanelObj != null) entity3DPanelObj.AddComponent<NpcThreeDPanelView>();
+
                     break;
                 default:
-                    return null;
+                    return;
             }
-            if (gObj == null) return null;
-            gObj.transform.SetParent(SingletonGather.UiManager.CanvasLayerBack.transform);
-            var view = gObj.GetComponent<EntityPanelView>();
+
+            if (entityPanelObj == null) return;
+            entityPanelObj.transform.SetParent(SingletonGather.UiManager.CanvasLayerBack.transform);
+            entityPanelObj.transform.localPosition = entityPanelPosition;
+            entityPanelObj.transform.localEulerAngles = Vector3.zero;
+            var view = entityPanelObj.GetComponent<EntityPanelView>();
             view.InitializeView(entity as KBEngine.Model);
-            return view;
+
+            if (entity3DPanelObj == null) return;
+            entity3DPanelObj.transform.SetParent(SingletonGather.UiManager.Canvas3D.transform);
+            entity3DPanelObj.transform.localPosition = entity3DPanelPosition;
+            entity3DPanelObj.transform.localEulerAngles = Vector3.zero;
+            var threeDView = entity3DPanelObj.GetComponent<ThreeDEntityPanelView>();
+            threeDView.InitializeView(entity as KBEngine.Model);
         }
     }
 }

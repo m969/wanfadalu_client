@@ -51,9 +51,9 @@ namespace MagicFire.Common.Plugin
     public class AssetTool : MonoSingleton<AssetTool>
     {
         public const string Assets__Resources_ = "Assets/_Resources/";
-        public const string Assets__Resources_Ours__Prefabs_ = "Assets/_Resources/Ours/_Prefabs/";
+        public const string Assets__Prefabs_ = "Assets/_Prefabs/";
         public const string Assets__Resources_Ours_ = "Assets/_Resources/Ours/";
-        public const string Assets__Resources_Ours__UIPanel_ = "Assets/_Resources/Ours/_UIPanel/";
+        public const string Assets__Prefabs_UIPanel_Panels_ = "Assets/_Prefabs/UIPanel/Panels/";
 
         public static Object LoadAsset_Database_Or_Bundle(
             string assetDatabasePath, 
@@ -68,7 +68,7 @@ namespace MagicFire.Common.Plugin
             {
                 if (XmlSceneManager.Instance.LoadMode == XmlSceneManager.LoadModeEnum.Database)
                 {
-                    //asset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetDatabasePath);
+                    asset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetDatabasePath);
                     if (asset == null)
                         Debug.LogError(assetDatabasePath + " is null!");
                     return asset;

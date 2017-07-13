@@ -44,7 +44,6 @@ namespace MagicFire.Mmorpg.UI
             {
                 Model.DesubscribePropertyUpdate(EntityPropertys.EntityName, HandleEntityNameUpdate);//取消订阅
                 Model.DesubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);//取消订阅
-                ((KBEngine.Model)Model).renderObj = null;
             }
             base.OnModelDestrooy(objects);
         }

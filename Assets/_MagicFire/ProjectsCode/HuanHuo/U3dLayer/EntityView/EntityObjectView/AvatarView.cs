@@ -1,6 +1,4 @@
-﻿
-
-namespace MagicFire.Mmorpg
+﻿namespace MagicFire.Mmorpg
 {
     using UnityEngine;
     using System;
@@ -12,22 +10,31 @@ namespace MagicFire.Mmorpg
 
     public class AvatarView : CombatEntityObjectView
     {
+        [SerializeField]
+        [Range(0.1f, 1.0f)]
+        private float _speed;
+        [SerializeField]
         private Animator _animator;
+        [SerializeField]
         private Animation _animation;
-        private int _goldCount;
-        private bool _goldCountHasAssign;
+        [SerializeField]
+        private CharacterController _characterController;
+
         private AvatarState _avatarState;
         private StandState _standState;
         private RunState _runState;
         private DeadState _deadState;
 
-        public SkillManager SkillManager { get; set; }
+        public SkillManager SkillManager
+        {
+            get;
+            set;
+        }
 
-        public CharacterController CharacterController { get; set; }
-
-        public int Sp { get; set; }
-
-        public int SpMax { get; set; }
+        public float Speed
+        {
+            get { return _speed; }
+        }
 
         public Animator Animator
         {
@@ -45,50 +52,23 @@ namespace MagicFire.Mmorpg
             }
         }
 
-        public int GoldCount
+        public CharacterController CharacterController
         {
             get
             {
-                return _goldCount;
-            }
-            set
-            {
-                if (_goldCountHasAssign == false)
-                {
-                    _goldCountHasAssign = true;
-                }
-                else
-                {
-
-                }
-                if (((KBEngine.Model)Model).isPlayer())
-                {
-                    var hintObject = SingletonGather.UiManager.TryGetOrCreatePanel("GoldCountHint");
-                    if (hintObject != null)
-                    {
-                        hintObject.GetComponent<GoldCountHint>().ShowHint(value - _goldCount);
-                    }
-                }
-                _goldCount = value;
-                var bagPanelObject = SingletonGather.UiManager.TryGetOrCreatePanel("BagPanel");
-                if (bagPanelObject != null)
-                {
-                    var bagPanel = bagPanelObject.GetComponent<BagPanel>();
-                    bagPanel.GoldCountText = _goldCount.ToString();
-                    bagPanel.gameObject.SetActive(false);
-                }
+                return _characterController;
             }
         }
+
+        public int Sp { get; set; }
+
+        public int SpMax { get; set; }
 
         // Use this for initialization
         private void Start()
         {
-            CharacterController = GetComponent<CharacterController>();
             SkillManager = new SkillManager { Owner = this };
             SkillManager.Init();
-
-            //_animator = transform.Find("Player").GetComponent<Animator>();
-            _animation = transform.GetChild(0).GetComponent<Animation>();
 
             _standState = new StandState(this);
             _runState = new RunState(this);
@@ -101,6 +81,7 @@ namespace MagicFire.Mmorpg
         {
             SkillManager.Update();
             _avatarState.Run();
+            transform.GetChild(0).localPosition = Vector3.zero;
         }
 
         public override void InitializeView(IModel model)
@@ -165,6 +146,7 @@ namespace MagicFire.Mmorpg
 
             }
         }
+
         private class StandState : AvatarState
         {
             public StandState(AvatarView avatarView)
@@ -176,16 +158,13 @@ namespace MagicFire.Mmorpg
             public override void Run()
             {
                 base.Run();
-                if (!AvatarView._animation)
+                if (AvatarView._animator)
                 {
-                    return;
-                }
-                if (!AvatarView._animation.IsPlaying("idle"))
-                {
-                    AvatarView._animation.Play("idle");
+                    AvatarView._animator.SetFloat("Speed", 0.0f);
                 }
             }
         }
+
         private class RunState : AvatarState
         {
             public RunState(AvatarView avatarView)
@@ -197,12 +176,18 @@ namespace MagicFire.Mmorpg
             public override void Run()
             {
                 base.Run();
-                if (!AvatarView._animation.IsPlaying("Run"))
+                if (AvatarView._animator)
                 {
-                    AvatarView._animation.Play("Run");
+                    if (AvatarView._animator.GetCurrentAnimatorStateInfo(0).IsName("Locomotion") ||
+                        AvatarView._animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") ||
+                        AvatarView._animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                    {
+                        AvatarView._animator.SetFloat("Speed", 1.0f);
+                    }
                 }
             }
         }
+
         private class DeadState : AvatarState
         {
             public DeadState(AvatarView avatarView)

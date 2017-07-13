@@ -8,7 +8,21 @@ namespace KBEngine
 {
 	public class Avatar : CombatModel
 	{
+	    private static Avatar _mainAvatar;
         private List<object> _avatarBag = new List<object>();
+
+	    public static Avatar MainAvatar
+	    {
+	        get
+	        {
+	            _mainAvatar = KBEngineApp.app.player() as Avatar;
+	            if (_mainAvatar == null)
+	            {
+	                Debug.LogError("MainAvatar is null!");
+	            }
+	            return _mainAvatar;
+	        }
+	    }
 
         public List<object> AvatarBag
         {
@@ -37,13 +51,9 @@ namespace KBEngine
                 KBEngine.Event.registerIn("RequestDoSkillW", this, "RequestDoSkillW");
                 KBEngine.Event.registerIn("StopMove", this, "StopMove");
                 KBEngine.Event.registerIn("OnLeaveSpaceClientInputInValid", this, "OnLeaveSpaceClientInputInValid");
-                //郑晓飞--注册发送信息函数
                 KBEngine.Event.registerIn("SendChatMessage", this, "SendChatMessage");
-                //郑晓飞--注册寻找朋友函数
                 KBEngine.Event.registerIn("FindFriends", this, "FindFriends");
-                //郑晓飞--添加朋友函数
                 KBEngine.Event.registerIn("AddFriends", this, "AddFriends");
-                //郑晓飞--删除朋友函数
                 KBEngine.Event.registerIn("DeleteFriends", this, "DeleteFriends");
             }
 	    }
@@ -153,28 +163,28 @@ namespace KBEngine
         public void FindFriends()
         {
             Debug.Log("Avatar:FindFriends");
-            cellCall("FindFriends");
+            cellCall("findFriends");
         }
 
         //郑晓飞--添加玩家
         public void AddFriends(string goldxFriendsName)
         {
             Debug.Log("Avatar:AddFriends");
-            cellCall("AddFriends", new object[] {goldxFriendsName});
+            cellCall("addFriends", new object[] {goldxFriendsName});
         }
 
         //郑晓飞--删除朋友
         public void DeleteFriends(string goldxFriendsName)
         {
             Debug.Log("Avatar:DeleteFriends");
-            cellCall("DeleteFriends", new object[] { goldxFriendsName });
+            cellCall("deleteFriends", new object[] { goldxFriendsName });
         } 
          
         //郑晓飞--显示全部好友
         public void ShowAllFriends()
         {
             Debug.Log("Avatar:ShowAllFriends");
-            cellCall("ShowAllFriends");
+            cellCall("showAllFriends");
         }
         #endregion
     }

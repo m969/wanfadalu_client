@@ -46,7 +46,7 @@ namespace MagicFire.Mmorpg
                     var trigger =
                         Instantiate(
                             AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Resources_Ours__Prefabs_ + "Trigger/Skill/GateWayTrigger/GateWayTrigger.prefab",
+                                AssetTool.Assets__Prefabs_ + "Trigger/Skill/GateWayTrigger/GateWayTrigger.prefab",
                                 "Prefabs",
                                 "trigger_bundle",
                                 "GateWayTrigger")) as GameObject;
@@ -61,7 +61,7 @@ namespace MagicFire.Mmorpg
                     var trigger = 
                         Instantiate(
                             AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Resources_Ours__Prefabs_ + "Trigger/Skill/" + entityName + "/"+ entityName + "_Trigger.prefab",
+                                AssetTool.Assets__Prefabs_ + "Trigger/Skill/" + entityName + "/"+ entityName + "_Trigger.prefab",
                                 "Prefabs",
                                 "trigger_bundle",
                                 entityName + "_Trigger")) as GameObject;

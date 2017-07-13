@@ -13,8 +13,19 @@ namespace MagicFire.Mmorpg.UI
         {
             if (Model == null)
                 return;
-            var v = Camera.main.WorldToScreenPoint(((KBEngine.Model)Model).position);
-            transform.DOMove(new Vector3(v.x, v.y + 10, 0), 0.4f);
+            if (((KBEngine.Model)Model).isPlayer() == true)
+            {
+                var entityObj = ((KBEngine.Model) Model).renderObj as GameObject;
+                if (entityObj != null)
+                {
+                    var v = Camera.main.WorldToScreenPoint(entityObj.transform.position);
+                    transform.DOMove(new Vector3(v.x, v.y + 40, 0), 0f);
+                }
+            }
+            else
+            {
+                base.FixedUpdate();
+            }
         }
 
         public override void InitializeView(IModel model)

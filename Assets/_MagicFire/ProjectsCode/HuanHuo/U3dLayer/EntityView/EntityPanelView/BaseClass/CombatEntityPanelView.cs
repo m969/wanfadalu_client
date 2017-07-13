@@ -19,8 +19,6 @@ namespace MagicFire.Mmorpg.UI
         private Text _damageHint;
         private int _hp;
         private int _hpMax;
-        public IValueSlidable Hp = new ValueBar();        //生命值条
-        public IValueSlidable Mp = new ValueBar();        //法力值条
 
         public override void InitializeView(IModel model)
         {
@@ -35,28 +33,39 @@ namespace MagicFire.Mmorpg.UI
 
             _damageHint.GetComponent<DOTweenAnimation>().onStepComplete.AddListener(HideDamageHint);    //掉血动画结束后隐藏动画
 
-            HandleHpMaxUpdate(0);
-            HandleHpUpdate(0);
-
-            model.SubscribePropertyUpdate(CombatPropertys.HpMax, HandleHpMaxUpdate);
-            model.SubscribePropertyUpdate(CombatPropertys.Hp, HandleHpUpdate);
+            HpMax_Up(0);
+            Hp_Up(0);
+            model.SubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
+            model.SubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
         }
 
-        public void HandleHpMaxUpdate(object old)
+        public override void OnModelDestrooy(object[] objects)
         {
-            int hp = (int)((KBEngine.Model)Model).getDefinedProperty(CombatPropertys.Hp);
-            int hpMax = (int)((KBEngine.Model)Model).getDefinedProperty(CombatPropertys.HpMax);
+            if (Model != null)
+            {
+                Model.DesubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
+                Model.DesubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
+            }
+            base.OnModelDestrooy(objects);
+        }
+
+        public void HpMax_Up(object old)
+        {
+            var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
+            var hpMax = (int)Model.getDefinedProperty(CombatPropertys.HpMax);
 
             if (Equals(_hp, hp) && Equals(_hpMax, hpMax))
                 return;
             _hp = hp;
+            _hpMax = hpMax;
             _hpSlider.value = (float)hp / hpMax;
         }
 
-        public void HandleHpUpdate(object old)
+        //私有测试
+        private void Hp_Up(object old)
         {
-            int hp = (int)((KBEngine.Model)Model).getDefinedProperty(CombatPropertys.Hp);
-            int hpMax = (int)((KBEngine.Model)Model).getDefinedProperty(CombatPropertys.HpMax);
+            var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
+            var hpMax = (int)Model.getDefinedProperty(CombatPropertys.HpMax);
 
             if (_hp == hp && _hpMax == hpMax)
                 return;
@@ -67,7 +76,7 @@ namespace MagicFire.Mmorpg.UI
             _damageHint.gameObject.SetActive(true);
         }
 
-        public void HideDamageHint()
+        private void HideDamageHint()
         {
             _damageHint.gameObject.SetActive(false);
         }

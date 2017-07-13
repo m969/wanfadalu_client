@@ -152,6 +152,7 @@ namespace MagicFire.Mmorpg
         {
             if (entity.isPlayer()) return;
             if (entity.renderObj != null) return;
+            if (entity.className == "Space" || entity.className == "SpacesManager") return;
             CreateEntityView(entity);
         }
 
@@ -198,15 +199,14 @@ namespace MagicFire.Mmorpg
             if (gamePanel != null)
                 gamePanel.OnMainAvatarActive(avatar);
 
-            var playerDialogPanel = SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>();//聊天窗口
-            if (playerDialogPanel != null)
-                playerDialogPanel.OnMainAvatarActive(avatar);
+            //var playerDialogPanel = SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>();//聊天窗口
+            //if (playerDialogPanel != null)
+            //    playerDialogPanel.OnMainAvatarActive(avatar);
 
             if (PlayerInputController.instance)
                 PlayerInputController.instance.gameObject.SetActive(true);
             SingletonGather.UiManager.Canvas.ToString();
             PlayerTarget.Instance.ToString();
-            ObjectSelectManager.Instance.ToString();
             ClientApp.Instance.DelayExecuteRepeating(DetectRenderObj, 0, 4);
         }
 
@@ -216,8 +216,9 @@ namespace MagicFire.Mmorpg
             {
                 if (entity.renderObj == null)
                 {
-                    if (entity.className != "Space")
-                        CreateEntityView(entity);
+                    if (entity.className == "Space" || entity.className == "SpacesManager")
+                        continue;
+                    CreateEntityView(entity);
                 }
             }
         }
@@ -305,32 +306,5 @@ namespace MagicFire.Mmorpg
                 }
             }
         }
-
-        public void DoDialog(Entity entity, string npcName, string dialog)
-        {
-            if (entity.renderObj == null)
-            {
-                return;
-            }
-            ((GameObject)entity.renderObj).GetComponent<PlayerInputController>().DoDialog(npcName, dialog);
-        }
-
-        public void BuyResult(Entity entity, bool result)
-        {
-            if (entity.renderObj == null)
-            {
-                return;
-            }
-            ((GameObject)entity.renderObj).GetComponent<PlayerInputController>().BuyResult(result);
-        }
-
-        public void DoStore(Entity entity)
-        {
-            if (entity.renderObj == null)
-            {
-            }
-            //((UnityEngine.GameObject)entity.renderObj).GetComponent<Player>().DoStore();
-        }
-
     } 
 }

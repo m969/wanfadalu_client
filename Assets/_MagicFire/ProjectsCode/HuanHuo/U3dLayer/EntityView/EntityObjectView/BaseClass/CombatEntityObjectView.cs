@@ -29,7 +29,7 @@ namespace MagicFire.Mmorpg
         {
             Instantiate(
                 AssetTool.LoadAsset_Database_Or_Bundle(
-                    AssetTool.Assets__Resources_Ours__Prefabs_ + "Effect/DieEffect.prefab",
+                    AssetTool.Assets__Prefabs_ + "Effect/DieEffect.prefab",
                     "Prefabs",
                     "effect_bundle",
                     "DieEffect"),

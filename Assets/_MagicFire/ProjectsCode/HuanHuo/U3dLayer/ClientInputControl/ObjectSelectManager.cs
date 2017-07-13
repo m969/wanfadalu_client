@@ -33,7 +33,7 @@
                         _selectTipsCircle =
                             Instantiate(
                                 AssetTool.LoadAsset_Database_Or_Bundle(
-                                    AssetTool.Assets__Resources_Ours__Prefabs_ + "Npc/SelectObject.prefab",
+                                    AssetTool.Assets__Prefabs_ + "Npc/SelectObject.prefab",
                                     "Prefabs",
                                     "npc_bundle",
                                     "SelectObject"),

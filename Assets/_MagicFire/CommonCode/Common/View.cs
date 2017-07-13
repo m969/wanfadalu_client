@@ -8,7 +8,11 @@
 
     public class View : MonoBehaviour, IView
     {
-        public IModel Model { get; private set; }//实体Model（在kbe的框架中，Entity即Model，Model即Entity），包含了实体的所有主要属性
+        public IModel Model //实体Model（在kbe的框架中，Entity即Model，Model即Entity），包含了实体的所有主要属性
+        {
+            get;
+            private set;
+        }
         /// <summary>
         /// 初始化View：View是Model的可视化，不管是ObjectView还是PanelView，这个方法一般会在实例化一个View后被调用，以使得View具有正确的数据可以可视化
         /// </summary>

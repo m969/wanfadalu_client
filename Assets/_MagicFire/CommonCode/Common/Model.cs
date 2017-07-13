@@ -43,6 +43,11 @@ namespace MagicFire.Common
         {
             throw new NotImplementedException();
         }
+
+        public object getDefinedProperty(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

@@ -101,7 +101,7 @@ namespace MagicFire.Mmorpg.UI
                 var tempItem = 
                     Instantiate(
                         AssetTool.LoadAsset_Database_Or_Bundle(
-                            AssetTool.Assets__Resources_Ours__UIPanel_ + "StoreItems/" + (int)goodsId + ".prefab",
+                            AssetTool.Assets__Prefabs_UIPanel_Panels_ + "StoreItems/" + (int)goodsId + ".prefab",
                             "Prefabs",
                             "uipanel_bundle",
                             "" + (int)goodsId)) as GameObject;

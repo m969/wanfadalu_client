@@ -1,4 +1,4 @@
-using MagicFire.Common;
+﻿using MagicFire.Common;
 using MagicFire.Common.Plugin;
 
 namespace MagicFire.Mmorpg.UI
@@ -46,7 +46,7 @@ namespace MagicFire.Mmorpg.UI
             base.Start();
             transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
             _friListItem = AssetTool.LoadAsset_Database_Or_Bundle(
-                    AssetTool.Assets__Resources_Ours__UIPanel_ + "Views/FriendsListItem.prefab",
+                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "Views/FriendsListItem.prefab",
                     "Prefabs",
                     "uipanel_bundle",
                     "FriendsListItem");
@@ -115,7 +115,7 @@ namespace MagicFire.Mmorpg.UI
             {
                 //实例化新条目
                 var item = Instantiate(AssetTool.LoadAsset_Database_Or_Bundle(
-                    AssetTool.Assets__Resources_Ours__UIPanel_ + "Views/FriendsListItem.prefab",
+                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "Views/FriendsListItem.prefab",
                     "Prefabs",
                     "uipanel_bundle",
                     "FriendsListItem"));

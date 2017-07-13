@@ -96,6 +96,12 @@ namespace KBEngine
             return false;
         }
 
+        // ReSharper disable once InconsistentNaming
+        public new object getDefinedProperty(string propertyName)
+        {
+            return base.getDefinedProperty(propertyName);
+        }
+
         public override void onEnterWorld()
         {
             base.onEnterWorld();

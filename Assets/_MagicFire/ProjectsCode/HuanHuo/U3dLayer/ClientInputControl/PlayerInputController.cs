@@ -16,6 +16,7 @@ using Object = UnityEngine.Object;
 public class PlayerInputController : MonoBehaviour
 {
     public AvatarView AvatarView { get; private set; }
+    public const int RayCastHitDist = 400;
 
     private Object _clickPointAuxiliaryPrefab;
     private static GameObject _clickPointObject;
@@ -53,12 +54,14 @@ public class PlayerInputController : MonoBehaviour
 
         _clickPointAuxiliaryPrefab = 
             AssetTool.LoadAsset_Database_Or_Bundle(
-                AssetTool.Assets__Resources_Ours__Prefabs_ + "AuxiliaryPrefabs/ClickPointAuxiliary.prefab",
+                AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/ClickPointAuxiliary.prefab",
                 "Prefabs",
                 "auxiliaryprefabs_bundle",
                 "ClickPointAuxiliary");
 
         _clickPointObject = Instantiate(_clickPointAuxiliaryPrefab) as GameObject;
+
+        KBEngine.Avatar.MainAvatar.SubscribeMethodCall("DoDialog", DoDialog);
     }
 
     private void Update()
@@ -99,6 +102,7 @@ public class PlayerInputController : MonoBehaviour
     {
         _moveVector = Vector3.zero;
         KBEngine.Event.fireIn("StopMove");
+        AvatarView.OnStopMove(null);
     }
 
     public void SkillQReady()
@@ -154,6 +158,7 @@ public class PlayerInputController : MonoBehaviour
         {
             _moveVector = new Vector3(0, 0, 0);
             KBEngine.Event.fireIn("StopMove");
+            AvatarView.OnStopMove(null);
         }
     }
 
@@ -173,7 +178,7 @@ public class PlayerInputController : MonoBehaviour
         return ((KBEngine.Avatar)AvatarView.Model).AvatarBag;
     }
 
-    public void DoDialog(string npcName, string dialog)
+    public void DoDialog(object[] args)
     {
         var dialogPanel = UiManager.instance.TryGetOrCreatePanel("DialogPanel");
         if (dialogPanel == null)
@@ -184,7 +189,7 @@ public class PlayerInputController : MonoBehaviour
         {
             dialogPanel.SetActive(true);
         }
-        dialogPanel.GetComponent<DialogPanel>().ShowDialog(dialog);
+        dialogPanel.GetComponent<DialogPanel>().ShowDialog(args[1] as string);
     }
 
     public void BuyResult(bool result)
@@ -215,8 +220,6 @@ public class PlayerInputController : MonoBehaviour
 
     private class PlayerState
     {
-        protected float _speed = 0.2f;
-
         public virtual void Run()
         {
             
@@ -254,7 +257,7 @@ public class PlayerInputController : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 LayerMask layerMask = 1 << LayerMask.NameToLayer("Terrian");
-                if (Physics.Raycast(ray, out hit, 100, layerMask))
+                if (Physics.Raycast(ray, out hit, PlayerInputController.RayCastHitDist, layerMask))
                 {
                     if (_clickPointObject == null)
                     {
@@ -271,11 +274,10 @@ public class PlayerInputController : MonoBehaviour
                     instance.transform.LookAt(new Vector3(hit.point.x, instance.transform.position.y, hit.point.z));
 
                     KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
-                    _playerInputController.AvatarView.Animation.Play("Run");
                     _playerInputController.AvatarView.DoMove(null);
                     _moveVector = new Vector3(0, 0, 0);
                     _playerInputController.transform.DOLookAt(new Vector3(hit.point.x, _playerInputController.transform.position.y, hit.point.z), 0.0f);
-                    _moveVector = _playerInputController.transform.forward * _speed;                    
+                    _moveVector = _playerInputController.transform.forward * _playerInputController.AvatarView.Speed;                    
                 }
             }
             //左键点击npc请求交互
@@ -341,12 +343,12 @@ public class PlayerInputController : MonoBehaviour
         {
             _playerInputController = playerInputController;
             Instantiate(AssetTool.LoadAsset_Database_Or_Bundle(
-                AssetTool.Assets__Resources_Ours__Prefabs_ + "AuxiliaryPrefabs/EasyTouchControlsCanvas.prefab",
+                AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/EasyTouchControlsCanvas.prefab",
                 "Prefabs",
                 "auxiliaryprefabs_bundle",
                 "EasyTouchControlsCanvas"));
             Instantiate(AssetTool.LoadAsset_Database_Or_Bundle(
-                AssetTool.Assets__Resources_Ours__Prefabs_ + "AuxiliaryPrefabs/InputManager.prefab",
+                AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/InputManager.prefab",
                 "Prefabs",
                 "auxiliaryprefabs_bundle",
                 "InputManager"));
@@ -400,7 +402,7 @@ public class PlayerInputController : MonoBehaviour
             _playerInputController.transform.eulerAngles = new Vector3(0, _avatarRotate.eulerAngles.y, 0);
 
             _playerInputController.AvatarView.DoMove(null);
-            _moveVector = _playerInputController.transform.forward * _speed;
+            _moveVector = _playerInputController.transform.forward * _playerInputController.AvatarView.Speed;
         }
     }
 

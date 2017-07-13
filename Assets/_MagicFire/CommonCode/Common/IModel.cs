@@ -6,7 +6,6 @@ namespace MagicFire.Common
 
     public interface IModel
     {
-
         Dictionary<string, Action<object>> PropertyUpdateHandlers { get; }
 
         Dictionary<string, Action<object[]>> MethodCallHandlers { get; }
@@ -18,6 +17,9 @@ namespace MagicFire.Common
         void SubscribeMethodCall(string methodName, Action<object[]> handler);
 
         bool DesubscribeMethodCall(string methodName, Action<object[]> handler);
+
+        // ReSharper disable once InconsistentNaming
+        object getDefinedProperty(string propertyName);
     }
 
 }

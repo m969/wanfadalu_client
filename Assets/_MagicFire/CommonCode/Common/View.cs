@@ -20,6 +20,7 @@
         public virtual void InitializeView(IModel model)
         {
             Model = model;
+            model.SubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);//订阅OnEntityDestroy方法的调用
         }
         /// <summary>
         /// 在实体销毁时此方法会被触发，View通常在这里销毁自己
@@ -27,6 +28,7 @@
         /// <param name="objects"></param>
         public virtual void OnModelDestrooy(object[] objects)
         {
+            Model.DesubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);//取消订阅
             Destroy(gameObject);
         }
 

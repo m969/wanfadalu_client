@@ -127,6 +127,12 @@
             _avatarState = _standState;
         }
 
+        //郑晓飞-----聊天框
+        private void onReciveChatMessage(object[] obj)
+        {
+            SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>().DialogContent(obj);
+        }
+
         private class AvatarState
         {
             protected readonly AvatarView AvatarView;
@@ -195,12 +201,6 @@
             {
 
             }
-        }
-
-        //郑晓飞-----聊天框
-        public void onReciveChatMessage(object[] obj)
-        {
-            SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>().DialogContent(obj);
         }
     }
 }

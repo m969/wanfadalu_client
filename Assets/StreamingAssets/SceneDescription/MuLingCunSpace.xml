@@ -1,11 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <scene sceneName="MuLingCunSpace">
+    <gameObject objectName="co_Tree16" objectAsset="co_Tree16">
+      <transform>
+        <position x="393" y="0" z="242" />
+        <rotation x="0" y="55.74847" z="0" />
+        <scale x="1" y="1" z="1" />
+      </transform>
+    </gameObject>
     <gameObject objectName="MainTerrain" objectAsset="MainTerrain">
       <transform>
         <position x="0" y="0" z="0" />
         <rotation x="0" y="0" z="0" />
         <scale x="1" y="1" z="1" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (10)" objectAsset="co_Stone05">
+      <transform>
+        <position x="408.7" y="0" z="-17.4" />
+        <rotation x="0" y="147.1407" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (4)" objectAsset="co_Stone05">
+      <transform>
+        <position x="-31" y="0" z="169.9" />
+        <rotation x="0" y="155.1666" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (3)" objectAsset="co_Stone05">
+      <transform>
+        <position x="-31" y="0" z="306.6" />
+        <rotation x="0" y="309.9941" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (14)" objectAsset="co_Stone05">
+      <transform>
+        <position x="509.1" y="0" z="331.9" />
+        <rotation x="0" y="258.5401" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (15)" objectAsset="co_Stone05">
+      <transform>
+        <position x="509.1" y="0" z="416.7" />
+        <rotation x="0" y="154.5407" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (2)" objectAsset="co_Stone05">
+      <transform>
+        <position x="-31" y="0" z="415" />
+        <rotation x="0" y="309.9941" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (13)" objectAsset="co_Stone05">
+      <transform>
+        <position x="509.1" y="0" z="241.8" />
+        <rotation x="0" y="326.9038" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (19)" objectAsset="co_Stone05">
+      <transform>
+        <position x="135.9" y="0" z="524.8" />
+        <rotation x="0" y="259.8468" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (9)" objectAsset="co_Stone05">
+      <transform>
+        <position x="303" y="0" z="-23.9" />
+        <rotation x="0" y="216.5098" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (18)" objectAsset="co_Stone05">
+      <transform>
+        <position x="263.8" y="0" z="524.8" />
+        <rotation x="0" y="15.42879" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (11)" objectAsset="co_Stone05">
+      <transform>
+        <position x="490.2" y="0" z="8.3" />
+        <rotation x="0" y="114.9589" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (17)" objectAsset="co_Stone05">
+      <transform>
+        <position x="370.8" y="0" z="524.8" />
+        <rotation x="0" y="15.42879" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
       </transform>
     </gameObject>
     <gameObject objectName="Directional Light" objectAsset="Directional Light">
@@ -15,11 +106,74 @@
         <scale x="1" y="1" z="1" />
       </transform>
     </gameObject>
-    <gameObject objectName="Cubes" objectAsset="Cube">
+    <gameObject objectName="co_Stone05 (5)" objectAsset="co_Stone05">
       <transform>
-        <position x="0" y="0" z="0" />
+        <position x="-17.4" y="0" z="84" />
+        <rotation x="0" y="45.69577" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (7)" objectAsset="co_Stone05">
+      <transform>
+        <position x="100.8" y="0" z="-1.6" />
+        <rotation x="0" y="278.4257" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05" objectAsset="co_Stone05">
+      <transform>
+        <position x="-5.6" y="0" z="474.4" />
+        <rotation x="0" y="0" z="0" />
+        <scale x="7.560356" y="4.054829" z="7.763277" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (20)" objectAsset="co_Stone05">
+      <transform>
+        <position x="46.1" y="0" z="524.8" />
+        <rotation x="0" y="259.8468" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (6)" objectAsset="co_Stone05">
+      <transform>
+        <position x="-2.5" y="0" z="-1.6" />
+        <rotation x="0" y="278.4257" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (16)" objectAsset="co_Stone05">
+      <transform>
+        <position x="468" y="0" z="520.6" />
+        <rotation x="0" y="154.5407" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (12)" objectAsset="co_Stone05">
+      <transform>
+        <position x="499.3" y="0" z="108.7" />
+        <rotation x="0" y="114.9589" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Tree16_B" objectAsset="co_Tree16_B">
+      <transform>
+        <position x="91" y="0" z="237" />
         <rotation x="0" y="0" z="0" />
         <scale x="1" y="1" z="1" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (1)" objectAsset="co_Stone05">
+      <transform>
+        <position x="26.7" y="0" z="544.3" />
+        <rotation x="0" y="0" z="0" />
+        <scale x="7.560356" y="4.054829" z="7.763277" />
+      </transform>
+    </gameObject>
+    <gameObject objectName="co_Stone05 (8)" objectAsset="co_Stone05">
+      <transform>
+        <position x="189.3" y="0" z="-23.9" />
+        <rotation x="0" y="216.5098" z="0" />
+        <scale x="7.647176" y="4.101396" z="7.852431" />
       </transform>
     </gameObject>
   </scene>

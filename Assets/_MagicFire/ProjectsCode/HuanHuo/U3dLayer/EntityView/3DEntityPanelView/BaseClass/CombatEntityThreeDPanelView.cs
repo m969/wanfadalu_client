@@ -36,7 +36,7 @@ public class CombatEntityThreeDPanelView : ThreeDEntityPanelView
         base.OnModelDestrooy(objects);
     }
 
-    public void Hp_Up(object old)
+    private void Hp_Up(object old)
     {
         var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
         var hpMax = (int)Model.getDefinedProperty(CombatPropertys.HpMax);
@@ -48,7 +48,7 @@ public class CombatEntityThreeDPanelView : ThreeDEntityPanelView
         _hpImage.fillAmount = ((float)hp / hpMax) * 0.25f;
     }
 
-    public void HpMax_Up(object old)
+    private void HpMax_Up(object old)
     {
         var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
         var hpMax = (int)Model.getDefinedProperty(CombatPropertys.HpMax);

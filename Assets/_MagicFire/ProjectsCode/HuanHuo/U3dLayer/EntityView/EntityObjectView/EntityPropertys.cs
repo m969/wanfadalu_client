@@ -53,9 +53,5 @@
     {
         public const string TriggerId = "triggerID";
         public const string TriggerSize = "triggerSize";
-        public const string Damage = "damage";
-        public const string ParentSkill = "parentSkill";
-        public const string ParentEntityId = "parentEntityID";
-        public const string SpellCaster = "spellCaster";
     }
 }

@@ -33,9 +33,10 @@ namespace MagicFire.Mmorpg.UI
             base.InitializeView(model);
             GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             _nameText = transform.Find("Name").GetComponentInChildren<Text>();
+
             HandleEntityNameUpdate(0);
+
             model.SubscribePropertyUpdate(EntityPropertys.EntityName, HandleEntityNameUpdate);//订阅姓名属性的更新
-            model.SubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);//订阅OnEntityDestroy方法的调用
         }
 
         public override void OnModelDestrooy(object[] objects)
@@ -43,16 +44,12 @@ namespace MagicFire.Mmorpg.UI
             if (Model != null)
             {
                 Model.DesubscribePropertyUpdate(EntityPropertys.EntityName, HandleEntityNameUpdate);//取消订阅
-                Model.DesubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);//取消订阅
             }
             base.OnModelDestrooy(objects);
         }
 
-        /// <summary>
-        /// 处理实体姓名的更新：如果实体的姓名变了，那么View的显示实体姓名的Text组件（_nameText）也要相应作出改变
-        /// </summary>
-        /// <param name="old"></param>
-        public void HandleEntityNameUpdate(object old)
+        //处理实体姓名的更新：如果实体的姓名变了，那么View的显示实体姓名的Text组件（_nameText）也要相应作出改变
+        private void HandleEntityNameUpdate(object old)
         {
             if (_entityName == ((KBEngine.Model)Model).getDefinedProperty(EntityPropertys.EntityName) as string) return;
             if (_nameText)
@@ -61,7 +58,5 @@ namespace MagicFire.Mmorpg.UI
                 gameObject.name = ((KBEngine.Model)Model).className + ":" + _entityName;
             }
         }
-
     }
-
 }

@@ -13,7 +13,7 @@ namespace MagicFire.Mmorpg
         public Animator animator;
         public Animation animation;
 
-        public void Start()
+        private void Start()
         {
             animator = GetComponent<Animator>();
             animation = GetComponent<Animation>();
@@ -22,26 +22,14 @@ namespace MagicFire.Mmorpg
         public override void InitializeView(Common.IModel model)
         {
             base.InitializeView(model);
-            Model.SubscribePropertyUpdate(CombatPropertys.Hp, Hp);//订阅
             Model.SubscribeMethodCall("StartMove", StartMove);
             Model.SubscribeMethodCall("StopMove",StopMove);
             Model.SubscribeMethodCall("Attack_01", Attack_01);
             Model.SubscribeMethodCall("Attack_02", Attack_02);
-            //Model.SubscribeMethodCall("")
         }
 
-        protected override void OnDie(object[] args)
-        {
-            base.OnDie(args);
-        }
-
-        public void Hp(object old)
-        {
-
-        }
-        
         //开始移动，播放移动动画
-        public void StartMove(object[] var)
+        private void StartMove(object[] var)
         {
             if (animation != null)
             {
@@ -66,7 +54,7 @@ namespace MagicFire.Mmorpg
         }
 
         //播放停止移动动画
-        public void StopMove(object[] var)
+        private void StopMove(object[] var)
         {
             if (animation != null)
             {
@@ -89,7 +77,7 @@ namespace MagicFire.Mmorpg
             }
         }
         //第一种攻击方式
-        public void Attack_01(object[] var)
+        private void Attack_01(object[] var)
         {
             if (animation != null)
             {
@@ -113,7 +101,7 @@ namespace MagicFire.Mmorpg
         }
 
         //第二种攻击方式
-        public void Attack_02(object[] var)
+        private void Attack_02(object[] var)
         {
             if (animation != null)
             {
@@ -137,7 +125,7 @@ namespace MagicFire.Mmorpg
         }
 
         //播放死亡动画
-        public void Die(object var)
+        private void Die(object var)
         {
             if (animation != null)
             {

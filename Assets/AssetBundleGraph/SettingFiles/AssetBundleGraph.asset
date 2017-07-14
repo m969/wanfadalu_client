@@ -53,8 +53,8 @@ MonoBehaviour:
   - m_name: BundleConfig0
     m_id: 5f61b8a5-bd54-45a5-ad2e-f79e1c84aa51
     m_kind: 6
-    m_x: 190
-    m_y: 16
+    m_x: 189
+    m_y: 15
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -88,7 +88,7 @@ MonoBehaviour:
     m_bundleConfigBundleNameTemplate:
       m_values:
       - targetGroup: 0
-        value: loginbundle
+        value: loginscene
     m_scriptInstanceData:
       m_values: []
     m_variants: []
@@ -142,7 +142,7 @@ MonoBehaviour:
     m_bundleBuilderEnabledBundleOptions:
       m_values:
       - targetGroup: 0
-        value: 0
+        value: 32
     m_exporterExportOption:
       m_values: []
     m_prefabBuilderReplacePrefabOptions: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
     m_bundleBuilderEnabledBundleOptions:
       m_values:
       - targetGroup: 0
-        value: 0
+        value: 32
     m_exporterExportOption:
       m_values: []
     m_prefabBuilderReplacePrefabOptions: 0
@@ -1181,5 +1181,5 @@ MonoBehaviour:
     m_toNodeId: 072e6e43-97b1-4a18-a0a6-85cf1a411a7f
     m_toNodeConnectionPoiontId: 195b6f53-e4ee-4ec4-8ad5-7d9cfc2dd903
     m_label: +
-  m_lastModified: 131443996291774965
+  m_lastModified: 131445116918157687
   m_version: 1

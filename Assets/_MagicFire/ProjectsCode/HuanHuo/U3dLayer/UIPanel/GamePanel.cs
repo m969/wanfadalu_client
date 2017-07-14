@@ -151,6 +151,11 @@ namespace MagicFire.Mmorpg.UI
 
         public void ExitGame()
         {
+            if (KBEngine.KBEngineApp.app != null)
+            {
+                KBEngine.KBEngineApp.app._closeNetwork(KBEngine.KBEngineApp.app.networkInterface());
+                KBEngine.KBEngineApp.app.destroy();
+            }
             UnityEngine.Application.Quit();
         }
 

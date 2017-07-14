@@ -35,7 +35,7 @@ namespace MagicFire.Mmorpg
             {
                 string entityName 
                     = transform.Find("Name").GetComponent<TextMesh>().text
-                    = (string)model1.getDefinedProperty("name");
+                    = (string)model1.getDefinedProperty("entityName");
                 transform.Find("Name").GetComponent<TextMesh>().text = "";
 
                 if (entityName == "GateWayTrigger")
@@ -46,7 +46,7 @@ namespace MagicFire.Mmorpg
                     var trigger =
                         Instantiate(
                             AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Prefabs_ + "Trigger/Skill/GateWayTrigger/GateWayTrigger.prefab",
+                                AssetTool.Assets__Prefabs_ + "Trigger/GateWayTrigger/GateWayTrigger.prefab",
                                 "Prefabs",
                                 "trigger_bundle",
                                 "GateWayTrigger")) as GameObject;
@@ -61,10 +61,10 @@ namespace MagicFire.Mmorpg
                     var trigger = 
                         Instantiate(
                             AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Prefabs_ + "Trigger/Skill/" + entityName + "/"+ entityName + "_Trigger.prefab",
+                                AssetTool.Assets__Prefabs_ + "Trigger/SkillTrigger/" + entityName + ".prefab",
                                 "Prefabs",
                                 "trigger_bundle",
-                                entityName + "_Trigger")) as GameObject;
+                                entityName)) as GameObject;
                     if (trigger != null)
                     {
                         trigger.SetActive(false);
@@ -76,15 +76,13 @@ namespace MagicFire.Mmorpg
                     }
                     else
                     {
-                        Debug.LogError(entityName + "_Trigger.prefab is null");
+                        Debug.LogError(entityName + ".prefab is null");
                     }
                 }
             }
 
             HandleTriggerSizeUpdate(0);
-            HandleParentSkillUpdate(0);
 
-            model.SubscribePropertyUpdate(TriggerPeopertys.ParentSkill, HandleParentSkillUpdate);
             model.SubscribePropertyUpdate(TriggerPeopertys.TriggerSize, HandleTriggerSizeUpdate);
         }
 
@@ -93,14 +91,9 @@ namespace MagicFire.Mmorpg
             _myTriggerObject.SetActive(true);
         }
 
-        public void HandleParentSkillUpdate(object val)
-        {
-        }
-
-        public void HandleTriggerSizeUpdate(object val)
+        private void HandleTriggerSizeUpdate(object val)
         {
             _triggerSize = (int)((KBEngine.Model)Model).getDefinedProperty(TriggerPeopertys.TriggerSize);
         }
     }
-
 }

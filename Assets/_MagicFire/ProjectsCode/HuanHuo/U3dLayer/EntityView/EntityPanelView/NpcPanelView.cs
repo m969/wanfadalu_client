@@ -9,16 +9,7 @@ namespace MagicFire.Mmorpg.UI
 
     public class NpcPanelView : EntityPanelView
     {
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
 
-        public override void InitializeView(IModel model)
-        {
-            base.InitializeView(model);
-            GetComponentInChildren<Slider>().gameObject.SetActive(false);
-        }
     }
 
 }

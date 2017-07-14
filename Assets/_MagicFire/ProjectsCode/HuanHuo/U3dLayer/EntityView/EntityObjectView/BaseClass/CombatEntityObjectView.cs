@@ -49,5 +49,4 @@ namespace MagicFire.Mmorpg
             base.OnModelDestrooy(objects);
         }
     }
-
 }

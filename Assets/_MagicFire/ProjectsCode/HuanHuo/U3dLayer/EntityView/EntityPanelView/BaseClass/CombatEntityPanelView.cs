@@ -33,10 +33,10 @@ namespace MagicFire.Mmorpg.UI
 
             _damageHint.GetComponent<DOTweenAnimation>().onStepComplete.AddListener(HideDamageHint);    //掉血动画结束后隐藏动画
 
-            HpMax_Up(0);
-            Hp_Up(0);
-            model.SubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
-            model.SubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
+            //HpMax_Up(0);
+            //Hp_Up(0);
+            //model.SubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
+            //model.SubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
         }
 
         public override void OnModelDestrooy(object[] objects)
@@ -49,7 +49,7 @@ namespace MagicFire.Mmorpg.UI
             base.OnModelDestrooy(objects);
         }
 
-        public void HpMax_Up(object old)
+        private void HpMax_Up(object old)
         {
             var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
             var hpMax = (int)Model.getDefinedProperty(CombatPropertys.HpMax);
@@ -61,7 +61,6 @@ namespace MagicFire.Mmorpg.UI
             _hpSlider.value = (float)hp / hpMax;
         }
 
-        //私有测试
         private void Hp_Up(object old)
         {
             var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
@@ -81,5 +80,4 @@ namespace MagicFire.Mmorpg.UI
             _damageHint.gameObject.SetActive(false);
         }
     }
-
 }

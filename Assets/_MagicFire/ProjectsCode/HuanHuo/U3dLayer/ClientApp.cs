@@ -14,6 +14,7 @@ public class ClientApp : KBEMain
     public override void initKBEngine()
     {
         base.initKBEngine();
+
         _instance = this;
         Message1 = "Message:";
         this.DelayExecuteRepeating(
@@ -53,5 +54,14 @@ public class ClientApp : KBEMain
         //        new Vector2(400, 0),
         //        new Vector2(200, 2000)),
         //    "ErrorLog: \n" + Message3);
+    }
+
+    private void OnDestroy()
+    {
+        if (KBEngine.KBEngineApp.app != null)
+        {
+            KBEngine.KBEngineApp.app._closeNetwork(KBEngine.KBEngineApp.app.networkInterface());
+            KBEngine.KBEngineApp.app.destroy();
+        }
     }
 }

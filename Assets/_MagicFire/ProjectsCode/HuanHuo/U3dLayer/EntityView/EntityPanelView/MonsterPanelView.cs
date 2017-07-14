@@ -19,11 +19,5 @@ namespace MagicFire.Mmorpg.UI
             else
                 transform.DOMove(new Vector3(v.x, v.y, 0), 0.2f);
         }
-
-        public override void InitializeView(IModel model)
-        {
-            base.InitializeView(model);
-        }
     }
-
 }

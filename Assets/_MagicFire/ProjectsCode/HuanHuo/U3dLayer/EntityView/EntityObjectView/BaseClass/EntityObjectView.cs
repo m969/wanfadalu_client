@@ -23,7 +23,6 @@ namespace MagicFire.Mmorpg
             base.InitializeView(model);
             EntityNameUpdateHandle(0);
             model.SubscribePropertyUpdate(EntityPropertys.EntityName, EntityNameUpdateHandle);
-            model.SubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);
         }
 
         public override void OnModelDestrooy(object[] objects)
@@ -31,7 +30,6 @@ namespace MagicFire.Mmorpg
             if (Model != null)
             {
                 Model.DesubscribePropertyUpdate(EntityPropertys.EntityName, EntityNameUpdateHandle);
-                Model.DesubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);
                 ((KBEngine.Model)Model).renderObj = null;
             }
             base.OnModelDestrooy(objects);

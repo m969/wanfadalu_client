@@ -1,4 +1,5 @@
-﻿using MagicFire.Common;
+﻿using KBEngine;
+using MagicFire.Common;
 using MagicFire.Common.Plugin;
 
 namespace MagicFire.Mmorpg.UI
@@ -13,8 +14,6 @@ namespace MagicFire.Mmorpg.UI
 
     public class FriendsListPanel : Panel
     {
-        private bool _hasSub;
-
         [SerializeField]
         private Transform _friListContent;
 
@@ -45,11 +44,7 @@ namespace MagicFire.Mmorpg.UI
         {
             base.Start();
             transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
-            _friListItem = AssetTool.LoadAsset_Database_Or_Bundle(
-                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "Views/FriendsListItem.prefab",
-                    "Prefabs",
-                    "uipanel_bundle",
-                    "FriendsListItem");
+            _friListItem = AssetTool.LoadUiPanelPanelsAssetByName("FriendsListItem");
 
             transform.localScale = new Vector3(1, 1, 1);
 
@@ -59,27 +54,15 @@ namespace MagicFire.Mmorpg.UI
             rect.pivot = new Vector2(0.5f, 0.5f);
             rect.anchoredPosition = new Vector2(-97, 0);
             rect.sizeDelta = new Vector2(195, 245);
-            
         }
 
-        //开启面板时启用
         private void OnEnable()
         {
-            Debug.Log("OnEnable");
-            //if (!_hasSub)
-            {
-                _mainAvatar.SubscribeMethodCall("OnFindFriends", OnFindFriends);
-                _mainAvatar.SubscribeMethodCall("OnShowAllFriends", OnShowAllFriends);
-                ////订阅查找好友事件
-                //SingletonGather.WorldMediator.MainAvatarView.Model.SubscribeMethodCall("OnFindFriends", OnFindFriends);
-                ////订阅显示全部好友事件
-                //SingletonGather.WorldMediator.MainAvatarView.Model.SubscribeMethodCall("OnShowAllFriends", OnShowAllFriends);
-                //_hasSub = true;
-            }
+            _mainAvatar.SubscribeMethodCall(KBEngine.Avatar.FriendSystem.OnFindFriends, OnFindFriends);
+            _mainAvatar.SubscribeMethodCall(KBEngine.Avatar.FriendSystem.OnShowAllFriends, OnShowAllFriends);
             //初始化面板时只调用一次显示全部好友
             if (fristEnableFriendsPanel)
             {
-                Debug.Log("first show friends!");
                 var avatar = _mainAvatar;
                 if (avatar != null)
                     avatar.ShowAllFriends();
@@ -89,7 +72,6 @@ namespace MagicFire.Mmorpg.UI
 
         private void OnDisable()
         {
-            Debug.Log("OnDisable");
             _mainAvatar.DesubscribeMethodCall("OnFindFriends", OnFindFriends);
             _mainAvatar.DesubscribeMethodCall("OnShowAllFriends", OnShowAllFriends);
         }
@@ -114,11 +96,7 @@ namespace MagicFire.Mmorpg.UI
             foreach (object a in friendNameList)
             {
                 //实例化新条目
-                var item = Instantiate(AssetTool.LoadAsset_Database_Or_Bundle(
-                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "Views/FriendsListItem.prefab",
-                    "Prefabs",
-                    "uipanel_bundle",
-                    "FriendsListItem"));
+                var item = Instantiate(AssetTool.LoadUiPanelPanelsAssetByName("FriendsListItem"));
 
                 Debug.Log("item == " + item);
                 if (item != null)

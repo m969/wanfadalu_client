@@ -8,7 +8,7 @@
     {
         IModel Model { get; }
         void InitializeView(IModel model);
-        void OnModelDestrooy(object[] objects);
+        void OnModelDestroy(object[] objects);
     }
 
 }

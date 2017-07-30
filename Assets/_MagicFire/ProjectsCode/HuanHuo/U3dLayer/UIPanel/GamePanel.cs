@@ -10,14 +10,25 @@ namespace MagicFire.Mmorpg.UI
     public class GamePanel : Panel
     {
         [SerializeField]
-        private Image _hpSlider;
+        private Image _hpSliderImage;
         [SerializeField]
-        private Image _mpSlider;
+        private Image _mspSliderImage;
+        [SerializeField]
+        private Image _spSliderImage;
+        [SerializeField]
+        private Image _dsSliderImage;
 
+        [SerializeField, Space(10)]
+        private Text _hpAmountText;
         [SerializeField]
-        private Text _hpAmounText;
+        private Text _mspAmountText;
         [SerializeField]
-        private Text _mpAmounText;
+        private Text _spAmountText;
+        [SerializeField]
+        private Text _dsAmountText;
+
+        [SerializeField, Space(10)]
+        private Text _combatTimeBulletinText;
 
         private KBEngine.Model _avatar;
 
@@ -30,6 +41,24 @@ namespace MagicFire.Mmorpg.UI
             //ShowPanelByName("TaskInfoListPanel");
             //ShowPanelByName("FriendsListPanel");
             ShowPanelByName("CharacterInfoPanel");
+            this.DelayExecuteRepeating(CombatTimeBulletin, 0, 1);
+        }
+
+        private void CombatTimeBulletin()
+        {
+            var currentTime = DateTime.Now;
+            var taregtTime = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, 21, 0, 0);
+            var span = taregtTime.Subtract(currentTime);
+            if (span.Ticks > 0)
+            {
+                _combatTimeBulletinText.text = "距离资源争夺战开始还有" + span.Hours + "小时" + span.Minutes + "分" + span.Seconds + "秒";
+            }
+            else
+            {
+                taregtTime = taregtTime.AddHours(24);
+                span = taregtTime.Subtract(currentTime);
+                _combatTimeBulletinText.text = "距离资源争夺战开始还有" + span.Hours + "小时" + span.Minutes + "分" + span.Seconds + "秒";
+            }
         }
 
         //当主玩家激活
@@ -40,25 +69,6 @@ namespace MagicFire.Mmorpg.UI
                 _avatar = avatar;
                 Subscribe();
             }
-            else
-                Debug.LogError("GamePanel.OnAvatarActive avatar == null!");
-        }
-
-        //当主玩家无效
-        public void OnMainAvatarInvalid(KBEngine.Model avatar)
-        {
-            Debug.Log("GamePanel.OnAvatarInvalid");
-            Desubscribe();
-        }
-
-        private void OnEnable()
-        {
-            Subscribe();
-        }
-
-        private void OnDisable()
-        {
-            Desubscribe();
         }
 
         //订阅属性更新、方法调用
@@ -66,26 +76,43 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar == null)
                 return;
+
             Hp_Up(null);
-            Mp_Up(null);
             HpMax_Up(null);
-            MpMax_Up(null);
-            _avatar.SubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
-            _avatar.SubscribePropertyUpdate(AvatarPropertys.Msp, Mp_Up);
-            _avatar.SubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
-            _avatar.SubscribePropertyUpdate(AvatarPropertys.MspMax, MpMax_Up);
-            _avatar.SubscribeMethodCall("OnEntityDestoy", OnModelDestroy);
+
+            Msp_Up(null);
+            MspMax_Up(null);
+
+            Sp_Up(null);
+            SpMax_Up(null);
+
+            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP, Hp_Up);
+            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
+
+            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP, Msp_Up);
+            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP_Max, MspMax_Up);
+
+            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP, Sp_Up);
+            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
+
+            _avatar.SubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
         }
 
+        //取消订阅
         private void Desubscribe()
         {
             if (_avatar == null)
                 return;
-            _avatar.DesubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
-            _avatar.DesubscribePropertyUpdate(AvatarPropertys.Msp, Mp_Up);
-            _avatar.DesubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
-            _avatar.DesubscribePropertyUpdate(AvatarPropertys.MspMax, MpMax_Up);
-            _avatar.DesubscribeMethodCall("OnEntityDestoy", OnModelDestroy);
+            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP, Hp_Up);
+            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
+
+            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP, Msp_Up);
+            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP_Max, MspMax_Up);
+
+            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP, Sp_Up);
+            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
+
+            _avatar.DesubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
         }
 
         private void OnModelDestroy(object[] objects)
@@ -100,24 +127,10 @@ namespace MagicFire.Mmorpg.UI
             {
                 var hp = (int)_avatar.getDefinedProperty(CombatPropertys.Hp);
                 var maxHp = (int)_avatar.getDefinedProperty(CombatPropertys.HpMax);
-                if (_hpSlider != null)
-                    _hpSlider.fillAmount = (float)hp / maxHp;
-                if (_hpAmounText != null)
-                    _hpAmounText.text = "" + hp + "/" + maxHp;
-            }
-        }
-
-        //灵力值UI更新
-        private void Mp_Up(object old)
-        {
-            if (_avatar != null)
-            {
-                var mp = (int)_avatar.getDefinedProperty(AvatarPropertys.Msp);
-                var maxMp = (int)_avatar.getDefinedProperty(AvatarPropertys.MspMax);
-                if (_mpSlider != null)
-                    _mpSlider.fillAmount = (float)mp / maxMp;
-                if (_mpAmounText != null)
-                    _mpAmounText.text = "" + mp + "/" + maxMp;
+                if (_hpSliderImage != null)
+                    _hpSliderImage.fillAmount = (float)hp / maxHp;
+                if (_hpAmountText != null)
+                    _hpAmountText.text = "" + hp + "/" + maxHp;
             }
         }
 
@@ -128,24 +141,66 @@ namespace MagicFire.Mmorpg.UI
             {
                 var hp = (int)_avatar.getDefinedProperty(CombatPropertys.Hp);
                 var maxHp = (int)_avatar.getDefinedProperty(CombatPropertys.HpMax);
-                if (_hpSlider != null)
-                    _hpSlider.fillAmount = (float)hp / maxHp;
-                if (_hpAmounText != null)
-                    _hpAmounText.text = "" + hp + "/" + maxHp;
+                if (_hpSliderImage != null)
+                    _hpSliderImage.fillAmount = (float)hp / maxHp;
+                if (_hpAmountText != null)
+                    _hpAmountText.text = "" + hp + "/" + maxHp;
             }
         }
 
-        //灵力值上限UI更新
-        private void MpMax_Up(object old)
+        //最大一次灵力释放量UI更新
+        private void Msp_Up(object old)
         {
             if (_avatar != null)
             {
                 var mp = (int)_avatar.getDefinedProperty(AvatarPropertys.Msp);
                 var maxMp = (int)_avatar.getDefinedProperty(AvatarPropertys.MspMax);
-                if (_mpSlider != null)
-                    _mpSlider.fillAmount = (float)mp / maxMp;
-                if (_mpAmounText != null)
-                    _mpAmounText.text = "" + mp + "/" + maxMp;
+                if (_mspSliderImage != null)
+                    _mspSliderImage.fillAmount = (float)mp / maxMp;
+                if (_mspAmountText != null)
+                    _mspAmountText.text = "" + mp + "/" + maxMp;
+            }
+        }
+
+        //最大一次灵力释放量上限UI更新
+        private void MspMax_Up(object old)
+        {
+            if (_avatar != null)
+            {
+                var mp = (int)_avatar.getDefinedProperty(AvatarPropertys.Msp);
+                var maxMp = (int)_avatar.getDefinedProperty(AvatarPropertys.MspMax);
+                if (_mspSliderImage != null)
+                    _mspSliderImage.fillAmount = (float)mp / maxMp;
+                if (_mspAmountText != null)
+                    _mspAmountText.text = "" + mp + "/" + maxMp;
+            }
+        }
+
+        //灵力总量UI更新
+        private void Sp_Up(object old)
+        {
+            if (_avatar != null)
+            {
+                var sp = (int)_avatar.getDefinedProperty(AvatarPropertys.Sp);
+                var maxSp = (int)_avatar.getDefinedProperty(AvatarPropertys.SpMax);
+                if (_spSliderImage != null)
+                    _spSliderImage.fillAmount = (float)sp / maxSp;
+                if (_spAmountText != null)
+                    _spAmountText.text = "" + sp + "/" + maxSp;
+            }
+        }
+
+        //灵力总量上限UI更新
+        private void SpMax_Up(object old)
+        {
+            if (_avatar != null)
+            {
+                var sp = (int)_avatar.getDefinedProperty(AvatarPropertys.Sp);
+                var maxSp = (int)_avatar.getDefinedProperty(AvatarPropertys.SpMax);
+                if (_spSliderImage != null)
+                    _spSliderImage.fillAmount = (float)sp / maxSp;
+                if (_spAmountText != null)
+                    _spAmountText.text = "" + sp + "/" + maxSp;
             }
         }
 
@@ -161,7 +216,7 @@ namespace MagicFire.Mmorpg.UI
 
         public void ShowPanelByName(string panelName)
         {
-            var panel = UiManager.instance.TryGetOrCreatePanel(panelName);
+            var panel = UiManager.Instance.TryGetOrCreatePanel(panelName);
             ActiveOrHide(panel);
         }
 

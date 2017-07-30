@@ -11,7 +11,7 @@ namespace MagicFire
     {
         public string PrefabDatabasePath
         {
-            get;set;
+            get; set;
         }
 
         public string PrefabBundlePath

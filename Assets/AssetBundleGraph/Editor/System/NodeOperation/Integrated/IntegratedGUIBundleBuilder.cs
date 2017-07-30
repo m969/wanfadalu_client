@@ -16,7 +16,7 @@ namespace AssetBundleGraph {
 			NodeData node, 
 			IEnumerable<PerformGraph.AssetGroups> incoming, 
 			IEnumerable<ConnectionData> connectionsToOutput, 
-			PerformGraph.Output Output) 
+			PerformGraph.Output Output)
 		{
 			// BundleBuilder do nothing without incoming connections
 			if(incoming == null) {

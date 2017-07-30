@@ -3,13 +3,9 @@ using System.Collections;
 
 namespace KBEngine
 {
-	public class Account : Entity 
+	public partial class Account : Entity 
     {
-	    public Account()
-	    {
-	
-	    }
-	
+
 	    public override void __init__()
 	    {
 	        base.__init__();

@@ -19,7 +19,7 @@ namespace MagicFire.Mmorpg.UI
                 if (entityObj != null)
                 {
                     var v = Camera.main.WorldToScreenPoint(entityObj.transform.position);
-                    transform.DOMove(new Vector3(v.x, v.y + 40, 0), 0f);
+                    transform.DOMove(new Vector3(v.x, v.y, 0), 0f);
                 }
             }
             else

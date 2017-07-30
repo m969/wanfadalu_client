@@ -33,8 +33,9 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(UiManager.instance.CanvasLayers[1].transform);
+            transform.SetParent(UiManager.Instance.CanvasLayers[1].transform);
             transform.localPosition = new Vector3(0, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         }
 
         //当主玩家激活
@@ -114,7 +115,7 @@ namespace MagicFire.Mmorpg.UI
         //        _levelPeriodText.text = levelPeriod + "";
         //}
 
-        public void LevelName_Up(object old)
+        private void LevelName_Up(object old)
         {
             _levelText.text = (string)_mainAvatar.getDefinedProperty(AvatarPropertys.LevelName);
         }

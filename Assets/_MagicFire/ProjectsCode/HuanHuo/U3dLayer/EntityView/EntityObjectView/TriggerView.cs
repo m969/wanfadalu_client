@@ -15,85 +15,92 @@ namespace MagicFire.Mmorpg
 
     public class TriggerView : EntityObjectView
     {
-        [SerializeField, Range(0, 4)]
+        [SerializeField/*, Range(0, 4)*/]
         private int _triggerSize = 1;
 
-        private GameObject _myTriggerObject;
+        [SerializeField]
+        private bool _adaptTriggerSize;
+
+        //private GameObject _myTriggerObject;
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(transform.position, new Vector3(_triggerSize, _triggerSize, _triggerSize));
+            Gizmos.DrawWireCube(transform.position, new Vector3(_triggerSize * 2, _triggerSize * 2, _triggerSize * 2));
         }
 
         public override void InitializeView(IModel model)
         {
             base.InitializeView(model);
 
-            var model1 = Model as KBEngine.Model;
-            if (model1 != null)
-            {
-                string entityName 
-                    = transform.Find("Name").GetComponent<TextMesh>().text
-                    = (string)model1.getDefinedProperty("entityName");
-                transform.Find("Name").GetComponent<TextMesh>().text = "";
+            //if (model != null)
+            //{
+            //    var entityName 
+            //        = transform.Find("Name").GetComponent<TextMesh>().text
+            //        = (string)model.getDefinedProperty("entityName");
+            //    transform.Find("Name").GetComponent<TextMesh>().text = "";
 
-                if (entityName == "GateWayTrigger")
-                {
-                    //transform.Find("Name").GetComponent<TextMesh>().text
-                    //    = (string)model1.getDefinedProperty("name");
+            //    //if (entityName == "GateWayTrigger")
+            //    //{
+            //    //    //transform.Find("Name").GetComponent<TextMesh>().text
+            //    //    //    = (string)model1.getDefinedProperty("name");
 
-                    var trigger =
-                        Instantiate(
-                            AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Prefabs_ + "Trigger/GateWayTrigger/GateWayTrigger.prefab",
-                                "Prefabs",
-                                "trigger_bundle",
-                                "GateWayTrigger")) as GameObject;
-                    if (trigger != null)
-                    {
-                        trigger.transform.SetParent(transform);
-                        trigger.transform.localPosition = new Vector3(0, 0, 0);
-                    }
-                }
-                else
-                {
-                    var trigger = 
-                        Instantiate(
-                            AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Prefabs_ + "Trigger/SkillTrigger/" + entityName + ".prefab",
-                                "Prefabs",
-                                "trigger_bundle",
-                                entityName)) as GameObject;
-                    if (trigger != null)
-                    {
-                        trigger.SetActive(false);
-                        trigger.transform.SetParent(transform);
-                        trigger.transform.localPosition = new Vector3(0, 0, 0);
-                        trigger.transform.eulerAngles = Vector3.zero;
-                        _myTriggerObject = trigger;
-                        Invoke("InvokeMethod", 0.1f);
-                    }
-                    else
-                    {
-                        Debug.LogError(entityName + ".prefab is null");
-                    }
-                }
-            }
+            //    //    var trigger =
+            //    //        Instantiate(
+            //    //            AssetTool.LoadAsset_Database_Or_Bundle(
+            //    //                AssetTool.Assets__Prefabs_ + "Trigger/GateWayTrigger/GateWayTrigger.prefab",
+            //    //                "Prefabs",
+            //    //                "trigger_bundle",
+            //    //                "GateWayTrigger")) as GameObject;
+            //    //    if (trigger != null)
+            //    //    {
+            //    //        trigger.transform.SetParent(transform);
+            //    //        trigger.transform.localPosition = new Vector3(0, 0, 0);
+            //    //    }
+            //    //}
+            //    //else
+            //    //{
 
-            HandleTriggerSizeUpdate(0);
+            //    //}
+            //    var trigger =
+            //            Instantiate(
+            //                AssetTool.LoadAsset_Database_Or_Bundle(
+            //                    AssetTool.Assets__Prefabs_ + "Trigger/" + entityName + ".prefab",
+            //                    "Prefabs",
+            //                    "trigger_bundle",
+            //                    entityName)) as GameObject;
+            //    if (trigger != null)
+            //    {
+            //        //trigger.SetActive(false);
+            //        trigger.transform.SetParent(transform);
+            //        trigger.transform.localPosition = new Vector3(0, 0, 0);
+            //        trigger.transform.eulerAngles = Vector3.zero;
+            //        _myTriggerObject = trigger;
+            //        //Invoke("InvokeMethod", 0.1f);
+            //    }
+            //    else
+            //    {
+            //        Debug.LogError(entityName + ".prefab is null");
+            //    }
+            //}
 
-            model.SubscribePropertyUpdate(TriggerPeopertys.TriggerSize, HandleTriggerSizeUpdate);
+            TriggerSize_Up(0);
+
+            model.SubscribePropertyUpdate(TriggerPeopertys.TriggerSize, TriggerSize_Up);
         }
 
         private void InvokeMethod()
         {
-            _myTriggerObject.SetActive(true);
+            //_myTriggerObject.SetActive(true);
         }
 
-        private void HandleTriggerSizeUpdate(object val)
+        private void TriggerSize_Up(object old)
         {
             _triggerSize = (int)((KBEngine.Model)Model).getDefinedProperty(TriggerPeopertys.TriggerSize);
+            if (_adaptTriggerSize)
+            {
+                transform.localScale = new Vector3(_triggerSize * 2, _triggerSize * 2, _triggerSize * 2);
+            }
         }
     }
 }

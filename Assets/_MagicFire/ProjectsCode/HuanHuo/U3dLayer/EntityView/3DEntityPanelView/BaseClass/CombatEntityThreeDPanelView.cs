@@ -26,14 +26,14 @@ public class CombatEntityThreeDPanelView : ThreeDEntityPanelView
         model.SubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
     }
 
-    public override void OnModelDestrooy(object[] objects)
+    public override void OnModelDestroy(object[] objects)
     {
         if (Model != null)
         {
             Model.DesubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
             Model.DesubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
         }
-        base.OnModelDestrooy(objects);
+        base.OnModelDestroy(objects);
     }
 
     private void Hp_Up(object old)
@@ -59,5 +59,4 @@ public class CombatEntityThreeDPanelView : ThreeDEntityPanelView
         _hpMax = hpMax;
         _hpImage.fillAmount = ((float)hp / hpMax) * 0.25f;
     }
-
 }

@@ -17,4 +17,14 @@ public class ThreeDEntityPanelView : View
         var v = new Vector3(entityObj.transform.position.x, entityObj.transform.position.z, -1);
         transform.DOLocalMove(v, 0f);
     }
+
+    public override void InitializeView(IModel model)
+    {
+        base.InitializeView(model);
+        transform.SetParent(SingletonGather.UiManager.Canvas3D.transform);
+
+        var entity3DPanelPosition = new Vector3(((KBEngine.Model)model).position.x, ((KBEngine.Model)model).position.z, -1);
+        transform.localPosition = entity3DPanelPosition;
+        transform.localEulerAngles = Vector3.zero;
+    }
 }

@@ -7,7 +7,7 @@
     using MagicFire.Common.Plugin;
 
     [PrefabMonoSingleton(
-        AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/PlayerTarget.prefab",
+        AssetTool.AuxiliaryPrefabsFolder + "/PlayerTarget.prefab",
         "Prefabs",
         "auxiliaryprefabs_bundle",
         "PlayerTarget")]
@@ -35,7 +35,7 @@
         // Update is called once per frame
         private void Update()
         {
-            if (PlayerInputController.instance == null)
+            if (PlayerInputController.Instance == null)
             {
                 return;
             }
@@ -60,11 +60,11 @@
 
         private void FixedUpdate()
         {
-            if (PlayerInputController.instance == null)
+            if (PlayerInputController.Instance == null)
             {
                 return;
             }
-            transform.DOMove(PlayerInputController.instance.transform.position, 1);
+            transform.DOMove(PlayerInputController.Instance.transform.position, 1);
         }
     }
 

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace KBEngine
 {
-	public class Avatar : CombatModel
+	public partial class Avatar : Model
 	{
 	    private static Avatar _mainAvatar;
         private List<object> _avatarBag = new List<object>();
@@ -143,47 +143,53 @@ namespace KBEngine
             cellCall("requestBuyGoods", new object[] { spaceId, npcName, goodsId });
         }
 
+	    public void RequestCastSkillByName(string skillName, string argsString)
+	    {
+            cellCall("requestCastSkill", new object[] { skillName, argsString });
+        }
+
         public void RequestDoSkillQ(Vector3 point, float yaw)
         {
-            cellCall("requestDoSkillQ", new object[] { point, yaw });
+            var argsString = 
+                point.x + " " + 
+                point.y + " " +
+                point.z + " " ;
+
+            cellCall("requestCastSkill", new object[] { "SkillQ", argsString });
         }
 
         public void RequestDoSkillW(Vector3 point)
         {
-            cellCall("requestDoSkillW", new object[] { point });
+            var argsString =
+                point.x + " " +
+                point.y + " " +
+                point.z + " ";
+
+            cellCall("requestCastSkill", new object[] { "SkillW", argsString });
         }
 
-        //郑晓飞---发送聊天信息
         public void SendChatMessage(string message)
         {
             cellCall("onSendChatMessage", new object[] { getDefinedProperty("entityName"), message});
         }
 
-        //郑晓飞--寻找朋友--返回所有注册玩家
         public void FindFriends()
         {
-            Debug.Log("Avatar:FindFriends");
             cellCall("findFriends");
         }
 
-        //郑晓飞--添加玩家
         public void AddFriends(string goldxFriendsName)
         {
-            Debug.Log("Avatar:AddFriends");
             cellCall("addFriends", new object[] {goldxFriendsName});
         }
 
-        //郑晓飞--删除朋友
         public void DeleteFriends(string goldxFriendsName)
         {
-            Debug.Log("Avatar:DeleteFriends");
             cellCall("deleteFriends", new object[] { goldxFriendsName });
         } 
          
-        //郑晓飞--显示全部好友
         public void ShowAllFriends()
         {
-            Debug.Log("Avatar:ShowAllFriends");
             cellCall("showAllFriends");
         }
         #endregion

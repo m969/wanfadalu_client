@@ -12,11 +12,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.InteropServices;
 using UnityEditor.SceneManagement;
 
-public class ExportSceneObjectInfoEditor : Editor 
+public class ExportSceneObjectInfoEditor : Editor
 {	
 	//将指定游戏场景导出为XML格式
 	[MenuItem ("Assets/ExportXML")]
-	static void ExportXML () 
+	static void ExportXML ()
 	{
         Object[] selectedAssetList = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
         string path = EditorUtility.SaveFilePanel("Save Resource", "Assets/StreamingAssets/SceneDescription", selectedAssetList[0].name, "xml");

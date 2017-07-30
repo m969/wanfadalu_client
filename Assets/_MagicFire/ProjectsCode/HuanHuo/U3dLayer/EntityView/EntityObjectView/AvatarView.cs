@@ -93,17 +93,17 @@
             Model.SubscribeMethodCall("onReciveChatMessage", onReciveChatMessage);
         }
 
-        public override void OnModelDestrooy(object[] objects)
+        public override void OnModelDestroy(object[] objects)
         {
             Model.DesubscribeMethodCall("DoMove", DoMove);
             Model.DesubscribeMethodCall("OnStopMove", OnStopMove);
-            base.OnModelDestrooy(objects);
+            base.OnModelDestroy(objects);
         }
 
         protected override void OnDie(object[] args)
         {
             _avatarState = _deadState;
-            PlayerInputController.instance.enabled = false;
+            PlayerInputController.Instance.enabled = false;
             SingletonGather.UiManager.TryGetOrCreatePanel("DeadPanel").SetActive(true);
             transform.GetChild(0).localEulerAngles = new Vector3(0, 1, 90);
             base.OnDie(args);
@@ -112,7 +112,7 @@
         protected override void OnRespawn(object[] args)
         {
             gameObject.transform.position = (Vector3)args[0];
-            PlayerInputController.instance.enabled = true;
+            PlayerInputController.Instance.enabled = true;
             SingletonGather.UiManager.TryGetOrCreatePanel("DeadPanel").SetActive(false);
             transform.GetChild(0).localEulerAngles = new Vector3(0, 1, 0);
         }

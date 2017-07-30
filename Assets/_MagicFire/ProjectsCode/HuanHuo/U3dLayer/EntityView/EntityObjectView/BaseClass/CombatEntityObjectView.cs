@@ -28,11 +28,7 @@ namespace MagicFire.Mmorpg
         protected virtual void OnDie(object[] args)
         {
             Instantiate(
-                AssetTool.LoadAsset_Database_Or_Bundle(
-                    AssetTool.Assets__Prefabs_ + "Effect/DieEffect.prefab",
-                    "Prefabs",
-                    "effect_bundle",
-                    "DieEffect"),
+                AssetTool.LoadEffectAssetByName("DieEffect"),
                 transform.position, 
                 transform.rotation);
         }
@@ -42,11 +38,11 @@ namespace MagicFire.Mmorpg
             
         }
 
-        public override void OnModelDestrooy(object[] objects)
+        public override void OnModelDestroy(object[] objects)
         {
             Model.DesubscribeMethodCall("OnDie", OnDie);
             Model.DesubscribeMethodCall("OnRespawn", OnRespawn);
-            base.OnModelDestrooy(objects);
+            base.OnModelDestroy(objects);
         }
     }
 }

@@ -39,14 +39,14 @@ namespace MagicFire.Mmorpg.UI
             //model.SubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
         }
 
-        public override void OnModelDestrooy(object[] objects)
+        public override void OnModelDestroy(object[] objects)
         {
             if (Model != null)
             {
                 Model.DesubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
                 Model.DesubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
             }
-            base.OnModelDestrooy(objects);
+            base.OnModelDestroy(objects);
         }
 
         private void HpMax_Up(object old)

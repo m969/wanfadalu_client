@@ -41,13 +41,8 @@
                     }
                     else
                     {
-                        _canvas3D =
-                            Object.Instantiate(
-                                AssetTool.LoadAsset_Database_Or_Bundle(
-                                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "3DCanvas.prefab",
-                                    "Prefabs",
-                                    "uipanel_bundle",
-                                    "3DCanvas"),
+                        _canvas3D = 
+                            Object.Instantiate(AssetTool.LoadUiPanelPanelsAssetByName("3DCanvas"),
                                 new Vector3(0, 0, 0),
                                 Quaternion.identity) as GameObject;
                         if (_canvas3D != null)
@@ -77,23 +72,15 @@
                     {
                         _eventSystem =
                             Object.Instantiate(
-                                AssetTool.LoadAsset_Database_Or_Bundle(
-                                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "EventSystem.prefab",
-                                    "Prefabs",
-                                    "uipanel_bundle",
-                                    "EventSystem"),
+                                AssetTool.LoadUiPanelPanelsAssetByName("EventSystem"),
                                 new Vector3(0, 0, 0),
                                 Quaternion.identity) as GameObject;
 
-                        instance.Canvas3D.ToString();
+                        Instance.Canvas3D.ToString();
 
                         return _canvas = 
                             Object.Instantiate(
-                                AssetTool.LoadAsset_Database_Or_Bundle(
-                                    AssetTool.Assets__Prefabs_UIPanel_Panels_ + "Canvas.prefab",
-                                    "Prefabs",
-                                    "uipanel_bundle",
-                                    "Canvas"),
+                                AssetTool.LoadUiPanelPanelsAssetByName("Canvas"),
                                 new Vector3(0, 0, 0),
                                 Quaternion.identity) as GameObject;
                     }
@@ -113,7 +100,7 @@
                 }
                 else
                 {
-                    var layerObj = instance.Canvas.CreateChildByName("LayerFront");
+                    var layerObj = Instance.Canvas.CreateChildByName("LayerFront");
                     layerObj.AddComponent<RectTransform>();
                     return layerObj;
                 }
@@ -131,7 +118,7 @@
                 }
                 else
                 {
-                    var layerObj = instance.Canvas.CreateChildByName("LayerBack");
+                    var layerObj = Instance.Canvas.CreateChildByName("LayerBack");
                     layerObj.AddComponent<RectTransform>();
                     return layerObj;
                 }
@@ -147,14 +134,14 @@
             {
                 get
                 {
-                    var layer = instance.Canvas.transform.Find("Layer" + index);
+                    var layer = Instance.Canvas.transform.Find("Layer" + index);
                     if (layer)
                     {
                         return layer.gameObject;
                     }
                     else
                     {
-                        var layerObj = instance.Canvas.CreateChildByName("Layer" + index);
+                        var layerObj = Instance.Canvas.CreateChildByName("Layer" + index);
                         layerObj.AddComponent<RectTransform>();
                         return layerObj;
                     }
@@ -174,13 +161,7 @@
 
             if (!_panels.ContainsKey(panelName))
             {
-                tempPanel = 
-                    Object.Instantiate(
-                        AssetTool.LoadAsset_Database_Or_Bundle(
-                            AssetTool.Assets__Prefabs_UIPanel_Panels_ + panelName + ".prefab",
-                            "Prefabs",
-                            "uipanel_bundle",
-                            panelName)) as GameObject;
+                tempPanel = Object.Instantiate(AssetTool.LoadUiPanelPanelsAssetByName(panelName)) as GameObject;
                 _panels.Add(panelName, tempPanel);
             }
             else
@@ -188,13 +169,7 @@
                 _panels.TryGetValue(panelName, out tempPanel);
                 if (tempPanel == null)
                 {
-                    tempPanel = 
-                        Object.Instantiate(
-                            AssetTool.LoadAsset_Database_Or_Bundle(
-                                AssetTool.Assets__Prefabs_UIPanel_Panels_ + panelName + ".prefab",
-                                "Prefabs",
-                                "uipanel_bundle",
-                                panelName)) as GameObject;
+                    tempPanel = Object.Instantiate(AssetTool.LoadUiPanelPanelsAssetByName(panelName)) as GameObject;
                     _panels.Remove(panelName);
                     _panels.Add(panelName, tempPanel);
                 }

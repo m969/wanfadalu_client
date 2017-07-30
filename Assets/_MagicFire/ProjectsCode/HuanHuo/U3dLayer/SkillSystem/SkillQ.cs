@@ -60,14 +60,14 @@ namespace MagicFire.Mmorpg.Skill
                         hit.point.z));
                     if (Input.GetMouseButtonDown(0))
                     {
-                        KBEngine.Event.fireIn(
-                            "RequestDoSkillQ",
-                            new object[]
-                            {
-                                SkillTrajectory.transform.Find("SkillPoint").position,
-                                Mathf.Deg2Rad*SkillTrajectory.transform.rotation.eulerAngles.y
-                            });
-                        spellcaster.SkillManager.CancelReady();
+                        Conjure();
+                        //var point = SkillTrajectory.transform.Find("SkillPoint").position;
+                        //var argsString =
+                        //    point.x + " " +
+                        //    point.y + " " +
+                        //    point.z + " ";
+                        //KBEngine.Avatar.MainAvatar.RequestCastSkillByName(this.GetType().Name, argsString);
+                        //spellcaster.SkillManager.CancelReady();
                     }
                 }
                 else
@@ -88,15 +88,20 @@ namespace MagicFire.Mmorpg.Skill
 
         public override void Conjure()
         {
-            if (!_spellcaster.Animation)
+            base.Conjure();
+            if (_spellcaster.Animation)
             {
-                return;
+                if (!_spellcaster.Animation.IsPlaying("Attack"))
+                {
+                    _spellcaster.Animation.Play("Attack");
+                }
             }
-            if (!_spellcaster.Animation.IsPlaying("Attack"))
-            {
-                _spellcaster.Animation.Play("Attack");
-            }
-            KBEngine.Event.fireIn("RequestDoSkillQ", new object[] { SkillTrajectory.transform.Find("SkillPoint").position, Mathf.Deg2Rad * SkillTrajectory.transform.rotation.eulerAngles.y });
+            var point = SkillTrajectory.transform.Find("SkillPoint").position;
+            var argsString =
+                point.x + " " +
+                point.y + " " +
+                point.z + " ";
+            KBEngine.Avatar.MainAvatar.RequestCastSkillByName(this.GetType().Name, argsString);
             _spellcaster.SkillManager.CancelReady();
         }
     }//class_end

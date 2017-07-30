@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using MagicFire;
 using MagicFire.Common;
 using MagicFire.Common.Plugin;
 using MagicFire.Mmorpg;
@@ -13,7 +14,7 @@ using MagicFire.SceneManagement;
 using Model = KBEngine.Model;
 using Object = UnityEngine.Object;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController : MonoSingleton<PlayerInputController>
 {
     public AvatarView AvatarView { get; private set; }
     public const int RayCastHitDist = 400;
@@ -22,22 +23,20 @@ public class PlayerInputController : MonoBehaviour
     private static GameObject _clickPointObject;
     private static CharacterController _characterController;
     private static Vector3 _moveVector;
-    private static PlayerInputController _instance;
     private PlayerState _currentState;
     private PlayerState _playerState;
     private DeadState _deadState;
 
-    public static PlayerInputController instance
+    private PlayerInputController()
     {
-        get
-        {
-            return _instance;
-        }
+        
     }
 
     private void Start()
     {
-        _instance = this;
+        if (SingletonGather.WorldMediator.MainAvatarView == null)
+            return;
+
         AvatarView = GetComponent<AvatarView>();
         if (Application.platform == RuntimePlatform.Android)
             _playerState = new AndroidPlayerState(this);
@@ -52,12 +51,7 @@ public class PlayerInputController : MonoBehaviour
         _currentState = _playerState;
         _characterController = GetComponent<CharacterController>();
 
-        _clickPointAuxiliaryPrefab = 
-            AssetTool.LoadAsset_Database_Or_Bundle(
-                AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/ClickPointAuxiliary.prefab",
-                "Prefabs",
-                "auxiliaryprefabs_bundle",
-                "ClickPointAuxiliary");
+        _clickPointAuxiliaryPrefab = AssetTool.LoadAuxiliaryAssetByName("ClickPointAuxiliary");
 
         _clickPointObject = Instantiate(_clickPointAuxiliaryPrefab) as GameObject;
 
@@ -66,11 +60,17 @@ public class PlayerInputController : MonoBehaviour
 
     private void Update()
     {
+        if (SingletonGather.WorldMediator.MainAvatarView == null)
+            return;
+
         _currentState.Run();
     }
 
     private void FixedUpdate()
     {
+        if (SingletonGather.WorldMediator.MainAvatarView == null)
+            return;
+
         _currentState.FixedRun();
         if (transform.position.y < -4)
         {
@@ -180,7 +180,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void DoDialog(object[] args)
     {
-        var dialogPanel = UiManager.instance.TryGetOrCreatePanel("DialogPanel");
+        var dialogPanel = UiManager.Instance.TryGetOrCreatePanel("DialogPanel");
         if (dialogPanel == null)
         {
             return;
@@ -198,7 +198,7 @@ public class PlayerInputController : MonoBehaviour
 
         if (messageBox != null)
         {
-            messageBox.transform.SetParent(UiManager.instance.Canvas.transform);
+            messageBox.transform.SetParent(UiManager.Instance.Canvas.transform);
             messageBox.transform.localPosition = new Vector3(0, 0, 0);
             messageBox.transform.Find("MessageText").GetComponent<Text>().text = result == true ? "购买成功" : "购买失败";
         }
@@ -206,7 +206,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void DoStore(NpcView npc)
     {
-        var storePanel = UiManager.instance.TryGetOrCreatePanel("TheStorePanel");
+        var storePanel = UiManager.Instance.TryGetOrCreatePanel("TheStorePanel");
         if (storePanel == null)
         {
             return;
@@ -271,7 +271,7 @@ public class PlayerInputController : MonoBehaviour
                         }
                         _clickPointObject.transform.position = hit.point;
                     }
-                    instance.transform.LookAt(new Vector3(hit.point.x, instance.transform.position.y, hit.point.z));
+                    Instance.transform.LookAt(new Vector3(hit.point.x, Instance.transform.position.y, hit.point.z));
 
                     KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
                     _playerInputController.AvatarView.DoMove(null);
@@ -342,16 +342,8 @@ public class PlayerInputController : MonoBehaviour
         public AndroidPlayerState(PlayerInputController playerInputController)
         {
             _playerInputController = playerInputController;
-            Instantiate(AssetTool.LoadAsset_Database_Or_Bundle(
-                AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/EasyTouchControlsCanvas.prefab",
-                "Prefabs",
-                "auxiliaryprefabs_bundle",
-                "EasyTouchControlsCanvas"));
-            Instantiate(AssetTool.LoadAsset_Database_Or_Bundle(
-                AssetTool.Assets__Prefabs_ + "AuxiliaryPrefabs/InputManager.prefab",
-                "Prefabs",
-                "auxiliaryprefabs_bundle",
-                "InputManager"));
+            Instantiate(AssetTool.LoadAuxiliaryAssetByName("EasyTouchControlsCanvas"));
+            Instantiate(AssetTool.LoadAuxiliaryAssetByName("InputManager"));
         }
 
         public override void Run()

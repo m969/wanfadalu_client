@@ -1586,7 +1586,7 @@
 							setmethod.Invoke(entity, new object[]{oldval});
 					}
 				}
-                Event.fireOut("OnUpdatePropertys", entity, propertydata.name, oldval);
+                Event.fireOut("OnUpdatePropertys", entity, propertydata.name, oldval);//ycm
 			}
 		}
 
@@ -1640,7 +1640,7 @@
 			{
                 if (methoddata.handler != null)
                     methoddata.handler.Invoke(entity, args);
-                KBEngine.Event.fireOut("onRemoteMethodCall_", entity, methoddata.name, args);
+                KBEngine.Event.fireOut("OnRemoteMethodCall", entity, methoddata.name, args);//ycm
 			}
             catch (Exception e)
             {

@@ -13,7 +13,7 @@ namespace MagicFire.Mmorpg.UI
 
         protected override void Start()
         {
-            transform.SetParent(UiManager.instance.CanvasLayerFront.transform);
+            transform.SetParent(UiManager.Instance.CanvasLayerFront.transform);
             transform.localPosition = new Vector3(0, 0, 0);
             if (gameObject.activeInHierarchy == true)
             {

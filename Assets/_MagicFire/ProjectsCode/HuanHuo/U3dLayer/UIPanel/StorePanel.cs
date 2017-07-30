@@ -42,7 +42,7 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(UiManager.instance.CanvasLayers[1].transform);
+            transform.SetParent(UiManager.Instance.CanvasLayers[1].transform);
             transform.localPosition = new Vector3(0, 0, 0);
         }
 
@@ -51,7 +51,7 @@ namespace MagicFire.Mmorpg.UI
             base.Update();
             if (CurrentNpc)
             {
-                StoreGoodsIdList = ((KBEngine.Npc)CurrentNpc.Model).storeGoodsIDList;
+                StoreGoodsIdList = ((KBEngine.Npc)CurrentNpc.Model).StoreGoodsIDList;
             }
             if (!_hasCreateOnce)
             {
@@ -99,12 +99,7 @@ namespace MagicFire.Mmorpg.UI
             foreach (var goodsId in _storeGoodsIdList)
             {
                 var tempItem = 
-                    Instantiate(
-                        AssetTool.LoadAsset_Database_Or_Bundle(
-                            AssetTool.Assets__Prefabs_UIPanel_Panels_ + "StoreItems/" + (int)goodsId + ".prefab",
-                            "Prefabs",
-                            "uipanel_bundle",
-                            "" + (int)goodsId)) as GameObject;
+                    Instantiate(AssetTool.LoadUiPanelGoodsItemsAssetByName("" + (int)goodsId)) as GameObject;
                 if (tempItem != null)
                 {
                     tempItem.transform.SetParent(_content);

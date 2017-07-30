@@ -49,6 +49,7 @@ namespace MagicFire.Common.Plugin
             StartCoroutine(LoadBundle("Prefabs", "npc_bundle"));
             StartCoroutine(LoadBundle("Prefabs", "trigger_bundle"));
             StartCoroutine(LoadBundle("Prefabs", "auxiliaryprefabs_bundle"));
+            StartCoroutine(LoadBundle("Prefabs", "prefab_tags_bundle"));
         }
 
         public IEnumerator LoadBundle(string bundlePath, string bundleName)

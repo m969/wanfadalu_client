@@ -15,8 +15,8 @@ MonoBehaviour:
   - m_name: Loader0
     m_id: 1a370f02-5b47-4f20-be3f-013ca88a817f
     m_kind: 0
-    m_x: 19
-    m_y: 24
+    m_x: 26
+    m_y: 112
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -53,8 +53,8 @@ MonoBehaviour:
   - m_name: BundleConfig0
     m_id: 5f61b8a5-bd54-45a5-ad2e-f79e1c84aa51
     m_kind: 6
-    m_x: 189
-    m_y: 15
+    m_x: 191
+    m_y: 117
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -101,8 +101,8 @@ MonoBehaviour:
   - m_name: BundleBuilder0
     m_id: 9914d598-0e46-4fac-94f6-823269be8c1f
     m_kind: 7
-    m_x: 509
-    m_y: 101
+    m_x: 508
+    m_y: 187
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -142,15 +142,15 @@ MonoBehaviour:
     m_bundleBuilderEnabledBundleOptions:
       m_values:
       - targetGroup: 0
-        value: 32
+        value: 33
     m_exporterExportOption:
       m_values: []
     m_prefabBuilderReplacePrefabOptions: 0
   - m_name: Exporter0
     m_id: ab7dbbe0-7ae8-4991-a37f-2760c14482a6
     m_kind: 8
-    m_x: 707
-    m_y: 102
+    m_x: 728
+    m_y: 192
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -189,8 +189,8 @@ MonoBehaviour:
   - m_name: Loader0
     m_id: 1d689f6a-e896-410c-8b8b-9092df7d506c
     m_kind: 0
-    m_x: 21
-    m_y: 113
+    m_x: 23
+    m_y: 181
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -227,8 +227,8 @@ MonoBehaviour:
   - m_name: BundleConfig0
     m_id: 98ecbdb9-f43c-4817-8aa1-d19cc3bdab99
     m_kind: 6
-    m_x: 190
-    m_y: 113
+    m_x: 192
+    m_y: 181
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -275,8 +275,8 @@ MonoBehaviour:
   - m_name: Loader2
     m_id: 0e4bfdd4-b4f4-4a84-8cab-bce209b6b750
     m_kind: 0
-    m_x: 17
-    m_y: 195
+    m_x: 23
+    m_y: 247
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -313,8 +313,8 @@ MonoBehaviour:
   - m_name: BundleConfig2
     m_id: a3f79caf-f35d-47db-9b66-08fca31f342a
     m_kind: 6
-    m_x: 194
-    m_y: 198
+    m_x: 192
+    m_y: 254
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -361,8 +361,8 @@ MonoBehaviour:
   - m_name: Loader3
     m_id: 61853893-3ed5-424b-b9be-42d96fb26129
     m_kind: 0
-    m_x: 23
-    m_y: 274
+    m_x: 19
+    m_y: 331
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -380,7 +380,7 @@ MonoBehaviour:
     m_loaderLoadPath:
       m_values:
       - targetGroup: 0
-        value: _Prefabs/Player
+        value: _Prefabs/Avatar
     m_exporterExportPath:
       m_values: []
     m_groupingKeyword:
@@ -399,8 +399,8 @@ MonoBehaviour:
   - m_name: BundleConfig3
     m_id: 63d0abe7-f0d7-41a0-9045-90db64001282
     m_kind: 6
-    m_x: 192
-    m_y: 275
+    m_x: 190
+    m_y: 334
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -434,7 +434,7 @@ MonoBehaviour:
     m_bundleConfigBundleNameTemplate:
       m_values:
       - targetGroup: 0
-        value: player_bundle
+        value: avatar_bundle
     m_scriptInstanceData:
       m_values: []
     m_variants: []
@@ -447,8 +447,8 @@ MonoBehaviour:
   - m_name: BundleBuilder1
     m_id: 072e6e43-97b1-4a18-a0a6-85cf1a411a7f
     m_kind: 7
-    m_x: 510
-    m_y: 474
+    m_x: 521
+    m_y: 515
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -488,15 +488,15 @@ MonoBehaviour:
     m_bundleBuilderEnabledBundleOptions:
       m_values:
       - targetGroup: 0
-        value: 32
+        value: 33
     m_exporterExportOption:
       m_values: []
     m_prefabBuilderReplacePrefabOptions: 0
   - m_name: Exporter1
     m_id: 74043f1c-8831-4cf6-b648-e4cfc92c1fc0
     m_kind: 8
-    m_x: 724
-    m_y: 473
+    m_x: 721
+    m_y: 516
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -535,8 +535,8 @@ MonoBehaviour:
   - m_name: Loader3
     m_id: 6151210f-e812-4d32-9e25-cce2a476edca
     m_kind: 0
-    m_x: 23
-    m_y: 348
+    m_x: 20
+    m_y: 400
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -573,8 +573,8 @@ MonoBehaviour:
   - m_name: BundleConfig3
     m_id: e43a3856-c8b1-4d64-8095-671978f35716
     m_kind: 6
-    m_x: 194
-    m_y: 346
+    m_x: 193
+    m_y: 400
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -621,8 +621,8 @@ MonoBehaviour:
   - m_name: Loader5
     m_id: b019a6ab-cb60-4083-b7fc-fb05a8ba8364
     m_kind: 0
-    m_x: 22
-    m_y: 429
+    m_x: 17
+    m_y: 465
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -659,8 +659,8 @@ MonoBehaviour:
   - m_name: BundleConfig5
     m_id: 94fa9808-ede9-4090-b478-6b8913f40a4b
     m_kind: 6
-    m_x: 194
-    m_y: 430
+    m_x: 189
+    m_y: 467
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -707,8 +707,8 @@ MonoBehaviour:
   - m_name: Loader5
     m_id: 54c574d3-273c-48de-8c5c-a8cd13b6b418
     m_kind: 0
-    m_x: 18
-    m_y: 505
+    m_x: 14
+    m_y: 534
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -745,8 +745,8 @@ MonoBehaviour:
   - m_name: BundleConfig5
     m_id: 16f9e667-73eb-4dcc-b8c3-dc5dc511015b
     m_kind: 6
-    m_x: 185
-    m_y: 504
+    m_x: 181
+    m_y: 534
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -794,7 +794,7 @@ MonoBehaviour:
     m_id: e6114d80-e17f-40c5-ba17-ac5bdd951cf2
     m_kind: 0
     m_x: 14
-    m_y: 582
+    m_y: 603
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -831,8 +831,8 @@ MonoBehaviour:
   - m_name: BundleConfig7
     m_id: 6f0f31f4-7ed4-441c-876d-5ef230ea3f7c
     m_kind: 6
-    m_x: 184
-    m_y: 583
+    m_x: 183
+    m_y: 605
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -879,8 +879,8 @@ MonoBehaviour:
   - m_name: Loader7
     m_id: 98c9d944-84b2-4f83-b807-11a49abdb383
     m_kind: 0
-    m_x: 11
-    m_y: 660
+    m_x: 10
+    m_y: 752
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -898,7 +898,7 @@ MonoBehaviour:
     m_loaderLoadPath:
       m_values:
       - targetGroup: 0
-        value: _Prefabs/UIPanel
+        value: _Prefabs/UiPanel
     m_exporterExportPath:
       m_values: []
     m_groupingKeyword:
@@ -917,8 +917,8 @@ MonoBehaviour:
   - m_name: BundleConfig7
     m_id: dbe52cd2-3717-4f92-ae7a-53a901027fad
     m_kind: 6
-    m_x: 184
-    m_y: 657
+    m_x: 183
+    m_y: 752
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -965,8 +965,8 @@ MonoBehaviour:
   - m_name: Loader9
     m_id: 0b3b9782-af98-4bad-9d1f-5fc2422e3b27
     m_kind: 0
-    m_x: 9
-    m_y: 732
+    m_x: 13
+    m_y: 670
     m_scriptClassName: 
     m_filter: []
     m_inputPoints: []
@@ -1003,8 +1003,8 @@ MonoBehaviour:
   - m_name: BundleConfig9
     m_id: 27e236b4-15a5-427a-a2c0-970195127308
     m_kind: 6
-    m_x: 186
-    m_y: 728
+    m_x: 185
+    m_y: 676
     m_scriptClassName: 
     m_filter: []
     m_inputPoints:
@@ -1047,6 +1047,268 @@ MonoBehaviour:
       m_values: []
     m_exporterExportOption:
       m_values: []
+    m_prefabBuilderReplacePrefabOptions: 0
+  - m_name: Loader10
+    m_id: fab66d7c-28d4-4099-af9d-bba1a21b9af0
+    m_kind: 0
+    m_x: 22
+    m_y: 20
+    m_scriptClassName: 
+    m_filter: []
+    m_inputPoints: []
+    m_outputPoints:
+    - id: 6c998fb3-b6fe-45ed-9760-78cb960c6287
+      label: +
+      parentId: fab66d7c-28d4-4099-af9d-bba1a21b9af0
+      isInput: 0
+      buttonRect:
+        serializedVersion: 2
+        x: 111
+        y: 32.5
+        width: 10
+        height: 23
+    m_loaderLoadPath:
+      m_values:
+      - targetGroup: 0
+        value: _Prefabs/_PrefabTags
+    m_exporterExportPath:
+      m_values: []
+    m_groupingKeyword:
+      m_values: []
+    m_bundleConfigBundleNameTemplate:
+      m_values: []
+    m_scriptInstanceData:
+      m_values: []
+    m_variants: []
+    m_bundleConfigUseGroupAsVariants: 0
+    m_bundleBuilderEnabledBundleOptions:
+      m_values: []
+    m_exporterExportOption:
+      m_values: []
+    m_prefabBuilderReplacePrefabOptions: 0
+  - m_name: BundleConfig10
+    m_id: f720a9aa-8dd2-4cf4-a029-96c8513ac557
+    m_kind: 6
+    m_x: 189
+    m_y: 25
+    m_scriptClassName: 
+    m_filter: []
+    m_inputPoints:
+    - id: 8f47e035-d8f3-4ee1-9230-ef57173e9e4c
+      label: '-'
+      parentId: f720a9aa-8dd2-4cf4-a029-96c8513ac557
+      isInput: 1
+      buttonRect:
+        serializedVersion: 2
+        x: 0
+        y: 29.5
+        width: 21
+        height: 29
+    m_outputPoints:
+    - id: cb90a49d-6247-4a5d-a9ef-38c499535f2a
+      label: +
+      parentId: f720a9aa-8dd2-4cf4-a029-96c8513ac557
+      isInput: 0
+      buttonRect:
+        serializedVersion: 2
+        x: 133
+        y: 32.5
+        width: 10
+        height: 23
+    m_loaderLoadPath:
+      m_values: []
+    m_exporterExportPath:
+      m_values: []
+    m_groupingKeyword:
+      m_values: []
+    m_bundleConfigBundleNameTemplate:
+      m_values:
+      - targetGroup: 0
+        value: prefab_tags_bundle
+    m_scriptInstanceData:
+      m_values: []
+    m_variants: []
+    m_bundleConfigUseGroupAsVariants: 0
+    m_bundleBuilderEnabledBundleOptions:
+      m_values: []
+    m_exporterExportOption:
+      m_values: []
+    m_prefabBuilderReplacePrefabOptions: 0
+  - m_name: BundleBuilder2
+    m_id: a4873f3b-fad1-481d-b371-621829ff1938
+    m_kind: 7
+    m_x: 517
+    m_y: 28
+    m_scriptClassName: 
+    m_filter: []
+    m_inputPoints:
+    - id: 2ebbd5cb-66a6-4dac-b19e-edf59bc6d4d9
+      label: '-'
+      parentId: a4873f3b-fad1-481d-b371-621829ff1938
+      isInput: 1
+      buttonRect:
+        serializedVersion: 2
+        x: 0
+        y: 29.5
+        width: 21
+        height: 29
+    m_outputPoints:
+    - id: 5e8a7a9d-b764-47a0-b2b6-553930ccf5d5
+      label: +
+      parentId: a4873f3b-fad1-481d-b371-621829ff1938
+      isInput: 0
+      buttonRect:
+        serializedVersion: 2
+        x: 129
+        y: 32.5
+        width: 10
+        height: 23
+    m_loaderLoadPath:
+      m_values: []
+    m_exporterExportPath:
+      m_values: []
+    m_groupingKeyword:
+      m_values: []
+    m_bundleConfigBundleNameTemplate:
+      m_values: []
+    m_scriptInstanceData:
+      m_values: []
+    m_variants: []
+    m_bundleConfigUseGroupAsVariants: 0
+    m_bundleBuilderEnabledBundleOptions:
+      m_values:
+      - targetGroup: 0
+        value: 33
+    m_exporterExportOption:
+      m_values: []
+    m_prefabBuilderReplacePrefabOptions: 0
+  - m_name: Exporter2
+    m_id: d5cf5fbe-f67a-402a-b31e-bca60ccdec67
+    m_kind: 8
+    m_x: 721
+    m_y: 29
+    m_scriptClassName: 
+    m_filter: []
+    m_inputPoints:
+    - id: 5e5d5bce-b5d2-46ae-8646-a99bae65dbcc
+      label: '-'
+      parentId: d5cf5fbe-f67a-402a-b31e-bca60ccdec67
+      isInput: 1
+      buttonRect:
+        serializedVersion: 2
+        x: 0
+        y: 29.5
+        width: 21
+        height: 29
+    m_outputPoints: []
+    m_loaderLoadPath:
+      m_values: []
+    m_exporterExportPath:
+      m_values:
+      - targetGroup: 0
+        value: Assets/StreamingAssets/Prefabs
+    m_groupingKeyword:
+      m_values: []
+    m_bundleConfigBundleNameTemplate:
+      m_values: []
+    m_scriptInstanceData:
+      m_values: []
+    m_variants: []
+    m_bundleConfigUseGroupAsVariants: 0
+    m_bundleBuilderEnabledBundleOptions:
+      m_values: []
+    m_exporterExportOption:
+      m_values:
+      - targetGroup: 0
+        value: 0
+    m_prefabBuilderReplacePrefabOptions: 0
+  - m_name: BundleBuilder1
+    m_id: dfeda998-8d44-4db4-a270-f3d9a08ca703
+    m_kind: 7
+    m_x: 505
+    m_y: 750
+    m_scriptClassName: 
+    m_filter: []
+    m_inputPoints:
+    - id: eb9d803c-4404-4d04-9c86-50fafb7827de
+      label: '-'
+      parentId: dfeda998-8d44-4db4-a270-f3d9a08ca703
+      isInput: 1
+      buttonRect:
+        serializedVersion: 2
+        x: 0
+        y: 29.5
+        width: 21
+        height: 29
+    m_outputPoints:
+    - id: 72735d24-4d29-4d12-9df9-e6c19a26b984
+      label: +
+      parentId: dfeda998-8d44-4db4-a270-f3d9a08ca703
+      isInput: 0
+      buttonRect:
+        serializedVersion: 2
+        x: 129
+        y: 32.5
+        width: 10
+        height: 23
+    m_loaderLoadPath:
+      m_values: []
+    m_exporterExportPath:
+      m_values: []
+    m_groupingKeyword:
+      m_values: []
+    m_bundleConfigBundleNameTemplate:
+      m_values: []
+    m_scriptInstanceData:
+      m_values: []
+    m_variants: []
+    m_bundleConfigUseGroupAsVariants: 0
+    m_bundleBuilderEnabledBundleOptions:
+      m_values:
+      - targetGroup: 0
+        value: 33
+    m_exporterExportOption:
+      m_values: []
+    m_prefabBuilderReplacePrefabOptions: 0
+  - m_name: Exporter1
+    m_id: ea3d451e-119a-46b8-be50-1f0d992231ee
+    m_kind: 8
+    m_x: 708
+    m_y: 748
+    m_scriptClassName: 
+    m_filter: []
+    m_inputPoints:
+    - id: 9a0ccc07-bc36-4549-8583-7a5920521764
+      label: '-'
+      parentId: ea3d451e-119a-46b8-be50-1f0d992231ee
+      isInput: 1
+      buttonRect:
+        serializedVersion: 2
+        x: 0
+        y: 29.5
+        width: 21
+        height: 29
+    m_outputPoints: []
+    m_loaderLoadPath:
+      m_values: []
+    m_exporterExportPath:
+      m_values:
+      - targetGroup: 0
+        value: Assets/StreamingAssets/Prefabs
+    m_groupingKeyword:
+      m_values: []
+    m_bundleConfigBundleNameTemplate:
+      m_values: []
+    m_scriptInstanceData:
+      m_values: []
+    m_variants: []
+    m_bundleConfigUseGroupAsVariants: 0
+    m_bundleBuilderEnabledBundleOptions:
+      m_values: []
+    m_exporterExportOption:
+      m_values:
+      - targetGroup: 0
+        value: 0
     m_prefabBuilderReplacePrefabOptions: 0
   m_allConnections:
   - m_id: 0a0b0a3b-52e2-469c-8396-4e8f8a75a0e6
@@ -1163,12 +1425,6 @@ MonoBehaviour:
     m_toNodeId: dbe52cd2-3717-4f92-ae7a-53a901027fad
     m_toNodeConnectionPoiontId: 290730a7-79b3-4165-bfed-710b1bc74d29
     m_label: +
-  - m_id: 6b281e99-8609-4258-904c-9e9b0c3feba8
-    m_fromNodeId: dbe52cd2-3717-4f92-ae7a-53a901027fad
-    m_fromNodeConnectionPointId: ac9f8504-85f6-4879-a89c-0244342a311d
-    m_toNodeId: 072e6e43-97b1-4a18-a0a6-85cf1a411a7f
-    m_toNodeConnectionPoiontId: 195b6f53-e4ee-4ec4-8ad5-7d9cfc2dd903
-    m_label: +
   - m_id: 56d01fa6-b1a4-498d-8090-1b52db350131
     m_fromNodeId: 0b3b9782-af98-4bad-9d1f-5fc2422e3b27
     m_fromNodeConnectionPointId: 082e2b74-07ec-44e7-8ca5-e2535bba04d6
@@ -1181,5 +1437,35 @@ MonoBehaviour:
     m_toNodeId: 072e6e43-97b1-4a18-a0a6-85cf1a411a7f
     m_toNodeConnectionPoiontId: 195b6f53-e4ee-4ec4-8ad5-7d9cfc2dd903
     m_label: +
-  m_lastModified: 131445116918157687
+  - m_id: 0595b626-8381-4fd8-a1f4-d4d5a11334a4
+    m_fromNodeId: fab66d7c-28d4-4099-af9d-bba1a21b9af0
+    m_fromNodeConnectionPointId: 6c998fb3-b6fe-45ed-9760-78cb960c6287
+    m_toNodeId: f720a9aa-8dd2-4cf4-a029-96c8513ac557
+    m_toNodeConnectionPoiontId: 8f47e035-d8f3-4ee1-9230-ef57173e9e4c
+    m_label: +
+  - m_id: f8e5a956-66e4-4271-ae59-6ef47e2d61a9
+    m_fromNodeId: f720a9aa-8dd2-4cf4-a029-96c8513ac557
+    m_fromNodeConnectionPointId: cb90a49d-6247-4a5d-a9ef-38c499535f2a
+    m_toNodeId: a4873f3b-fad1-481d-b371-621829ff1938
+    m_toNodeConnectionPoiontId: 2ebbd5cb-66a6-4dac-b19e-edf59bc6d4d9
+    m_label: +
+  - m_id: 34e9b57b-d205-4d2c-98d7-7eb9afbd2385
+    m_fromNodeId: a4873f3b-fad1-481d-b371-621829ff1938
+    m_fromNodeConnectionPointId: 5e8a7a9d-b764-47a0-b2b6-553930ccf5d5
+    m_toNodeId: d5cf5fbe-f67a-402a-b31e-bca60ccdec67
+    m_toNodeConnectionPoiontId: 5e5d5bce-b5d2-46ae-8646-a99bae65dbcc
+    m_label: +
+  - m_id: 5a9af7ea-2cb4-48d8-9f8e-4b9f393120a3
+    m_fromNodeId: dbe52cd2-3717-4f92-ae7a-53a901027fad
+    m_fromNodeConnectionPointId: ac9f8504-85f6-4879-a89c-0244342a311d
+    m_toNodeId: dfeda998-8d44-4db4-a270-f3d9a08ca703
+    m_toNodeConnectionPoiontId: eb9d803c-4404-4d04-9c86-50fafb7827de
+    m_label: +
+  - m_id: 1f296631-9bb3-451d-bcf4-033ecea09a57
+    m_fromNodeId: dfeda998-8d44-4db4-a270-f3d9a08ca703
+    m_fromNodeConnectionPointId: 72735d24-4d29-4d12-9df9-e6c19a26b984
+    m_toNodeId: ea3d451e-119a-46b8-be50-1f0d992231ee
+    m_toNodeConnectionPoiontId: 9a0ccc07-bc36-4549-8583-7a5920521764
+    m_label: +
+  m_lastModified: 131458780954440394
   m_version: 1

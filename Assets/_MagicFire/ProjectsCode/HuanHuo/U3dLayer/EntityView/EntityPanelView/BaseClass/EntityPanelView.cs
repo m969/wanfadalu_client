@@ -31,7 +31,15 @@ namespace MagicFire.Mmorpg.UI
         public override void InitializeView(IModel model)
         {
             base.InitializeView(model);
-            GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            transform.SetParent(SingletonGather.UiManager.CanvasLayerBack.transform);
+
+            var entityPanelPosition = Camera.main.WorldToScreenPoint(((KBEngine.Model)model).position);
+            entityPanelPosition = new Vector3(entityPanelPosition.x, entityPanelPosition.y, 0);
+
+            transform.localPosition = entityPanelPosition;
+            transform.localEulerAngles = Vector3.zero;
+            transform.localScale = new Vector3(1, 1, 1);
+
             _nameText = transform.Find("Name").GetComponentInChildren<Text>();
 
             HandleEntityNameUpdate(0);
@@ -39,13 +47,13 @@ namespace MagicFire.Mmorpg.UI
             model.SubscribePropertyUpdate(EntityPropertys.EntityName, HandleEntityNameUpdate);//订阅姓名属性的更新
         }
 
-        public override void OnModelDestrooy(object[] objects)
+        public override void OnModelDestroy(object[] objects)
         {
             if (Model != null)
             {
                 Model.DesubscribePropertyUpdate(EntityPropertys.EntityName, HandleEntityNameUpdate);//取消订阅
             }
-            base.OnModelDestrooy(objects);
+            base.OnModelDestroy(objects);
         }
 
         //处理实体姓名的更新：如果实体的姓名变了，那么View的显示实体姓名的Text组件（_nameText）也要相应作出改变

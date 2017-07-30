@@ -20,15 +20,15 @@
         public virtual void InitializeView(IModel model)
         {
             Model = model;
-            model.SubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);//订阅OnEntityDestroy方法的调用
+            model.SubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);//订阅OnEntityDestroy方法的调用
         }
         /// <summary>
         /// 在实体销毁时此方法会被触发，View通常在这里销毁自己
         /// </summary>
         /// <param name="objects"></param>
-        public virtual void OnModelDestrooy(object[] objects)
+        public virtual void OnModelDestroy(object[] objects)
         {
-            Model.DesubscribeMethodCall("OnEntityDestroy", OnModelDestrooy);//取消订阅
+            Model.DesubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);//取消订阅
             Destroy(gameObject);
         }
 

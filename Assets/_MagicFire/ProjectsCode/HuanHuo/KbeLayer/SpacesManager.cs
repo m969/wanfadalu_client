@@ -15,7 +15,7 @@ namespace KBEngine
 
     //[RequireComponent(typeof())]
     //[AddComponentMenu("")]
-    public class SpacesManager : Model
+    public partial class SpacesManager : Model
     {
         #region Property and Field
         //  [Tooltip("")]
@@ -23,15 +23,7 @@ namespace KBEngine
         #endregion
 
         #region Private Method
-        //  void Start () 
-        //  {
-        //
-        //  }
 
-        //  void Update()
-        //  {
-        //
-        //  }
         #endregion
 
         #region Public Method

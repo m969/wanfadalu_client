@@ -19,7 +19,7 @@ namespace MagicFire
         {
         }
 
-        public static T instance
+        public static T Instance
         {
 
             get

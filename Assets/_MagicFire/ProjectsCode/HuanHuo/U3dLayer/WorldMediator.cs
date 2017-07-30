@@ -29,7 +29,7 @@ namespace MagicFire.Mmorpg
     public class WorldMediator : MagicFire.BaseSingleton<WorldMediator>
     {
         private AvatarView _mainAvatarView;     //主玩家的View对象
-        private Entity _currentSpaceModel;  //当前Space的实体
+        private Model _currentSpaceModel;       //当前Space的实体
 
         //主玩家的View对象
         public AvatarView MainAvatarView
@@ -54,7 +54,7 @@ namespace MagicFire.Mmorpg
         //当前Space的实体
         public Model CurrentSpaceModel
         {
-            get { return _currentSpaceModel as Model; }
+            get { return _currentSpaceModel; }
             set
             {
                 if (value == null)
@@ -66,7 +66,19 @@ namespace MagicFire.Mmorpg
                     value.getDefinedProperty("spaceName");
                 }
                 _currentSpaceModel = value;
+                SubscribeSpaceMethodCall();
             }
+        }
+
+        private void SubscribeSpaceMethodCall()
+        {
+            _currentSpaceModel.SubscribeMethodCall(KBEngine.Space.EntityObject.OnEntityDestroy, OnSpaceDestroy);
+        }
+
+        private void OnSpaceDestroy(object[] objects)
+        {
+            Debug.Log("OnSpaceDestroy");
+            _currentSpaceModel.DesubscribeMethodCall(KBEngine.Space.EntityObject.OnEntityDestroy, OnSpaceDestroy);
         }
 
         //场景是否加载完成，只有场景加载完才能创建角色、怪物、npc等游戏对象
@@ -88,9 +100,9 @@ namespace MagicFire.Mmorpg
         //通过反射获取方法并且注册
         private void RegisterMethods()
         {
-            KBEngine.Event.registerOut("onLoginSuccessfully", this, "onLoginSuccessfully");
-            KBEngine.Event.registerOut("onMainAvatarEnterSpace", this, "onMainAvatarEnterSpace");
-            KBEngine.Event.registerOut("onMainAvatarLeaveSpace", this, "onMainAvatarLeaveSpace");
+            KBEngine.Event.registerOut("onLoginSuccessfully", this, "OnLoginSuccessfully");
+            KBEngine.Event.registerOut("onMainAvatarEnterSpace", this, "OnMainAvatarEnterSpace");
+            KBEngine.Event.registerOut("onMainAvatarLeaveSpace", this, "OnMainAvatarLeaveSpace");
             MethodInfo[] props = null;
             try
             {
@@ -113,19 +125,14 @@ namespace MagicFire.Mmorpg
                 }
             }
         }
-        // ReSharper disable once InconsistentNaming
-        public void onLoginSuccessfully(
-            // ReSharper disable once InconsistentNaming
-            ulong rndUUID, 
-            int eid, 
-            Account accountEntity)
+
+        public void OnLoginSuccessfully(ulong rndUuid, int eid, Account accountEntity)
         {
             SingletonGather.UiManager.CanvasLayerFront.transform.Find("LoginPanel").gameObject.SetActive(false);
             SingletonGather.UiManager.TryGetOrCreatePanel("SceneLoadPanel");
         }
 
-        // ReSharper disable once InconsistentNaming
-        public string UnicodeToGB(string text)
+        public string UnicodeToGb(string text)
         {
             var mc = Regex.Matches(text, "\\\\u([\\w]{4})");
 
@@ -145,28 +152,17 @@ namespace MagicFire.Mmorpg
             return text;
         }
 
-        //--------------------------------------------------------------------------------------
-
-        // ReSharper disable once InconsistentNaming
-        public void onEnterWorld(Entity entity)
+        public void OnEnterWorld(Entity entity)
         {
             if (entity.isPlayer()) return;
             if (entity.renderObj != null) return;
-            if (entity.className == "Space" || entity.className == "SpacesManager") return;
             CreateEntityView(entity);
         }
 
-        // ReSharper disable once InconsistentNaming
-        public void onLeaveWorld(Entity entity)
-        {
-
-        }
-
-        // ReSharper disable once InconsistentNaming
-        public void onMainAvatarLeaveSpace()
+        public void OnMainAvatarLeaveSpace()
         {
             Debug.Log("onMainAvatarLeaveSpace");
-            PlayerInputController.instance.gameObject.SetActive(false);
+            PlayerInputController.Instance.gameObject.SetActive(false);
             IsSceneLoadComplete = false;
             var panel = SingletonGather.UiManager.TryGetOrCreatePanel("SceneLoadPanel");
             if (panel == null)
@@ -176,8 +172,7 @@ namespace MagicFire.Mmorpg
             KBEngine.Event.fireIn("OnLeaveSpaceClientInputInValid");
         }
 
-        // ReSharper disable once InconsistentNaming
-        public void onMainAvatarEnterSpace(int spaceId, string spaceName)
+        public void OnMainAvatarEnterSpace(int spaceId, string spaceName)
         {
             CurrentSpaceId = (uint)spaceId;
             IsSceneLoadComplete = false;
@@ -199,12 +194,14 @@ namespace MagicFire.Mmorpg
             if (gamePanel != null)
                 gamePanel.OnMainAvatarActive(avatar);
 
+            SingletonGather.UiManager.TryGetOrCreatePanel("BulletinBoardPanel").GetComponent<BulletinBoardPanel>().OnMainAvatarActive(avatar);
+
             //var playerDialogPanel = SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>();//聊天窗口
             //if (playerDialogPanel != null)
             //    playerDialogPanel.OnMainAvatarActive(avatar);
 
-            if (PlayerInputController.instance)
-                PlayerInputController.instance.gameObject.SetActive(true);
+            if (MainAvatarView)
+                PlayerInputController.Instance.gameObject.SetActive(true);
             SingletonGather.UiManager.Canvas.ToString();
             PlayerTarget.Instance.ToString();
             ClientApp.Instance.DelayExecuteRepeating(DetectRenderObj, 0, 4);
@@ -216,8 +213,8 @@ namespace MagicFire.Mmorpg
             {
                 if (entity.renderObj == null)
                 {
-                    if (entity.className == "Space" || entity.className == "SpacesManager")
-                        continue;
+                    //if (entity.className == "Space" || entity.className == "SpacesManager" || entity.className == "Camp")
+                    //    continue;
                     CreateEntityView(entity);
                 }
             }
@@ -230,22 +227,15 @@ namespace MagicFire.Mmorpg
             SingletonGather.FactorysFactory.CreateFactory<EntityViewFactory>().CreateProduct<EntityObjectView>(entity);
             SingletonGather.FactorysFactory.CreateFactory<EntityViewFactory>().CreateProduct<EntityPanelView>(entity);
         }
-        // ReSharper disable once InconsistentNaming
+
         public void updatePosition(Entity entity)
         {
             if (entity.renderObj == null)
                 return;
-            try
-            {
-                ((GameObject) entity.renderObj).transform.DOMove(entity.position, 0.1f);
-                ((GameObject)entity.renderObj).transform.eulerAngles = new Vector3(entity.direction.x, entity.direction.z, entity.direction.y);
-            }
-            catch (Exception)
-            {
-                //Debug.Log("## " + entity.getDefinedProperty("entityName"));
-            }
+            ((GameObject) entity.renderObj).transform.DOMove(entity.position, 0.1f);
+            ((GameObject)entity.renderObj).transform.eulerAngles = new Vector3(entity.direction.x, entity.direction.z, entity.direction.y);
         }
-        // ReSharper disable once InconsistentNaming
+
         public void set_position(Entity entity)
         {
             if (entity.renderObj == null)
@@ -259,7 +249,7 @@ namespace MagicFire.Mmorpg
             }
             ((GameObject)entity.renderObj).transform.DOMove(entity.position, 0.1f);
         }
-        // ReSharper disable once InconsistentNaming
+
         public void set_direction(Entity entity)
         {
             if (entity.renderObj == null)
@@ -288,8 +278,8 @@ namespace MagicFire.Mmorpg
                 if (action != null) action.Invoke(val);
             }
         }
-        // ReSharper disable once InconsistentNaming
-        public void onRemoteMethodCall_(Entity entity, string methodName, object[] args)
+
+        public void OnRemoteMethodCall(Entity entity, string methodName, object[] args)
         {
             if (entity.renderObj == null)
             {

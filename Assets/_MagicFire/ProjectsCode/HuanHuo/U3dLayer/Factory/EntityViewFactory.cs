@@ -26,7 +26,7 @@ namespace MagicFire {
     {
         private Object _entityPanelViewPrefab;
         private Object _entity3DPanelViewPrefab;
-        private readonly Dictionary<Type, Dictionary<string, Object>> _products = new Dictionary<Type, Dictionary<string, Object>>();
+        private readonly Dictionary<Type, Dictionary<string, Object>> _typeDictionaryDictionary = new Dictionary<Type, Dictionary<string, Object>>();
 
         public TProductType CreateProduct<TProductType>(params object[] productParameters)
         {
@@ -39,157 +39,166 @@ namespace MagicFire {
             if (entity == null)
                 return null;
             if (productType == typeof(EntityObjectView))
-                return CreateRenderObjectView(entity, entity.className);
+                CreateRenderObjectView(entity);
             if (productType == typeof(EntityPanelView))
                 CreateEntityPanelView(entity);
             return null;
         }
 
-        private EntityObjectView CreateRenderObjectView(Entity entity, string viewType)
+        private void CreateRenderObjectView(Entity entity)
         {
-            Dictionary<string, Object> typeProducts;
-            _products.TryGetValue(typeof(EntityObjectView), out typeProducts);
-            if (typeProducts == null)
+            Dictionary<string, Object> viewPrefabDictionary;
+
+            _typeDictionaryDictionary.TryGetValue(typeof(EntityObjectView), out viewPrefabDictionary);
+            if (viewPrefabDictionary == null)
             {
-                typeProducts = new Dictionary<string, Object>();
-                _products.Add(typeof(EntityObjectView), typeProducts);
+                viewPrefabDictionary = new Dictionary<string, Object>();
+                _typeDictionaryDictionary.Add(typeof(EntityObjectView), viewPrefabDictionary);
             }
-            Object productPrefab;
+
+            var viewPrefab = TryGetPrefabFromViewPrefabDictionary(entity, viewPrefabDictionary);
+
+            if (viewPrefab == null)
+            {
+                viewPrefab = LoadPrefabByViewType(entity);
+
+                if (viewPrefab != null)
+                    AddPrefabToViewPrefabDictionary(entity, viewPrefabDictionary, viewPrefab);
+                else
+                    return;
+            }
+            InstantiateObjectView(entity, viewPrefab);
+        }
+
+        private void InstantiateObjectView(Entity entity, Object viewPrefab)
+        {
+            if (viewPrefab != null)
+            {
+                var gameObject = Object.Instantiate(viewPrefab, entity.position, Quaternion.identity) as GameObject;
+                entity.renderObj = gameObject;
+                if (gameObject != null)
+                {
+                    gameObject.name = entity.className + ":" + entity.getDefinedProperty(EntityPropertys.EntityName);
+                    var entityView = gameObject.GetComponent<EntityObjectView>();
+                    entityView.InitializeView(entity as KBEngine.Model);
+                    if (entity.isPlayer())
+                    {
+                        Object.Destroy(SingletonGather.PlayerInputController);
+                        gameObject.AddComponent<PlayerInputController>();
+                        SingletonGather.WorldMediator.MainAvatarView = entityView as AvatarView;
+                    }
+                }
+            }
+        }
+
+        private void AddPrefabToViewPrefabDictionary(Entity entity, Dictionary<string, Object> viewPrefabDictionary, Object viewPrefab)
+        {
+            var viewType = entity.className;
+            switch (viewType)
+            {
+                case "Avatar":
+                    viewPrefabDictionary.Add(viewType, viewPrefab);
+                    break;
+                case "Monster":
+                    viewPrefabDictionary.Add(viewType + entity.getDefinedProperty(EntityPropertys.ModelName), viewPrefab);
+                    break;
+                case "Npc":
+                    viewPrefabDictionary.Add(viewType + entity.getDefinedProperty(EntityPropertys.ModelName), viewPrefab);
+                    break;
+                case "Trigger":
+                    viewPrefabDictionary.Add(viewType + entity.getDefinedProperty(EntityPropertys.EntityName), viewPrefab);
+                    break;
+                case "Space":
+                    viewPrefabDictionary.Add(viewType, viewPrefab);
+                    break;
+                case "SpacesManager":
+                    viewPrefabDictionary.Add(viewType, viewPrefab);
+                    break;
+                case "Camp":
+                    viewPrefabDictionary.Add(viewType, viewPrefab);
+                    break;
+            }
+        }
+
+        private Object TryGetPrefabFromViewPrefabDictionary(Entity entity, Dictionary<string, Object> viewPrefabDictionary)
+        {
+            var viewType = entity.className;
+            Object viewPrefab = null;
 
             switch (viewType)
             {
                 case "Avatar":
-                    typeProducts.TryGetValue(viewType, out productPrefab);
+                    viewPrefabDictionary.TryGetValue(viewType, out viewPrefab);
                     break;
                 case "Monster":
-                    typeProducts.TryGetValue(viewType + entity.getDefinedProperty("modelName"), out productPrefab);
+                    viewPrefabDictionary.TryGetValue(viewType + entity.getDefinedProperty(EntityPropertys.ModelName), out viewPrefab);
                     break;
                 case "Npc":
-                    typeProducts.TryGetValue(viewType + entity.getDefinedProperty("modelName"), out productPrefab);
+                    viewPrefabDictionary.TryGetValue(viewType + entity.getDefinedProperty(EntityPropertys.ModelName), out viewPrefab);
                     break;
                 case "Trigger":
-                    typeProducts.TryGetValue(viewType, out productPrefab);
+                    viewPrefabDictionary.TryGetValue(viewType + entity.getDefinedProperty(EntityPropertys.EntityName), out viewPrefab);
                     break;
-                default:
-                    productPrefab = null;
+                case "Space":
+                    viewPrefabDictionary.TryGetValue(viewType, out viewPrefab);
+                    break;
+                case "SpacesManager":
+                    viewPrefabDictionary.TryGetValue(viewType, out viewPrefab);
+                    break;
+                case "Camp":
+                    viewPrefabDictionary.TryGetValue(viewType, out viewPrefab);
                     break;
             }
+            return viewPrefab;
+        }
 
-            if (productPrefab == null)
-            {
-                var productPrefabPath = "";
-                var databasePath = "";
-                var bundlePath = "Prefabs";
-                var bundleName = "";
-                var assetName = "";
+        private Object LoadPrefabByViewType(Entity entity)
+        {
+            var viewType = entity.className;
+            string assetName;
 
-                switch (viewType)
-                {
-                    case "Avatar":
-                        productPrefabPath = "Player/Avatar";
-                        bundleName = "player_bundle";
-                        assetName = "Avatar";
-                        break;
-                    case "Monster":
-                        productPrefabPath = "Monster/" + entity.getDefinedProperty("modelName");
-                        bundleName = "monster_bundle";
-                        assetName = "" + entity.getDefinedProperty("modelName");
-                        break;
-                    case "Npc":
-                        productPrefabPath = "Npc/" + entity.getDefinedProperty("modelName");
-                        bundleName = "npc_bundle";
-                        assetName = "" + entity.getDefinedProperty("modelName");
-                        break;
-                    case "Trigger":
-                        productPrefabPath = "Trigger/Trigger";
-                        bundleName = "trigger_bundle";
-                        assetName = "Trigger";
-                        break;
-                }
-                databasePath = AssetTool.Assets__Prefabs_ + productPrefabPath + ".prefab";
-                productPrefab = AssetTool.LoadAsset_Database_Or_Bundle(databasePath, bundlePath, bundleName, assetName);
-                if (productPrefab != null)
-                {
-                    switch (viewType)
-                    {
-                        case "Avatar":
-                            typeProducts.Add(viewType, productPrefab);
-                            break;
-                        case "Monster":
-                            typeProducts.Add(viewType + entity.getDefinedProperty("modelName"), productPrefab);
-                            break;
-                        case "Npc":
-                            typeProducts.Add(viewType + entity.getDefinedProperty("modelName"), productPrefab);
-                            break;
-                        case "Trigger":
-                            typeProducts.Add(viewType, productPrefab);
-                            break;
-                        default:
-                            productPrefab = null;
-                            break;
-                    }
-                }
-                else
-                {
-                    Debug.LogError(entity.className + " " + entity.getDefinedProperty("entityName") + " no " + entity.getDefinedProperty("modelName") + " prefab!");
-                    return null;
-                }
-            }
-            EntityObjectView entityView = null;
-            if (productPrefab != null)
+            switch (viewType)
             {
-                var gameObject = Object.Instantiate(productPrefab, entity.position, Quaternion.identity) as GameObject;
-                entity.renderObj = gameObject;
-                if (gameObject != null)
-                {
-                    gameObject.name = entity.className + ":" + entity.getDefinedProperty("entityName");
-                    entityView = gameObject.GetComponent<EntityObjectView>();
-                    entityView.InitializeView(entity as KBEngine.Model);
-                    if (entity.isPlayer())
-                    {
-                        SingletonGather.WorldMediator.MainAvatarView = entityView as AvatarView;
-                        gameObject.AddComponent<PlayerInputController>();
-                    }
-                }
+                case "Avatar":
+
+                    assetName = "Avatar";
+                    return AssetTool.LoadAvatarAssetByName(assetName);
+
+                case "Monster":
+
+                    assetName = "" + entity.getDefinedProperty(EntityPropertys.ModelName);
+                    return AssetTool.LoadMonsterAssetByName(assetName);
+
+                case "Npc":
+
+                    assetName = "" + entity.getDefinedProperty(EntityPropertys.ModelName);
+                    return AssetTool.LoadNpcAssetByName(assetName);
+
+                case "Trigger":
+
+                    assetName = "" + entity.getDefinedProperty(EntityPropertys.EntityName);
+                    return AssetTool.LoadTriggerAssetByName(assetName);
+
+                case "Space":
+                    break;
+
+                case "SpacesManager":
+                    break;
+
+                case "Camp":
+                    break;
             }
-            return entityView;
+            return null;
         }
 
         private void CreateEntityPanelView(Entity entity)
         {
             if (!_entityPanelViewPrefab)
-            {
-                _entityPanelViewPrefab = 
-                    AssetTool.LoadAsset_Database_Or_Bundle(
-                        AssetTool.Assets__Prefabs_UIPanel_Panels_ + "EntityPanel.prefab",
-                        "Prefabs",
-                        "uipanel_bundle",
-                        "EntityPanel");
-                if (_entityPanelViewPrefab == null)
-                {
-                    Debug.LogError("_entityPanelViewPrefab == null!");
-                    return;
-                }
-            }
+                _entityPanelViewPrefab = AssetTool.LoadUiPanelPanelsAssetByName("EntityPanel");
 
             if (!_entity3DPanelViewPrefab)
-            {
-                _entity3DPanelViewPrefab =
-                    AssetTool.LoadAsset_Database_Or_Bundle(
-                        AssetTool.Assets__Prefabs_UIPanel_Panels_ + "3DEntityPanel.prefab",
-                        "Prefabs",
-                        "uipanel_bundle",
-                        "3DEntityPanel");
-                if (_entity3DPanelViewPrefab == null)
-                {
-                    Debug.LogError("_entity3DPanelViewPrefab == null!");
-                    return;
-                }
-            }
+                _entity3DPanelViewPrefab = AssetTool.LoadUiPanelPanelsAssetByName("3DEntityPanel");
 
-            var entityPanelPosition = Camera.main.WorldToScreenPoint(entity.position);
-            entityPanelPosition = new Vector3(entityPanelPosition.x, entityPanelPosition.y, 0);
-            var entity3DPanelPosition = new Vector3(entity.position.x, entity.position.z, -1);
             GameObject entityPanelObj;
             GameObject entity3DPanelObj;
             switch (entity.className)
@@ -226,16 +235,10 @@ namespace MagicFire {
             }
 
             if (entityPanelObj == null) return;
-            entityPanelObj.transform.SetParent(SingletonGather.UiManager.CanvasLayerBack.transform);
-            entityPanelObj.transform.localPosition = entityPanelPosition;
-            entityPanelObj.transform.localEulerAngles = Vector3.zero;
             var view = entityPanelObj.GetComponent<EntityPanelView>();
             view.InitializeView(entity as KBEngine.Model);
 
             if (entity3DPanelObj == null) return;
-            entity3DPanelObj.transform.SetParent(SingletonGather.UiManager.Canvas3D.transform);
-            entity3DPanelObj.transform.localPosition = entity3DPanelPosition;
-            entity3DPanelObj.transform.localEulerAngles = Vector3.zero;
             var threeDView = entity3DPanelObj.GetComponent<ThreeDEntityPanelView>();
             threeDView.InitializeView(entity as KBEngine.Model);
         }

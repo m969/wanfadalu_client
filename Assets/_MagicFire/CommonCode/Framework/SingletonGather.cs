@@ -6,7 +6,7 @@
 
     public partial class SingletonGather
     {
-        public static IFactorysFactory FactorysFactory { get { return MagicFire.FactorysFactory.instance; } }
+        public static IFactorysFactory FactorysFactory { get { return MagicFire.FactorysFactory.Instance; } }
     }
 
 }

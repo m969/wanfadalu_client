@@ -114,13 +114,13 @@ namespace KBEngine
             {
                 if (!SingletonGather.WorldMediator.IsSceneLoadComplete)
                     return;
-                Event.fireOut("onEnterWorld", new object[] { this });
+                Event.fireOut("OnEnterWorld", new object[] { this });
             }
         }
 
         public override void onDestroy()
         {
-            Event.fireOut("onRemoteMethodCall_", this, "OnEntityDestroy", null);
+            Event.fireOut("OnRemoteMethodCall", this, KBEngine.Avatar.EntityObject.OnEntityDestroy, null);
             base.onDestroy();
         }
     }

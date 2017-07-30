@@ -43,8 +43,14 @@ namespace MagicFire.Mmorpg.Skill
                     SkillTrajectory.transform.position = new Vector3(SkillTrajectory.transform.position.x, SkillTrajectory.transform.position.y + 0.5f, SkillTrajectory.transform.position.z);
                     if (Input.GetMouseButtonDown(0))
                     {
-                        KBEngine.Event.fireIn("RequestDoSkillW", new object[] { hit.point });
-                        spellcaster.SkillManager.CancelReady();
+                        Conjure();
+                        //var point = hit.point;
+                        //var argsString =
+                        //    point.x + " " +
+                        //    point.y + " " +
+                        //    point.z + " ";
+                        //KBEngine.Avatar.MainAvatar.RequestCastSkillByName(this.GetType().Name, argsString);
+                        //spellcaster.SkillManager.CancelReady();
                     }
                 }
                 else
@@ -62,15 +68,19 @@ namespace MagicFire.Mmorpg.Skill
         public override void Conjure()
         {
             base.Conjure();
-            if (!_spellcaster.Animation)
+            if (_spellcaster.Animation)
             {
-                return;
+                if (!_spellcaster.Animation.IsPlaying("Attack"))
+                {
+                    _spellcaster.Animation.Play("Attack");
+                }
             }
-            if (!_spellcaster.Animation.IsPlaying("Attack"))
-            {
-                _spellcaster.Animation.Play("Attack");
-            }
-            KBEngine.Event.fireIn("RequestDoSkillW", new object[] { SkillTrajectory.transform.position });
+            var point = SkillTrajectory.transform.position;
+            var argsString =
+                point.x + " " +
+                point.y + " " +
+                point.z + " ";
+            KBEngine.Avatar.MainAvatar.RequestCastSkillByName(this.GetType().Name, argsString);
             _spellcaster.SkillManager.CancelReady();
         }
     }

@@ -20,12 +20,7 @@
             if (SkillTrajectory == null)
             {
                 var className = this.GetType().Name;
-                var prefab = 
-                    AssetTool.LoadAsset_Database_Or_Bundle(
-                        AssetTool.Assets__Prefabs_ + "Trigger/SkillTrigger/" + className + "_SkillTrajectory.prefab",
-                        "Prefabs",
-                        "trigger_bundle",
-                        className + "_SkillTrajectory");
+                var prefab = AssetTool.LoadTriggerAssetByName(className + "_SkillTrajectory");
 
                 if (prefab != null)
                 {
@@ -44,12 +39,7 @@
         {
             if (SkillTrajectory == null)
             {
-                var prefab = 
-                    AssetTool.LoadAsset_Database_Or_Bundle(
-                        AssetTool.Assets__Prefabs_ + "Trigger/SkillTrigger/" + this.GetType().Name + "_SkillTrajectory.prefab",
-                        "Prefabs",
-                        "trigger_bundle",
-                        this.GetType().Name + "_SkillTrajectory");
+                var prefab = AssetTool.LoadTriggerAssetByName(GetType().Name + "_SkillTrajectory");
 
                 if (prefab != null)
                 {

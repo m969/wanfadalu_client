@@ -57,7 +57,7 @@
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(UiManager.instance.CanvasLayers[1].transform);
+            transform.SetParent(UiManager.Instance.CanvasLayers[1].transform);
             transform.localPosition = new Vector3(0, 0, 0);
             _goldCountText = transform.Find("GoldCount").GetComponent<Text>();
 
@@ -73,9 +73,9 @@
         protected override void Update()
         {
             base.Update();
-            if (PlayerInputController.instance)
+            if (PlayerInputController.Instance)
             {
-                BagGoodsList = ((KBEngine.Avatar)PlayerInputController.instance.AvatarView.Model).AvatarBag;
+                BagGoodsList = ((KBEngine.Avatar)PlayerInputController.Instance.AvatarView.Model).AvatarBag;
             }
             if (!_hasCreateOnce)
             {
@@ -98,7 +98,7 @@
         public void HandleAvatarBagUpdate(object val)
         {
             Debug.Log("avatarBag has update");
-            object avatarBagObject = (SingletonGather.WorldMediator.MainAvatarView.Model as KBEngine.Model).getDefinedProperty("avatarBag");
+            object avatarBagObject = KBEngine.Avatar.MainAvatar.getDefinedProperty("avatarBag");
             _bagGoodsList = ((Dictionary<string, object>)avatarBagObject)["values"] as List<object>;
         }
 
@@ -111,12 +111,7 @@
             foreach (var goodsId in _bagGoodsList)
             {
                 var tempItem = 
-                    Instantiate(
-                        AssetTool.LoadAsset_Database_Or_Bundle(
-                            AssetTool.Assets__Prefabs_UIPanel_Panels_ + "StoreItems/" + (int)goodsId + ".prefab",
-                            "Prefabs",
-                            "uipanel_bundle",
-                            "" + (int)goodsId)) as GameObject;
+                    Instantiate(AssetTool.LoadUiPanelGoodsItemsAssetByName("" + (int)goodsId)) as GameObject;
                 if (tempItem != null)
                 {
                     tempItem.transform.SetParent(_content);

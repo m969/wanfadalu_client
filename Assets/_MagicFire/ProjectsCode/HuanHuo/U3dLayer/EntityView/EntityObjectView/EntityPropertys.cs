@@ -6,6 +6,7 @@
     public class EntityPropertys
     {
         public const string EntityName = "entityName";
+        public const string ModelName = "modelName";
         public const string Position = "position";
         public const string Direction = "position";
     }

@@ -1,4 +1,6 @@
-﻿namespace MagicFire.Common
+﻿using MagicFire.SceneManagement;
+
+namespace MagicFire.Common
 {
     using UnityEngine;
     using System.Collections;
@@ -6,7 +8,8 @@
 
     public partial class SingletonGather
     {
-        public static IFactorysFactory FactorysFactory { get { return MagicFire.FactorysFactory.Instance; } }
+        public static FactorysFactory FactorysFactory { get { return MagicFire.FactorysFactory.Instance; } }
+        public static XmlSceneManager XmlSceneManager { get { return XmlSceneManager.Instance; } }
     }
 
 }

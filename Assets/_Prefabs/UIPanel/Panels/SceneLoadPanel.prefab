@@ -56,6 +56,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62d34becf15d634dbb4cf8fbc85a474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parentLayer: 2
+  _layoutStruct:
+    _anchorMin: {x: 0, y: 0}
+    _anchorMax: {x: 1, y: 1}
+    _pivot: {x: 0.5, y: 0.5}
+    _offsetMax: {x: 0, y: 0}
+    _offsetMin: {x: 0, y: 0}
+    _anchoredPosition: {x: 0, y: 0}
+    _sizeDelta: {x: 0, y: 0}
 --- !u!222 &22285886
 CanvasRenderer:
   m_ObjectHideFlags: 1

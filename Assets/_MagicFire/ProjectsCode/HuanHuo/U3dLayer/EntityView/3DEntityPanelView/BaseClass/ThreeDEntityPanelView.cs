@@ -11,6 +11,8 @@ public class ThreeDEntityPanelView : View
 {
     protected virtual void FixedUpdate()
     {
+        if (Model == null)
+            return;
         var entityObj = ((KBEngine.Model)Model).renderObj as GameObject;
         if (entityObj == null)
             return;

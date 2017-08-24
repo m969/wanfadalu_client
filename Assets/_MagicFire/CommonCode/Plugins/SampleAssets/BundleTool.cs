@@ -44,7 +44,7 @@ namespace MagicFire.Common.Plugin
         public void LoadAllBundle()
         {
             StartCoroutine(LoadBundle("Prefabs", "uipanel_bundle"));
-            StartCoroutine(LoadBundle("Prefabs", "player_bundle"));
+            StartCoroutine(LoadBundle("Prefabs", "avatar_bundle"));
             StartCoroutine(LoadBundle("Prefabs", "monster_bundle"));
             StartCoroutine(LoadBundle("Prefabs", "npc_bundle"));
             StartCoroutine(LoadBundle("Prefabs", "trigger_bundle"));

@@ -18,7 +18,12 @@ namespace MagicFire.Mmorpg.UI
     public class EntityPanelView : View
     {
         private Text _nameText;//用于显示实体姓名的Text组件
-        protected string _entityName;//实体的姓名
+        protected string EntityName;//实体的姓名
+
+        protected virtual void Start()
+        {
+            
+        }
 
         protected virtual void FixedUpdate()
         {
@@ -42,28 +47,28 @@ namespace MagicFire.Mmorpg.UI
 
             _nameText = transform.Find("Name").GetComponentInChildren<Text>();
 
-            HandleEntityNameUpdate(0);
+            EntityName_Up(0);
 
-            model.SubscribePropertyUpdate(EntityPropertys.EntityName, HandleEntityNameUpdate);//订阅姓名属性的更新
+            model.SubscribePropertyUpdate(KBEngine.Avatar.EntityObject.entityName, EntityName_Up);//订阅姓名属性的更新
         }
 
         public override void OnModelDestroy(object[] objects)
         {
             if (Model != null)
             {
-                Model.DesubscribePropertyUpdate(EntityPropertys.EntityName, HandleEntityNameUpdate);//取消订阅
+                Model.DesubscribePropertyUpdate(KBEngine.Avatar.EntityObject.entityName, EntityName_Up);//取消订阅
             }
             base.OnModelDestroy(objects);
         }
 
         //处理实体姓名的更新：如果实体的姓名变了，那么View的显示实体姓名的Text组件（_nameText）也要相应作出改变
-        private void HandleEntityNameUpdate(object old)
+        private void EntityName_Up(object old)
         {
-            if (_entityName == ((KBEngine.Model)Model).getDefinedProperty(EntityPropertys.EntityName) as string) return;
+            if (EntityName == ((KBEngine.Model)Model).getDefinedProperty(KBEngine.Avatar.EntityObject.entityName) as string) return;
             if (_nameText)
             {
-                _nameText.text = _entityName = ((KBEngine.Model)Model).getDefinedProperty(EntityPropertys.EntityName) as string;
-                gameObject.name = ((KBEngine.Model)Model).className + ":" + _entityName;
+                _nameText.text = EntityName = ((KBEngine.Model)Model).getDefinedProperty(KBEngine.Avatar.EntityObject.entityName) as string;
+                gameObject.name = ((KBEngine.Model)Model).className + ":" + EntityName;
             }
         }
     }

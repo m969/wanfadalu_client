@@ -1,6 +1,8 @@
 ﻿using System;
 using DG.Tweening;
 using MagicFire.Common;
+using VoiceChat.Base;
+using VoiceChat.Behaviour;
 
 namespace MagicFire.Mmorpg.UI
 {
@@ -9,6 +11,15 @@ namespace MagicFire.Mmorpg.UI
 
     public class AvatarPanelView : CombatEntityPanelView
     {
+        private VoiceChatPlayer _voiceChatPlayer;
+
+        protected override void Start()
+        {
+            base.Start();
+            gameObject.AddComponent<AudioSource>();
+            _voiceChatPlayer = gameObject.AddComponent<VoiceChatPlayer>();
+        }
+
         protected override void FixedUpdate()
         {
             if (Model == null)
@@ -31,16 +42,34 @@ namespace MagicFire.Mmorpg.UI
         public override void InitializeView(IModel model)
         {
             base.InitializeView(model);
-            Model.SubscribePropertyUpdate(AvatarPropertys.Sp, Sp_Up);
+            Model.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP, Sp_Up);
+            Model.SubscribeMethodCall(KBEngine.Avatar.ChatChannelSystem.ReciveVoiceSample, OnReciveVoiceSample);
         }
 
         private void Sp_Up(object old)
         {
-            var val = (int)((KBEngine.Model) Model).getDefinedProperty(AvatarPropertys.Sp);
+            var val = (int)((KBEngine.Model) Model).getDefinedProperty(KBEngine.Avatar.SuperPowerSystem.SP);
             if (val != (int)old)
             {
                 
             }
+        }
+
+        private void OnReciveVoiceSample(object[] args)
+        {
+            var packet = new VoiceChatPacket
+            {
+                Data = (byte[]) args[0],
+                Length = (int) args[1],
+                PacketId = (ulong) args[2]
+            };
+
+            Debug.Log("OnReciveVoiceSample");
+            Debug.Log(packet.Data);
+            Debug.Log(packet.Length);
+            Debug.Log(packet.PacketId);
+
+            _voiceChatPlayer.OnNewSample(packet);
         }
     }
 

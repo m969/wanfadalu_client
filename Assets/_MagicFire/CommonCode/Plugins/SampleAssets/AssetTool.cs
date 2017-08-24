@@ -87,47 +87,47 @@ namespace MagicFire.Common.Plugin
 
         public static Object LoadScenesAssetBySceneNameAndAssetName(string sceneName, string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(ScenesFolder + "/" + sceneName + "/" + assetName + ".prefab", "Prefab", sceneName.ToLower(), assetName);
+            return LoadAsset_Database_Or_Bundle(ScenesFolder + "/" + sceneName + "/" + assetName + ".prefab", "Prefabs", sceneName.ToLower(), assetName);
         }
 
         public static Object LoadAuxiliaryAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(AuxiliaryPrefabsFolder + "/" + assetName + ".prefab", "Prefab", "auxiliaryprefabs_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(AuxiliaryPrefabsFolder + "/" + assetName + ".prefab", "Prefabs", "auxiliaryprefabs_bundle", assetName);
         }
 
         public static Object LoadAvatarAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(AvatarFolder + "/" + assetName + ".prefab", "Prefab", "avatar_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(AvatarFolder + "/" + assetName + ".prefab", "Prefabs", "avatar_bundle", assetName);
         }
 
         public static Object LoadEffectAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(EffectFolder + "/" + assetName + ".prefab", "Prefab", "effect_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(EffectFolder + "/" + assetName + ".prefab", "Prefabs", "effect_bundle", assetName);
         }
 
         public static Object LoadMonsterAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(MonsterFolder + "/" + assetName + ".prefab", "Prefab", "monster_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(MonsterFolder + "/" + assetName + ".prefab", "Prefabs", "monster_bundle", assetName);
         }
 
         public static Object LoadNpcAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(NpcFolder + "/" + assetName + ".prefab", "Prefab", "npc_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(NpcFolder + "/" + assetName + ".prefab", "Prefabs", "npc_bundle", assetName);
         }
 
         public static Object LoadTriggerAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(TriggerFolder + "/" + assetName + ".prefab", "Prefab", "trigger_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(TriggerFolder + "/" + assetName + ".prefab", "Prefabs", "trigger_bundle", assetName);
         }
 
         public static Object LoadUiPanelPanelsAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(UiPanelPanelsFolder + "/" + assetName + ".prefab", "Prefab", "uipanel_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(UiPanelPanelsFolder + "/" + assetName + ".prefab", "Prefabs", "uipanel_bundle", assetName);
         }
 
         public static Object LoadUiPanelGoodsItemsAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(UiPanelGoodsItemsFolder + "/" + assetName + ".prefab", "Prefab", "uipanel_bundle", assetName);
+            return LoadAsset_Database_Or_Bundle(UiPanelGoodsItemsFolder + "/" + assetName + ".prefab", "Prefabs", "uipanel_bundle", assetName);
         }
 
 
@@ -149,7 +149,17 @@ namespace MagicFire.Common.Plugin
             }
             bundle = BundleTool.Instance.TryGetBundle(bundlePath, bundleName);
             if (bundle)
+            {
                 asset = bundle.LoadAsset(assetName);
+                if (asset == null)
+                {
+                    Debug.LogError(assetName + " is null");
+                }
+            }
+            else
+            {
+                Debug.LogError(bundleName + " is null");
+            }
             return asset;
         }
 
@@ -187,12 +197,12 @@ namespace MagicFire.Common.Plugin
 
 
 
-            if (assetTag != "")
-            {
-                var tag = UnityEditor.AssetDatabase.LoadAssetAtPath<PrefabTagScriptableObject>("Assets/_Prefabs/_PrefabTags/" + assetTag + ".asset");
-                assetDatabasePath = tag.DatabasePath;
-            }
-            asset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetDatabasePath);
+            //if (assetTag != "")
+            //{
+            //    var tag = UnityEditor.AssetDatabase.LoadAssetAtPath<PrefabTagScriptableObject>("Assets/_Prefabs/_PrefabTags/" + assetTag + ".asset");
+            //    assetDatabasePath = tag.DatabasePath;
+            //}
+            //asset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetDatabasePath);
 
 
 

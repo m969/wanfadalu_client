@@ -44,14 +44,19 @@ namespace KBEngine
             if (isPlayer())
             {
                 KBEngine.Event.registerIn("updatePlayer", this, "updatePlayer");
+
                 KBEngine.Event.registerIn("RequestMove", this, "RequestMove");
-                KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
-                KBEngine.Event.registerIn("RequestBuyGoods", this, "RequestBuyGoods");
-                KBEngine.Event.registerIn("RequestDoSkillQ", this, "RequestDoSkillQ");
-                KBEngine.Event.registerIn("RequestDoSkillW", this, "RequestDoSkillW");
                 KBEngine.Event.registerIn("StopMove", this, "StopMove");
+
+                KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
+
+                KBEngine.Event.registerIn("RequestBuyGoods", this, "RequestBuyGoods");
+
                 KBEngine.Event.registerIn("OnLeaveSpaceClientInputInValid", this, "OnLeaveSpaceClientInputInValid");
+
                 KBEngine.Event.registerIn("SendChatMessage", this, "SendChatMessage");
+                KBEngine.Event.registerIn("SendVoiceSample", this, "SendVoiceSample");
+
                 KBEngine.Event.registerIn("FindFriends", this, "FindFriends");
                 KBEngine.Event.registerIn("AddFriends", this, "AddFriends");
                 KBEngine.Event.registerIn("DeleteFriends", this, "DeleteFriends");
@@ -148,29 +153,16 @@ namespace KBEngine
             cellCall("requestCastSkill", new object[] { skillName, argsString });
         }
 
-        public void RequestDoSkillQ(Vector3 point, float yaw)
-        {
-            var argsString = 
-                point.x + " " + 
-                point.y + " " +
-                point.z + " " ;
-
-            cellCall("requestCastSkill", new object[] { "SkillQ", argsString });
-        }
-
-        public void RequestDoSkillW(Vector3 point)
-        {
-            var argsString =
-                point.x + " " +
-                point.y + " " +
-                point.z + " ";
-
-            cellCall("requestCastSkill", new object[] { "SkillW", argsString });
-        }
-
         public void SendChatMessage(string message)
         {
-            cellCall("onSendChatMessage", new object[] { getDefinedProperty("entityName"), message});
+            cellCall("sendChatMessage", new object[] { getDefinedProperty("entityName"), message});
+        }
+
+        public void SendVoiceSample(byte[] data, int length, ulong packetId)
+        {
+            Debug.Log("SendVoiceSample");
+            Debug.Log("length " + length);
+            cellCall("sendVoiceSample", data, length, packetId);
         }
 
         public void FindFriends()
@@ -192,6 +184,7 @@ namespace KBEngine
         {
             cellCall("showAllFriends");
         }
+
         #endregion
     }
 }

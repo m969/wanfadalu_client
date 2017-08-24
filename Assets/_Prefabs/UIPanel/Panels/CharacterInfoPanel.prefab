@@ -562,6 +562,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3aa5e58aee45b4fb8be66b7413f544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parentLayer: 2
+  _layoutStruct:
+    _anchorMin: {x: 0.5, y: 0.5}
+    _anchorMax: {x: 0.5, y: 0.5}
+    _pivot: {x: 0.5, y: 0.5}
+    _offsetMax: {x: 0, y: 0}
+    _offsetMin: {x: 0, y: 0}
+    _anchoredPosition: {x: 0, y: 0}
+    _sizeDelta: {x: 350, y: 300}
   _levelText: {fileID: 11468826}
   _levelPeriodText: {fileID: 11452518}
   _hpMaxText: {fileID: 11466532}

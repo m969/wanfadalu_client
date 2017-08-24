@@ -29,7 +29,7 @@ namespace MagicFire.Mmorpg.Huanhuo
         protected override void Start()
         {
             base.Start();
-            StretchLayout();
+            //StretchLayout();
         }
 
         //  void Update()

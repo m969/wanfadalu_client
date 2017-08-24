@@ -1,4 +1,6 @@
-﻿namespace MagicFire.Mmorpg
+﻿using MagicFire.Mmorpg.AvatarState;
+
+namespace MagicFire.Mmorpg
 {
     using UnityEngine;
     using UnityEngine.Events;
@@ -35,7 +37,7 @@
         // Update is called once per frame
         private void Update()
         {
-            if (PlayerInputController.Instance == null)
+            if (AvatarStateController.Instance == null)
             {
                 return;
             }
@@ -60,11 +62,11 @@
 
         private void FixedUpdate()
         {
-            if (PlayerInputController.Instance == null)
+            if (AvatarStateController.Instance == null)
             {
                 return;
             }
-            transform.DOMove(PlayerInputController.Instance.transform.position, 1);
+            transform.DOMove(AvatarStateController.Instance.transform.position, 1);
         }
     }
 

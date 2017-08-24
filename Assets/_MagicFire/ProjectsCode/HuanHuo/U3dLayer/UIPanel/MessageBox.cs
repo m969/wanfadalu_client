@@ -13,20 +13,20 @@
         {
             base.Start();
             //transform.SetParent(UIManager.instance.canvas.transform);
-            transform.SetParent(SingletonGather.UiManager.Canvas.transform);
-            transform.localPosition = new Vector3(0, 0, 0);
+            //transform.SetParent(SingletonGather.UiManager.Canvas.transform);
+            //transform.localPosition = new Vector3(0, 0, 0);
         }
 
-        public void SetMessage(string message)
+        public void Show(object message)
         {
             if (_messageText)
             {
-                _messageText.text = message;
+                _messageText.text = message.ToString();
             }
             else
             {
-                _messageText = transform.Find("MessageText").GetComponent<Text>();
-                _messageText.text = message;
+                _messageText = transform.Find("Image/MessageText").GetComponent<Text>();
+                _messageText.text = message.ToString();
             }
         }
 

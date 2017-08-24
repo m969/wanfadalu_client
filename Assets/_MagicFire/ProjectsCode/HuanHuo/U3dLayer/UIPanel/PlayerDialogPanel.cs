@@ -14,20 +14,20 @@ namespace MagicFire.Mmorpg.UI
         private Text textContent;
         private KBEngine.Model _avatar;
 
-        // Use this for initialization
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
-            transform.localScale = new Vector3(1,1,1);
-            var rect = GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0.0f,0.5f);
-            rect.anchorMax = new Vector2(0.0f,0.5f);
-            rect.pivot = new Vector2(0.0f, 0.0f);
-            //rect.offsetMax = new Vector2(-0, 0);
-            //rect.offsetMin = new Vector2(0, 0);            
-            rect.anchoredPosition = new Vector2(0, -100);
-            rect.sizeDelta = new Vector2(240, 200);
+            //transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
+            //transform.localScale = new Vector3(1,1,1);
+            //var rect = GetComponent<RectTransform>();
+            //rect.anchorMin = new Vector2(0.0f,0.5f);
+            //rect.anchorMax = new Vector2(0.0f,0.5f);
+            //rect.pivot = new Vector2(0.0f, 0.0f);
+            ////rect.offsetMax = new Vector2(-0, 0);
+            ////rect.offsetMin = new Vector2(0, 0);            
+            //rect.anchoredPosition = new Vector2(0, -100);
+            //rect.sizeDelta = new Vector2(240, 200);
+
             textContent = _tranText.GetComponent<Text>();
 
         }
@@ -39,7 +39,7 @@ namespace MagicFire.Mmorpg.UI
                 _avatar = SingletonGather.WorldMediator.MainAvatarView.Model as KBEngine.Avatar;
                 if (_avatar != null)
                 {
-                    _avatar.SubscribeMethodCall("DialogContent", DialogContent);
+                    _avatar.SubscribeMethodCall(KBEngine.Avatar.ChatChannelSystem.ReciveChatMessage, OnReciveChatMessage);
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace MagicFire.Mmorpg.UI
             _avatar = SingletonGather.WorldMediator.MainAvatarView.Model as KBEngine.Avatar;
             if (_avatar != null)
             {
-                _avatar.DesubscribeMethodCall("DialogContent", DialogContent);
+                _avatar.DesubscribeMethodCall(KBEngine.Avatar.ChatChannelSystem.ReciveChatMessage, OnReciveChatMessage);
             }
         }
 
@@ -58,7 +58,7 @@ namespace MagicFire.Mmorpg.UI
             if (avatar != null)
             {
                 _avatar = avatar;
-                _avatar.SubscribeMethodCall("DialogContent", DialogContent);
+                _avatar.SubscribeMethodCall(KBEngine.Avatar.ChatChannelSystem.ReciveChatMessage, OnReciveChatMessage);
             }
             else
             {
@@ -70,22 +70,15 @@ namespace MagicFire.Mmorpg.UI
         public void OnMainAvatarInvalid(KBEngine.Model avatar)
         {
             if (avatar != null)
-                avatar.DesubscribeMethodCall("DialogContent", DialogContent);
+                avatar.DesubscribeMethodCall(KBEngine.Avatar.ChatChannelSystem.ReciveChatMessage, OnReciveChatMessage);
         }
 
-        public void DialogContent(object[] args)
+        public void OnReciveChatMessage(object[] args)
         {
-            //Debug.Log("发送的信息为：" + _inputContent.text);
             if (args[1].ToString().Length > 0)
             {
                 textContent.text += ( " " + args[0] + ":" + args[1] + "\n");
             }
-            //if (textContent.preferredHeight + 30 > 67)
-            //{
-            //    _tranText.GetComponent<RectTransform>().sizeDelta = new Vector2(0, textContent.preferredHeight);
-            //}
-
-            //_sbVertical.value = 0;
             _inputContent.text = "";
         }
 
@@ -93,8 +86,7 @@ namespace MagicFire.Mmorpg.UI
        {
             if(_inputContent.text.Length > 0)
             {
-                Debug.Log("发送的信息为：" + _inputContent.text);
-                KBEngine.Event.fireIn("SendChatMessage", _inputContent.text);
+                KBEngine.Avatar.MainAvatar.SendChatMessage(_inputContent.text);
             }
        }
     }

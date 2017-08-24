@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using MagicFire.Common;
+using MagicFire.Mmorpg.AvatarState;
 using MagicFire.Mmorpg.UI;
 
 namespace MagicFire.Mmorpg
@@ -162,7 +163,7 @@ namespace MagicFire.Mmorpg
         public void OnMainAvatarLeaveSpace()
         {
             Debug.Log("onMainAvatarLeaveSpace");
-            PlayerInputController.Instance.gameObject.SetActive(false);
+            AvatarStateController.Instance.gameObject.SetActive(false);
             IsSceneLoadComplete = false;
             var panel = SingletonGather.UiManager.TryGetOrCreatePanel("SceneLoadPanel");
             if (panel == null)
@@ -201,7 +202,7 @@ namespace MagicFire.Mmorpg
             //    playerDialogPanel.OnMainAvatarActive(avatar);
 
             if (MainAvatarView)
-                PlayerInputController.Instance.gameObject.SetActive(true);
+                AvatarStateController.Instance.gameObject.SetActive(true);
             SingletonGather.UiManager.Canvas.ToString();
             PlayerTarget.Instance.ToString();
             ClientApp.Instance.DelayExecuteRepeating(DetectRenderObj, 0, 4);
@@ -232,6 +233,7 @@ namespace MagicFire.Mmorpg
         {
             if (entity.renderObj == null)
                 return;
+            Debug.Log("updatePosition");
             ((GameObject) entity.renderObj).transform.DOMove(entity.position, 0.1f);
             ((GameObject)entity.renderObj).transform.eulerAngles = new Vector3(entity.direction.x, entity.direction.z, entity.direction.y);
         }
@@ -240,11 +242,12 @@ namespace MagicFire.Mmorpg
         {
             if (entity.renderObj == null)
                 return;
+            Debug.Log("set_position");
             var entityModel = entity as Model;
             if (entityModel != null)
             {
                 Action<object> action;
-                entityModel.PropertyUpdateHandlers.TryGetValue(EntityPropertys.Position, out action);
+                entityModel.PropertyUpdateHandlers.TryGetValue("position", out action);
                 if (action != null) action.Invoke(entity.position);
             }
             ((GameObject)entity.renderObj).transform.DOMove(entity.position, 0.1f);
@@ -258,7 +261,7 @@ namespace MagicFire.Mmorpg
             if (entityModel != null)
             {
                 Action<object> action;
-                entityModel.PropertyUpdateHandlers.TryGetValue(EntityPropertys.Direction, out action);
+                entityModel.PropertyUpdateHandlers.TryGetValue("direction", out action);
                 if (action != null) action.Invoke(new Vector3(0, entity.direction.y, 0));
             }
             ((GameObject)entity.renderObj).transform.eulerAngles = new Vector3(0, entity.direction.y, 0);

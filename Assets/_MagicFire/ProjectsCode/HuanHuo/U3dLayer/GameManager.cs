@@ -4,7 +4,7 @@
     using System.Collections;
     using System;
 
-    public class GameManager : BaseSingleton<GameManager>, IGameManager
+    public class GameManager : BaseSingleton<GameManager>
     {
         private GameManager()
         {

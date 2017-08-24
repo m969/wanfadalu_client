@@ -1,4 +1,6 @@
-﻿namespace MagicFire.Mmorpg
+﻿using MagicFire.Mmorpg.AvatarState;
+
+namespace MagicFire.Mmorpg
 {
     using UnityEngine;
     using System;
@@ -64,7 +66,6 @@
 
         public int SpMax { get; set; }
 
-        // Use this for initialization
         private void Start()
         {
             SkillManager = new SkillManager { Owner = this };
@@ -76,7 +77,6 @@
             _avatarState = _standState;
         }
 
-        // Update is called once per frame
         private void Update()
         {
             SkillManager.Update();
@@ -87,23 +87,23 @@
         public override void InitializeView(IModel model)
         {
             base.InitializeView(model);
-            Model.SubscribeMethodCall("DoMove", DoMove);
-            Model.SubscribeMethodCall("OnStopMove", OnStopMove);
-            //郑晓飞---发送聊天信息
-            Model.SubscribeMethodCall("onReciveChatMessage", onReciveChatMessage);
+            Model.SubscribeMethodCall(KBEngine.Avatar.MotionSystem.DoMove, DoMove);
+            Model.SubscribeMethodCall(KBEngine.Avatar.MotionSystem.OnStopMove, OnStopMove);
+            Model.SubscribeMethodCall(KBEngine.Avatar.ChatChannelSystem.ReciveChatMessage, OnReciveChatMessage);
         }
 
         public override void OnModelDestroy(object[] objects)
         {
-            Model.DesubscribeMethodCall("DoMove", DoMove);
-            Model.DesubscribeMethodCall("OnStopMove", OnStopMove);
+            Model.DesubscribeMethodCall(KBEngine.Avatar.MotionSystem.DoMove, DoMove);
+            Model.DesubscribeMethodCall(KBEngine.Avatar.MotionSystem.OnStopMove, OnStopMove);
+            Model.DesubscribeMethodCall(KBEngine.Avatar.ChatChannelSystem.ReciveChatMessage, OnReciveChatMessage);
             base.OnModelDestroy(objects);
         }
 
         protected override void OnDie(object[] args)
         {
             _avatarState = _deadState;
-            PlayerInputController.Instance.enabled = false;
+            AvatarStateController.Instance.enabled = false;
             SingletonGather.UiManager.TryGetOrCreatePanel("DeadPanel").SetActive(true);
             transform.GetChild(0).localEulerAngles = new Vector3(0, 1, 90);
             base.OnDie(args);
@@ -112,7 +112,7 @@
         protected override void OnRespawn(object[] args)
         {
             gameObject.transform.position = (Vector3)args[0];
-            PlayerInputController.Instance.enabled = true;
+            AvatarStateController.Instance.enabled = true;
             SingletonGather.UiManager.TryGetOrCreatePanel("DeadPanel").SetActive(false);
             transform.GetChild(0).localEulerAngles = new Vector3(0, 1, 0);
         }
@@ -127,10 +127,9 @@
             _avatarState = _standState;
         }
 
-        //郑晓飞-----聊天框
-        private void onReciveChatMessage(object[] obj)
+        private void OnReciveChatMessage(object[] obj)
         {
-            SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>().DialogContent(obj);
+            SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>().OnReciveChatMessage(obj);
         }
 
         private class AvatarState

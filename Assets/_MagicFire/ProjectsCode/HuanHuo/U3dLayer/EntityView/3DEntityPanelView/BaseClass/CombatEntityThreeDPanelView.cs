@@ -18,28 +18,28 @@ public class CombatEntityThreeDPanelView : ThreeDEntityPanelView
     public override void InitializeView(IModel model)
     {
         base.InitializeView(model);
-        _hpImage = transform.Find("Ring/HP").GetComponent<Image>();
+        _hpImage = transform.Find("Ring/HPOutline/HP").GetComponent<Image>();
 
         Hp_Up(0);
         HpMax_Up(0);
-        model.SubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
-        model.SubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
+        model.SubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP, Hp_Up);
+        model.SubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
     }
 
     public override void OnModelDestroy(object[] objects)
     {
         if (Model != null)
         {
-            Model.DesubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
-            Model.DesubscribePropertyUpdate(CombatPropertys.Hp, Hp_Up);
+            Model.DesubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
+            Model.DesubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP, Hp_Up);
         }
         base.OnModelDestroy(objects);
     }
 
     private void Hp_Up(object old)
     {
-        var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
-        var hpMax = (int)Model.getDefinedProperty(CombatPropertys.HpMax);
+        var hp = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP);
+        var hpMax = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP_Max);
 
         if (_hp == hp && _hpMax == hpMax)
             return;
@@ -50,8 +50,8 @@ public class CombatEntityThreeDPanelView : ThreeDEntityPanelView
 
     private void HpMax_Up(object old)
     {
-        var hp = (int)Model.getDefinedProperty(CombatPropertys.Hp);
-        var hpMax = (int)Model.getDefinedProperty(CombatPropertys.HpMax);
+        var hp = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP);
+        var hpMax = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP_Max);
 
         if (Equals(_hp, hp) && Equals(_hpMax, hpMax))
             return;

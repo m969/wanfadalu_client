@@ -125,7 +125,7 @@ namespace Developer.STTool
         {
             var scriptPath = GetScriptTemplatePath();
             if (File.Exists(scriptPath))
-                sTText = File.ReadAllText(scriptPath, Encoding.Default);
+                sTText = File.ReadAllText(scriptPath, Encoding.UTF8);
             else
                 sTText = string.Empty;
         }//GetS...()_end
@@ -135,7 +135,7 @@ namespace Developer.STTool
         /// </summary>
         private void SaveScriptTemplate()
         {
-            File.WriteAllText(GetScriptTemplatePath(), sTText, Encoding.Default);
+            File.WriteAllText(GetScriptTemplatePath(), sTText, Encoding.UTF8);
             bool closeEditor = EditorUtility.DisplayDialog(
                 "Save Template",
                 "Your edit content is already save to unity3d editor's script template!",

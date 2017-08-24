@@ -8,6 +8,7 @@ using KBEngine;
 using MagicFire.Common;
 using MagicFire.Common.Plugin;
 using MagicFire.Mmorpg;
+using MagicFire.Mmorpg.AvatarState;
 using MagicFire.Mmorpg.UI;
 
 namespace MagicFire {
@@ -83,8 +84,8 @@ namespace MagicFire {
                     entityView.InitializeView(entity as KBEngine.Model);
                     if (entity.isPlayer())
                     {
-                        Object.Destroy(SingletonGather.PlayerInputController);
-                        gameObject.AddComponent<PlayerInputController>();
+                        Object.Destroy(SingletonGather.AvatarStateController);
+                        gameObject.AddComponent<AvatarStateController>();
                         SingletonGather.WorldMediator.MainAvatarView = entityView as AvatarView;
                     }
                 }

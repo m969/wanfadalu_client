@@ -86,7 +86,7 @@ namespace MagicFire.Mmorpg
 
             TriggerSize_Up(0);
 
-            model.SubscribePropertyUpdate(TriggerPeopertys.TriggerSize, TriggerSize_Up);
+            model.SubscribePropertyUpdate(KBEngine.Trigger.triggerSize, TriggerSize_Up);
         }
 
         private void InvokeMethod()

@@ -7,7 +7,7 @@
     using Mmorpg.UI;
     using Common.Plugin;
 
-    public class UiManager : MagicFire.BaseSingleton<UiManager>, IUiManager
+    public class UiManager : MagicFire.BaseSingleton<UiManager>
     {
         private GameObject _canvas3D;
         private GameObject _canvas;
@@ -161,8 +161,15 @@
 
             if (!_panels.ContainsKey(panelName))
             {
-                tempPanel = Object.Instantiate(AssetTool.LoadUiPanelPanelsAssetByName(panelName)) as GameObject;
-                _panels.Add(panelName, tempPanel);
+                var panelPrefab = AssetTool.LoadUiPanelPanelsAssetByName(panelName);
+                if (panelPrefab == null)
+                    Debug.LogError(panelName + "is None");
+                tempPanel = Object.Instantiate(panelPrefab) as GameObject;
+                if (tempPanel != null)
+                {
+                    tempPanel.name = panelName;
+                    _panels.Add(panelName, tempPanel);
+                }
             }
             else
             {
@@ -170,8 +177,12 @@
                 if (tempPanel == null)
                 {
                     tempPanel = Object.Instantiate(AssetTool.LoadUiPanelPanelsAssetByName(panelName)) as GameObject;
-                    _panels.Remove(panelName);
-                    _panels.Add(panelName, tempPanel);
+                    if (tempPanel != null)
+                    {
+                        tempPanel.name = panelName;
+                        _panels.Remove(panelName);
+                        _panels.Add(panelName, tempPanel);
+                    }
                 }
             }
             if (tempPanel != null)
@@ -179,6 +190,11 @@
                 tempPanel.GetComponent<RectTransform>().SetAsLastSibling();
             }
             return tempPanel;
+        }
+
+        public void MessageBox(object message)
+        {
+            TryGetOrCreatePanel("MessageBox").GetComponent<MessageBox>().Show(message);
         }
     } 
 }

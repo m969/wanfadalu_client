@@ -2,7 +2,9 @@ namespace KBEngine
 {
 public partial class ChatChannelSystem
 {
-public string onReciveChatMessage = "onReciveChatMessage";
-public string onSendChatMessage = "onSendChatMessage";
+public string ReciveChatMessage = "ReciveChatMessage";
+public string ReciveVoiceSample = "ReciveVoiceSample";
+public string sendChatMessage = "sendChatMessage";
+public string sendVoiceSample = "sendVoiceSample";
 }
 }

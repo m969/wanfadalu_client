@@ -5,12 +5,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22483408}
-  - 222: {fileID: 22205898}
-  - 114: {fileID: 11447802}
-  - 114: {fileID: 11477094}
+  - component: {fileID: 22483408}
+  - component: {fileID: 22205898}
+  - component: {fileID: 11447802}
+  - component: {fileID: 11477094}
   m_Layer: 5
   m_Name: DeadPanel
   m_TagString: Untagged
@@ -56,6 +56,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf2d7bc223347142b1616b1f2d887e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parentLayer: 2
+  _layoutStruct:
+    _anchorMin: {x: 0, y: 0}
+    _anchorMax: {x: 1, y: 1}
+    _pivot: {x: 0.5, y: 0.5}
+    _offsetMax: {x: 0, y: 0}
+    _offsetMin: {x: 0, y: 0}
+    _anchoredPosition: {x: 0, y: 0}
+    _sizeDelta: {x: 0, y: 0}
 --- !u!222 &22205898
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -71,10 +80,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}

@@ -35,7 +35,8 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            StretchLayout();
+            //StretchLayout();
+
             //ShowPanelByName("BagPanel");
             //ShowPanelByName("TheStorePanel");
             //ShowPanelByName("TaskInfoListPanel");

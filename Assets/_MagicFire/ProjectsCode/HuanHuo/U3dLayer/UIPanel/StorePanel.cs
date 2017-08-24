@@ -42,8 +42,8 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(UiManager.Instance.CanvasLayers[1].transform);
-            transform.localPosition = new Vector3(0, 0, 0);
+            //transform.SetParent(UiManager.Instance.CanvasLayers[1].transform);
+            //transform.localPosition = new Vector3(0, 0, 0);
         }
 
         protected override void Update()

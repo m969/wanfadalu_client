@@ -15,7 +15,7 @@ namespace MagicFire.Mmorpg.UI
 
     public class CombatEntityPanelView : EntityPanelView
     {
-        private Slider _hpSlider;
+        private Image _hpImageSlider;
         private Text _damageHint;
         private int _hp;
         private int _hpMax;
@@ -24,12 +24,10 @@ namespace MagicFire.Mmorpg.UI
         {
             base.InitializeView(model);
 
-            _hpSlider = GetComponentInChildren<Slider>();
-            if (_hpSlider)
-            {
-                _damageHint = _hpSlider.transform.Find("DamageHint").GetComponent<Text>();
-                _damageHint.gameObject.SetActive(false);
-            }
+            _hpImageSlider = transform.Find("Background/HPSlider").GetComponent<Image>();
+
+            _damageHint = transform.Find("Background/DamageHint").GetComponent<Text>();
+            _damageHint.gameObject.SetActive(false);
 
             _damageHint.GetComponent<DOTweenAnimation>().onStepComplete.AddListener(HideDamageHint);    //掉血动画结束后隐藏动画
 
@@ -58,7 +56,7 @@ namespace MagicFire.Mmorpg.UI
                 return;
             _hp = hp;
             _hpMax = hpMax;
-            _hpSlider.value = (float)hp / hpMax;
+            _hpImageSlider.fillAmount= (float)hp / hpMax;
         }
 
         private void Hp_Up(object old)
@@ -70,7 +68,7 @@ namespace MagicFire.Mmorpg.UI
                 return;
             _hp = hp;
             _hpMax = hpMax;
-            _hpSlider.value = (float)hp / hpMax;
+            _hpImageSlider.fillAmount = (float)hp / hpMax;
             _damageHint.text = "" + (hp - (int)old);
             _damageHint.gameObject.SetActive(true);
         }

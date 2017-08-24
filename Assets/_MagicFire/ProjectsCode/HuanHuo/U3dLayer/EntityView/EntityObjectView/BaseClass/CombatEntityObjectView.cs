@@ -21,8 +21,8 @@ namespace MagicFire.Mmorpg
         public override void InitializeView(IModel model)
         {
             base.InitializeView(model);
-            model.SubscribeMethodCall("OnDie", OnDie);
-            model.SubscribeMethodCall("OnRespawn", OnRespawn);
+            model.SubscribeMethodCall(KBEngine.Avatar.HealthSystem.OnDie, OnDie);
+            model.SubscribeMethodCall(KBEngine.Avatar.HealthSystem.OnRespawn, OnRespawn);
         }
 
         protected virtual void OnDie(object[] args)
@@ -40,8 +40,8 @@ namespace MagicFire.Mmorpg
 
         public override void OnModelDestroy(object[] objects)
         {
-            Model.DesubscribeMethodCall("OnDie", OnDie);
-            Model.DesubscribeMethodCall("OnRespawn", OnRespawn);
+            Model.DesubscribeMethodCall(KBEngine.Avatar.HealthSystem.OnDie, OnDie);
+            Model.DesubscribeMethodCall(KBEngine.Avatar.HealthSystem.OnRespawn, OnRespawn);
             base.OnModelDestroy(objects);
         }
     }

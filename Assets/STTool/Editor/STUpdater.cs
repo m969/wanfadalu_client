@@ -17,6 +17,8 @@
  *     1.     Mogoson     11/7/2015        1.0        Build this file.
  *************************************************************************/
 
+using System.Text;
+
 namespace Developer.STTool
 {
     using System;
@@ -49,7 +51,7 @@ namespace Developer.STTool
             var content = File.ReadAllText(assetPath);
             content = content.Replace("#CreateTime#", createTime);
             content = content.Replace("#CopyrightTime#", copyrightTime);
-            File.WriteAllText(assetPath, content);
+            File.WriteAllText(assetPath, content, Encoding.UTF8);
 
             //Refresh asset database.
             AssetDatabase.Refresh();

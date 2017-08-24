@@ -1044,6 +1044,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ed3a40eddd50a49904f5ec245fb5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parentLayer: 2
+  _layoutStruct:
+    _anchorMin: {x: 0.5, y: 0.5}
+    _anchorMax: {x: 0.5, y: 0.5}
+    _pivot: {x: 0.5, y: 0.5}
+    _offsetMax: {x: 0, y: 0}
+    _offsetMin: {x: 0, y: 0}
+    _anchoredPosition: {x: 0, y: 0}
+    _sizeDelta: {x: 300, y: 400}
   _content: {fileID: 22463960}
 --- !u!114 &11498524
 MonoBehaviour:

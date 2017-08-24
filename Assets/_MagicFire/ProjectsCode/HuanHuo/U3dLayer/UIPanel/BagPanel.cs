@@ -1,4 +1,6 @@
-﻿namespace MagicFire.Mmorpg.UI
+﻿using MagicFire.Mmorpg.AvatarState;
+
+namespace MagicFire.Mmorpg.UI
 {
     using UnityEngine;
     using UnityEngine.UI;
@@ -73,9 +75,9 @@
         protected override void Update()
         {
             base.Update();
-            if (PlayerInputController.Instance)
+            if (AvatarStateController.Instance)
             {
-                BagGoodsList = ((KBEngine.Avatar)PlayerInputController.Instance.AvatarView.Model).AvatarBag;
+                BagGoodsList = KBEngine.Avatar.MainAvatar.AvatarBag;
             }
             if (!_hasCreateOnce)
             {

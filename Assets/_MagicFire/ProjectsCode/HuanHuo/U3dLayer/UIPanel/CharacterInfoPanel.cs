@@ -33,9 +33,9 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(UiManager.Instance.CanvasLayers[1].transform);
-            transform.localPosition = new Vector3(0, 0, 0);
-            transform.localScale = new Vector3(1, 1, 1);
+            //transform.SetParent(SingletonGather.UiManager.CanvasLayers[1].transform);
+            //transform.localPosition = new Vector3(0, 0, 0);
+            //transform.localScale = new Vector3(1, 1, 1);
         }
 
         //当主玩家激活

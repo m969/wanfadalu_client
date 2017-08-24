@@ -1344,7 +1344,10 @@
 			
 			Dbg.DEBUG_MSG(string.Format("KBEngine::createAccount_loginapp(): connect {0}:{1} is success!", ip, port)); 
 			onOpenLoginapp_createAccount();
-		}
+            //Debug.Log("onConnectTo_createAccount_callback");
+            //Debug.Log("userData = " + userData);
+            //KBEngine.Event.fireOut("onConnectTo_createAccount_callback", success);
+        }
 		
 		/*
 			获得了服务端摘要信息， 摘要包括协议MD5， entitydefMD5
@@ -2157,11 +2160,13 @@
 		*/
 		public void Client_onUpdateBasePos(float x, float y, float z)
 		{
+            Debug.Log("Client_onUpdateBasePos " + x + y + z);
 			_entityServerPos.x = x;
 			_entityServerPos.y = y;
 			_entityServerPos.z = z;
 
 			var entity = player();
+            Debug.Log(entity.isControlled);
 			if (entity != null && entity.isControlled)
 			{
 				entity.position.Set(_entityServerPos.x, _entityServerPos.y, _entityServerPos.z);

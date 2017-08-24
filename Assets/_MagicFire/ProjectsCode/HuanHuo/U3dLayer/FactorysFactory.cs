@@ -18,7 +18,7 @@ namespace MagicFire
     /// <summary>
     /// 创建工厂的工厂
     /// </summary>
-    public class FactorysFactory : BaseSingleton<FactorysFactory>, IFactorysFactory
+    public class FactorysFactory : BaseSingleton<FactorysFactory>
     {
         private readonly Dictionary<Type, IBaseFactory> _factorys = new Dictionary<Type, IBaseFactory>();
 

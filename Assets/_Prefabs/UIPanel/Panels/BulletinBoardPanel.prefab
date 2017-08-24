@@ -57,6 +57,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38396de0bb532bb488b9ca3b97f627a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parentLayer: 2
+  _layoutStruct:
+    _anchorMin: {x: 0, y: 1}
+    _anchorMax: {x: 1, y: 1}
+    _pivot: {x: 0.5, y: 0.5}
+    _offsetMax: {x: 0, y: 0}
+    _offsetMin: {x: 0, y: 0}
+    _anchoredPosition: {x: 0, y: -50}
+    _sizeDelta: {x: 0, y: 50}
   _bulletinContentText: {fileID: 114981898304170072}
 --- !u!114 &114340800412268342
 MonoBehaviour:

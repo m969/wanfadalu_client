@@ -9,6 +9,8 @@
 	: 7/2/2017
  * *********************************************************/
 
+using MagicFire.Mmorpg.AvatarState;
+
 namespace MagicFire.Mmorpg.Huanhuo
 {
     using UnityEngine;
@@ -58,62 +60,62 @@ namespace MagicFire.Mmorpg.Huanhuo
         //
         public void OnMoveStart()
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.StartMove();
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.StartMove();
         }
 
         public void OnMove(Vector2 vec)
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.MoveMainAvatar(vec);
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.MoveMainAvatar(vec);
         }
 
         public void OnMoveEnd()
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.EndMove();
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.EndMove();
         }
 
         public void OnSkillQJoystickMoveStart()
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.SkillQReady();
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.SkillQReady();
         }
 
         public void OnSkillQJoystickMove(Vector2 vec)
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.OnSkillQReadying(vec);
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.OnSkillQReadying(vec);
         }
 
         public void OnSkillQJoystickMoveEnd()
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.DoSkillQ();
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.DoSkillQ();
         }
 
         public void OnSkillWJoystickMoveStart()
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.SkillWReady();
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.SkillWReady();
         }
 
         public void OnSkillWJoystickMove(Vector2 vec)
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.OnSkillWReadying(vec);
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.OnSkillWReadying(vec);
         }
 
         public void OnSkillWJoystickMoveEnd()
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.DoSkillW();
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.DoSkillW();
         }
 
         public void OnSkillEDown()
         {
-            if (PlayerInputController.Instance)
-                PlayerInputController.Instance.DoSkillE();
+            if (AvatarStateController.Instance)
+                AvatarStateController.Instance.DoSkillE();
         }
         //
         #endregion

@@ -17,16 +17,16 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
-            var rect = GetComponent<RectTransform>();
+            //transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
+            //var rect = GetComponent<RectTransform>();
 
-            rect.offsetMin = new Vector2(0, -50);
-            rect.offsetMax = new Vector2(0, -50);
-            rect.sizeDelta = new Vector2(0, 50);
-            rect.anchorMin = new Vector2(0.0f, 1.0f);
-            rect.anchorMax = new Vector2(1, 1);
-            rect.pivot= new Vector2(0.5f, 0.5f);
-            transform.localScale = new Vector3(1, 1, 1);
+            //rect.offsetMin = new Vector2(0, -50);
+            //rect.offsetMax = new Vector2(0, -50);
+            //rect.sizeDelta = new Vector2(0, 50);
+            //rect.anchorMin = new Vector2(0.0f, 1.0f);
+            //rect.anchorMax = new Vector2(1, 1);
+            //rect.pivot= new Vector2(0.5f, 0.5f);
+            //transform.localScale = new Vector3(1, 1, 1);
         }
 
         //当主玩家激活

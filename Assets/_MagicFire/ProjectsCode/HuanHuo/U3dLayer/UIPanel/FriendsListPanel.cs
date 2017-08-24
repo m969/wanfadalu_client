@@ -43,17 +43,19 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
+
+            //transform.SetParent(SingletonGather.UiManager.CanvasLayerFront.transform);
+
+            //transform.localScale = new Vector3(1, 1, 1);
+
+            //var rect = GetComponent<RectTransform>();
+            //rect.anchorMin = new Vector2(1.0f, 0.5f);
+            //rect.anchorMax = new Vector2(1.0f, 0.5f);
+            //rect.pivot = new Vector2(0.5f, 0.5f);
+            //rect.anchoredPosition = new Vector2(-97, 0);
+            //rect.sizeDelta = new Vector2(195, 245);
+
             _friListItem = AssetTool.LoadUiPanelPanelsAssetByName("FriendsListItem");
-
-            transform.localScale = new Vector3(1, 1, 1);
-
-            var rect = GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(1.0f, 0.5f);
-            rect.anchorMax = new Vector2(1.0f, 0.5f);
-            rect.pivot = new Vector2(0.5f, 0.5f);
-            rect.anchoredPosition = new Vector2(-97, 0);
-            rect.sizeDelta = new Vector2(195, 245);
         }
 
         private void OnEnable()
@@ -162,6 +164,7 @@ namespace MagicFire.Mmorpg.UI
                 }
             }
         }
+
         //添加朋友
         public void AddFriendsButton()
         {

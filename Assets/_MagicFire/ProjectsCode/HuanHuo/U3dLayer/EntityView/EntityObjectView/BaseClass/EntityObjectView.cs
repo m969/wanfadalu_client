@@ -21,25 +21,25 @@ namespace MagicFire.Mmorpg
         public override void InitializeView(IModel model)
         {
             base.InitializeView(model);
-            EntityNameUpdateHandle(0);
-            model.SubscribePropertyUpdate(EntityPropertys.EntityName, EntityNameUpdateHandle);
+            EntityName_Up(0);
+            model.SubscribePropertyUpdate(KBEngine.Avatar.EntityObject.entityName, EntityName_Up);
         }
 
         public override void OnModelDestroy(object[] objects)
         {
             if (Model != null)
             {
-                Model.DesubscribePropertyUpdate(EntityPropertys.EntityName, EntityNameUpdateHandle);
+                Model.DesubscribePropertyUpdate(KBEngine.Avatar.EntityObject.entityName, EntityName_Up);
                 ((KBEngine.Model)Model).renderObj = null;
             }
             base.OnModelDestroy(objects);
         }
 
-        public void EntityNameUpdateHandle(object val)
+        public void EntityName_Up(object val)
         {
-            if (EntityName == (string)((KBEngine.Model)Model).getDefinedProperty(EntityPropertys.EntityName))
+            if (EntityName == (string)((KBEngine.Model)Model).getDefinedProperty(KBEngine.Avatar.EntityObject.entityName))
                 return;
-            EntityName = (string)((KBEngine.Model)Model).getDefinedProperty(EntityPropertys.EntityName);
+            EntityName = (string)((KBEngine.Model)Model).getDefinedProperty(KBEngine.Avatar.EntityObject.entityName);
             var obj = ((KBEngine.Model)Model).renderObj as GameObject;
             if (obj != null)
             {

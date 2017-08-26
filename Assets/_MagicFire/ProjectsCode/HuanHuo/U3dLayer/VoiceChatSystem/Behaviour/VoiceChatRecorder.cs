@@ -340,7 +340,7 @@ namespace VoiceChat.Behaviour
             }
 
             Debug.Log("开始录音");
-            _micButtonText.text = "关闭麦克风";
+            _micButtonText.text = "关闭聊天话筒";
 
             Device = "";
 
@@ -368,7 +368,7 @@ namespace VoiceChat.Behaviour
         public void StopRecording()
         {
             Debug.Log("结束录音");
-            _micButtonText.text = "打开麦克风";
+            _micButtonText.text = "打开聊天话筒";
             clip = null;
             recording = false;
         }

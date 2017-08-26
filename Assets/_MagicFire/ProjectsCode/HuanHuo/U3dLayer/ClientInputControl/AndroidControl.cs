@@ -9,7 +9,7 @@
 	: 7/2/2017
  * *********************************************************/
 
-using MagicFire.Mmorpg.AvatarState;
+using MagicFire.Mmorpg.AvatarInputState;
 
 namespace MagicFire.Mmorpg.Huanhuo
 {

@@ -33,9 +33,6 @@ namespace MagicFire.Mmorpg.UI
         protected override void Start()
         {
             base.Start();
-            //transform.SetParent(SingletonGather.UiManager.CanvasLayers[1].transform);
-            //transform.localPosition = new Vector3(0, 0, 0);
-            //transform.localScale = new Vector3(1, 1, 1);
         }
 
         //当主玩家激活
@@ -71,12 +68,13 @@ namespace MagicFire.Mmorpg.UI
             if (_mainAvatar == null)
                 return;
             //_avatar.SubscribePropertyUpdate(AvatarPropertys.Level, Level_Up);
-            _mainAvatar.SubscribePropertyUpdate(AvatarPropertys.LevelName, LevelName_Up);
+            _mainAvatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.levelName, LevelName_Up);
             //_avatar.SubscribePropertyUpdate(AvatarPropertys.LevelPeriod, LevelPeriod_Up);
-            _mainAvatar.SubscribePropertyUpdate(AvatarPropertys.LevelPeriodName, LevelPeriodName_Up);
-            _mainAvatar.SubscribePropertyUpdate(CombatPropertys.HpMax, HpMax_Up);
-            _mainAvatar.SubscribePropertyUpdate(AvatarPropertys.SpMax, SpMax_Up);
-            _mainAvatar.SubscribeMethodCall("OnEntityDestoy", OnModelDestroy);
+            _mainAvatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.levelPeriodName, LevelPeriodName_Up);
+            _mainAvatar.SubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
+            _mainAvatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
+
+            _mainAvatar.SubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
         }
 
         //取消订阅
@@ -85,12 +83,13 @@ namespace MagicFire.Mmorpg.UI
             if (_mainAvatar == null)
                 return;
             //_avatar.DesubscribeMethodCall(AvatarPropertys.Level, Level_Up);
-            _mainAvatar.DesubscribeMethodCall(AvatarPropertys.LevelName, LevelName_Up);
+            _mainAvatar.DesubscribeMethodCall(KBEngine.Avatar.SuperPowerSystem.levelName, LevelName_Up);
             //_avatar.DesubscribeMethodCall(AvatarPropertys.LevelPeriod, LevelPeriod_Up);
-            _mainAvatar.DesubscribeMethodCall(AvatarPropertys.LevelPeriodName, LevelPeriodName_Up);
-            _mainAvatar.DesubscribeMethodCall(CombatPropertys.HpMax, HpMax_Up);
-            _mainAvatar.DesubscribeMethodCall(AvatarPropertys.SpMax, SpMax_Up);
-            _mainAvatar.DesubscribeMethodCall("OnEntityDestoy", OnModelDestroy);
+            _mainAvatar.DesubscribeMethodCall(KBEngine.Avatar.SuperPowerSystem.levelPeriodName, LevelPeriodName_Up);
+            _mainAvatar.DesubscribeMethodCall(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
+            _mainAvatar.DesubscribeMethodCall(KBEngine.Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
+
+            _mainAvatar.DesubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
         }
 
         private void OnModelDestroy(object[] objects)
@@ -117,7 +116,7 @@ namespace MagicFire.Mmorpg.UI
 
         private void LevelName_Up(object old)
         {
-            _levelText.text = (string)_mainAvatar.getDefinedProperty(AvatarPropertys.LevelName);
+            _levelText.text = (string)_mainAvatar.getDefinedProperty(KBEngine.Avatar.SuperPowerSystem.levelName);
         }
 
         ////等阶更新
@@ -134,12 +133,12 @@ namespace MagicFire.Mmorpg.UI
 
         private void LevelPeriodName_Up(object old)
         {
-            _levelPeriodText.text = (string)_mainAvatar.getDefinedProperty(AvatarPropertys.LevelPeriodName);
+            _levelPeriodText.text = (string)_mainAvatar.getDefinedProperty(KBEngine.Avatar.SuperPowerSystem.levelPeriodName);
         }
 
         private void HpMax_Up(object old)
         {
-            int hpMax = (int)((KBEngine.Model)_mainAvatar).getDefinedProperty(CombatPropertys.HpMax);
+            int hpMax = (int)((KBEngine.Model)_mainAvatar).getDefinedProperty(KBEngine.Avatar.HealthSystem.HP_Max);
             if (Equals(_hpMax, hpMax))
                 return;
             _hpMaxText.text = "" + hpMax;
@@ -147,7 +146,7 @@ namespace MagicFire.Mmorpg.UI
 
         private void SpMax_Up(object old)
         {
-            int spMax = (int)((KBEngine.Model)_mainAvatar).getDefinedProperty(CombatPropertys.HpMax);
+            int spMax = (int)((KBEngine.Model)_mainAvatar).getDefinedProperty(KBEngine.Avatar.SuperPowerSystem.SP_Max);
             if (Equals(_spMax, spMax))
                 return;
             _spMaxText.text = "" + spMax;

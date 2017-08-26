@@ -117,7 +117,9 @@ namespace MagicFire.Common.Plugin
 
         public static Object LoadTriggerAssetByName(string assetName)
         {
-            return LoadAsset_Database_Or_Bundle(TriggerFolder + "/" + assetName + ".prefab", "Prefabs", "trigger_bundle", assetName);
+            var assetNameDatabase = assetName;
+            assetNameDatabase = assetNameDatabase.Replace("_", "/");
+            return LoadAsset_Database_Or_Bundle(TriggerFolder + "/" + assetNameDatabase + ".prefab", "Prefabs", "trigger_bundle", assetName);
         }
 
         public static Object LoadUiPanelPanelsAssetByName(string assetName)

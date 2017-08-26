@@ -8,45 +8,45 @@ namespace MagicFire.Mmorpg
     using System.Linq;
     using Object = UnityEngine.Object;
 
-    public class MonsterView : CombatEntityObjectView
+    public class MonsterView : SkillEntityObjectView
     {
-        public Animator animator;
-        public Animation animation;
+        private Animator _animator;
+        private Animation _animation;
 
         private void Start()
         {
-            animator = GetComponent<Animator>();
-            animation = GetComponent<Animation>();
+            _animator = GetComponent<Animator>();
+            _animation = GetComponent<Animation>();
         }
 
         public override void InitializeView(Common.IModel model)
         {
             base.InitializeView(model);
-            Model.SubscribeMethodCall("StartMove", StartMove);
-            Model.SubscribeMethodCall("StopMove",StopMove);
-            Model.SubscribeMethodCall("Attack_01", Attack_01);
-            Model.SubscribeMethodCall("Attack_02", Attack_02);
+            Model.SubscribeMethodCall(KBEngine.Monster.AI.StartMove, StartMove);
+            Model.SubscribeMethodCall(KBEngine.Monster.AI.StopMove,StopMove);
+            Model.SubscribeMethodCall(KBEngine.Monster.AI.Attack_01, Attack_01);
+            Model.SubscribeMethodCall(KBEngine.Monster.AI.Attack_02, Attack_02);
         }
 
         //开始移动，播放移动动画
         private void StartMove(object[] var)
         {
-            if (animation != null)
+            if (_animation != null)
             {
-                if (!animation.IsPlaying("Walk"))
+                if (!_animation.IsPlaying("Walk"))
                 {
-                    animation.Play("Walk");
+                    _animation.Play("Walk");
                 }
             }
-            if (animator != null)
+            if (_animator != null)
             {
-                var collection = animator.GetCurrentAnimatorClipInfo(0);
+                var collection = _animator.GetCurrentAnimatorClipInfo(0);
 
                 foreach (var item in collection)
                 {
                     if (item.clip.name == "Walk")
                     {
-                        animator.Play("Walk");
+                        _animator.Play("Walk");
                     }
                 }
             }
@@ -56,45 +56,46 @@ namespace MagicFire.Mmorpg
         //播放停止移动动画
         private void StopMove(object[] var)
         {
-            if (animation != null)
+            if (_animation != null)
             {
-                if (!animation.IsPlaying("Idle_01"))
+                if (!_animation.IsPlaying("Idle_01"))
                 {
-                    animation.Play("Idle_01");
+                    _animation.Play("Idle_01");
                 }
             }
-            if (animator != null)
+            if (_animator != null)
             {
-                var collection = animator.GetCurrentAnimatorClipInfo(0);
+                var collection = _animator.GetCurrentAnimatorClipInfo(0);
 
                 foreach (var item in collection)
                 {
                     if (item.clip.name == "Idle_01")
                     {
-                        animator.Play("Idle_01");
+                        _animator.Play("Idle_01");
                     }
                 }
             }
         }
+
         //第一种攻击方式
         private void Attack_01(object[] var)
         {
-            if (animation != null)
+            if (_animation != null)
             {
-                if (!animation.IsPlaying("Attack_01"))
+                if (!_animation.IsPlaying("Attack_01"))
                 {
-                    animation.Play("Attack_01");
+                    _animation.Play("Attack_01");
                 }
             }
-            if (animator != null)
+            if (_animator != null)
             {
-                var collection = animator.GetCurrentAnimatorClipInfo(0);
+                var collection = _animator.GetCurrentAnimatorClipInfo(0);
 
                 foreach (var item in collection)
                 {
                     if (item.clip.name == "Attack_01")
                     {
-                        animator.Play("Attack_01");
+                        _animator.Play("Attack_01");
                     }
                 }
             }
@@ -103,22 +104,22 @@ namespace MagicFire.Mmorpg
         //第二种攻击方式
         private void Attack_02(object[] var)
         {
-            if (animation != null)
+            if (_animation != null)
             {
-                if (!animation.IsPlaying("Attack_02"))
+                if (!_animation.IsPlaying("Attack_02"))
                 {
-                    animation.Play("Attack_02");
+                    _animation.Play("Attack_02");
                 }
             }
-            if (animator != null)
+            if (_animator != null)
             {
-                var collection = animator.GetCurrentAnimatorClipInfo(0);
+                var collection = _animator.GetCurrentAnimatorClipInfo(0);
 
                 foreach (var item in collection)
                 {
                     if (item.clip.name == "Attack_02")
                     {
-                        animator.Play("Attack_02");
+                        _animator.Play("Attack_02");
                     }
                 }
             }
@@ -127,22 +128,22 @@ namespace MagicFire.Mmorpg
         //播放死亡动画
         private void Die(object var)
         {
-            if (animation != null)
+            if (_animation != null)
             {
-                if (!animation.IsPlaying("Die"))
+                if (!_animation.IsPlaying("Die"))
                 {
-                    animation.Play("Die");
+                    _animation.Play("Die");
                 }
             }
-            if (animator != null)
+            if (_animator != null)
             {
-                var collection = animator.GetCurrentAnimatorClipInfo(0);
+                var collection = _animator.GetCurrentAnimatorClipInfo(0);
 
                 foreach (var item in collection)
                 {
                     if (item.clip.name == "Die")
                     {
-                        animator.Play("Die");
+                        _animator.Play("Die");
                     }
                 }
             }

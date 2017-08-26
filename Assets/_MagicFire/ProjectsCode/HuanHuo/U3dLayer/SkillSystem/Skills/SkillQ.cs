@@ -9,7 +9,7 @@
 	: 5/28/2017
  * *********************************************************/
 
-using MagicFire.Mmorpg.AvatarState;
+using MagicFire.Mmorpg.AvatarInputState;
 using MagicFire.SceneManagement;
 
 namespace MagicFire.Mmorpg.Skill

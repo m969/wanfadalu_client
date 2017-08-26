@@ -8,7 +8,7 @@ using KBEngine;
 using MagicFire.Common;
 using MagicFire.Common.Plugin;
 using MagicFire.Mmorpg;
-using MagicFire.Mmorpg.AvatarState;
+using MagicFire.Mmorpg.AvatarInputState;
 using MagicFire.Mmorpg.UI;
 
 namespace MagicFire {

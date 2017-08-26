@@ -1,4 +1,5 @@
 ﻿using MagicFire.Common;
+using PathologicalGames;
 using UnityEngine.UI;
 
 namespace MagicFire.Mmorpg.UI
@@ -13,7 +14,6 @@ namespace MagicFire.Mmorpg.UI
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
         [SerializeField]
         private Dropdown _dropdown;
 
@@ -25,6 +25,7 @@ namespace MagicFire.Mmorpg.UI
         private void Start()
         {
             SingletonGather.WorldMediator.InitializeGameWorld();
+            SingletonGather.ViewObjectPool.ToString();
             KBEngine.Event.registerOut("onLoginFailed", this, "OnLoginFailed");
             KBEngine.Event.registerOut("onCreateAccountResult", this, "OnCreateAccountResult");
         }

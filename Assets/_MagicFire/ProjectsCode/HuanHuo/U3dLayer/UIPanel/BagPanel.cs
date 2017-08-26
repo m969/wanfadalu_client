@@ -1,4 +1,5 @@
-﻿using MagicFire.Mmorpg.AvatarState;
+﻿
+using MagicFire.Mmorpg.AvatarInputState;
 
 namespace MagicFire.Mmorpg.UI
 {

@@ -6,6 +6,8 @@ namespace MagicFire.Mmorpg.UI
     using UnityEngine;
     using UnityEngine.UI;
     using System.Collections;
+    using Avatar = KBEngine.Avatar;
+    using KBEngine;
 
     public class GamePanel : Panel
     {
@@ -30,7 +32,7 @@ namespace MagicFire.Mmorpg.UI
         [SerializeField, Space(10)]
         private Text _combatTimeBulletinText;
 
-        private KBEngine.Model _avatar;
+        private Model _avatar;
 
         protected override void Start()
         {
@@ -63,7 +65,7 @@ namespace MagicFire.Mmorpg.UI
         }
 
         //当主玩家激活
-        public void OnMainAvatarActive(KBEngine.Model avatar)
+        public void OnMainAvatarActive(Model avatar)
         {
             if (avatar != null)
             {
@@ -87,16 +89,16 @@ namespace MagicFire.Mmorpg.UI
             Sp_Up(null);
             SpMax_Up(null);
 
-            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP, Hp_Up);
-            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
+            _avatar.SubscribePropertyUpdate(Avatar.HealthSystem.HP, Hp_Up);
+            _avatar.SubscribePropertyUpdate(Avatar.HealthSystem.HP_Max, HpMax_Up);
 
-            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP, Msp_Up);
-            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP_Max, MspMax_Up);
+            _avatar.SubscribePropertyUpdate(Avatar.SuperPowerSystem.MSP, Msp_Up);
+            _avatar.SubscribePropertyUpdate(Avatar.SuperPowerSystem.MSP_Max, MspMax_Up);
 
-            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP, Sp_Up);
-            _avatar.SubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
+            _avatar.SubscribePropertyUpdate(Avatar.SuperPowerSystem.SP, Sp_Up);
+            _avatar.SubscribePropertyUpdate(Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
 
-            _avatar.SubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
+            _avatar.SubscribeMethodCall(Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
         }
 
         //取消订阅
@@ -104,16 +106,16 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar == null)
                 return;
-            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP, Hp_Up);
-            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.HealthSystem.HP_Max, HpMax_Up);
+            _avatar.DesubscribePropertyUpdate(Avatar.HealthSystem.HP, Hp_Up);
+            _avatar.DesubscribePropertyUpdate(Avatar.HealthSystem.HP_Max, HpMax_Up);
 
-            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP, Msp_Up);
-            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.MSP_Max, MspMax_Up);
+            _avatar.DesubscribePropertyUpdate(Avatar.SuperPowerSystem.MSP, Msp_Up);
+            _avatar.DesubscribePropertyUpdate(Avatar.SuperPowerSystem.MSP_Max, MspMax_Up);
 
-            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP, Sp_Up);
-            _avatar.DesubscribePropertyUpdate(KBEngine.Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
+            _avatar.DesubscribePropertyUpdate(Avatar.SuperPowerSystem.SP, Sp_Up);
+            _avatar.DesubscribePropertyUpdate(Avatar.SuperPowerSystem.SP_Max, SpMax_Up);
 
-            _avatar.DesubscribeMethodCall(KBEngine.Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
+            _avatar.DesubscribeMethodCall(Avatar.EntityObject.OnEntityDestroy, OnModelDestroy);
         }
 
         private void OnModelDestroy(object[] objects)
@@ -126,8 +128,8 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar != null)
             {
-                var hp = (int)_avatar.getDefinedProperty(CombatPropertys.Hp);
-                var maxHp = (int)_avatar.getDefinedProperty(CombatPropertys.HpMax);
+                var hp = (int)_avatar.getDefinedProperty(Avatar.HealthSystem.HP);
+                var maxHp = (int)_avatar.getDefinedProperty(Avatar.HealthSystem.HP_Max);
                 if (_hpSliderImage != null)
                     _hpSliderImage.fillAmount = (float)hp / maxHp;
                 if (_hpAmountText != null)
@@ -140,8 +142,8 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar != null)
             {
-                var hp = (int)_avatar.getDefinedProperty(CombatPropertys.Hp);
-                var maxHp = (int)_avatar.getDefinedProperty(CombatPropertys.HpMax);
+                var hp = (int)_avatar.getDefinedProperty(Avatar.HealthSystem.HP);
+                var maxHp = (int)_avatar.getDefinedProperty(Avatar.HealthSystem.HP_Max);
                 if (_hpSliderImage != null)
                     _hpSliderImage.fillAmount = (float)hp / maxHp;
                 if (_hpAmountText != null)
@@ -154,8 +156,8 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar != null)
             {
-                var mp = (int)_avatar.getDefinedProperty(AvatarPropertys.Msp);
-                var maxMp = (int)_avatar.getDefinedProperty(AvatarPropertys.MspMax);
+                var mp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.MSP);
+                var maxMp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.MSP_Max);
                 if (_mspSliderImage != null)
                     _mspSliderImage.fillAmount = (float)mp / maxMp;
                 if (_mspAmountText != null)
@@ -168,8 +170,8 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar != null)
             {
-                var mp = (int)_avatar.getDefinedProperty(AvatarPropertys.Msp);
-                var maxMp = (int)_avatar.getDefinedProperty(AvatarPropertys.MspMax);
+                var mp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.MSP);
+                var maxMp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.MSP_Max);
                 if (_mspSliderImage != null)
                     _mspSliderImage.fillAmount = (float)mp / maxMp;
                 if (_mspAmountText != null)
@@ -182,8 +184,8 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar != null)
             {
-                var sp = (int)_avatar.getDefinedProperty(AvatarPropertys.Sp);
-                var maxSp = (int)_avatar.getDefinedProperty(AvatarPropertys.SpMax);
+                var sp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.SP);
+                var maxSp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.SP_Max);
                 if (_spSliderImage != null)
                     _spSliderImage.fillAmount = (float)sp / maxSp;
                 if (_spAmountText != null)
@@ -196,8 +198,8 @@ namespace MagicFire.Mmorpg.UI
         {
             if (_avatar != null)
             {
-                var sp = (int)_avatar.getDefinedProperty(AvatarPropertys.Sp);
-                var maxSp = (int)_avatar.getDefinedProperty(AvatarPropertys.SpMax);
+                var sp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.SP);
+                var maxSp = (int)_avatar.getDefinedProperty(Avatar.SuperPowerSystem.SP_Max);
                 if (_spSliderImage != null)
                     _spSliderImage.fillAmount = (float)sp / maxSp;
                 if (_spAmountText != null)
@@ -207,10 +209,10 @@ namespace MagicFire.Mmorpg.UI
 
         public void ExitGame()
         {
-            if (KBEngine.KBEngineApp.app != null)
+            if (KBEngineApp.app != null)
             {
-                KBEngine.KBEngineApp.app._closeNetwork(KBEngine.KBEngineApp.app.networkInterface());
-                KBEngine.KBEngineApp.app.destroy();
+                KBEngineApp.app._closeNetwork(KBEngineApp.app.networkInterface());
+                KBEngineApp.app.destroy();
             }
             UnityEngine.Application.Quit();
         }

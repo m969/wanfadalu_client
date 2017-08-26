@@ -1,6 +1,6 @@
 ﻿/* --------------------------
  * Company: MagicFire Studio
- *   Autor: Changmin Yang
+ *   Autor: Ch3ngmin Yang
  *    Date: 2017/02/20
  *    描述： 
  * -------------------------- */

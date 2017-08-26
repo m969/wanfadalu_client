@@ -1,4 +1,4 @@
-﻿using MagicFire.Mmorpg.AvatarState;
+﻿using MagicFire.Mmorpg.AvatarInputState;
 
 namespace MagicFire.Mmorpg
 {
@@ -10,7 +10,7 @@ namespace MagicFire.Mmorpg
     using MagicFire.Common;
     using MagicFire.Mmorpg.Skill;
 
-    public class AvatarView : CombatEntityObjectView
+    public class AvatarView : SkillEntityObjectView
     {
         [SerializeField]
         [Range(0.1f, 1.0f)]
@@ -130,76 +130,6 @@ namespace MagicFire.Mmorpg
         private void OnReciveChatMessage(object[] obj)
         {
             SingletonGather.UiManager.TryGetOrCreatePanel("PlayerDialogPanel").GetComponent<PlayerDialogPanel>().OnReciveChatMessage(obj);
-        }
-
-        private class AvatarState
-        {
-            protected readonly AvatarView AvatarView;
-
-            protected AvatarState(AvatarView avatarView)
-            {
-                AvatarView = avatarView;
-            }
-
-            public virtual void Run()
-            {
-
-            }
-
-            public virtual void FixedRun()
-            {
-
-            }
-        }
-
-        private class StandState : AvatarState
-        {
-            public StandState(AvatarView avatarView)
-                : base(avatarView)
-            {
-
-            }
-
-            public override void Run()
-            {
-                base.Run();
-                if (AvatarView._animator)
-                {
-                    AvatarView._animator.SetFloat("Speed", 0.0f);
-                }
-            }
-        }
-
-        private class RunState : AvatarState
-        {
-            public RunState(AvatarView avatarView)
-                : base(avatarView)
-            {
-
-            }
-
-            public override void Run()
-            {
-                base.Run();
-                if (AvatarView._animator)
-                {
-                    if (AvatarView._animator.GetCurrentAnimatorStateInfo(0).IsName("Locomotion") ||
-                        AvatarView._animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") ||
-                        AvatarView._animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                    {
-                        AvatarView._animator.SetFloat("Speed", 1.0f);
-                    }
-                }
-            }
-        }
-
-        private class DeadState : AvatarState
-        {
-            public DeadState(AvatarView avatarView)
-                : base(avatarView)
-            {
-
-            }
         }
     }
 }

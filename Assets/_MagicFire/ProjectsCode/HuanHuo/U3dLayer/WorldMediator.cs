@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using DG.Tweening;
 using MagicFire.Common;
-using MagicFire.Mmorpg.AvatarState;
+using MagicFire.Mmorpg.AvatarInputState;
 using MagicFire.Mmorpg.UI;
 
 namespace MagicFire.Mmorpg
@@ -233,16 +233,14 @@ namespace MagicFire.Mmorpg
         {
             if (entity.renderObj == null)
                 return;
-            Debug.Log("updatePosition");
-            ((GameObject) entity.renderObj).transform.DOMove(entity.position, 0.1f);
-            ((GameObject)entity.renderObj).transform.eulerAngles = new Vector3(entity.direction.x, entity.direction.z, entity.direction.y);
+            //((GameObject) entity.renderObj).transform.DOMove(entity.position, 0.2f);
+            //((GameObject)entity.renderObj).transform.eulerAngles = new Vector3(entity.direction.x, entity.direction.z, entity.direction.y);
         }
 
         public void set_position(Entity entity)
         {
             if (entity.renderObj == null)
                 return;
-            Debug.Log("set_position");
             var entityModel = entity as Model;
             if (entityModel != null)
             {

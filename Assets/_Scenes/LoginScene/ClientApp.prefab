@@ -44,10 +44,10 @@ MonoBehaviour:
   isMultiThreads: 1
   ip: 127.0.0.1
   port: 20013
-  clientType: 7
+  clientType: 2
   persistentDataPath: Application.persistentDataPath
   syncPlayer: 1
-  threadUpdateHZ: 10
+  threadUpdateHZ: 25
   SEND_BUFFER_MAX: 2048
   RECV_BUFFER_MAX: 4096
   useAliasEntityID: 1

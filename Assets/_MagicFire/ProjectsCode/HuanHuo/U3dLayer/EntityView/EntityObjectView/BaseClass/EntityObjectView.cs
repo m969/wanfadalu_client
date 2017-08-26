@@ -4,6 +4,9 @@
  *    Date: 2017/02/20
  *    描述： 
  * -------------------------- */
+
+using DG.Tweening;
+
 namespace MagicFire.Mmorpg
 {
     using System;
@@ -18,6 +21,15 @@ namespace MagicFire.Mmorpg
     {
         public string EntityName { get; set; }
 
+        protected virtual void FixedUpdate()
+        {
+            if (Model == null)
+                return;
+            var v = ((KBEngine.Model)Model).position;
+            transform.DOMove(new Vector3(v.x, v.y, v.z), 0.25f);
+            transform.eulerAngles = new Vector3(((KBEngine.Model)Model).direction.x, ((KBEngine.Model)Model).direction.z, ((KBEngine.Model)Model).direction.y);
+        }
+
         public override void InitializeView(IModel model)
         {
             base.InitializeView(model);
@@ -28,23 +40,16 @@ namespace MagicFire.Mmorpg
         public override void OnModelDestroy(object[] objects)
         {
             if (Model != null)
-            {
                 Model.DesubscribePropertyUpdate(KBEngine.Avatar.EntityObject.entityName, EntityName_Up);
-                ((KBEngine.Model)Model).renderObj = null;
-            }
             base.OnModelDestroy(objects);
         }
 
-        public void EntityName_Up(object val)
+        public void EntityName_Up(object old)
         {
-            if (EntityName == (string)((KBEngine.Model)Model).getDefinedProperty(KBEngine.Avatar.EntityObject.entityName))
+            if (EntityName == (string)Model.getDefinedProperty(KBEngine.Avatar.EntityObject.entityName))
                 return;
-            EntityName = (string)((KBEngine.Model)Model).getDefinedProperty(KBEngine.Avatar.EntityObject.entityName);
-            var obj = ((KBEngine.Model)Model).renderObj as GameObject;
-            if (obj != null)
-            {
-                obj.name = ((KBEngine.Model)Model).className + ":" + EntityName;
-            }
+            EntityName = (string)Model.getDefinedProperty(KBEngine.Avatar.EntityObject.entityName);
+            gameObject.name = ((KBEngine.Model)Model).className + ":" + EntityName;
         }
     }
 }

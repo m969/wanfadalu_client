@@ -1,4 +1,4 @@
-namespace MagicFire.Mmorpg.AvatarState
+namespace MagicFire.Mmorpg.AvatarInputState
 {
     using System;
     using UnityEngine;
@@ -20,9 +20,9 @@ namespace MagicFire.Mmorpg.AvatarState
     {
         public const int RayCastHitDist = 400;
         private static CharacterController _characterController;
-        private PlayerState _currentState;
-        private PlayerState _playerState;
-        private DeadState _deadState;
+        private PlayerInputState _currentInputState;
+        private PlayerInputState _playerInputState;
+        private DeadInputState _deadInputState;
 
         public CharacterController CharacterController
         {
@@ -49,19 +49,19 @@ namespace MagicFire.Mmorpg.AvatarState
             {
                 if (Application.platform == RuntimePlatform.Android)
                 {
-                    _playerState = new AndroidPlayerState(this);
+                    _playerInputState = new AndroidPlayerInputState(this);
                 }
                 else
                 {
                     if (SingletonGather.XmlSceneManager.ControlMode == XmlSceneManager.ControlModeEnum.PcControl)
-                        _playerState = new PcPlayerState(this);
+                        _playerInputState = new PcPlayerInputState(this);
                     else
-                        _playerState = new AndroidPlayerState(this);
+                        _playerInputState = new AndroidPlayerInputState(this);
                 }
             }
 
-            _deadState = new DeadState(this);
-            _currentState = _playerState;
+            _deadInputState = new DeadInputState(this);
+            _currentInputState = _playerInputState;
 
             KBEngine.Avatar.MainAvatar.SubscribeMethodCall(KBEngine.Avatar.DialogSystem.DoDialog, DoDialog);
         }
@@ -71,7 +71,7 @@ namespace MagicFire.Mmorpg.AvatarState
             if (SingletonGather.WorldMediator.MainAvatarView == null)
                 return;
 
-            _currentState.Run();
+            _currentInputState.Run();
         }
 
         private void FixedUpdate()
@@ -79,7 +79,7 @@ namespace MagicFire.Mmorpg.AvatarState
             if (SingletonGather.WorldMediator.MainAvatarView == null)
                 return;
 
-            _currentState.FixedRun();
+            _currentInputState.FixedRun();
 
             if (transform.position.y < -4)
             {
@@ -100,15 +100,15 @@ namespace MagicFire.Mmorpg.AvatarState
         {
             if (other.tag == "TargetPoint")
             {
-                PlayerState.MoveVector = new Vector3(0, 0, 0);
-                KBEngine.Event.fireIn("StopMove");
-                AvatarView.OnStopMove(null);
+                //PlayerState.MoveVector = new Vector3(0, 0, 0);
+                //KBEngine.Event.fireIn("StopMove");
+                //AvatarView.OnStopMove(null);
             }
         }
 
         public void OnDie()
         {
-            _currentState = _deadState;
+            _currentInputState = _deadInputState;
         }
 
         public List<object> GetBagGoodsList()
@@ -163,15 +163,15 @@ namespace MagicFire.Mmorpg.AvatarState
 
         public void MoveMainAvatar(Vector2 vec)
         {
-            var androidPlayerState = _playerState as AndroidPlayerState;
+            var androidPlayerState = _playerInputState as AndroidPlayerInputState;
             if (androidPlayerState != null) androidPlayerState.MoveMainAvatar(vec);
         }
 
         public void EndMove()
         {
-            PlayerState.MoveVector = Vector3.zero;
-            KBEngine.Event.fireIn("StopMove");
-            AvatarView.OnStopMove(null);
+            //PlayerState.MoveVector = Vector3.zero;
+            //KBEngine.Event.fireIn("StopMove");
+            //AvatarView.OnStopMove(null);
         }
 
         public void SkillQReady()

@@ -42,10 +42,10 @@
 		public bool inited = false;
         
 		// entityDef属性，服务端同步过来后存储在这里
-		private Dictionary<string, Property> defpropertys_ = 
-			new Dictionary<string, Property>();
+		protected Dictionary<string, Property> defpropertys_ = //uFrame_kbe:private
+            new Dictionary<string, Property>();
 
-		private Dictionary<UInt16, Property> iddefpropertys_ = 
+        protected Dictionary<UInt16, Property> iddefpropertys_ = //uFrame_kbe:private
 			new Dictionary<UInt16, Property>();
 
 		public static void clear()
@@ -54,21 +54,31 @@
 
 		public Entity()
 		{
-			foreach(Property e in EntityDef.moduledefs[GetType().Name].propertys.Values)
-			{
-				Property newp = new Property();
-				newp.name = e.name;
-				newp.utype = e.utype;
-				newp.properUtype = e.properUtype;
-				newp.properFlags = e.properFlags;
-				newp.aliasID = e.aliasID;
-				newp.defaultValStr = e.defaultValStr;
-				newp.setmethod = e.setmethod;
-				newp.val = newp.utype.parseDefaultValStr(newp.defaultValStr);
-				defpropertys_.Add(e.name, newp);
-				iddefpropertys_.Add(e.properUtype, newp);
-			}
-		}
+            //uFrame_kbe
+            if (EntityDef.moduledefs == null)
+                return;
+
+            if (EntityDef.moduledefs.ContainsKey(GetType().Name) == false)
+                return;
+            //uFrame_kbe
+
+            foreach (Property e in EntityDef.moduledefs[GetType().Name].propertys.Values)
+            {
+                Property newp = new Property();
+                newp.name = e.name;
+                newp.utype = e.utype;
+                newp.properUtype = e.properUtype;
+                newp.properFlags = e.properFlags;
+                newp.aliasID = e.aliasID;
+                newp.defaultValStr = e.defaultValStr;
+                newp.setmethod = e.setmethod;
+                newp.val = newp.utype.parseDefaultValStr(newp.defaultValStr);
+                defpropertys_.Add(e.name, newp);
+                iddefpropertys_.Add(e.properUtype, newp);
+            }
+
+            //Debug.Log("Entity() " + GetType().Name);//uFrame_kbe
+        }
 		
 		public virtual void onDestroy ()
 		{
@@ -118,7 +128,8 @@
 		
 		public void setDefinedPropertyByUType(UInt16 utype, object val)
 		{
-			iddefpropertys_[utype].val = val;
+            if (iddefpropertys_.ContainsKey(utype))//uFrame_kbe
+			    iddefpropertys_[utype].val = val;
 		}
 		
 		/*
@@ -152,8 +163,11 @@
 						{
 							if(prop.isOwnerOnly() && !isPlayer())
 								continue;
-
-							setmethod.Invoke(this, new object[]{oldval});
+                            //uFrame_kbe
+                            //Debug.Log(setmethod + " " + setmethod.Name + " " + oldval);//uFrame_kbe
+                            //UnityEngine.Debug.Log("EntityThread.ManagedThreadId " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+                            //uFrame_kbe
+                            setmethod.Invoke(this, new object[]{oldval});
 						}
 					}
 				}

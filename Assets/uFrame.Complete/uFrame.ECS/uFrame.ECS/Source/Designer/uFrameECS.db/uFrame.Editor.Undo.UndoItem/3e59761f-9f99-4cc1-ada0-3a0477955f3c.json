@@ -1,0 +1,8 @@
+{
+	"Identifier":"3e59761f-9f99-4cc1-ada0-3a0477955f3c"	, 
+	"Time":"09/12/2017 23:29:19"	, 
+	"Group":232918	, 
+	"DataRecordId":"bc85e0b9-f9f3-43e0-95b5-bd10c997e311"	, 
+	"Type":1	, 
+	"RecordType":"uFrame.MVVM.MVVMNode, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"Name\":\"HuanHuoMVVM\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"ac2e595d-ce56-441d-a2ee-373d7f69cee7\"\t, \r\n\t\"Identifier\":\"bc85e0b9-f9f3-43e0-95b5-bd10c997e311\"\t, \r\n\t\"Expanded\":false}\r\n"}

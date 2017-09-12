@@ -47,9 +47,9 @@ MonoBehaviour:
   clientType: 2
   persistentDataPath: Application.persistentDataPath
   syncPlayer: 1
-  threadUpdateHZ: 25
+  threadUpdateHZ: 100
   SEND_BUFFER_MAX: 2048
-  RECV_BUFFER_MAX: 4096
+  RECV_BUFFER_MAX: 10240
   useAliasEntityID: 1
   isOnInitCallPropertysSetMethods: 1
 --- !u!1001 &100100000

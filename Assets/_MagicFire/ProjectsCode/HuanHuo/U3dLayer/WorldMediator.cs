@@ -133,26 +133,6 @@ namespace MagicFire.Mmorpg
             SingletonGather.UiManager.TryGetOrCreatePanel("SceneLoadPanel");
         }
 
-        public string UnicodeToGb(string text)
-        {
-            var mc = Regex.Matches(text, "\\\\u([\\w]{4})");
-
-            if (mc.Count <= 0) return text;
-
-            foreach (Match m2 in mc)
-            {
-                var v = m2.Value;              //  \u7502
-                var word = v.Substring(2);     //  7502
-                var codes = new byte[2];
-                var code = Convert.ToInt32(word.Substring(0, 2), 16);      //  75
-                var code2 = Convert.ToInt32(word.Substring(2), 16);        //  02
-                codes[0] = (byte)code2;
-                codes[1] = (byte)code;
-                text = text.Replace(v, Encoding.Unicode.GetString(codes));
-            }
-            return text;
-        }
-
         public void OnEnterWorld(Entity entity)
         {
             if (entity.isPlayer()) return;
@@ -268,15 +248,25 @@ namespace MagicFire.Mmorpg
         public void OnUpdatePropertys(Entity entity, string propertyName, object val)
         {
             if (entity.renderObj == null)
-            {
                 return;
-            }
+
             var entityModel = entity as Model;
+
             if (entityModel != null)
             {
                 Action<object> action;
                 entityModel.PropertyUpdateHandlers.TryGetValue(propertyName, out action);
                 if (action != null) action.Invoke(val);
+
+                foreach (var view in entityModel.Views)
+                {
+                    var propertyInfo = view.GetType().GetProperty("Up_" + propertyName);
+                    if (propertyInfo != null)
+                    {
+                        Debug.Log("propertyInfo.SetValue " + propertyInfo.Name);
+                        propertyInfo.SetValue(view, val, null);
+                    }
+                }
             }
         }
 
@@ -295,7 +285,37 @@ namespace MagicFire.Mmorpg
                 {
                     action(args);
                 }
+
+                foreach (var view in entityModel.Views)
+                {
+                    var methodInfo = view.GetType().GetMethod("Call_" + methodName);
+                    if (methodInfo != null)
+                    {
+                        Debug.Log("methodInfo.Invoke " + methodInfo.Name);
+                        methodInfo.Invoke(view, args);
+                    }
+                }
             }
         }
-    } 
+
+        public string UnicodeToGb(string text)
+        {
+            var mc = Regex.Matches(text, "\\\\u([\\w]{4})");
+
+            if (mc.Count <= 0) return text;
+
+            foreach (Match m2 in mc)
+            {
+                var v = m2.Value;              //  \u7502
+                var word = v.Substring(2);     //  7502
+                var codes = new byte[2];
+                var code = Convert.ToInt32(word.Substring(0, 2), 16);      //  75
+                var code2 = Convert.ToInt32(word.Substring(2), 16);        //  02
+                codes[0] = (byte)code2;
+                codes[1] = (byte)code;
+                text = text.Replace(v, Encoding.Unicode.GetString(codes));
+            }
+            return text;
+        }
+    }
 }

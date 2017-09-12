@@ -6,4 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_MagicFire/ProjectsCode/HuanHuoMVVM/Scenes/LoginScene.unity
+    guid: c36f453dc8fea4a4c93bc70deba2b62d
+  - enabled: 1
+    path: Assets/_MagicFire/ProjectsCode/HuanHuoMVVM/Scenes/MagicFire.HuanHuoMVVMKernelScene.unity
+    guid: 2a622090edea05f408d912fb2eb94660
+  - enabled: 1
+    path: Assets/_MagicFire/ProjectsCode/HuanHuoMVVM/Scenes/MuLingCunSpace.unity
+    guid: eacf9c7ffc65f4248a86179134dfd5b0
+  - enabled: 1
+    path: Assets/_MagicFire/ProjectsCode/HuanHuoMVVM/Scenes/YunLingZongSpace.unity
+    guid: 272528bec561cc541a9028e4c611eb42
+  - enabled: 1
     path: Assets/_Scenes/LoginScene.unity
+    guid: c3dcfe7ac7b96424f938d0ba87e2f01e
+  - enabled: 1
+    path: Assets/_MagicFire/ProjectsCode/KbeBalls/Scenes/KbeBallsKernelScene.unity
+    guid: 0caaf6f46643b324f91bffe732ef6fe4
+  - enabled: 1
+    path: Assets/_MagicFire/ProjectsCode/KbeBalls/Scenes/LoginScene.unity
+    guid: 5258e58c320d5504aa8d2702a244f0fd
+  - enabled: 1
+    path: Assets/_MagicFire/ProjectsCode/KbeBalls/Scenes/WorldScene.unity
+    guid: c53fc13a1f2e5ea4b88f4c5b2e3fbf2e

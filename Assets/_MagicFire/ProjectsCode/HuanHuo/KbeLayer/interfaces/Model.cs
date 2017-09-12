@@ -14,13 +14,25 @@ namespace KBEngine
 {
     public class Model : Entity, IModel
     {
+        private readonly List<View> _views = new List<View>();
+
         private readonly Dictionary<string, Action<object>> _propertyUpdateHandlers = new Dictionary<string, Action<object>>();
-        // ReSharper disable once ConvertPropertyToExpressionBody
-        public Dictionary<string, Action<object>> PropertyUpdateHandlers { get { return _propertyUpdateHandlers; } }
 
         private readonly Dictionary<string, Action<object[]>> _methodCallHandlers = new Dictionary<string, Action<object[]>>();
-        // ReSharper disable once ConvertPropertyToExpressionBody
+
+
+        public List<View> Views { get { return _views; } }
+
+        public Dictionary<string, Action<object>> PropertyUpdateHandlers { get { return _propertyUpdateHandlers; } }
+
         public Dictionary<string, Action<object[]>> MethodCallHandlers { get { return _methodCallHandlers; } }
+
+
+        public void RegisterView(View view)
+        {
+            Debug.Log("RegisterView");
+            _views.Add(view);
+        }
 
         public void SubscribePropertyUpdate(string name, Action<object> handler)
         {
@@ -96,7 +108,6 @@ namespace KBEngine
             return false;
         }
 
-        // ReSharper disable once InconsistentNaming
         public new object getDefinedProperty(string propertyName)
         {
             return base.getDefinedProperty(propertyName);

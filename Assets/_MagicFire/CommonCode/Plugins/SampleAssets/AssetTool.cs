@@ -41,6 +41,9 @@ using System;
 using System.Collections.Generic;
 using MagicFire.Mmorpg.Huanhuo;
 using MagicFire.SceneManagement;
+#if UNITY_EDITOR	
+using UnityEditor;
+#endif
 
 namespace MagicFire.Common.Plugin
 {
@@ -198,14 +201,14 @@ namespace MagicFire.Common.Plugin
             Object asset = null;
 
 
-
-            //if (assetTag != "")
-            //{
-            //    var tag = UnityEditor.AssetDatabase.LoadAssetAtPath<PrefabTagScriptableObject>("Assets/_Prefabs/_PrefabTags/" + assetTag + ".asset");
-            //    assetDatabasePath = tag.DatabasePath;
-            //}
-            //asset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetDatabasePath);
-
+#if UNITY_EDITOR
+            if (assetTag != "")
+            {
+                var tag = AssetDatabase.LoadAssetAtPath<PrefabTagScriptableObject>("Assets/_Prefabs/_PrefabTags/" + assetTag + ".asset");
+                assetDatabasePath = tag.DatabasePath;
+            }
+            asset = AssetDatabase.LoadAssetAtPath<Object>(assetDatabasePath);
+#endif
 
 
             return asset;

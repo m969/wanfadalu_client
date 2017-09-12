@@ -4,12 +4,10 @@
     using UnityEditor;
     using UnityEditor.SceneManagement;
     using System.Collections;
-    using UnityEditor.SceneManagement;
     using System.Collections.Generic;
     using System.Xml;
     using System.IO;
     using System.Text;
-    using LitJson;
 
     public class OpenSceneMenuItem
     {

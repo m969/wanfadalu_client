@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using MagicFire.Common.Plugin;
+//using MagicFire.Common.Plugin;
 
 namespace MagicFire
 {
@@ -40,7 +40,7 @@ namespace MagicFire
 
     public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {
-        protected static T _instance = null; //ycm: protected internal  ->  private
+        protected static T _instance = null; // protected internal  ->  private
 
         public static T Instance
         {
@@ -75,12 +75,12 @@ namespace MagicFire
                                 {
                                     if (customAttribute is PrefabMonoSingletonAttribute)
                                     {
-                                        var prefab = 
-                                            AssetTool.LoadAsset_Database_Or_Bundle(
-                                                ((PrefabMonoSingletonAttribute)customAttribute).PrefabDatabasePath,
-                                                ((PrefabMonoSingletonAttribute)customAttribute).PrefabBundlePath,
-                                                ((PrefabMonoSingletonAttribute)customAttribute).PrefabBundleName,
-                                                ((PrefabMonoSingletonAttribute)customAttribute).PrefabAssetName);
+                                        GameObject prefab = null;
+                                            //AssetTool.LoadAsset_Database_Or_Bundle(
+                                            //    ((PrefabMonoSingletonAttribute)customAttribute).PrefabDatabasePath,
+                                            //    ((PrefabMonoSingletonAttribute)customAttribute).PrefabBundlePath,
+                                            //    ((PrefabMonoSingletonAttribute)customAttribute).PrefabBundleName,
+                                            //    ((PrefabMonoSingletonAttribute)customAttribute).PrefabAssetName);
                                         if (prefab == null)
                                         {
                                             Debug.LogError(((PrefabMonoSingletonAttribute)customAttribute).PrefabDatabasePath + " is null");

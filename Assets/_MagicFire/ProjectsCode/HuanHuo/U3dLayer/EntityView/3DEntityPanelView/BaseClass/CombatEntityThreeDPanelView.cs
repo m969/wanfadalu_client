@@ -15,6 +15,36 @@ public class CombatEntityThreeDPanelView : ThreeDEntityPanelView
     private int _dp;
     private int _dpMax;
 
+
+    public int Up_HP
+    {
+        set
+        {
+            Debug.Log("Up_HP " + value);
+            _hp = value;
+
+            _hp = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP);
+            _hpMax = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP_Max);
+
+            _hpImage.fillAmount = ((float)_hp / _hpMax) * 0.25f;
+        }
+    }
+
+    public int Up_HP_Max
+    {
+        set
+        {
+            Debug.Log("Up_HP_Max " + value);
+            _hp = value;
+
+            _hp = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP);
+            _hpMax = (int)Model.getDefinedProperty(KBEngine.Avatar.HealthSystem.HP_Max);
+
+            _hpImage.fillAmount = ((float)_hp / _hpMax) * 0.25f;
+        }
+    }
+
+
     public override void InitializeView(IModel model)
     {
         base.InitializeView(model);

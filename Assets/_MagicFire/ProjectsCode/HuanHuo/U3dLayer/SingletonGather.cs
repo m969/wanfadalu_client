@@ -1,6 +1,7 @@
 ﻿using MagicFire.Common.Plugin;
 using MagicFire.Mmorpg;
 using MagicFire.Mmorpg.AvatarInputState;
+using MagicFire.SceneManagement;
 using PathologicalGames;
 
 namespace MagicFire.Common
@@ -13,6 +14,10 @@ namespace MagicFire.Common
     /// </summary>
     public partial class SingletonGather
     {
+        public static XmlSceneManager XmlSceneManager { get { return SceneManagement.XmlSceneManager.Instance; } }
+
+        public static FactorysFactory FactorysFactory { get { return MagicFire.FactorysFactory.Instance; } }
+
         public static WorldMediator WorldMediator { get { return MagicFire.Mmorpg.WorldMediator.Instance; } }
 
         public static UiManager UiManager { get { return Common.UiManager.Instance; } }

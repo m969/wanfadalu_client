@@ -1,4 +1,6 @@
-﻿namespace KBEngine
+﻿using System.Reflection;
+
+namespace KBEngine
 {
   	using UnityEngine; 
 	using System; 
@@ -7,8 +9,8 @@
 	using System.Text;
     using System.Threading;
 	using System.Text.RegularExpressions;
-	
-	using MessageID = System.UInt16;
+
+    using MessageID = System.UInt16;
 	using MessageLength = System.UInt16;
 	
 	/*
@@ -851,7 +853,7 @@
 			
 			while(stream.length() > 0)
 			{
-				string scriptmodule_name = stream.readString();
+				string scriptmodule_name = stream.readString() + "ViewModel"; //uFrame_kbe
 				UInt16 scriptUtype = stream.readUint16();
 				UInt16 propertysize = stream.readUint16();
 				UInt16 methodsize = stream.readUint16();
@@ -1428,7 +1430,7 @@
 			if(!this.entities.ContainsKey(eid))
 			{
 				ScriptModule module = null;
-				if(!EntityDef.moduledefs.TryGetValue(entityType, out module))
+				if(!EntityDef.moduledefs.TryGetValue(entityType + "ViewModel", out module)) //uFrame_kbe
 				{
 					Dbg.ERROR_MSG("KBEngine::Client_onCreatedProxies: not found module(" + entityType + ")!");
 					return;
@@ -1437,10 +1439,15 @@
 				Type runclass = module.script;
 				if(runclass == null)
 					return;
-				
-				Entity entity = (Entity)Activator.CreateInstance(runclass);
-				entity.id = eid;
-				entity.className = entityType;
+                //uFrame_kbe
+                //Entity entity = (Entity)Activator.CreateInstance(runclass, new object[] {_args.EventAggregator});
+                //Entity entity = (Entity) _args.CreateViewModelMethodInfo.Invoke(_args.ViewModelControllers[entity_type + "Controller"], null);
+			    var controller = _args.ViewModelControllers[entity_type + "Controller"].Key;
+                var createMethodInfo = _args.ViewModelControllers[entity_type + "Controller"].Value;
+                Entity entity = (Entity)createMethodInfo.Invoke(controller, null);
+                //uFrame_kbe
+                entity.id = eid;
+				entity.className = entityType + "ViewModel";//uFrame_kbe
 				
 				entity.baseMailbox = new Mailbox();
 				entity.baseMailbox.id = eid;
@@ -1539,8 +1546,8 @@
 		}
 		
 		public void onUpdatePropertys_(Int32 eid, MemoryStream stream)
-		{
-			Entity entity = null;
+        {
+            Entity entity = null;
 			
 			if(!entities.TryGetValue(eid, out entity))
 			{
@@ -1599,7 +1606,7 @@
 							setmethod.Invoke(entity, new object[]{oldval});
 					}
 				}
-                Event.fireOut("OnUpdatePropertys", entity, propertydata.name, oldval);//ycm
+                Event.fireOut("OnUpdatePropertys", entity, propertydata.name, oldval);//uFrame_kbe
             }
 		}
 
@@ -1653,7 +1660,7 @@
 			{
                 if (methoddata.handler != null)
                     methoddata.handler.Invoke(entity, args);
-                KBEngine.Event.fireOut("OnRemoteMethodCall", entity, methoddata.name, args);//ycm
+                KBEngine.Event.fireOut("OnRemoteMethodCall", entity, methoddata.name, args);//uFrame_kbe
             }
             catch (Exception e)
             {
@@ -1711,9 +1718,14 @@
 				Type runclass = module.script;
 				if(runclass == null)
 					return;
-				
-				entity = (Entity)Activator.CreateInstance(runclass);
-				entity.id = eid;
+
+                //uFrame_kbe
+                //entity = (Entity)Activator.CreateInstance(runclass, new object[] { _args.EventAggregator });
+                var controller = _args.ViewModelControllers[entity_type + "Controller"].Key;
+                var createMethodInfo = _args.ViewModelControllers[entity_type + "Controller"].Value;
+                entity = (Entity)createMethodInfo.Invoke(controller, null);
+                //uFrame_kbe
+                entity.id = eid;
 				entity.className = entityType;
 				
 				entity.cellMailbox = new Mailbox();

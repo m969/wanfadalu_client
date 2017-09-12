@@ -1,4 +1,7 @@
-﻿namespace KBEngine
+﻿using System.Collections.Generic;
+using System.Reflection;
+
+namespace KBEngine
 {
 	using System; 
 	
@@ -7,10 +10,14 @@
 	/*
 		初始化KBEngine的参数类
 	*/
-    public class KBEngineArgs 
+    public class KBEngineArgs
     {
-    	// 登录ip和端口
-		public string ip = "127.0.0.1";
+        public object EventAggregator;  //uFrame_kbe
+        public string KbeMvvmNameSpace;  //uFrame_kbe
+        public Dictionary<string, KeyValuePair<object, MethodInfo>> ViewModelControllers = new Dictionary<string, KeyValuePair<object, MethodInfo>>();
+
+        // 登录ip和端口
+        public string ip = "127.0.0.1";
 		public int port = 20013;
 		
 		// 客户端类型

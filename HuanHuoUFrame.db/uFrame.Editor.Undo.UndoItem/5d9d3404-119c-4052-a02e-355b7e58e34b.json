@@ -1,0 +1,8 @@
+{
+	"Identifier":"5d9d3404-119c-4052-a02e-355b7e58e34b"	, 
+	"Time":"09/14/2017 19:49:03"	, 
+	"Group":19493	, 
+	"DataRecordId":"a56a4952-28f7-4311-b3c2-ffdaf9b7f41c"	, 
+	"Type":1	, 
+	"RecordType":"uFrame.ECS.Editor.InputsChildItem, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"RelatedType\":\"Button\"\t, \r\n\t\"Identifier\":\"a56a4952-28f7-4311-b3c2-ffdaf9b7f41c\"\t, \r\n\t\"NodeId\":\"22701e5c-4bf7-454e-82bf-7d14ebc9a40c\"\t, \r\n\t\"Order\":0\t, \r\n\t\"Name\":\"Button\"}\r\n"}

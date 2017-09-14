@@ -89,15 +89,6 @@ namespace uFrame.MVVM.Services
                 Scene = data.Scene,
             };
 
-            //Publish(resultView.CreateEventData);//uFrame_kbe
-
-            //ViewCreated(new ViewCreatedEvent()
-            //{
-            //    IsInstantiated = true,
-            //    View = resultView,
-            //    Scene = data.Scene,
-            //});//uFrame_kbe
-
             if (scene != null)
                 resultView.transform.parent = scene.transform;
 

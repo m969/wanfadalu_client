@@ -181,10 +181,13 @@ namespace uFrame.Kernel
             var sceneLoader = SceneLoaders.FirstOrDefault(loader => loader.SceneType == sceneRoot.GetType()) ??
                               _defaultSceneLoader;
 
+            var sceneRootName = sceneRoot.Name;//uFrame_kbe
+
             Action<float, string> updateDelegate = (v, m) =>
             {
                 this.Publish(new SceneLoaderEvent()
                 {
+                    Name = sceneRootName,//uFrame_kbe
                     State = SceneState.Unloading,
                     Progress = v,
                     ProgressMessage = m
@@ -194,14 +197,15 @@ namespace uFrame.Kernel
             yield return StartCoroutine(sceneLoader.Unload(sceneRoot, updateDelegate));
 
             LoadedScenes.Remove(sceneRoot);
-            this.Publish(new SceneLoaderEvent() {State = SceneState.Unloaded, SceneRoot = sceneRoot});
+            this.Publish(new SceneLoaderEvent() {State = SceneState.Unloaded, SceneRoot = sceneRoot, Name = sceneRootName});
+
 
             AsyncOperation unloadSceneAsync = SceneManager.UnloadSceneAsync(((MonoBehaviour) sceneRoot).gameObject.scene);
             while (!unloadSceneAsync.isDone) {
                 yield return null;
             }
 
-            this.Publish(new SceneLoaderEvent() {State = SceneState.Destructed, SceneRoot = sceneRoot});
+            this.Publish(new SceneLoaderEvent() {State = SceneState.Destructed, SceneRoot = sceneRoot, Name = sceneRootName });
         }
 
         public void UnloadScene(string name)

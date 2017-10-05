@@ -9,4 +9,4 @@
 
 测试步骤：
 ==
-先启动服务端，然后打开Assets\_MagicFire\ProjectsCode\HuanHuoUFrame\Scenes\LoginScene，运行即可。
+先启动服务端，然后打开Assets\\_MagicFire\ProjectsCode\HuanHuoUFrame\Scenes\LoginScene，运行即可。

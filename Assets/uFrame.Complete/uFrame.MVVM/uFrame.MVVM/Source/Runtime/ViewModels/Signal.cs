@@ -37,7 +37,7 @@ namespace uFrame.MVVM.ViewModels
                 if (System.Threading.Thread.CurrentThread.ManagedThreadId == 1)
                 {
                     Action(value);
-                    Action.Invoke(value);
+                    //Action.Invoke(value);
                 }
                 else
                 {

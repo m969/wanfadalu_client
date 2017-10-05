@@ -15,16 +15,12 @@ namespace MagicFire.HuanHuoUFrame{
     
     
     public partial class EntityCommonViewModel : EntityCommonViewModelBase {
-        public override void __init__()
-        {
-            base.__init__();
-            Debug.Log(this.GetType().Name);
-        }
 
         public override void onDestroy()
         {
             if (isPlayer())
                 KBEngine.Event.deregisterIn(this);
+            this.Execute(new OnDestroyCommand());
         }
 
         public override void onEnterWorld()
@@ -32,6 +28,12 @@ namespace MagicFire.HuanHuoUFrame{
             base.onEnterWorld();
             if (isPlayer())
                 Aggregator.Publish(new OnMainAvatarEnterWorldEvent() { Entity = this });
+        }
+
+        public override void onLeaveWorld()
+        {
+            base.onLeaveWorld();
+            this.Execute(new OnLeaveWorldCommand());
         }
     }
 }

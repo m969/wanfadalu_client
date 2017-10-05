@@ -1,4 +1,8 @@
-﻿namespace MagicFire.HuanHuoUFrame {
+﻿using PathologicalGames;
+using uFrame.IOC;
+using uFrame.MVVM.Views;
+
+namespace MagicFire.HuanHuoUFrame {
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -11,10 +15,15 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
+    using DG.Tweening;
     
     
     public class EntityCommonView : EntityCommonViewBase {
-        
+        [Inject("WorldViewService")]
+        public WorldViewService WorldViewService;
+
+        public SpawnPool ParentSpawnPool { get; set; }
+
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -29,16 +38,29 @@
             // Any designer bindings are created in the base implementation.
         }
 
-        public virtual void InitializeView(uFrame.MVVM.ViewModels.ViewModel model)
+        public override void OnDestroyExecuted(OnDestroyCommand command)
         {
-            ViewModelObject = model;
+            base.OnDestroyExecuted(command);
+            ParentSpawnPool.DespawnEntityCommonView(this);
+            //DespawnSelf();
+        }
 
-            transform.SetParent(null);
-            model.renderObj = gameObject;
+        public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)
+        {
+            base.OnLeaveWorldExecuted(command);
+            ParentSpawnPool.DespawnEntityCommonView(this);
+            //DespawnSelf();
+        }
 
-            transform.position = model.position;
-            var dir = model.direction;
-            transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
+        private void DespawnSelf()
+        {
+            if (gameObject.activeInHierarchy == true)
+            {
+                ParentSpawnPool.Despawn(transform);
+                ViewModelObject.renderObj = null;
+            }
+            if (ViewModelObject != null)
+                ViewModelObject = null;
         }
     }
 }

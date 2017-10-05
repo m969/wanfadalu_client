@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 494166}
-  - component: {fileID: 11470140}
+  - component: {fileID: 114374119984765660}
   m_Layer: 0
   m_Name: PlayerTarget
   m_TagString: DontDestroy
@@ -127,18 +127,6 @@ MonoBehaviour:
   m_EventMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &11470140
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4743b4a2dc8d2f47a36b61274571877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 129418}
 --- !u!124 &12462418
 Behaviour:
   m_ObjectHideFlags: 1
@@ -157,3 +145,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 121918}
   m_IsPrefabParent: 1
+--- !u!114 &114374119984765660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419b5117dc5745a4986ed56c1f8aa3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 129418}

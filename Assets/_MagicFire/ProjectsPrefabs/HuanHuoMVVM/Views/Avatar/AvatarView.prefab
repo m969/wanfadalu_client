@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - component: {fileID: 401310}
   - component: {fileID: 14311594}
-  - component: {fileID: 114735541769075160}
+  - component: {fileID: 114289981950343318}
   m_Layer: 0
   m_Name: AvatarView
   m_TagString: Untagged
@@ -2457,7 +2457,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1464143723569558}
-  m_LocalRotation: {x: -0.45466053, y: -0.28087834, z: 0.8439051, w: -0.04706629}
+  m_LocalRotation: {x: -0.4546606, y: -0.28087837, z: 0.8439052, w: -0.047066297}
   m_LocalPosition: {x: -0.000040882536, y: 0.0064536417, z: -0.0073411656}
   m_LocalScale: {x: 1, y: 1.0000001, z: 0.99999994}
   m_Children: []
@@ -3272,7 +3272,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114735541769075160
+--- !u!114 &114289981950343318
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -3280,23 +3280,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 152476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec279b313c23ea14a80bd73616d65222, type: 3}
+  m_Script: {fileID: 11500000, guid: 76351ed2ac2526646a21d3195e50243d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _viewModelId: 
   _InjectView: 0
-  _BindOnStart: 1
+  _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _modelType: 
+  _prefabName: 
   _entityName: 
   _modelName: 
   _BindentityName: 1
   _entityNameOnlyWhenChanged: 0
-  _BindmodelType: 1
-  _modelTypeOnlyWhenChanged: 0
+  _BindOnDestroy: 1
+  _BindprefabName: 1
+  _prefabNameOnlyWhenChanged: 0
   _BindmodelName: 1
   _modelNameOnlyWhenChanged: 0
+  _BindOnLeaveWorld: 1
+  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
+    type: 2}
   _HP_Max: 0
   _HP: 0
   _BindHP_Max: 1
@@ -3305,16 +3309,22 @@ MonoBehaviour:
   _HPOnlyWhenChanged: 0
   _MSP: 0
   _MSP_Max: 0
-  _MP_Max: 0
-  _MP: 0
-  _BindMP: 1
-  _MPOnlyWhenChanged: 0
+  _SP_Max: 0
+  _SP: 0
+  _BindSP: 1
+  _SPOnlyWhenChanged: 0
   _BindMSP_Max: 1
   _MSP_MaxOnlyWhenChanged: 0
-  _BindMP_Max: 1
-  _MP_MaxOnlyWhenChanged: 0
+  _BindSP_Max: 1
+  _SP_MaxOnlyWhenChanged: 0
   _BindMSP: 1
   _MSPOnlyWhenChanged: 0
+  _BindOnStopMove: 1
+  _BindDoMove: 1
+  _speed: 0
+  _animator: {fileID: 95099928238457846}
+  _animation: {fileID: 0}
+  _characterController: {fileID: 14311594}
 --- !u!137 &137117756953444530
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -32,9 +32,7 @@ namespace MagicFire.HuanHuoUFrame{
             this.Publish(new UnloadSceneCommand()
             {
                 SceneName = "LoginScene",
-                
             });
         }
-
     }
 }

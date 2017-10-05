@@ -21,7 +21,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         private uFrame.MVVM.ViewModels.IViewModelManager<UserLoginScreenViewModel> _UserLoginScreenViewModelManager;
         
+        private MessageBoxViewModel _MessageBox;
+        
         private UserLoginScreenViewModel _UserLoginScreen;
+        
+        private RpgMainScreenViewModel _RpgMainScreen;
         
         [uFrame.IOC.InjectAttribute("UserLoginScreen")]
         public uFrame.MVVM.ViewModels.IViewModelManager<UserLoginScreenViewModel> UserLoginScreenViewModelManager {
@@ -33,6 +37,16 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        [uFrame.IOC.InjectAttribute("MessageBox")]
+        public MessageBoxViewModel MessageBox {
+            get {
+                return _MessageBox;
+            }
+            set {
+                _MessageBox = value;
+            }
+        }
+        
         [uFrame.IOC.InjectAttribute("UserLoginScreen")]
         public UserLoginScreenViewModel UserLoginScreen {
             get {
@@ -40,6 +54,16 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _UserLoginScreen = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute("RpgMainScreen")]
+        public RpgMainScreenViewModel RpgMainScreen {
+            get {
+                return _RpgMainScreen;
+            }
+            set {
+                _RpgMainScreen = value;
             }
         }
         

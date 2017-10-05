@@ -1,4 +1,6 @@
-﻿namespace MagicFire.HuanHuoUFrame {
+﻿using PathologicalGames;
+
+namespace MagicFire.HuanHuoUFrame {
     using System;
     using System.Collections;
     using System.Collections.Generic;

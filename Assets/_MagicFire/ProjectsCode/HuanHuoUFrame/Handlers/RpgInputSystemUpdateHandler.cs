@@ -27,13 +27,13 @@ namespace MagicFire.HuanHuoUFrame {
         
         private uFrame.ECS.Systems.EcsSystem _System;
         
-        private string ActionNode10_buttonName = default( System.String );
+        private int ActionNode13_button = default( System.Int32 );
         
-        private string StringNode11 = "1\n";
+        private int IntNode15 = 1;
         
-        private bool ActionNode10_Result = default( System.Boolean );
+        private bool ActionNode13_Result = default( System.Boolean );
         
-        private MagicFire.HuanHuoUFrame.NewEventNode PublishEventNode12_Result = default( MagicFire.HuanHuoUFrame.NewEventNode );
+        private MagicFire.HuanHuoUFrame.MouseRightButtonDownEvent PublishEventNode12_Result = default( MagicFire.HuanHuoUFrame.MouseRightButtonDownEvent );
         
         public uFrame.ECS.APIs.ISystemUpdate Event {
             get {
@@ -54,12 +54,12 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void Execute() {
-            ActionNode10_buttonName = StringNode11;
+            ActionNode13_button = IntNode15;
             // ActionNode
-            // Visit UnityEngine.Input.GetButtonDown
-            ActionNode10_Result = UnityEngine.Input.GetButtonDown(ActionNode10_buttonName);
+            // Visit UnityEngine.Input.GetMouseButtonDown
+            ActionNode13_Result = UnityEngine.Input.GetMouseButtonDown(ActionNode13_button);
             // PublishEventNode
-            var PublishEventNode12_Event = new NewEventNode();
+            var PublishEventNode12_Event = new MouseRightButtonDownEvent();
             System.Publish(PublishEventNode12_Event);
             PublishEventNode12_Result = PublishEventNode12_Event;
         }

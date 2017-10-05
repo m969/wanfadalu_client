@@ -294,6 +294,43 @@ namespace MagicFire.HuanHuoUFrame {
             this.RegisteUser.OnNext(argument);
         }
         
+        public virtual void UserLogin_() {
+            var cmd = new UserLoginCommand();
+            this.UserLogin.OnNext(cmd);
+        }
+        
+        public virtual void CloseRegistePanel_(MagicFire.HuanHuoUFrame.RegistePanel RegistePanel) {
+            var cmd = new CloseRegistePanelCommand();
+            cmd.RegistePanel = RegistePanel;
+            this.CloseRegistePanel.OnNext(cmd);
+        }
+        
+        public virtual void ShowRegistePanel_(MagicFire.HuanHuoUFrame.RegistePanel RegistePanel) {
+            var cmd = new ShowRegistePanelCommand();
+            cmd.RegistePanel = RegistePanel;
+            this.ShowRegistePanel.OnNext(cmd);
+        }
+        
+        public virtual void Test01Login_() {
+            var cmd = new Test01LoginCommand();
+            this.Test01Login.OnNext(cmd);
+        }
+        
+        public virtual void Test02Login_() {
+            var cmd = new Test02LoginCommand();
+            this.Test02Login.OnNext(cmd);
+        }
+        
+        public virtual void Test03Login_() {
+            var cmd = new Test03LoginCommand();
+            this.Test03Login.OnNext(cmd);
+        }
+        
+        public virtual void RegisteUser_() {
+            var cmd = new RegisteUserCommand();
+            this.RegisteUser.OnNext(cmd);
+        }
+        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
             this.Username = stream.DeserializeString("Username");;

@@ -42,6 +42,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private TriggerController _TriggerController;
         
+        private SkillEntityController _SkillEntityController;
+        
         private AvatarController _AvatarController;
         
         private MonsterController _MonsterController;
@@ -164,6 +166,19 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         [uFrame.IOC.InjectAttribute()]
+        public virtual SkillEntityController SkillEntityController {
+            get {
+                if (_SkillEntityController==null) {
+                    _SkillEntityController = Container.CreateInstance(typeof(SkillEntityController)) as SkillEntityController;;
+                }
+                return _SkillEntityController;
+            }
+            set {
+                _SkillEntityController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
         public virtual AvatarController AvatarController {
             get {
                 if (_AvatarController==null) {
@@ -208,6 +223,8 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<CampController>(CampController);
             Container.RegisterViewModelManager<TriggerViewModel>(new ViewModelManager<TriggerViewModel>());
             Container.RegisterController<TriggerController>(TriggerController);
+            Container.RegisterViewModelManager<SkillEntityViewModel>(new ViewModelManager<SkillEntityViewModel>());
+            Container.RegisterController<SkillEntityController>(SkillEntityController);
             Container.RegisterViewModelManager<AvatarViewModel>(new ViewModelManager<AvatarViewModel>());
             Container.RegisterController<AvatarController>(AvatarController);
             Container.RegisterViewModelManager<MonsterViewModel>(new ViewModelManager<MonsterViewModel>());

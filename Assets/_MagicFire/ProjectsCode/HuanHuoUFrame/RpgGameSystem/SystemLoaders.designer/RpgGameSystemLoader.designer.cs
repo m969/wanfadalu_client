@@ -24,9 +24,27 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RpgGameSystemLoaderBase : uFrame.Kernel.SystemLoader {
         
+        private MessageBoxViewModel _MessageBox;
+        
         private UserLoginScreenViewModel _UserLoginScreen;
         
+        private RpgMainScreenViewModel _RpgMainScreen;
+        
         private UserLoginScreenController _UserLoginScreenController;
+        
+        private MessageBoxController _MessageBoxController;
+        
+        private RpgMainScreenController _RpgMainScreenController;
+        
+        [uFrame.IOC.InjectAttribute("MessageBox")]
+        public virtual MessageBoxViewModel MessageBox {
+            get {
+                if (this._MessageBox == null) {
+                    this._MessageBox = this.CreateViewModel<MessageBoxViewModel>( "MessageBox");
+                }
+                return _MessageBox;
+            }
+        }
         
         [uFrame.IOC.InjectAttribute("UserLoginScreen")]
         public virtual UserLoginScreenViewModel UserLoginScreen {
@@ -35,6 +53,16 @@ namespace MagicFire.HuanHuoUFrame {
                     this._UserLoginScreen = this.CreateViewModel<UserLoginScreenViewModel>( "UserLoginScreen");
                 }
                 return _UserLoginScreen;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute("RpgMainScreen")]
+        public virtual RpgMainScreenViewModel RpgMainScreen {
+            get {
+                if (this._RpgMainScreen == null) {
+                    this._RpgMainScreen = this.CreateViewModel<RpgMainScreenViewModel>( "RpgMainScreen");
+                }
+                return _RpgMainScreen;
             }
         }
         
@@ -51,10 +79,42 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        [uFrame.IOC.InjectAttribute()]
+        public virtual MessageBoxController MessageBoxController {
+            get {
+                if (_MessageBoxController==null) {
+                    _MessageBoxController = Container.CreateInstance(typeof(MessageBoxController)) as MessageBoxController;;
+                }
+                return _MessageBoxController;
+            }
+            set {
+                _MessageBoxController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
+        public virtual RpgMainScreenController RpgMainScreenController {
+            get {
+                if (_RpgMainScreenController==null) {
+                    _RpgMainScreenController = Container.CreateInstance(typeof(RpgMainScreenController)) as RpgMainScreenController;;
+                }
+                return _RpgMainScreenController;
+            }
+            set {
+                _RpgMainScreenController = value;
+            }
+        }
+        
         public override void Load() {
             Container.RegisterViewModelManager<UserLoginScreenViewModel>(new ViewModelManager<UserLoginScreenViewModel>());
             Container.RegisterController<UserLoginScreenController>(UserLoginScreenController);
+            Container.RegisterViewModelManager<MessageBoxViewModel>(new ViewModelManager<MessageBoxViewModel>());
+            Container.RegisterController<MessageBoxController>(MessageBoxController);
+            Container.RegisterViewModelManager<RpgMainScreenViewModel>(new ViewModelManager<RpgMainScreenViewModel>());
+            Container.RegisterController<RpgMainScreenController>(RpgMainScreenController);
+            Container.RegisterViewModel<MessageBoxViewModel>(MessageBox, "MessageBox");
             Container.RegisterViewModel<UserLoginScreenViewModel>(UserLoginScreen, "UserLoginScreen");
+            Container.RegisterViewModel<RpgMainScreenViewModel>(RpgMainScreen, "RpgMainScreen");
         }
     }
 }

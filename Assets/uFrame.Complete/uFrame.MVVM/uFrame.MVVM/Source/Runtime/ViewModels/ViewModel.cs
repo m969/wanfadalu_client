@@ -36,7 +36,7 @@ namespace uFrame.MVVM.ViewModels
 
         protected IEventAggregator Aggregator { get; set; }
 
-        protected ViewModel(IEventAggregator aggregator)
+        protected ViewModel(IEventAggregator aggregator):base()
         {
             if (aggregator == null)
                 throw new ArgumentNullException("aggregator");

@@ -15,10 +15,10 @@
     
     public class SuperPowerEntityView : SuperPowerEntityViewBase {
         
-        public override void MPChanged(Int32 arg1) {
+        public override void SPChanged(Int32 arg1) {
         }
         
-        public override void MP_MaxChanged(Int32 arg1) {
+        public override void SP_MaxChanged(Int32 arg1) {
         }
         
         public override void MSPChanged(Int32 arg1) {

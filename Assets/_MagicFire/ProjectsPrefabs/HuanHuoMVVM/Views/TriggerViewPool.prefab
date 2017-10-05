@@ -59,7 +59,7 @@ MonoBehaviour:
   logMessages: 0
   _perPrefabPoolOptions:
   - prefab: {fileID: 4503343794996568, guid: 9d75bc8b8c781174d9a7fcb82aaff141, type: 2}
-    preloadAmount: 1
+    preloadAmount: 2
     preloadTime: 0
     preloadFrames: 2
     preloadDelay: 0

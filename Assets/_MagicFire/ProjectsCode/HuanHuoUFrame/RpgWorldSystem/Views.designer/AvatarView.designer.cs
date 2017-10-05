@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -23,7 +24,15 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class AvatarViewBase : SuperPowerEntityView {
+    public class AvatarViewBase : SkillEntityView {
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnStopMove")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnStopMove = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("DoMove")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindDoMove = true;
         
         public override string DefaultIdentifier {
             get {
@@ -55,6 +64,38 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindOnStopMove) {
+                this.BindCommandExecuted(this.Avatar.OnStopMove, this.OnStopMoveExecuted);
+            }
+            if (_BindDoMove) {
+                this.BindCommandExecuted(this.Avatar.DoMove, this.DoMoveExecuted);
+            }
+        }
+        
+        public virtual void OnStopMoveExecuted(OnStopMoveCommand command) {
+        }
+        
+        public virtual void DoMoveExecuted(DoMoveCommand command) {
+        }
+        
+        public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
+            command.Sender = Avatar;
+            Avatar.onMainAvatarEnterSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
+            command.Sender = Avatar;
+            Avatar.onMainAvatarLeaveSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteDoMove(DoMoveCommand command) {
+            command.Sender = Avatar;
+            Avatar.DoMove.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnStopMove(OnStopMoveCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnStopMove.OnNext(command);
         }
     }
 }

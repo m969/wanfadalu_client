@@ -30,9 +30,9 @@ namespace MagicFire.HuanHuoUFrame {
         
         private P<Int32> _MSP_MaxProperty;
         
-        private P<Int32> _MP_MaxProperty;
+        private P<Int32> _SP_MaxProperty;
         
-        private P<Int32> _MPProperty;
+        private P<Int32> _SPProperty;
         
         public SuperPowerEntityViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
@@ -56,21 +56,21 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual P<Int32> MP_MaxProperty {
+        public virtual P<Int32> SP_MaxProperty {
             get {
-                return _MP_MaxProperty;
+                return _SP_MaxProperty;
             }
             set {
-                _MP_MaxProperty = value;
+                _SP_MaxProperty = value;
             }
         }
         
-        public virtual P<Int32> MPProperty {
+        public virtual P<Int32> SPProperty {
             get {
-                return _MPProperty;
+                return _SPProperty;
             }
             set {
-                _MPProperty = value;
+                _SPProperty = value;
             }
         }
         
@@ -92,21 +92,21 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual Int32 MP_Max {
+        public virtual Int32 SP_Max {
             get {
-                return MP_MaxProperty.Value;
+                return SP_MaxProperty.Value;
             }
             set {
-                MP_MaxProperty.Value = value;
+                SP_MaxProperty.Value = value;
             }
         }
         
-        public virtual Int32 MP {
+        public virtual Int32 SP {
             get {
-                return MPProperty.Value;
+                return SPProperty.Value;
             }
             set {
-                MPProperty.Value = value;
+                SPProperty.Value = value;
             }
         }
         
@@ -114,24 +114,24 @@ namespace MagicFire.HuanHuoUFrame {
             base.Bind();
             _MSPProperty = new P<Int32>(this, "MSP");
             _MSP_MaxProperty = new P<Int32>(this, "MSP_Max");
-            _MP_MaxProperty = new P<Int32>(this, "MP_Max");
-            _MPProperty = new P<Int32>(this, "MP");
+            _SP_MaxProperty = new P<Int32>(this, "SP_Max");
+            _SPProperty = new P<Int32>(this, "SP");
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
             this.MSP = stream.DeserializeInt("MSP");;
             this.MSP_Max = stream.DeserializeInt("MSP_Max");;
-            this.MP_Max = stream.DeserializeInt("MP_Max");;
-            this.MP = stream.DeserializeInt("MP");;
+            this.SP_Max = stream.DeserializeInt("SP_Max");;
+            this.SP = stream.DeserializeInt("SP");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
             stream.SerializeInt("MSP", this.MSP);
             stream.SerializeInt("MSP_Max", this.MSP_Max);
-            stream.SerializeInt("MP_Max", this.MP_Max);
-            stream.SerializeInt("MP", this.MP);
+            stream.SerializeInt("SP_Max", this.SP_Max);
+            stream.SerializeInt("SP", this.SP);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
@@ -145,9 +145,9 @@ namespace MagicFire.HuanHuoUFrame {
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_MSP_MaxProperty, false, false, false, false));
             // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_MP_MaxProperty, false, false, false, false));
+            list.Add(new ViewModelPropertyInfo(_SP_MaxProperty, false, false, false, false));
             // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_MPProperty, false, false, false, false));
+            list.Add(new ViewModelPropertyInfo(_SPProperty, false, false, false, false));
         }
     }
     

@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -56,12 +57,28 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeEntityCommon(EntityCommonViewModel viewModel) {
             // This is called when a EntityCommonViewModel is created
+            viewModel.OnDestroy.Action = this.OnDestroyHandler;
+            viewModel.OnLeaveWorld.Action = this.OnLeaveWorldHandler;
             EntityCommonViewModelManager.Add(viewModel);
         }
         
         public override void DisposingViewModel(uFrame.MVVM.ViewModels.ViewModel viewModel) {
             base.DisposingViewModel(viewModel);
             EntityCommonViewModelManager.Remove(viewModel);
+        }
+        
+        public virtual void OnDestroyHandler(OnDestroyCommand command) {
+            this.OnDestroy(command.Sender as EntityCommonViewModel, command);
+        }
+        
+        public virtual void OnLeaveWorldHandler(OnLeaveWorldCommand command) {
+            this.OnLeaveWorld(command.Sender as EntityCommonViewModel, command);
+        }
+        
+        public virtual void OnDestroy(EntityCommonViewModel viewModel, OnDestroyCommand arg) {
+        }
+        
+        public virtual void OnLeaveWorld(EntityCommonViewModel viewModel, OnLeaveWorldCommand arg) {
         }
     }
 }

@@ -38,22 +38,22 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public Int32 _MP_Max;
+        public Int32 _SP_Max;
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public Int32 _MP;
+        public Int32 _SP;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("MP")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("SP")]
         [UnityEngine.HideInInspector()]
-        public bool _BindMP = true;
+        public bool _BindSP = true;
         
-        [uFrame.MVVM.Attributes.UFGroup("MP")]
+        [uFrame.MVVM.Attributes.UFGroup("SP")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MPonlyWhenChanged")]
-        protected bool _MPOnlyWhenChanged;
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_SPonlyWhenChanged")]
+        protected bool _SPOnlyWhenChanged;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("MSP_Max")]
         [UnityEngine.HideInInspector()]
@@ -65,15 +65,15 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSP_MaxonlyWhenChanged")]
         protected bool _MSP_MaxOnlyWhenChanged;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("MP_Max")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("SP_Max")]
         [UnityEngine.HideInInspector()]
-        public bool _BindMP_Max = true;
+        public bool _BindSP_Max = true;
         
-        [uFrame.MVVM.Attributes.UFGroup("MP_Max")]
+        [uFrame.MVVM.Attributes.UFGroup("SP_Max")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MP_MaxonlyWhenChanged")]
-        protected bool _MP_MaxOnlyWhenChanged;
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_SP_MaxonlyWhenChanged")]
+        protected bool _SP_MaxOnlyWhenChanged;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("MSP")]
         [UnityEngine.HideInInspector()]
@@ -111,8 +111,8 @@ namespace MagicFire.HuanHuoUFrame {
             var superpowerentityview = ((SuperPowerEntityViewModel)model);
             superpowerentityview.MSP = this._MSP;
             superpowerentityview.MSP_Max = this._MSP_Max;
-            superpowerentityview.MP_Max = this._MP_Max;
-            superpowerentityview.MP = this._MP;
+            superpowerentityview.SP_Max = this._SP_Max;
+            superpowerentityview.SP = this._SP;
         }
         
         public override void Bind() {
@@ -120,27 +120,27 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.SuperPowerEntity to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindMP) {
-                this.BindProperty(this.SuperPowerEntity.MPProperty, this.MPChanged, _MPOnlyWhenChanged);
+            if (_BindSP) {
+                this.BindProperty(this.SuperPowerEntity.SPProperty, this.SPChanged, _SPOnlyWhenChanged);
             }
             if (_BindMSP_Max) {
                 this.BindProperty(this.SuperPowerEntity.MSP_MaxProperty, this.MSP_MaxChanged, _MSP_MaxOnlyWhenChanged);
             }
-            if (_BindMP_Max) {
-                this.BindProperty(this.SuperPowerEntity.MP_MaxProperty, this.MP_MaxChanged, _MP_MaxOnlyWhenChanged);
+            if (_BindSP_Max) {
+                this.BindProperty(this.SuperPowerEntity.SP_MaxProperty, this.SP_MaxChanged, _SP_MaxOnlyWhenChanged);
             }
             if (_BindMSP) {
                 this.BindProperty(this.SuperPowerEntity.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
             }
         }
         
-        public virtual void MPChanged(Int32 arg1) {
+        public virtual void SPChanged(Int32 arg1) {
         }
         
         public virtual void MSP_MaxChanged(Int32 arg1) {
         }
         
-        public virtual void MP_MaxChanged(Int32 arg1) {
+        public virtual void SP_MaxChanged(Int32 arg1) {
         }
         
         public virtual void MSPChanged(Int32 arg1) {

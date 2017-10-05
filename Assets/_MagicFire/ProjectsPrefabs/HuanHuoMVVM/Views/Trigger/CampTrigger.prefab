@@ -95,16 +95,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewModelId: 
   _InjectView: 0
-  _BindOnStart: 1
+  _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _modelType: 
+  _prefabName: 
   _entityName: 
   _modelName: 
   _BindentityName: 1
   _entityNameOnlyWhenChanged: 0
-  _BindmodelType: 1
-  _modelTypeOnlyWhenChanged: 0
+  _BindOnDestroy: 1
+  _BindprefabName: 1
+  _prefabNameOnlyWhenChanged: 0
   _BindmodelName: 1
   _modelNameOnlyWhenChanged: 0
   _triggerSize: 0

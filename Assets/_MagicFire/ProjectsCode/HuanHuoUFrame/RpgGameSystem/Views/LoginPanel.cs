@@ -19,7 +19,7 @@ namespace MagicFire.HuanHuoUFrame{
         {
             set
             {
-                (ViewModelObject as UserLoginScreenViewModel).CurrentServerNum = value;
+                ((UserLoginScreenViewModel)ViewModelObject).CurrentServerNum = value;
             }
         }
         

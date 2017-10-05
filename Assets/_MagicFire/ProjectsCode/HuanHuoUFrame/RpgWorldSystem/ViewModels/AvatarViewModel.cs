@@ -15,21 +15,6 @@ namespace MagicFire.HuanHuoUFrame{
     
     
     public partial class AvatarViewModel : AvatarViewModelBase {
-        //private List<object> _avatarBag = new List<object>();
-
-        //public List<object> AvatarBag
-        //{
-        //    get
-        //    {
-        //        if (_avatarBag.Count == 0)
-        //        {
-        //            object avatarBagObject = getDefinedProperty("avatarBag");
-        //            _avatarBag = ((Dictionary<string, object>)avatarBagObject)["values"] as List<object>;
-        //            return _avatarBag;
-        //        }
-        //        return _avatarBag;
-        //    }
-        //}
 
         public override void __init__()
         {
@@ -44,6 +29,7 @@ namespace MagicFire.HuanHuoUFrame{
                 KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
 
                 KBEngine.Event.registerIn("RequestBuyGoods", this, "RequestBuyGoods");
+                KBEngine.Event.registerIn("RequestCastSkillByName", this, "RequestCastSkillByName");
 
                 KBEngine.Event.registerIn("OnLeaveSpaceClientInputInValid", this, "OnLeaveSpaceClientInputInValid");
 
@@ -56,21 +42,18 @@ namespace MagicFire.HuanHuoUFrame{
             }
         }
 
-        //public void set_avatarBag(object old)
-        //{
-        //    object avatarBagObject = getDefinedProperty("avatarBag");
-        //    _avatarBag = ((Dictionary<string, object>)avatarBagObject)["values"] as List<object>;
-        //}
-
         #region 暴露给服务端调用的方法代码块
-        public void onMainAvatarEnterSpace(int spaceId, string spaceName)
+
+        public override void onMainAvatarEnterSpace_(int SpaceId, string SpaceName)
         {
-            KBEngine.Event.fireOut("OnMainAvatarEnterSpace", spaceId, spaceName);
+            base.onMainAvatarEnterSpace_(SpaceId, SpaceName);
+            this.Aggregator.Publish(new OnMainAvatarEnterSpaceEvent(SpaceId, SpaceName));
         }
 
-        public void onMainAvatarLeaveSpace()
+        public override void onMainAvatarLeaveSpace_()
         {
-            KBEngine.Event.fireOut("OnMainAvatarLeaveSpace");
+            base.onMainAvatarLeaveSpace_();
+            this.Aggregator.Publish(new OnMainAvatarLeaveSpaceEvent());
         }
 
         public void DoDialog(System.String npcName, System.String dialog)

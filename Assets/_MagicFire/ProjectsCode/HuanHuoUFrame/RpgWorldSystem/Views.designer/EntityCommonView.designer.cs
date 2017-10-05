@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _modelType;
+        public String _prefabName;
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
@@ -50,15 +51,23 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_entityNameonlyWhenChanged")]
         protected bool _entityNameOnlyWhenChanged;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("modelType")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnLeaveWorld")]
         [UnityEngine.HideInInspector()]
-        public bool _BindmodelType = true;
+        public bool _BindOnLeaveWorld = true;
         
-        [uFrame.MVVM.Attributes.UFGroup("modelType")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnDestroy")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnDestroy = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("prefabName")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindprefabName = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("prefabName")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_modelTypeonlyWhenChanged")]
-        protected bool _modelTypeOnlyWhenChanged;
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_prefabNameonlyWhenChanged")]
+        protected bool _prefabNameOnlyWhenChanged;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("modelName")]
         [UnityEngine.HideInInspector()]
@@ -94,7 +103,7 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as EntityCommonViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var entitycommonview = ((EntityCommonViewModel)model);
-            entitycommonview.modelType = this._modelType;
+            entitycommonview.prefabName = this._prefabName;
             entitycommonview.entityName = this._entityName;
             entitycommonview.modelName = this._modelName;
         }
@@ -107,8 +116,14 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindentityName) {
                 this.BindProperty(this.EntityCommon.entityNameProperty, this.entityNameChanged, _entityNameOnlyWhenChanged);
             }
-            if (_BindmodelType) {
-                this.BindProperty(this.EntityCommon.modelTypeProperty, this.modelTypeChanged, _modelTypeOnlyWhenChanged);
+            if (_BindOnLeaveWorld) {
+                this.BindCommandExecuted(this.EntityCommon.OnLeaveWorld, this.OnLeaveWorldExecuted);
+            }
+            if (_BindOnDestroy) {
+                this.BindCommandExecuted(this.EntityCommon.OnDestroy, this.OnDestroyExecuted);
+            }
+            if (_BindprefabName) {
+                this.BindProperty(this.EntityCommon.prefabNameProperty, this.prefabNameChanged, _prefabNameOnlyWhenChanged);
             }
             if (_BindmodelName) {
                 this.BindProperty(this.EntityCommon.modelNameProperty, this.modelNameChanged, _modelNameOnlyWhenChanged);
@@ -118,10 +133,26 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void entityNameChanged(String arg1) {
         }
         
-        public virtual void modelTypeChanged(String arg1) {
+        public virtual void OnLeaveWorldExecuted(OnLeaveWorldCommand command) {
+        }
+        
+        public virtual void OnDestroyExecuted(OnDestroyCommand command) {
+        }
+        
+        public virtual void prefabNameChanged(String arg1) {
         }
         
         public virtual void modelNameChanged(String arg1) {
+        }
+        
+        public virtual void ExecuteOnDestroy(OnDestroyCommand command) {
+            command.Sender = EntityCommon;
+            EntityCommon.OnDestroy.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnLeaveWorld(OnLeaveWorldCommand command) {
+            command.Sender = EntityCommon;
+            EntityCommon.OnLeaveWorld.OnNext(command);
         }
     }
 }

@@ -1,8 +1,0 @@
-{
-	"Identifier":"1d2a9d4d-4739-4028-9a33-14ada5b169d2"	, 
-	"Time":"09/14/2017 19:48:51"	, 
-	"Group":194849	, 
-	"DataRecordId":"e16f0efa-3725-47da-b2ee-83e69441cf04"	, 
-	"Type":1	, 
-	"RecordType":"uFrame.ECS.Editor.ActionNode, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"MetaType\":\"UnityEngine.Input.GetKeyDown.GetKeyDown(key)\"\t, \r\n\t\"VariableName\":\"ActionNode5\"\t, \r\n\t\"Name\":\"NewActionNode\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"b37798f9-2e88-49c2-8cb1-1a40d5b698c1\"\t, \r\n\t\"Identifier\":\"e16f0efa-3725-47da-b2ee-83e69441cf04\"\t, \r\n\t\"Expanded\":false}\r\n"}

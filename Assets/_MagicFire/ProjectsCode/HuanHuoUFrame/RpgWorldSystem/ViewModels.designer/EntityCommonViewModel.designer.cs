@@ -26,22 +26,26 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class EntityCommonViewModelBase : uFrame.MVVM.ViewModels.ViewModel {
         
-        private P<String> _modelTypeProperty;
+        private P<String> _prefabNameProperty;
         
         private P<String> _entityNameProperty;
         
         private P<String> _modelNameProperty;
         
+        private Signal<OnDestroyCommand> _OnDestroy;
+        
+        private Signal<OnLeaveWorldCommand> _OnLeaveWorld;
+        
         public EntityCommonViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
         
-        public virtual P<String> modelTypeProperty {
+        public virtual P<String> prefabNameProperty {
             get {
-                return _modelTypeProperty;
+                return _prefabNameProperty;
             }
             set {
-                _modelTypeProperty = value;
+                _prefabNameProperty = value;
             }
         }
         
@@ -63,12 +67,12 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual String modelType {
+        public virtual String prefabName {
             get {
-                return modelTypeProperty.Value;
+                return prefabNameProperty.Value;
             }
             set {
-                modelTypeProperty.Value = value;
+                prefabNameProperty.Value = value;
             }
         }
         
@@ -90,35 +94,75 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnDestroyCommand> OnDestroy {
+            get {
+                return _OnDestroy;
+            }
+            set {
+                _OnDestroy = value;
+            }
+        }
+        
+        public virtual Signal<OnLeaveWorldCommand> OnLeaveWorld {
+            get {
+                return _OnLeaveWorld;
+            }
+            set {
+                _OnLeaveWorld = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
-            _modelTypeProperty = new P<String>(this, "modelType");
+            this.OnDestroy = new Signal<OnDestroyCommand>(this);
+            this.OnLeaveWorld = new Signal<OnLeaveWorldCommand>(this);
+            _prefabNameProperty = new P<String>(this, "prefabName");
             _entityNameProperty = new P<String>(this, "entityName");
             _modelNameProperty = new P<String>(this, "modelName");
         }
         
+        public virtual void Execute(OnDestroyCommand argument) {
+            this.OnDestroy.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnLeaveWorldCommand argument) {
+            this.OnLeaveWorld.OnNext(argument);
+        }
+        
+        public virtual void OnDestroy_() {
+            var cmd = new OnDestroyCommand();
+            this.OnDestroy.OnNext(cmd);
+        }
+        
+        public virtual void OnLeaveWorld_() {
+            var cmd = new OnLeaveWorldCommand();
+            this.OnLeaveWorld.OnNext(cmd);
+        }
+        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
-            this.modelType = stream.DeserializeString("modelType");;
+            this.prefabName = stream.DeserializeString("prefabName");;
             this.entityName = stream.DeserializeString("entityName");;
             this.modelName = stream.DeserializeString("modelName");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
-            stream.SerializeString("modelType", this.modelType);
+            stream.SerializeString("prefabName", this.prefabName);
             stream.SerializeString("entityName", this.entityName);
             stream.SerializeString("modelName", this.modelName);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("OnDestroy", OnDestroy) { ParameterType = typeof(OnDestroyCommand) });
+            list.Add(new ViewModelCommandInfo("OnLeaveWorld", OnLeaveWorld) { ParameterType = typeof(OnLeaveWorldCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
             // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_modelTypeProperty, false, false, false, false));
+            list.Add(new ViewModelPropertyInfo(_prefabNameProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_entityNameProperty, false, false, false, false));
             // PropertiesChildItem

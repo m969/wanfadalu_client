@@ -16,7 +16,6 @@ namespace uFrame.Kernel
 {
     public class uFrameKernel : MonoBehaviour
     {
-
         private static UFrameContainer _container;
         private static IEventAggregator _eventAggregator;
         private static KBEMain _kbeClientapp;//uFrame_kbe

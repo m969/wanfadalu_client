@@ -16,7 +16,7 @@ namespace MagicFire.HuanHuoUFrame {
     using System.Linq;
     
     
-    public class AvatarControllerBase : SkillEntityController {
+    public class AvatarControllerBase : CampEntityController {
         
         private uFrame.MVVM.ViewModels.IViewModelManager<AvatarViewModel> _AvatarViewModelManager;
         

@@ -19,6 +19,11 @@ namespace MagicFire.HuanHuoUFrame {
 
     public class AvatarPanelView : AvatarPanelViewBase
     {
+        [SerializeField]
+        private Text _damageHintText;
+
+        private int? _hp;
+
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -31,6 +36,29 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+
+            _damageHintText.GetComponent<DOTweenAnimation>().onStepComplete.AddListener(() => { _damageHintText.gameObject.SetActive(false); });    //掉血动画结束后隐藏动画
+        }
+
+        public override void HPChanged(int arg1)
+        {
+            base.HPChanged(arg1);
+
+            if (_hp.HasValue)
+            {
+                var changeValue = _hp - arg1;
+                if (changeValue > 0)
+                {
+                    _damageHintText.color = Color.green;
+                }
+                if (changeValue < 0)
+                {
+                    _damageHintText.color = Color.red;
+                }
+                _damageHintText.text = changeValue.ToString();
+                _damageHintText.gameObject.SetActive(true);
+            }
+            _hp = arg1;
         }
     }
 }

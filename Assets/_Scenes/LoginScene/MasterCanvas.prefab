@@ -2902,7 +2902,7 @@ MonoBehaviour:
   debug: 0
   buttonCategory: Uncategorized
   buttonName: ~Button Name~
-  allowMultipleClicks: 1
+  allowMultipleClicks: 0
   deselectButtonOnClick: 1
   disableButtonInterval: 0.4
   addToNavigationHistory: 0

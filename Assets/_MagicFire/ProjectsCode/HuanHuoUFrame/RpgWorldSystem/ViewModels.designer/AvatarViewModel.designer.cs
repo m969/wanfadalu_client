@@ -24,7 +24,11 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public partial class AvatarViewModelBase : SkillEntityViewModel {
+    public partial class AvatarViewModelBase : CampEntityViewModel {
+        
+        private P<Int32> _goldCountProperty;
+        
+        private P<System.Object> _avatarBagProperty;
         
         private Signal<onMainAvatarEnterSpaceCommand> _onMainAvatarEnterSpace;
         
@@ -36,6 +40,42 @@ namespace MagicFire.HuanHuoUFrame {
         
         public AvatarViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual P<Int32> goldCountProperty {
+            get {
+                return _goldCountProperty;
+            }
+            set {
+                _goldCountProperty = value;
+            }
+        }
+        
+        public virtual P<System.Object> avatarBagProperty {
+            get {
+                return _avatarBagProperty;
+            }
+            set {
+                _avatarBagProperty = value;
+            }
+        }
+        
+        public virtual Int32 goldCount {
+            get {
+                return goldCountProperty.Value;
+            }
+            set {
+                goldCountProperty.Value = value;
+            }
+        }
+        
+        public virtual object avatarBag {
+            get {
+                return avatarBagProperty.Value;
+            }
+            set {
+                avatarBagProperty.Value = value;
+            }
         }
         
         public virtual Signal<onMainAvatarEnterSpaceCommand> onMainAvatarEnterSpace {
@@ -80,6 +120,8 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace = new Signal<onMainAvatarLeaveSpaceCommand>(this);
             this.DoMove = new Signal<DoMoveCommand>(this);
             this.OnStopMove = new Signal<OnStopMoveCommand>(this);
+            _goldCountProperty = new P<Int32>(this, "goldCount");
+            _avatarBagProperty = new P<System.Object>(this, "avatarBag");
         }
         
         public virtual void Execute(onMainAvatarEnterSpaceCommand argument) {
@@ -123,10 +165,12 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this.goldCount = stream.DeserializeInt("goldCount");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeInt("goldCount", this.goldCount);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
@@ -139,6 +183,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_goldCountProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_avatarBagProperty, false, false, false, false));
         }
     }
     

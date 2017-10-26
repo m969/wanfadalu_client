@@ -16,6 +16,11 @@ namespace MagicFire.HuanHuoUFrame{
     
     public partial class AvatarViewModel : AvatarViewModelBase {
 
+        public static AvatarViewModel MainAvatar
+        {
+            get { return KBEngine.KBEngineApp.app.player() as AvatarViewModel; }
+        }
+
         public override void __init__()
         {
             base.__init__();

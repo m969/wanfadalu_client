@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -24,6 +25,26 @@ namespace MagicFire.HuanHuoUFrame {
     
     
     public class RpgMainPanelBase : uFrame.MVVM.Views.ViewBase {
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("ExitGame")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindExitGame = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ExitGame")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ExitGamebutton")]
+        protected UnityEngine.UI.Button _ExitGameButton;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowCharacterInfoPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowCharacterInfoPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ShowCharacterInfoPanel")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowCharacterInfoPanelbutton")]
+        protected UnityEngine.UI.Button _ShowCharacterInfoPanelButton;
         
         public override string DefaultIdentifier {
             get {
@@ -55,6 +76,22 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.RpgMainScreen to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindExitGame) {
+                this.BindButtonToCommand(_ExitGameButton, this.RpgMainScreen.ExitGame);
+            }
+            if (_BindShowCharacterInfoPanel) {
+                this.BindButtonToCommand(_ShowCharacterInfoPanelButton, this.RpgMainScreen.ShowCharacterInfoPanel);
+            }
+        }
+        
+        public virtual void ExecuteShowCharacterInfoPanel(ShowCharacterInfoPanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowCharacterInfoPanel.OnNext(command);
+        }
+        
+        public virtual void ExecuteExitGame(ExitGameCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ExitGame.OnNext(command);
         }
     }
 }

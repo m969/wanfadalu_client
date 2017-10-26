@@ -24,7 +24,17 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class AvatarRingViewBase : SuperPowerRingView {
+    public class AvatarRingViewBase : CampRingView {
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _goldCount;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public object _avatarBag;
         
         public override string DefaultIdentifier {
             get {
@@ -49,6 +59,9 @@ namespace MagicFire.HuanHuoUFrame {
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
+            var avatarringview = ((AvatarViewModel)model);
+            avatarringview.goldCount = this._goldCount;
+            avatarringview.avatarBag = this._avatarBag;
         }
         
         public override void Bind() {

@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.497}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -294,11 +294,14 @@ MonoBehaviour:
   _modelName: 
   _BindentityName: 1
   _entityNameOnlyWhenChanged: 0
+  _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
   _BindprefabName: 1
   _prefabNameOnlyWhenChanged: 0
   _BindmodelName: 1
   _modelNameOnlyWhenChanged: 0
+  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
+    type: 2}
   _HP_Max: 0
   _HP: 0
   _BindHP_Max: 1
@@ -307,18 +310,20 @@ MonoBehaviour:
   _HPOnlyWhenChanged: 0
   _MSP: 0
   _MSP_Max: 0
-  _MP_Max: 0
-  _MP: 0
-  _BindMP: 1
-  _MPOnlyWhenChanged: 0
+  _SP_Max: 0
+  _SP: 0
+  _BindSP: 1
+  _SPOnlyWhenChanged: 0
   _BindMSP_Max: 1
   _MSP_MaxOnlyWhenChanged: 0
-  _BindMP_Max: 1
-  _MP_MaxOnlyWhenChanged: 0
+  _BindSP_Max: 1
+  _SP_MaxOnlyWhenChanged: 0
   _BindMSP: 1
   _MSPOnlyWhenChanged: 0
-  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
-    type: 2}
+  _campName: 
+  _BindcampName: 1
+  _campNameOnlyWhenChanged: 0
+  _campImage: {fileID: 114647615436860340}
   _hpImage: {fileID: 114210945359460252}
   _dpImage: {fileID: 114695281666360364}
 --- !u!114 &114497971433449634
@@ -333,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.484}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -399,7 +404,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.07
+  m_FillAmount: 0.25
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!114 &114734959355380104

@@ -1167,7 +1167,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "\u6CD5\u5B9D1"
 --- !u!114 &114156176332704758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1805,7 +1805,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "\u6CD5\u5B9D2"
 --- !u!114 &114365919702450750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3193,6 +3193,7 @@ MonoBehaviour:
   _modelName: 
   _BindentityName: 1
   _entityNameOnlyWhenChanged: 0
+  _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
   _BindprefabName: 1
   _prefabNameOnlyWhenChanged: 0

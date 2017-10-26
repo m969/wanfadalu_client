@@ -26,6 +26,16 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class AvatarViewBase : SkillEntityView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _goldCount;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public object _avatarBag;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("OnStopMove")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnStopMove = true;
@@ -57,6 +67,9 @@ namespace MagicFire.HuanHuoUFrame {
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
+            var avatarview = ((AvatarViewModel)model);
+            avatarview.goldCount = this._goldCount;
+            avatarview.avatarBag = this._avatarBag;
         }
         
         public override void Bind() {

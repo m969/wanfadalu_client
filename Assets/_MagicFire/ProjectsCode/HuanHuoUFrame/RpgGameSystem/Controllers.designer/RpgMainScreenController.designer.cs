@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -92,12 +93,28 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeRpgMainScreen(RpgMainScreenViewModel viewModel) {
             // This is called when a RpgMainScreenViewModel is created
+            viewModel.ShowCharacterInfoPanel.Action = this.ShowCharacterInfoPanelHandler;
+            viewModel.ExitGame.Action = this.ExitGameHandler;
             RpgMainScreenViewModelManager.Add(viewModel);
         }
         
         public override void DisposingViewModel(uFrame.MVVM.ViewModels.ViewModel viewModel) {
             base.DisposingViewModel(viewModel);
             RpgMainScreenViewModelManager.Remove(viewModel);
+        }
+        
+        public virtual void ShowCharacterInfoPanelHandler(ShowCharacterInfoPanelCommand command) {
+            this.ShowCharacterInfoPanel(command.Sender as RpgMainScreenViewModel, command);
+        }
+        
+        public virtual void ExitGameHandler(ExitGameCommand command) {
+            this.ExitGame(command.Sender as RpgMainScreenViewModel, command);
+        }
+        
+        public virtual void ShowCharacterInfoPanel(RpgMainScreenViewModel viewModel, ShowCharacterInfoPanelCommand arg) {
+        }
+        
+        public virtual void ExitGame(RpgMainScreenViewModel viewModel, ExitGameCommand arg) {
         }
     }
 }

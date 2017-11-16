@@ -24,27 +24,17 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class AvatarPanelViewBase : EntityPanelView {
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
+    public class AvatarPanelViewBase : SkillPanelView {
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
         public object _avatarBag;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("HP")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindHP = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("HP")]
         [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_HPonlyWhenChanged")]
-        protected bool _HPOnlyWhenChanged;
+        public Int32 _goldCount;
         
         public override string DefaultIdentifier {
             get {
@@ -70,8 +60,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var avatarpanelview = ((AvatarViewModel)model);
-            avatarpanelview.goldCount = this._goldCount;
             avatarpanelview.avatarBag = this._avatarBag;
+            avatarpanelview.goldCount = this._goldCount;
         }
         
         public override void Bind() {
@@ -79,12 +69,6 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindHP) {
-                this.BindProperty(this.Avatar.HPProperty, this.HPChanged, _HPOnlyWhenChanged);
-            }
-        }
-        
-        public virtual void HPChanged(Int32 arg1) {
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

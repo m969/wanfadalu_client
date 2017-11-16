@@ -4,13 +4,13 @@
     using System.Collections.Generic;
     using UnityEngine;
 
-    public class DeadState : AvatarState
-    {
-        public DeadState(AvatarView avatarView)
-            : base(avatarView)
-        {
+    //public class DeadState : AvatarState
+    //{
+    //    public DeadState(AvatarView avatarView)
+    //        : base(avatarView)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
 }

@@ -1,7 +1,7 @@
 {
 	"ElementInputSlotId":"50568507-824f-433f-b029-5616e4f3f949"	, 
 	"ScenePropertiesInputSlotId":"4416476d-eefc-42e8-975c-3f37ed99a7da"	, 
-	"Name":"RingView"	, 
+	"Name":"EntityRingView"	, 
 	"Order":0	, 
 	"GraphId":"75895d07-b676-4aac-8d88-7e1f3e487f78"	, 
 	"Identifier":"63f06244-bd1a-479a-802e-3b5443c247a3"	, 

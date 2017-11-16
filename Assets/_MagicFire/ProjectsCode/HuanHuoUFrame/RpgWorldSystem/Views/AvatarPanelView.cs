@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 
-namespace MagicFire.HuanHuoUFrame {
+namespace eMagicFire.HuanHuoUFram {
     using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
@@ -15,6 +15,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UniRx;
     using UnityEngine;
     using UnityEngine.UI;
+    using DG.Tweening;
 
 
     public class AvatarPanelView : AvatarPanelViewBase
@@ -46,7 +47,7 @@ namespace MagicFire.HuanHuoUFrame {
 
             if (_hp.HasValue)
             {
-                var changeValue = _hp - arg1;
+                var changeValue = arg1 - _hp;
                 if (changeValue > 0)
                 {
                     _damageHintText.color = Color.green;
@@ -59,6 +60,13 @@ namespace MagicFire.HuanHuoUFrame {
                 _damageHintText.gameObject.SetActive(true);
             }
             _hp = arg1;
+        }
+
+        public override void ExecuteOnSkillStartCast(OnSkillStartCastCommand command)
+        {
+            base.ExecuteOnSkillStartCast(command);
+            ((IdleState)Avatar.avatarState).CastSkillTransition();
+            Avatar.avatarStateProperty.CastSkillState.OnEntering(Avatar.avatarState);
         }
     }
 }

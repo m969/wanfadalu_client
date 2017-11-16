@@ -9,13 +9,14 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     
     
-    public class SkillEntityControllerBase : SuperPowerEntityController {
+    public class SkillEntityControllerBase : GongFaEntityController {
         
         private uFrame.MVVM.ViewModels.IViewModelManager<SkillEntityViewModel> _SkillEntityViewModelManager;
         
@@ -56,12 +57,44 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeSkillEntity(SkillEntityViewModel viewModel) {
             // This is called when a SkillEntityViewModel is created
+            viewModel.OnSkillStartCast.Action = this.OnSkillStartCastHandler;
+            viewModel.OnSkillEndCast.Action = this.OnSkillEndCastHandler;
+            viewModel.RequestCastSkillByName.Action = this.RequestCastSkillByNameHandler;
+            viewModel.OnSkillStartSing.Action = this.OnSkillStartSingHandler;
             SkillEntityViewModelManager.Add(viewModel);
         }
         
         public override void DisposingViewModel(uFrame.MVVM.ViewModels.ViewModel viewModel) {
             base.DisposingViewModel(viewModel);
             SkillEntityViewModelManager.Remove(viewModel);
+        }
+        
+        public virtual void OnSkillStartCastHandler(OnSkillStartCastCommand command) {
+            this.OnSkillStartCast(command.Sender as SkillEntityViewModel, command);
+        }
+        
+        public virtual void OnSkillEndCastHandler(OnSkillEndCastCommand command) {
+            this.OnSkillEndCast(command.Sender as SkillEntityViewModel, command);
+        }
+        
+        public virtual void RequestCastSkillByNameHandler(RequestCastSkillByNameCommand command) {
+            this.RequestCastSkillByName(command.Sender as SkillEntityViewModel, command);
+        }
+        
+        public virtual void OnSkillStartSingHandler(OnSkillStartSingCommand command) {
+            this.OnSkillStartSing(command.Sender as SkillEntityViewModel, command);
+        }
+        
+        public virtual void OnSkillStartCast(SkillEntityViewModel viewModel, OnSkillStartCastCommand arg) {
+        }
+        
+        public virtual void OnSkillEndCast(SkillEntityViewModel viewModel, OnSkillEndCastCommand arg) {
+        }
+        
+        public virtual void RequestCastSkillByName(SkillEntityViewModel viewModel, RequestCastSkillByNameCommand arg) {
+        }
+        
+        public virtual void OnSkillStartSing(SkillEntityViewModel viewModel, OnSkillStartSingCommand arg) {
         }
     }
 }

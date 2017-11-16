@@ -1,8 +1,0 @@
-{
-	"Identifier":"471a70dd-3abd-42a2-b6b1-2dcc825cae35"	, 
-	"Time":"10/22/2017 23:06:05"	, 
-	"Group":2363	, 
-	"DataRecordId":"b985deeb-8a70-4b9f-9b5e-57d199fb511b"	, 
-	"Type":1	, 
-	"RecordType":"uFrame.MVVM.CollectionsChildItem, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"RelatedType\":\"String\"\t, \r\n\t\"Identifier\":\"b985deeb-8a70-4b9f-9b5e-57d199fb511b\"\t, \r\n\t\"NodeId\":\"9e372bb1-c678-4a57-8922-7e113dc4e9c6\"\t, \r\n\t\"Order\":0\t, \r\n\t\"Name\":\"avatarBag\"}\r\n"}

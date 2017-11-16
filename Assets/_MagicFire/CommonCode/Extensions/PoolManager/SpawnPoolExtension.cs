@@ -27,12 +27,12 @@ public static class SpawnPoolExtensions
             }
         }
 
-        resultView.CreateEventData = new ViewCreatedEvent()
-        {
-            IsInstantiated = true,
-            View = resultView,
-            Scene = null,
-        };
+        //resultView.CreateEventData = new ViewCreatedEvent()
+        //{
+        //    IsInstantiated = true,
+        //    View = resultView,
+        //    Scene = null,
+        //};
 
         return resultView;
     }

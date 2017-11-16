@@ -29,12 +29,12 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
+        public object _avatarBag;
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public object _avatarBag;
+        public Int32 _goldCount;
         
         public override string DefaultIdentifier {
             get {
@@ -60,8 +60,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var avatarringview = ((AvatarViewModel)model);
-            avatarringview.goldCount = this._goldCount;
             avatarringview.avatarBag = this._avatarBag;
+            avatarringview.goldCount = this._goldCount;
         }
         
         public override void Bind() {

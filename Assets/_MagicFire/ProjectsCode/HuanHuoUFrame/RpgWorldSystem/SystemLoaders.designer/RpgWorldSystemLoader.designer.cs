@@ -48,6 +48,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         private AvatarController _AvatarController;
         
+        private GongFaEntityController _GongFaEntityController;
+        
+        private ArenaController _ArenaController;
+        
         private MonsterController _MonsterController;
         
         [uFrame.IOC.InjectAttribute()]
@@ -207,6 +211,32 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         [uFrame.IOC.InjectAttribute()]
+        public virtual GongFaEntityController GongFaEntityController {
+            get {
+                if (_GongFaEntityController==null) {
+                    _GongFaEntityController = Container.CreateInstance(typeof(GongFaEntityController)) as GongFaEntityController;;
+                }
+                return _GongFaEntityController;
+            }
+            set {
+                _GongFaEntityController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
+        public virtual ArenaController ArenaController {
+            get {
+                if (_ArenaController==null) {
+                    _ArenaController = Container.CreateInstance(typeof(ArenaController)) as ArenaController;;
+                }
+                return _ArenaController;
+            }
+            set {
+                _ArenaController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
         public virtual MonsterController MonsterController {
             get {
                 if (_MonsterController==null) {
@@ -244,6 +274,10 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<CampEntityController>(CampEntityController);
             Container.RegisterViewModelManager<AvatarViewModel>(new ViewModelManager<AvatarViewModel>());
             Container.RegisterController<AvatarController>(AvatarController);
+            Container.RegisterViewModelManager<GongFaEntityViewModel>(new ViewModelManager<GongFaEntityViewModel>());
+            Container.RegisterController<GongFaEntityController>(GongFaEntityController);
+            Container.RegisterViewModelManager<ArenaViewModel>(new ViewModelManager<ArenaViewModel>());
+            Container.RegisterController<ArenaController>(ArenaController);
             Container.RegisterViewModelManager<MonsterViewModel>(new ViewModelManager<MonsterViewModel>());
             Container.RegisterController<MonsterController>(MonsterController);
         }

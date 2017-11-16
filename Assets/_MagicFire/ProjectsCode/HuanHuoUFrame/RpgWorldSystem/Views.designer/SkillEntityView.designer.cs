@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -39,6 +40,18 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_isIceFreezingonlyWhenChanged")]
         protected bool _isIceFreezingOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnSkillStartCast")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnSkillStartCast = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnSkillEndCast")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnSkillEndCast = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnSkillStartSing")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnSkillStartSing = true;
         
         public override string DefaultIdentifier {
             get {
@@ -75,9 +88,47 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindisIceFreezing) {
                 this.BindProperty(this.SkillEntity.isIceFreezingProperty, this.isIceFreezingChanged, _isIceFreezingOnlyWhenChanged);
             }
+            if (_BindOnSkillStartCast) {
+                this.BindCommandExecuted(this.SkillEntity.OnSkillStartCast, this.OnSkillStartCastExecuted);
+            }
+            if (_BindOnSkillEndCast) {
+                this.BindCommandExecuted(this.SkillEntity.OnSkillEndCast, this.OnSkillEndCastExecuted);
+            }
+            if (_BindOnSkillStartSing) {
+                this.BindCommandExecuted(this.SkillEntity.OnSkillStartSing, this.OnSkillStartSingExecuted);
+            }
         }
         
         public virtual void isIceFreezingChanged(Int32 arg1) {
+        }
+        
+        public virtual void OnSkillStartCastExecuted(OnSkillStartCastCommand command) {
+        }
+        
+        public virtual void OnSkillEndCastExecuted(OnSkillEndCastCommand command) {
+        }
+        
+        public virtual void OnSkillStartSingExecuted(OnSkillStartSingCommand command) {
+        }
+        
+        public virtual void ExecuteOnSkillStartCast(OnSkillStartCastCommand command) {
+            command.Sender = SkillEntity;
+            SkillEntity.OnSkillStartCast.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnSkillEndCast(OnSkillEndCastCommand command) {
+            command.Sender = SkillEntity;
+            SkillEntity.OnSkillEndCast.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestCastSkillByName(RequestCastSkillByNameCommand command) {
+            command.Sender = SkillEntity;
+            SkillEntity.RequestCastSkillByName.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnSkillStartSing(OnSkillStartSingCommand command) {
+            command.Sender = SkillEntity;
+            SkillEntity.OnSkillStartSing.OnNext(command);
         }
     }
 }

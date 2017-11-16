@@ -26,11 +26,7 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class EntityCommonViewModelBase : uFrame.MVVM.ViewModels.ViewModel {
         
-        private P<String> _prefabNameProperty;
-        
         private P<String> _entityNameProperty;
-        
-        private P<String> _modelNameProperty;
         
         private Signal<OnDestroyCommand> _OnDestroy;
         
@@ -38,15 +34,6 @@ namespace MagicFire.HuanHuoUFrame {
         
         public EntityCommonViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
-        }
-        
-        public virtual P<String> prefabNameProperty {
-            get {
-                return _prefabNameProperty;
-            }
-            set {
-                _prefabNameProperty = value;
-            }
         }
         
         public virtual P<String> entityNameProperty {
@@ -58,39 +45,12 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual P<String> modelNameProperty {
-            get {
-                return _modelNameProperty;
-            }
-            set {
-                _modelNameProperty = value;
-            }
-        }
-        
-        public virtual String prefabName {
-            get {
-                return prefabNameProperty.Value;
-            }
-            set {
-                prefabNameProperty.Value = value;
-            }
-        }
-        
         public virtual String entityName {
             get {
                 return entityNameProperty.Value;
             }
             set {
                 entityNameProperty.Value = value;
-            }
-        }
-        
-        public virtual String modelName {
-            get {
-                return modelNameProperty.Value;
-            }
-            set {
-                modelNameProperty.Value = value;
             }
         }
         
@@ -116,9 +76,7 @@ namespace MagicFire.HuanHuoUFrame {
             base.Bind();
             this.OnDestroy = new Signal<OnDestroyCommand>(this);
             this.OnLeaveWorld = new Signal<OnLeaveWorldCommand>(this);
-            _prefabNameProperty = new P<String>(this, "prefabName");
             _entityNameProperty = new P<String>(this, "entityName");
-            _modelNameProperty = new P<String>(this, "modelName");
         }
         
         public virtual void Execute(OnDestroyCommand argument) {
@@ -141,16 +99,12 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
-            this.prefabName = stream.DeserializeString("prefabName");;
             this.entityName = stream.DeserializeString("entityName");;
-            this.modelName = stream.DeserializeString("modelName");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
-            stream.SerializeString("prefabName", this.prefabName);
             stream.SerializeString("entityName", this.entityName);
-            stream.SerializeString("modelName", this.modelName);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
@@ -162,11 +116,7 @@ namespace MagicFire.HuanHuoUFrame {
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
             // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_prefabNameProperty, false, false, false, false));
-            // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_entityNameProperty, false, false, false, false));
-            // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_modelNameProperty, false, false, false, false));
         }
     }
     

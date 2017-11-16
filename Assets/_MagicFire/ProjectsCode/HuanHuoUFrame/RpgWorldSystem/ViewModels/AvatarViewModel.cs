@@ -14,11 +14,22 @@ namespace MagicFire.HuanHuoUFrame{
     using UnityEngine;
     
     
-    public partial class AvatarViewModel : AvatarViewModelBase {
+    public partial class AvatarViewModel : AvatarViewModelBase
+    {
+
+        public string CurrentSkillName;
+        public string CurrentSkillArgs;
 
         public static AvatarViewModel MainAvatar
         {
             get { return KBEngine.KBEngineApp.app.player() as AvatarViewModel; }
+        }
+
+
+        public override void Bind()
+        {
+            base.Bind();
+            this.avatarStateProperty.CastSkillState.OnCompleted();
         }
 
         public override void __init__()
@@ -34,7 +45,7 @@ namespace MagicFire.HuanHuoUFrame{
                 KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
 
                 KBEngine.Event.registerIn("RequestBuyGoods", this, "RequestBuyGoods");
-                KBEngine.Event.registerIn("RequestCastSkillByName", this, "RequestCastSkillByName");
+                //KBEngine.Event.registerIn("RequestCastSkillByName", this, "RequestCastSkillByName");
 
                 KBEngine.Event.registerIn("OnLeaveSpaceClientInputInValid", this, "OnLeaveSpaceClientInputInValid");
 
@@ -59,6 +70,38 @@ namespace MagicFire.HuanHuoUFrame{
         {
             base.onMainAvatarLeaveSpace_();
             this.Aggregator.Publish(new OnMainAvatarLeaveSpaceEvent());
+        }
+
+        public override void DoMove_(Vector3 Point)
+        {
+            base.DoMove_(Point);
+            this.avatarStateProperty.Run.OnNext(true);
+        }
+
+        public override void OnStopMove_()
+        {
+            base.OnStopMove_();
+            this.avatarStateProperty.Stand.OnNext(true);
+        }
+
+        public override void OnSkillStartSing_(float singTime)
+        {
+            base.OnSkillStartSing_(singTime);
+            this.avatarStateProperty.Stand.OnNext(true);
+        }
+
+        public override void OnSkillStartCast_(string skillName, string argsString, float castTime)
+        {
+            base.OnSkillStartCast_(skillName, argsString, castTime);
+            CurrentSkillName = skillName;
+            CurrentSkillArgs = argsString;
+            this.avatarStateProperty.Transition("CastSkill");
+        }
+
+        public override void OnSkillEndCast_(string argsString, string skillName)
+        {
+            base.OnSkillEndCast_(argsString, skillName);
+            this.avatarStateProperty.Stand.OnNext(true);
         }
 
         public void DoDialog(System.String npcName, System.String dialog)
@@ -120,10 +163,10 @@ namespace MagicFire.HuanHuoUFrame{
             cellCall("requestBuyGoods", new object[] { spaceId, npcName, goodsId });
         }
 
-        public void RequestCastSkillByName(string skillName, string argsString)
-        {
-            cellCall("requestCastSkill", new object[] { skillName, argsString });
-        }
+        //public void RequestCastSkillByName(string skillName, string argsString)
+        //{
+        //    cellCall("requestCastSkill", new object[] { skillName, argsString });
+        //}
 
         public void SendChatMessage(string message)
         {

@@ -1485,10 +1485,14 @@ MonoBehaviour:
   _BindOnStart: 1
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
+  _BindShowAvatarBagPanel: 1
+  _ShowAvatarBagPanelButton: {fileID: 11414796}
   _BindExitGame: 1
-  _ExitGameButton: {fileID: 0}
   _BindShowCharacterInfoPanel: 1
-  _ShowCharacterInfoPanelButton: {fileID: 0}
+  _ExitGameButton: {fileID: 11475918}
+  _ShowCharacterInfoPanelButton: {fileID: 114653808965845846}
+  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
+    type: 2}
 --- !u!222 &222300153963356704
 CanvasRenderer:
   m_ObjectHideFlags: 1

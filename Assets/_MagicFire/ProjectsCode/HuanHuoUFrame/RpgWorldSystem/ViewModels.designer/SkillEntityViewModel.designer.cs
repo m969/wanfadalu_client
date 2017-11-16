@@ -24,9 +24,17 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public partial class SkillEntityViewModelBase : SuperPowerEntityViewModel {
+    public partial class SkillEntityViewModelBase : GongFaEntityViewModel {
         
         private P<Int32> _isIceFreezingProperty;
+        
+        private Signal<OnSkillStartCastCommand> _OnSkillStartCast;
+        
+        private Signal<OnSkillEndCastCommand> _OnSkillEndCast;
+        
+        private Signal<RequestCastSkillByNameCommand> _RequestCastSkillByName;
+        
+        private Signal<OnSkillStartSingCommand> _OnSkillStartSing;
         
         public SkillEntityViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
@@ -50,9 +58,93 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnSkillStartCastCommand> OnSkillStartCast {
+            get {
+                return _OnSkillStartCast;
+            }
+            set {
+                _OnSkillStartCast = value;
+            }
+        }
+        
+        public virtual Signal<OnSkillEndCastCommand> OnSkillEndCast {
+            get {
+                return _OnSkillEndCast;
+            }
+            set {
+                _OnSkillEndCast = value;
+            }
+        }
+        
+        public virtual Signal<RequestCastSkillByNameCommand> RequestCastSkillByName {
+            get {
+                return _RequestCastSkillByName;
+            }
+            set {
+                _RequestCastSkillByName = value;
+            }
+        }
+        
+        public virtual Signal<OnSkillStartSingCommand> OnSkillStartSing {
+            get {
+                return _OnSkillStartSing;
+            }
+            set {
+                _OnSkillStartSing = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
+            this.OnSkillStartCast = new Signal<OnSkillStartCastCommand>(this);
+            this.OnSkillEndCast = new Signal<OnSkillEndCastCommand>(this);
+            this.RequestCastSkillByName = new Signal<RequestCastSkillByNameCommand>(this);
+            this.OnSkillStartSing = new Signal<OnSkillStartSingCommand>(this);
             _isIceFreezingProperty = new P<Int32>(this, "isIceFreezing");
+        }
+        
+        public virtual void Execute(OnSkillStartCastCommand argument) {
+            this.OnSkillStartCast.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnSkillEndCastCommand argument) {
+            this.OnSkillEndCast.OnNext(argument);
+        }
+        
+        public virtual void Execute(RequestCastSkillByNameCommand argument) {
+            this.RequestCastSkillByName.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnSkillStartSingCommand argument) {
+            this.OnSkillStartSing.OnNext(argument);
+        }
+        
+        public virtual void OnSkillStartCast_(String skillName, String argsString, Single castTime) {
+            var cmd = new OnSkillStartCastCommand();
+            cmd.skillName = skillName;
+            cmd.argsString = argsString;
+            cmd.castTime = castTime;
+            this.OnSkillStartCast.OnNext(cmd);
+        }
+        
+        public virtual void OnSkillEndCast_(String argsString, String skillName) {
+            var cmd = new OnSkillEndCastCommand();
+            cmd.argsString = argsString;
+            cmd.skillName = skillName;
+            this.OnSkillEndCast.OnNext(cmd);
+        }
+        
+        public virtual void RequestCastSkillByName_(String skillName, String argsString) {
+            var cmd = new RequestCastSkillByNameCommand();
+            cmd.skillName = skillName;
+            cmd.argsString = argsString;
+            this.RequestCastSkillByName.OnNext(cmd);
+        }
+        
+        public virtual void OnSkillStartSing_(Single singTime) {
+            var cmd = new OnSkillStartSingCommand();
+            cmd.singTime = singTime;
+            this.OnSkillStartSing.OnNext(cmd);
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -67,6 +159,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("OnSkillStartCast", OnSkillStartCast) { ParameterType = typeof(OnSkillStartCastCommand) });
+            list.Add(new ViewModelCommandInfo("OnSkillEndCast", OnSkillEndCast) { ParameterType = typeof(OnSkillEndCastCommand) });
+            list.Add(new ViewModelCommandInfo("RequestCastSkillByName", RequestCastSkillByName) { ParameterType = typeof(RequestCastSkillByNameCommand) });
+            list.Add(new ViewModelCommandInfo("OnSkillStartSing", OnSkillStartSing) { ParameterType = typeof(OnSkillStartSingCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

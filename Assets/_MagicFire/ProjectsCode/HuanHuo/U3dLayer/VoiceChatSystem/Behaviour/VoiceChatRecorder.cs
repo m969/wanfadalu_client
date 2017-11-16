@@ -339,7 +339,6 @@ namespace VoiceChat.Behaviour
                 return;
             }
 
-            Debug.Log("开始录音");
             _micButtonText.text = "关闭聊天话筒";
 
             Device = "";

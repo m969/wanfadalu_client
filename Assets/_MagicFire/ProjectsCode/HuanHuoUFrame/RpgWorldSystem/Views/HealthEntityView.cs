@@ -15,10 +15,14 @@
     
     public class HealthEntityView : HealthEntityViewBase {
         
-        public override void HPChanged(Int32 arg1) {
+        public override void HPChanged(Int32 arg1)
+        {
+            _HP = arg1;
         }
         
-        public override void HP_MaxChanged(Int32 arg1) {
+        public override void HP_MaxChanged(Int32 arg1)
+        {
+            _HP_Max = arg1;
         }
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {

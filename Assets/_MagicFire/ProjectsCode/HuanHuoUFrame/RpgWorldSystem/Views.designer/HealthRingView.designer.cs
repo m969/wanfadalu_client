@@ -23,7 +23,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class HealthRingViewBase : RingView {
+    public class HealthRingViewBase : EntityRingView {
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]

@@ -56,6 +56,120 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class OnLeaveWorldCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class OnSkillEndCastCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private String _argsString;
+        
+        private String _skillName;
+        
+        public String argsString {
+            get {
+                return _argsString;
+            }
+            set {
+                _argsString = value;
+            }
+        }
+        
+        public String skillName {
+            get {
+                return _skillName;
+            }
+            set {
+                _skillName = value;
+            }
+        }
+    }
+    
+    public partial class learnGongFaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private String _gongFaName;
+        
+        public String gongFaName {
+            get {
+                return _gongFaName;
+            }
+            set {
+                _gongFaName = value;
+            }
+        }
+    }
+    
+    public partial class OnSkillStartSingCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Single _singTime;
+        
+        public Single singTime {
+            get {
+                return _singTime;
+            }
+            set {
+                _singTime = value;
+            }
+        }
+    }
+    
+    public partial class RequestCastSkillByNameCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private String _skillName;
+        
+        private String _argsString;
+        
+        public String skillName {
+            get {
+                return _skillName;
+            }
+            set {
+                _skillName = value;
+            }
+        }
+        
+        public String argsString {
+            get {
+                return _argsString;
+            }
+            set {
+                _argsString = value;
+            }
+        }
+    }
+    
+    public partial class OnSkillStartCastCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private String _skillName;
+        
+        private String _argsString;
+        
+        private Single _castTime;
+        
+        public String skillName {
+            get {
+                return _skillName;
+            }
+            set {
+                _skillName = value;
+            }
+        }
+        
+        public String argsString {
+            get {
+                return _argsString;
+            }
+            set {
+                _argsString = value;
+            }
+        }
+        
+        public Single castTime {
+            get {
+                return _castTime;
+            }
+            set {
+                _castTime = value;
+            }
+        }
+    }
+    
     public partial class onMainAvatarLeaveSpaceCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     

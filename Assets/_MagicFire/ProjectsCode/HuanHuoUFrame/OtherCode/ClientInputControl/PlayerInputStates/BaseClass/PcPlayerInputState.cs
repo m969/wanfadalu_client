@@ -68,6 +68,8 @@ namespace MagicFire.HuanHuoUFrame
                 AvatarView.SkillManager.SkillReady(2);
             if (Input.GetKeyDown(KeyCode.E))
                 AvatarView.SkillManager.SkillReady(3);
+            if (Input.GetKeyDown(KeyCode.R))
+                AvatarView.SkillManager.GetSkillRef(4).Conjure();
         }
 
         public override void FixedRun()

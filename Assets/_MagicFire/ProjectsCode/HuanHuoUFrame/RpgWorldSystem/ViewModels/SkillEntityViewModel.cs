@@ -15,5 +15,10 @@
     
     
     public partial class SkillEntityViewModel : SkillEntityViewModelBase {
+        public override void Execute(RequestCastSkillByNameCommand argument)
+        {
+            base.Execute(argument);
+            cellCall("requestCastSkill", new object[] { argument.skillName, argument.argsString });
+        }
     }
 }

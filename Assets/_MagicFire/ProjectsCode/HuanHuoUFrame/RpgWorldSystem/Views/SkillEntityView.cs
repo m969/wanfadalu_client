@@ -1,6 +1,8 @@
-﻿using MagicFire.Common.Plugin;
+﻿using DG.Tweening;
+using MagicFire.Common.Plugin;
 using MagicFire.SceneManagement;
 using PathologicalGames;
+using UnityEngine.UI;
 
 namespace MagicFire.HuanHuoUFrame {
     using System;
@@ -20,6 +22,7 @@ namespace MagicFire.HuanHuoUFrame {
     public class SkillEntityView : SkillEntityViewBase {
 
         private GameObject _iceImprisonEffect;
+
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -62,5 +65,9 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
 
+        public override void OnSkillStartCastExecuted(OnSkillStartCastCommand command)
+        {
+            base.OnSkillStartCastExecuted(command);
+        }
     }
 }

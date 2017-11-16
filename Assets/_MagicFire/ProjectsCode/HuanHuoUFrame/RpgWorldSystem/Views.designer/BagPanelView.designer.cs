@@ -24,17 +24,17 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class BagPanelViewBase : uFrame.MVVM.Views.ViewBase {
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
+    public class BagPanelViewBase : MovablePanelView {
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
         public object _avatarBag;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _goldCount;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("goldCount")]
         [UnityEngine.HideInInspector()]
@@ -80,8 +80,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var bagpanelview = ((AvatarViewModel)model);
-            bagpanelview.goldCount = this._goldCount;
             bagpanelview.avatarBag = this._avatarBag;
+            bagpanelview.goldCount = this._goldCount;
         }
         
         public override void Bind() {
@@ -121,16 +121,6 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteOnStopMove(OnStopMoveCommand command) {
             command.Sender = Avatar;
             Avatar.OnStopMove.OnNext(command);
-        }
-        
-        public virtual void ExecuteOnDestroy(OnDestroyCommand command) {
-            command.Sender = Avatar;
-            Avatar.OnDestroy.OnNext(command);
-        }
-        
-        public virtual void ExecuteOnLeaveWorld(OnLeaveWorldCommand command) {
-            command.Sender = Avatar;
-            Avatar.OnLeaveWorld.OnNext(command);
         }
     }
 }

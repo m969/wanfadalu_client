@@ -43,6 +43,12 @@ namespace MagicFire.HuanHuoUFrame{
 
         private List<KBEngine.Entity> _entitiesPool = new List<KBEngine.Entity>();
 
+        private SpawnPool _modelViewPool;
+
+        private SpawnPool _ringViewPool;
+
+        private SpawnPool _panelViewPool;
+
 
         public GameObject MasterCanvas
         {
@@ -89,6 +95,8 @@ namespace MagicFire.HuanHuoUFrame{
             }
         }
 
+        private RpgMainPanel _rpgMainPanel;
+
 
 
         /// <summary>
@@ -111,6 +119,10 @@ namespace MagicFire.HuanHuoUFrame{
             this.OnEvent<set_positionEvent>().ObserveOnMainThread().Subscribe(Set_Position);
             this.OnEvent<set_directionEvent>().ObserveOnMainThread().Subscribe(Set_Direction);
             this.OnEvent<updatePositionEvent>().ObserveOnMainThread().Subscribe(UpdatePosition);
+
+            _modelViewPool = PoolManager.Pools["ModelViewPool"];
+            //_ringViewPool = PoolManager.Pools["RingViewPool"];
+            //_panelViewPool = PoolManager.Pools["PanelViewPool"];
 
             this.OnEvent<SceneLoaderEvent>()
                 .Where(x => x.Name == "LoginScene")
@@ -166,20 +178,20 @@ namespace MagicFire.HuanHuoUFrame{
         private EntityCommonView InstantiateModelView(KBEngine.Entity entity)
         {
             EntityCommonView view = null;
-            var viewType = entity.className.Replace("ViewModel", "View");
-            var viewPool = PoolManager.Pools[viewType + "Pool"];
-            if (viewPool != null)
+            if (_modelViewPool != null)
             {
                 var viewModel = entity as EntityCommonViewModel;
                 if (viewModel != null)
                 {
-                    Transform viewPrefab;
+                    Transform viewPrefab = null;
+
                     if (entity.className == "AvatarViewModel")
-                        viewPrefab = viewPool.prefabs["AvatarView"];
+                        _modelViewPool.prefabs.TryGetValue("AvatarView", out viewPrefab);
                     else
-                        viewPrefab = viewPool.prefabs[viewModel.entityName];
+                        _modelViewPool.prefabs.TryGetValue(viewModel.entityName, out viewPrefab);
+
                     if (viewPrefab != null)
-                        view = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
+                        view = _modelViewPool.SpawnEntityCommonView(viewPrefab, viewModel);
                 }
             }
             return view;
@@ -268,6 +280,20 @@ namespace MagicFire.HuanHuoUFrame{
             {
                 InstantiateViews(entity);
             }
+            if (!_rpgMainPanel)
+            {
+                _rpgMainPanel = MasterCanvas.transform.Find("RpgMainPanel").GetComponent<RpgMainPanel>();
+                _rpgMainPanel.gameObject.SetActive(true);
+                //var spawnPool = PoolManager.Pools["UIPanelPool"];
+                //_rpgMainPanel = spawnPool.Spawn("RpgMainPanel").GetComponent<RpgMainPanel>();
+                //_rpgMainPanel.transform.SetParent(MasterCanvas.transform);
+                //_rpgMainPanel.transform.localScale = new Vector3(1, 1, 1);
+                //var rect = _rpgMainPanel.GetComponent<RectTransform>();
+                //rect.anchorMin = new Vector2(0.0f, 0.0f);
+                //rect.anchorMax = new Vector2(1, 1);
+                //rect.offsetMax = new Vector2(-0, 0);
+                //rect.offsetMin = new Vector2(0, 0);
+            }
         }
 
         private void OnEnterWorld(onEnterWorldEvent evt)
@@ -281,41 +307,6 @@ namespace MagicFire.HuanHuoUFrame{
 
             var entity = evt.Entity;
             InstantiateViews(entity);
-            //if (entity.className != "CampViewModel" && entity.className != "SpaceViewModel" && entity.renderObj == null)
-            //{
-            //    var modleView = InstantiateView(entity) as EntityCommonView;
-
-            //    if (entity.isPlayer())
-            //    {
-            //        if (modleView != null)
-            //        {
-            //            modleView.gameObject.AddComponent<AvatarStateController>();
-            //        }
-            //        AvatarStateController.Instance.gameObject.SetActive(true);
-            //        AvatarStateController.Instance.Init(modleView as AvatarView);
-            //        Instantiate(_playerTargetPrefab);
-
-            //        var viewPool = PoolManager.Pools["AvatarViewPool"];
-            //        if (viewPool != null)
-            //        {
-            //            var viewModel = entity as EntityCommonViewModel;
-            //            if (viewModel != null)
-            //            {
-            //                var viewPrefab = viewPool.prefabs["MainAvatarInfoPanelView"];
-            //                if (viewPrefab != null)
-            //                {
-            //                    var mainAvatarInfoPanelView = viewPool.SpawnView(viewPrefab, viewModel) as EntityCommonView;
-            //                }
-            //            }
-            //        }
-            //    }
-
-            //    if (entity.className == "AvatarViewModel")
-            //    {
-            //        var ringView = InstantiateRingView(entity) as EntityCommonView;
-            //        var panelView = InstantiatePanelView(entity) as EntityCommonView;
-            //    }
-            //}
         }
 
         private void OnLeaveWorld(onLeaveWorldEvent evt)

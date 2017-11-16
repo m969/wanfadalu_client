@@ -1,0 +1,8 @@
+{
+	"Identifier":"a4a09fd0-fc46-48eb-990d-569b284ab4c7"	, 
+	"Time":"11/14/2017 20:52:49"	, 
+	"Group":205249	, 
+	"DataRecordId":"c03d30f5-846d-48f4-8f90-281f491aca8d"	, 
+	"Type":0	, 
+	"RecordType":"uFrame.ECS.Editor.HandlerNode, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"CodeHandler\":false\t, \r\n\t\"Custom\":false\t, \r\n\t\"MetaType\":\"uFrame.ECS.UnityUtilities.BeginDragDispatcher\"\t, \r\n\t\"VariableCount\":0\t, \r\n\t\"VariableName\":\"HandlerNode26\"\t, \r\n\t\"Name\":\"PanelSystemOnBeginDrag\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"06cb855c-b77b-4cbd-920d-3dd2558c825b\"\t, \r\n\t\"Identifier\":\"c03d30f5-846d-48f4-8f90-281f491aca8d\"\t, \r\n\t\"Expanded\":false}\r\n"}

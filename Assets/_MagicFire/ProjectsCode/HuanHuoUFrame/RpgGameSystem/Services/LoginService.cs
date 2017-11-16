@@ -23,7 +23,6 @@ namespace MagicFire.HuanHuoUFrame{
             // this.OnEvent<MyEvent>().Subscribe(myEventInstance => { TODO });
 
             this.OnEvent<OnLoginSuccessfullyEvent>().ObserveOnMainThread().Subscribe(OnLoginSuccessfully);
-
         }
 
         private void OnLoginSuccessfully(OnLoginSuccessfullyEvent evt)

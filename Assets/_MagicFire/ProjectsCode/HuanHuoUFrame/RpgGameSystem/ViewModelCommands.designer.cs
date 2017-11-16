@@ -25,6 +25,9 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class UserLoginCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class ShowAvatarBagPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class Test03LoginCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     

@@ -1,7 +1,7 @@
 {
 	"ElementInputSlotId":"0b9709ca-9daf-4431-90d0-68cfb6e1d9fa"	, 
 	"ScenePropertiesInputSlotId":"4bf3f94c-8953-47a1-93b6-488334a209ac"	, 
-	"Name":"ModelView"	, 
+	"Name":"EntityModelView"	, 
 	"Order":0	, 
 	"GraphId":"75895d07-b676-4aac-8d88-7e1f3e487f78"	, 
 	"Identifier":"678e6042-f987-40d2-ac16-ff67d8f07937"	, 

@@ -16,7 +16,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     
     public class TriggerView : TriggerViewBase {
-
         [SerializeField]
         private bool _adaptTriggerSize;
 
@@ -38,6 +37,12 @@ namespace MagicFire.HuanHuoUFrame {
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(transform.position, new Vector3(_triggerSize * 2, _triggerSize * 2, _triggerSize * 2));
+        }
+
+        public override void triggerSizeChanged(int arg1)
+        {
+            base.triggerSizeChanged(arg1);
+            _triggerSize = arg1;
         }
     }
 }

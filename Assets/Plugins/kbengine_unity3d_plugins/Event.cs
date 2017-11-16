@@ -293,11 +293,15 @@
 		*/
 		public static void fireAll(string eventname, params object[] args)
 		{
-			fire_(events_in, firedEvents_in, eventname, args);
-			fire_(events_out, firedEvents_out, eventname, args);
-		}
-		
-		private static void fire_(Dictionary<string, List<Pair>> events, LinkedList<EventObj> firedEvents, string eventname, object[] args)
+            //uFrame_kbe
+            //fire_(events_in, firedEvents_in, eventname, args);
+            //fire_(events_out, firedEvents_out, eventname, args);
+            fireIn(eventname, args);
+            fireOut(eventname, args);
+            //uFrame_kbe
+        }
+
+        private static void fire_(Dictionary<string, List<Pair>> events, LinkedList<EventObj> firedEvents, string eventname, object[] args)
 		{
 			monitor_Enter(events);
 			List<Pair> lst = null;

@@ -86,9 +86,15 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindCloseMessage) {
                 this.BindButtonToCommand(_CloseMessageButton, this.MessageBox.CloseMessage);
             }
+            if (_BindCloseMessage) {
+                this.BindCommandExecuted(this.MessageBox.CloseMessage, this.CloseMessageExecuted);
+            }
             if (_BindMessage) {
                 this.BindTextToProperty(_MessageInput, this.MessageBox.MessageProperty);
             }
+        }
+        
+        public virtual void CloseMessageExecuted(CloseMessageCommand command) {
         }
         
         public virtual void ExecuteShowMessage(ShowMessageCommand command) {

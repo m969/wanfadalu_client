@@ -93,6 +93,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeRpgMainScreen(RpgMainScreenViewModel viewModel) {
             // This is called when a RpgMainScreenViewModel is created
+            viewModel.ShowAvatarBagPanel.Action = this.ShowAvatarBagPanelHandler;
             viewModel.ShowCharacterInfoPanel.Action = this.ShowCharacterInfoPanelHandler;
             viewModel.ExitGame.Action = this.ExitGameHandler;
             RpgMainScreenViewModelManager.Add(viewModel);
@@ -103,12 +104,19 @@ namespace MagicFire.HuanHuoUFrame {
             RpgMainScreenViewModelManager.Remove(viewModel);
         }
         
+        public virtual void ShowAvatarBagPanelHandler(ShowAvatarBagPanelCommand command) {
+            this.ShowAvatarBagPanel(command.Sender as RpgMainScreenViewModel, command);
+        }
+        
         public virtual void ShowCharacterInfoPanelHandler(ShowCharacterInfoPanelCommand command) {
             this.ShowCharacterInfoPanel(command.Sender as RpgMainScreenViewModel, command);
         }
         
         public virtual void ExitGameHandler(ExitGameCommand command) {
             this.ExitGame(command.Sender as RpgMainScreenViewModel, command);
+        }
+        
+        public virtual void ShowAvatarBagPanel(RpgMainScreenViewModel viewModel, ShowAvatarBagPanelCommand arg) {
         }
         
         public virtual void ShowCharacterInfoPanel(RpgMainScreenViewModel viewModel, ShowCharacterInfoPanelCommand arg) {

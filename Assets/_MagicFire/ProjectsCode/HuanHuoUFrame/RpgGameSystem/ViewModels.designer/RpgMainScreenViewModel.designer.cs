@@ -26,12 +26,23 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class RpgMainScreenViewModelBase : uFrame.MVVM.ViewModels.ViewModel {
         
+        private Signal<ShowAvatarBagPanelCommand> _ShowAvatarBagPanel;
+        
         private Signal<ShowCharacterInfoPanelCommand> _ShowCharacterInfoPanel;
         
         private Signal<ExitGameCommand> _ExitGame;
         
         public RpgMainScreenViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual Signal<ShowAvatarBagPanelCommand> ShowAvatarBagPanel {
+            get {
+                return _ShowAvatarBagPanel;
+            }
+            set {
+                _ShowAvatarBagPanel = value;
+            }
         }
         
         public virtual Signal<ShowCharacterInfoPanelCommand> ShowCharacterInfoPanel {
@@ -54,8 +65,13 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
+            this.ShowAvatarBagPanel = new Signal<ShowAvatarBagPanelCommand>(this);
             this.ShowCharacterInfoPanel = new Signal<ShowCharacterInfoPanelCommand>(this);
             this.ExitGame = new Signal<ExitGameCommand>(this);
+        }
+        
+        public virtual void Execute(ShowAvatarBagPanelCommand argument) {
+            this.ShowAvatarBagPanel.OnNext(argument);
         }
         
         public virtual void Execute(ShowCharacterInfoPanelCommand argument) {
@@ -64,6 +80,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(ExitGameCommand argument) {
             this.ExitGame.OnNext(argument);
+        }
+        
+        public virtual void ShowAvatarBagPanel_() {
+            var cmd = new ShowAvatarBagPanelCommand();
+            this.ShowAvatarBagPanel.OnNext(cmd);
         }
         
         public virtual void ShowCharacterInfoPanel_() {
@@ -86,6 +107,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("ShowAvatarBagPanel", ShowAvatarBagPanel) { ParameterType = typeof(ShowAvatarBagPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowCharacterInfoPanel", ShowCharacterInfoPanel) { ParameterType = typeof(ShowCharacterInfoPanelCommand) });
             list.Add(new ViewModelCommandInfo("ExitGame", ExitGame) { ParameterType = typeof(ExitGameCommand) });
         }

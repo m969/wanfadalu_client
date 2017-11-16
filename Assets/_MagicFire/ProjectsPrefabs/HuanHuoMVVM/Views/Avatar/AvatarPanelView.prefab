@@ -552,6 +552,7 @@ RectTransform:
   - {fileID: 22473800}
   - {fileID: 22491186}
   - {fileID: 224662311760936016}
+  - {fileID: 224423706923816118}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -719,6 +720,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1772844675148724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224423706923816118}
+  - component: {fileID: 222076740972101952}
+  - component: {fileID: 114389119611570476}
+  - component: {fileID: 114677423244756472}
+  m_Layer: 5
+  m_Name: SkillSingingBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1882891987751946
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +821,33 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114389119611570476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772844675148724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.39705884, g: 0.72555774, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 3510432bc281f404d979444d89e763d9, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114444317141975284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -862,6 +908,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u59D3\u540D"
+--- !u!114 &114677423244756472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772844675148724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.38235295, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 0.5, y: -0.5}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114688131266096668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -975,8 +1035,24 @@ MonoBehaviour:
     type: 2}
   _BindentityName: 1
   _entityNameInput: {fileID: 114564766550732744}
+  _HP_Max: 0
+  _HP: 0
   _BindHP: 1
   _HPOnlyWhenChanged: 0
+  _BindHP_Max: 1
+  _HP_MaxOnlyWhenChanged: 0
+  _MSP: 0
+  _MSP_Max: 0
+  _SP_Max: 0
+  _SP: 0
+  _BindSP: 1
+  _SPOnlyWhenChanged: 0
+  _BindSP_Max: 1
+  _SP_MaxOnlyWhenChanged: 0
+  _isIceFreezing: 0
+  _BindOnSkillSinging: 1
+  _skillSingingBar: {fileID: 114389119611570476}
+  _goldCount: 0
   _damageHintText: {fileID: 11443948}
 --- !u!114 &114956232868403456
 MonoBehaviour:
@@ -1050,6 +1126,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1306998390899712}
+--- !u!222 &222076740972101952
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772844675148724}
 --- !u!222 &222608170907236648
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1091,6 +1173,24 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224423706923816118
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772844675148724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22408162}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.57}
+  m_SizeDelta: {x: 0, y: 7.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224476559513489908
 RectTransform:

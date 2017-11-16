@@ -1,4 +1,4 @@
-/* *********************************************************
+﻿/* *********************************************************
  * Company   
 	: MagicFire Studio
  * Autor         
@@ -11,6 +11,7 @@
 
 using MagicFire.Mmorpg.AvatarInputState;
 using MagicFire.SceneManagement;
+using QuickEngine.Extensions;
 
 namespace MagicFire.HuanHuoUFrame
 {
@@ -23,7 +24,7 @@ namespace MagicFire.HuanHuoUFrame
     {
         public SkillW(AvatarView spellcaster) : base(spellcaster)
         {
-
+            SkillName = "基础土系法术:碎石阵";
         }
 
         public override void Ready(AvatarView spellcaster)
@@ -40,21 +41,17 @@ namespace MagicFire.HuanHuoUFrame
 
         public override void Conjure(params object[] args)
         {
-            base.Conjure();
-            //if (_spellcaster.Animation)
-            //{
-            //    if (!_spellcaster.Animation.IsPlaying("Attack"))
-            //    {
-            //        _spellcaster.Animation.Play("Attack");
-            //    }
-            //}
             var point = SkillTrajectory.transform.position;
-            var argsString =
-                point.x + " " +
-                point.y + " " +
-                point.z + " ";
-            KBEngine.Event.fireIn("RequestCastSkillByName", new object[] { this.GetType().Name, argsString });
-            _spellcaster.SkillManager.CancelReady();
+            ArgsString = point.x + ":" + point.y + ":" + point.z + ":";
+            base.Conjure();
+            Spellcaster.SkillManager.CancelReady();
+        }
+
+        public override void OnCast(string argsString)
+        {
+            //var args = argsString.Split(":");
+            //Spellcaster.transform.LookAt(new Vector3(int.Parse(args[0]), int.Parse(args[1]), int.Parse(args[2])));
+            Spellcaster.Animator.SetTrigger("Attack_2");
         }
     }
 }//namespace_end

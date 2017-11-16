@@ -29,12 +29,22 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
+        public object _avatarBag;
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public object _avatarBag;
+        public Int32 _goldCount;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("avatarState")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindavatarState = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("avatarState")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_avatarStateonlyWhenChanged")]
+        protected bool _avatarStateOnlyWhenChanged;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("OnStopMove")]
         [UnityEngine.HideInInspector()]
@@ -68,8 +78,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var avatarview = ((AvatarViewModel)model);
-            avatarview.goldCount = this._goldCount;
             avatarview.avatarBag = this._avatarBag;
+            avatarview.goldCount = this._goldCount;
         }
         
         public override void Bind() {
@@ -77,12 +87,54 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindavatarState) {
+                this.BindStateProperty(this.Avatar.avatarStateProperty, this.avatarStateChanged, _avatarStateOnlyWhenChanged);
+            }
             if (_BindOnStopMove) {
                 this.BindCommandExecuted(this.Avatar.OnStopMove, this.OnStopMoveExecuted);
             }
             if (_BindDoMove) {
                 this.BindCommandExecuted(this.Avatar.DoMove, this.DoMoveExecuted);
             }
+        }
+        
+        public virtual void avatarStateChanged(uFrame.MVVM.StateMachines.State arg1) {
+            if (arg1 is CastSkillState) {
+                this.OnCastSkillState();
+            }
+            if (arg1 is IdleState) {
+                this.OnIdleState();
+            }
+            if (arg1 is DeadState) {
+                this.OnDeadState();
+            }
+            if (arg1 is HitState) {
+                this.OnHitState();
+            }
+            if (arg1 is RunState) {
+                this.OnRunState();
+            }
+            if (arg1 is WalkState) {
+                this.OnWalkState();
+            }
+        }
+        
+        public virtual void OnCastSkillState() {
+        }
+        
+        public virtual void OnIdleState() {
+        }
+        
+        public virtual void OnDeadState() {
+        }
+        
+        public virtual void OnHitState() {
+        }
+        
+        public virtual void OnRunState() {
+        }
+        
+        public virtual void OnWalkState() {
         }
         
         public virtual void OnStopMoveExecuted(OnStopMoveCommand command) {

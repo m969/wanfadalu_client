@@ -35,12 +35,19 @@
 
             this.OnEvent<onLoginFailedEvent>().ObserveOnMainThread().Subscribe(evt =>
             {
+                Debug.Log("MessageBoxView:onLoginFailedEvent");
                 MessageBox.Message = KBEngine.KBEngineApp.serverErrs[(ushort) evt.FailedCode].descr;
                 gameObject.SetActive(true);
             });
 
             gameObject.SetActive(false);
             GetComponent<Canvas>().sortingOrder = 2;
+        }
+
+        public override void CloseMessageExecuted(CloseMessageCommand command)
+        {
+            base.CloseMessageExecuted(command);
+            gameObject.SetActive(false);
         }
     }
 }

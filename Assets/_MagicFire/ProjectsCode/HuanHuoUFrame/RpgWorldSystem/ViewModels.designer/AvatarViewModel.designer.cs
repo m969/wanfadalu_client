@@ -26,9 +26,11 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class AvatarViewModelBase : CampEntityViewModel {
         
-        private P<Int32> _goldCountProperty;
+        private AvatarStateMachine _avatarStateProperty;
         
         private P<System.Object> _avatarBagProperty;
+        
+        private P<Int32> _goldCountProperty;
         
         private Signal<onMainAvatarEnterSpaceCommand> _onMainAvatarEnterSpace;
         
@@ -42,12 +44,21 @@ namespace MagicFire.HuanHuoUFrame {
                 base(aggregator) {
         }
         
-        public virtual P<Int32> goldCountProperty {
+        public virtual AvatarStateMachine avatarStateProperty {
             get {
-                return _goldCountProperty;
+                return _avatarStateProperty;
             }
             set {
-                _goldCountProperty = value;
+                _avatarStateProperty = value;
+            }
+        }
+        
+        public virtual uFrame.MVVM.StateMachines.State avatarState {
+            get {
+                return avatarStateProperty.Value;
+            }
+            set {
+                avatarStateProperty.Value = value;
             }
         }
         
@@ -60,12 +71,12 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual Int32 goldCount {
+        public virtual P<Int32> goldCountProperty {
             get {
-                return goldCountProperty.Value;
+                return _goldCountProperty;
             }
             set {
-                goldCountProperty.Value = value;
+                _goldCountProperty = value;
             }
         }
         
@@ -75,6 +86,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 avatarBagProperty.Value = value;
+            }
+        }
+        
+        public virtual Int32 goldCount {
+            get {
+                return goldCountProperty.Value;
+            }
+            set {
+                goldCountProperty.Value = value;
             }
         }
         
@@ -120,8 +140,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace = new Signal<onMainAvatarLeaveSpaceCommand>(this);
             this.DoMove = new Signal<DoMoveCommand>(this);
             this.OnStopMove = new Signal<OnStopMoveCommand>(this);
-            _goldCountProperty = new P<Int32>(this, "goldCount");
             _avatarBagProperty = new P<System.Object>(this, "avatarBag");
+            _goldCountProperty = new P<Int32>(this, "goldCount");
+            _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
         }
         
         public virtual void Execute(onMainAvatarEnterSpaceCommand argument) {
@@ -165,11 +186,13 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this._avatarStateProperty.SetState(stream.DeserializeString("avatarState"));
             this.goldCount = stream.DeserializeInt("goldCount");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeString("avatarState", this.avatarState.Name);;
             stream.SerializeInt("goldCount", this.goldCount);
         }
         
@@ -184,9 +207,11 @@ namespace MagicFire.HuanHuoUFrame {
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
             // PropertiesChildItem
-            list.Add(new ViewModelPropertyInfo(_goldCountProperty, false, false, false, false));
+            list.Add(new ViewModelPropertyInfo(_avatarStateProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_avatarBagProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_goldCountProperty, false, false, false, false));
         }
     }
     

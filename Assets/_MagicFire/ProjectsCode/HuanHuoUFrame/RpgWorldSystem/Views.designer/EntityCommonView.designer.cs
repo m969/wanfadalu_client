@@ -29,17 +29,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _prefabName;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
         public String _entityName;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public String _modelName;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("entityName")]
         [UnityEngine.HideInInspector()]
@@ -58,26 +48,6 @@ namespace MagicFire.HuanHuoUFrame {
         [uFrame.MVVM.Attributes.UFToggleGroup("OnDestroy")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnDestroy = true;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("prefabName")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindprefabName = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("prefabName")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_prefabNameonlyWhenChanged")]
-        protected bool _prefabNameOnlyWhenChanged;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("modelName")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindmodelName = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("modelName")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_modelNameonlyWhenChanged")]
-        protected bool _modelNameOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -103,9 +73,7 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as EntityCommonViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var entitycommonview = ((EntityCommonViewModel)model);
-            entitycommonview.prefabName = this._prefabName;
             entitycommonview.entityName = this._entityName;
-            entitycommonview.modelName = this._modelName;
         }
         
         public override void Bind() {
@@ -122,12 +90,6 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindOnDestroy) {
                 this.BindCommandExecuted(this.EntityCommon.OnDestroy, this.OnDestroyExecuted);
             }
-            if (_BindprefabName) {
-                this.BindProperty(this.EntityCommon.prefabNameProperty, this.prefabNameChanged, _prefabNameOnlyWhenChanged);
-            }
-            if (_BindmodelName) {
-                this.BindProperty(this.EntityCommon.modelNameProperty, this.modelNameChanged, _modelNameOnlyWhenChanged);
-            }
         }
         
         public virtual void entityNameChanged(String arg1) {
@@ -137,12 +99,6 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void OnDestroyExecuted(OnDestroyCommand command) {
-        }
-        
-        public virtual void prefabNameChanged(String arg1) {
-        }
-        
-        public virtual void modelNameChanged(String arg1) {
         }
         
         public virtual void ExecuteOnDestroy(OnDestroyCommand command) {

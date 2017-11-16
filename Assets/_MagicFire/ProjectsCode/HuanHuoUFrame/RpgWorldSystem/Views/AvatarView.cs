@@ -29,11 +29,6 @@
         [SerializeField]
         private CharacterController _characterController;
 
-        private AvatarState _avatarState;
-        private StandState _standState;
-        private RunState _runState;
-        private DeadState _deadState;
-
         public SkillManager SkillManager
         {
             get;
@@ -86,36 +81,71 @@
             SkillManager = new SkillManager { Owner = this };
             SkillManager.Init();
 
-            _standState = new StandState(this);
-            _runState = new RunState(this);
-            _deadState = new DeadState(this);
-            _avatarState = _standState;
-
             this.Bindings.Add(
                 Observable.EveryUpdate().Subscribe(evt =>
                 {
                     SkillManager.Update();
-                    _avatarState.Run();
                     transform.GetChild(0).localPosition = Vector3.zero;
-                })
-            );
-
-            this.Bindings.Add(
-                Observable.EveryFixedUpdate().Subscribe(evt =>
-                {
-                    _avatarState.FixedRun();
                 })
             );
         }
 
         public override void OnStopMoveExecuted(OnStopMoveCommand command)
         {
-            _avatarState = _standState;
+            //_avatarState = _standState;
         }
 
         public override void DoMoveExecuted(DoMoveCommand command)
         {
-            _avatarState = _runState;
+            //_avatarState = _runState;
+            //Avatar.avatarStateProperty.SetState<TheRunState>();
+            //Avatar.avatarState.OnNext(Avatar.avatarStateProperty.Run);
+            //Avatar.avatarStateProperty.Run.OnNext(true);
+        }
+
+        public override void OnSkillStartCastExecuted(OnSkillStartCastCommand command)
+        {
+            base.OnSkillStartCastExecuted(command);
+
+        }
+
+        public override void OnSkillEndCastExecuted(OnSkillEndCastCommand command)
+        {
+            base.OnSkillEndCastExecuted(command);
+        }
+
+        public override void OnIdleState()
+        {
+            base.OnIdleState();
+            Animator.SetFloat("Speed", 0.0f);
+        }
+
+        public override void OnDeadState()
+        {
+            base.OnDeadState();
+        }
+
+        public override void OnWalkState()
+        {
+            base.OnWalkState();
+            Animator.SetFloat("Speed", 1.0f);
+        }
+
+        public override void OnRunState()
+        {
+            base.OnRunState();
+            Animator.SetFloat("Speed", 1.0f);
+        }
+
+        public override void OnHitState()
+        {
+            base.OnHitState();
+        }
+
+        public override void OnCastSkillState()
+        {
+            base.OnCastSkillState();
+            SkillManager.OnCastSkill(Avatar.CurrentSkillName, Avatar.CurrentSkillArgs);
         }
     }
 }

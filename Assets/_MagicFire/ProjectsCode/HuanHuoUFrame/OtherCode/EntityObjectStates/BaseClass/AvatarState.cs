@@ -5,23 +5,23 @@
     using MagicFire.Mmorpg;
     using UnityEngine;
 
-    public class AvatarState
-    {
-        protected readonly AvatarView AvatarView;
+    //public class AvatarState
+    //{
+    //    protected readonly AvatarView AvatarView;
 
-        protected AvatarState(AvatarView avatarView)
-        {
-            AvatarView = avatarView;
-        }
+    //    protected AvatarState(AvatarView avatarView)
+    //    {
+    //        AvatarView = avatarView;
+    //    }
 
-        public virtual void Run()
-        {
+    //    public virtual void Run()
+    //    {
 
-        }
+    //    }
 
-        public virtual void FixedRun()
-        {
+    //    public virtual void FixedRun()
+    //    {
 
-        }
-    } 
+    //    }
+    //} 
 }

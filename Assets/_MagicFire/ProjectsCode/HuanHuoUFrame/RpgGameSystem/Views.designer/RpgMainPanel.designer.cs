@@ -26,19 +26,29 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RpgMainPanelBase : uFrame.MVVM.Views.ViewBase {
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowAvatarBagPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowAvatarBagPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ShowAvatarBagPanel")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowAvatarBagPanelbutton")]
+        protected UnityEngine.UI.Button _ShowAvatarBagPanelButton;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("ExitGame")]
         [UnityEngine.HideInInspector()]
         public bool _BindExitGame = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowCharacterInfoPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowCharacterInfoPanel = true;
         
         [uFrame.MVVM.Attributes.UFGroup("ExitGame")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ExitGamebutton")]
         protected UnityEngine.UI.Button _ExitGameButton;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("ShowCharacterInfoPanel")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindShowCharacterInfoPanel = true;
         
         [uFrame.MVVM.Attributes.UFGroup("ShowCharacterInfoPanel")]
         [UnityEngine.SerializeField()]
@@ -76,12 +86,38 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.RpgMainScreen to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindShowAvatarBagPanel) {
+                this.BindButtonToCommand(_ShowAvatarBagPanelButton, this.RpgMainScreen.ShowAvatarBagPanel);
+            }
+            if (_BindExitGame) {
+                this.BindCommandExecuted(this.RpgMainScreen.ExitGame, this.ExitGameExecuted);
+            }
+            if (_BindShowCharacterInfoPanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowCharacterInfoPanel, this.ShowCharacterInfoPanelExecuted);
+            }
             if (_BindExitGame) {
                 this.BindButtonToCommand(_ExitGameButton, this.RpgMainScreen.ExitGame);
             }
             if (_BindShowCharacterInfoPanel) {
                 this.BindButtonToCommand(_ShowCharacterInfoPanelButton, this.RpgMainScreen.ShowCharacterInfoPanel);
             }
+            if (_BindShowAvatarBagPanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowAvatarBagPanel, this.ShowAvatarBagPanelExecuted);
+            }
+        }
+        
+        public virtual void ExitGameExecuted(ExitGameCommand command) {
+        }
+        
+        public virtual void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command) {
+        }
+        
+        public virtual void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command) {
+        }
+        
+        public virtual void ExecuteShowAvatarBagPanel(ShowAvatarBagPanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowAvatarBagPanel.OnNext(command);
         }
         
         public virtual void ExecuteShowCharacterInfoPanel(ShowCharacterInfoPanelCommand command) {

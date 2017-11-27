@@ -107,6 +107,11 @@ namespace MagicFire.HuanHuoUFrame {
             Avatar.OnStopMove.OnNext(command);
         }
         
+        public virtual void ExecuteRequestEnterArena(RequestEnterArenaCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestEnterArena.OnNext(command);
+        }
+        
         public virtual void ExecuteOnSkillStartCast(OnSkillStartCastCommand command) {
             command.Sender = Avatar;
             Avatar.OnSkillStartCast.OnNext(command);

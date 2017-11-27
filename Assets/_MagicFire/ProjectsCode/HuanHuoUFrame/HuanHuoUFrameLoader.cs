@@ -23,7 +23,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Load() {
             EcsSystem system = null;
-            system = this.AddSystem<RpgInputSystem>();
+            system = this.AddSystem<RpgControlSystem>();
             system = this.AddSystem<PanelSystem>();
         }
     }

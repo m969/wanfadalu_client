@@ -8,6 +8,9 @@ TagManager:
   - Terrian
   - TargetPoint
   - DontDestroy
+  - Fx
+  - Effect
+  - Arena
   layers:
   - Default
   - TransparentFX

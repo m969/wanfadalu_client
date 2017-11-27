@@ -20,8 +20,10 @@ namespace MagicFire.HuanHuoUFrame {
     
     
     public class SkillEntityView : SkillEntityViewBase {
-
+        private RpgSkillController _skillController;
         private GameObject _iceImprisonEffect;
+        public readonly Dictionary<int, Skill> SkillMap = new Dictionary<int, Skill>();
+        public readonly Dictionary<string, Skill> SkillDict = new Dictionary<string, Skill>();
 
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
@@ -36,6 +38,23 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.SkillEntity to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+        }
+
+        public void InitSkills(RpgSkillController skillController)
+        {
+            this._skillController = skillController;
+
+            AddSkill(new SkillQ(this));
+            AddSkill(new SkillW(this));
+            AddSkill(new SkillE(this));
+            AddSkill(new GongKan(this));
+        }
+
+        public void AddSkill(Skill skill)
+        {
+            skill.SkillController = _skillController;
+            SkillMap.Add(skill.SkillID, skill);
+            SkillDict.Add(skill.SkillName, skill);
         }
 
         public override void isIceFreezingChanged(Int32 arg1)
@@ -68,6 +87,24 @@ namespace MagicFire.HuanHuoUFrame {
         public override void OnSkillStartCastExecuted(OnSkillStartCastCommand command)
         {
             base.OnSkillStartCastExecuted(command);
+
+            Skill skill;
+            SkillDict.TryGetValue(command.skillName, out skill);
+            if (skill != null)
+                skill.OnCast(command.argsString);
+        }
+
+        public override void gongFaListChanged(object arg1)
+        {
+            base.gongFaListChanged(arg1);
+            //foreach (var gongFaInfo in this._gongFaMap)
+            //{
+            //    foreach (var skillInfo in gongFaInfo.Value)
+            //    {
+            //        var skillName = skillInfo.Key;
+            //        var skill = skillInfo.Value;
+            //    }
+            //}
         }
     }
 }

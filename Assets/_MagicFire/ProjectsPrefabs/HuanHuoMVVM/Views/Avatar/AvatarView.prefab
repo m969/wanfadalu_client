@@ -2457,7 +2457,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1464143723569558}
-  m_LocalRotation: {x: -0.4546606, y: -0.28087837, z: 0.8439052, w: -0.047066297}
+  m_LocalRotation: {x: -0.45466053, y: -0.28087834, z: 0.8439051, w: -0.04706629}
   m_LocalPosition: {x: -0.000040882536, y: 0.0064536417, z: -0.0073411656}
   m_LocalScale: {x: 1, y: 1.0000001, z: 0.99999994}
   m_Children: []
@@ -3288,17 +3288,11 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _prefabName: 
   _entityName: 
-  _modelName: 
   _BindentityName: 1
   _entityNameOnlyWhenChanged: 0
-  _BindOnDestroy: 1
-  _BindprefabName: 1
-  _prefabNameOnlyWhenChanged: 0
-  _BindmodelName: 1
-  _modelNameOnlyWhenChanged: 0
   _BindOnLeaveWorld: 1
+  _BindOnDestroy: 1
   WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
     type: 2}
   _HP_Max: 0
@@ -3319,6 +3313,15 @@ MonoBehaviour:
   _SP_MaxOnlyWhenChanged: 0
   _BindMSP: 1
   _MSPOnlyWhenChanged: 0
+  _isIceFreezing: 0
+  _BindisIceFreezing: 1
+  _isIceFreezingOnlyWhenChanged: 0
+  _BindOnSkillStartCast: 1
+  _BindOnSkillEndCast: 1
+  _BindOnSkillStartSing: 1
+  _goldCount: 0
+  _BindavatarState: 1
+  _avatarStateOnlyWhenChanged: 0
   _BindOnStopMove: 1
   _BindDoMove: 1
   _speed: 0

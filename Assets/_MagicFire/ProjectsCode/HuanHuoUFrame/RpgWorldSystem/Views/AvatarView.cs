@@ -29,11 +29,6 @@
         [SerializeField]
         private CharacterController _characterController;
 
-        public SkillManager SkillManager
-        {
-            get;
-            set;
-        }
 
         public float Speed
         {
@@ -78,40 +73,27 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
 
-            SkillManager = new SkillManager { Owner = this };
-            SkillManager.Init();
-
             this.Bindings.Add(
                 Observable.EveryUpdate().Subscribe(evt =>
                 {
-                    SkillManager.Update();
                     transform.GetChild(0).localPosition = Vector3.zero;
                 })
             );
-        }
 
-        public override void OnStopMoveExecuted(OnStopMoveCommand command)
-        {
-            //_avatarState = _standState;
-        }
-
-        public override void DoMoveExecuted(DoMoveCommand command)
-        {
-            //_avatarState = _runState;
-            //Avatar.avatarStateProperty.SetState<TheRunState>();
-            //Avatar.avatarState.OnNext(Avatar.avatarStateProperty.Run);
-            //Avatar.avatarStateProperty.Run.OnNext(true);
-        }
-
-        public override void OnSkillStartCastExecuted(OnSkillStartCastCommand command)
-        {
-            base.OnSkillStartCastExecuted(command);
-
-        }
-
-        public override void OnSkillEndCastExecuted(OnSkillEndCastCommand command)
-        {
-            base.OnSkillEndCastExecuted(command);
+            if (this.Avatar.isPlayer())
+            {
+                this.Bindings.Add(
+                    this.OnEvent<ResponseEvent>()
+                    .Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestEnterArena"; })
+                    .Subscribe(evt =>
+                    {
+                        this.Avatar.Execute(new RequestEnterArenaCommand()
+                        {
+                            ArenaID = ((ArenaView)evt.RpgInteractiveComponent.EntityView).Arena.arenaID
+                        });
+                    })
+                );
+            }
         }
 
         public override void OnIdleState()
@@ -145,7 +127,7 @@
         public override void OnCastSkillState()
         {
             base.OnCastSkillState();
-            SkillManager.OnCastSkill(Avatar.CurrentSkillName, Avatar.CurrentSkillArgs);
+            //.OnCastSkill(Avatar.CurrentSkillName, Avatar.CurrentSkillArgs);
         }
     }
 }

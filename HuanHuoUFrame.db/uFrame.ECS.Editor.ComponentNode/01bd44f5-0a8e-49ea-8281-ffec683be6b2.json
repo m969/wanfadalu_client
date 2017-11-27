@@ -1,8 +1,8 @@
 {
 	"BlackBoard":false	, 
 	"ComponentId":1	, 
-	"Name":"RpgInputModule"	, 
+	"Name":"RpgMoveController"	, 
 	"Order":0	, 
-	"GraphId":"6335fbb7-f1c0-48f2-91e7-4a7f4454f84e"	, 
+	"GraphId":"b37798f9-2e88-49c2-8cb1-1a40d5b698c1"	, 
 	"Identifier":"01bd44f5-0a8e-49ea-8281-ffec683be6b2"	, 
 	"Expanded":false}

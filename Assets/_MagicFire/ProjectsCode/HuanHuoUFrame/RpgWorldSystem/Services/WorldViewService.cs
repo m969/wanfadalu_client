@@ -13,8 +13,9 @@ namespace MagicFire.HuanHuoUFrame{
     using UnityEngine;
     using PathologicalGames;
     using uFrame.MVVM.Views;
-    
-    
+    using uFrame.ECS.Components;
+
+
     public class WorldViewService : WorldViewServiceBase {
 
         [SerializeField]
@@ -243,13 +244,8 @@ namespace MagicFire.HuanHuoUFrame{
 
                 if (entity.isPlayer())
                 {
-                    if (modelView != null)
-                    {
-                        modelView.gameObject.AddComponent<AvatarStateController>();
-                    }
-                    AvatarStateController.Instance.gameObject.SetActive(true);
-                    AvatarStateController.Instance.Init(modelView as AvatarView);
-                    Instantiate(_playerTargetPrefab);
+                    var playerTarget = Instantiate(_playerTargetPrefab).GetComponent<RpgLookAtPlayerComponent>();
+                    playerTarget.Target = modelView.transform;
 
                     var viewPool = PoolManager.Pools["AvatarViewPool"];
                     if (viewPool != null)
@@ -261,6 +257,9 @@ namespace MagicFire.HuanHuoUFrame{
                             if (viewPrefab != null)
                             {
                                 var mainAvatarInfoPanelView = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
+                                var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
+                                ((SkillEntityView)modelView).InitSkills(skillContoller);
+                                skillContoller.Init(modelView as AvatarView);
                             }
                         }
                     }

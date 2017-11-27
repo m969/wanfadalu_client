@@ -745,6 +745,9 @@ GameObject:
   - component: {fileID: 114990479928923332}
   - component: {fileID: 114334756943539256}
   - component: {fileID: 114396575183570938}
+  - component: {fileID: 114796281805205554}
+  - component: {fileID: 114397115497507404}
+  - component: {fileID: 114962815136530670}
   m_Layer: 5
   m_Name: MainAvatarInfoPanelView
   m_TagString: Untagged
@@ -1863,6 +1866,19 @@ MonoBehaviour:
   compression: 2
   preset: 1
   localDebug: 0
+--- !u!114 &114397115497507404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866922079813010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c0699fc82d2114fad185105a93add3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProxyFor: {fileID: 0}
+  _entityId: 0
 --- !u!114 &114409717077746296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2597,6 +2613,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114796281805205554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866922079813010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35d5b5992f21404f9d05624a8970876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Entity: {fileID: 114397115497507404}
 --- !u!114 &114798297436511152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3023,7 +3051,7 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 1
     m_BestFit: 1
-    m_MinSize: 5
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 5
     m_AlignByGeometry: 0
@@ -3031,7 +3059,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100
+  m_Text: 1000/1000
 --- !u!114 &114951719990719804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3103,6 +3131,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114962815136530670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866922079813010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 224513f35d84b6a41ba6e5d001d85c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Entity: {fileID: 114397115497507404}
 --- !u!114 &114964406180351426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3188,19 +3228,14 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _prefabName: 
   _entityName: 
-  _modelName: 
   _BindentityName: 1
   _entityNameOnlyWhenChanged: 0
   _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
-  _BindprefabName: 1
-  _prefabNameOnlyWhenChanged: 0
-  _BindmodelName: 1
-  _modelNameOnlyWhenChanged: 0
   WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
     type: 2}
+  _goldCount: 0
   _BindHP: 1
   _HPOnlyWhenChanged: 0
   _BindHP_Max: 1

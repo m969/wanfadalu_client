@@ -95,6 +95,20 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class RequestEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _ArenaID;
+        
+        public Int32 ArenaID {
+            get {
+                return _ArenaID;
+            }
+            set {
+                _ArenaID = value;
+            }
+        }
+    }
+    
     public partial class OnSkillStartSingCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Single _singTime;

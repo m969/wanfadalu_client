@@ -17,7 +17,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(2)]
+    [uFrame.Attributes.EventId(1)]
     public partial class ShowAvatarBagEvent : object {
     }
 }

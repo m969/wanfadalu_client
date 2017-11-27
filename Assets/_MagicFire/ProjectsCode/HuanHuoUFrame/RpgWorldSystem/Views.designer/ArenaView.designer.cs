@@ -25,6 +25,21 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class ArenaViewBase : EntityModelView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _arenaID;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("arenaID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindarenaID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("arenaID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_arenaIDonlyWhenChanged")]
+        protected bool _arenaIDOnlyWhenChanged;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -48,6 +63,8 @@ namespace MagicFire.HuanHuoUFrame {
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
             // var vm = model as ArenaViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
+            var arenaview = ((ArenaViewModel)model);
+            arenaview.arenaID = this._arenaID;
         }
         
         public override void Bind() {
@@ -55,6 +72,12 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Arena to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindarenaID) {
+                this.BindProperty(this.Arena.arenaIDProperty, this.arenaIDChanged, _arenaIDOnlyWhenChanged);
+            }
+        }
+        
+        public virtual void arenaIDChanged(Int32 arg1) {
         }
     }
 }

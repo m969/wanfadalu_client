@@ -14,6 +14,8 @@
     
     
     public class ArenaView : ArenaViewBase {
+        [SerializeField]
+        private GameObject _arenaNpc;
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);

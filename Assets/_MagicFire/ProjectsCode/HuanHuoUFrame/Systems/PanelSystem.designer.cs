@@ -9,7 +9,6 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
-    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -38,36 +37,6 @@ namespace MagicFire.HuanHuoUFrame {
         public override void Setup() {
             base.Setup();
             DragBarComponentManager = ComponentSystem.RegisterComponent<DragBarComponent>(5);
-            this.OnEvent<uFrame.ECS.UnityUtilities.DragDispatcher>().Subscribe(_=>{ PanelSystemOnDragFilter(_); }).DisposeWith(this);
-            this.OnEvent<uFrame.ECS.UnityUtilities.BeginDragDispatcher>().Subscribe(_=>{ PanelSystemOnBeginDragFilter(_); }).DisposeWith(this);
-        }
-        
-        protected virtual void PanelSystemOnDragHandler(uFrame.ECS.UnityUtilities.DragDispatcher data, DragBarComponent source) {
-        }
-        
-        protected void PanelSystemOnDragFilter(uFrame.ECS.UnityUtilities.DragDispatcher data) {
-            var SourceDragBarComponent = DragBarComponentManager[data.EntityId];
-            if (SourceDragBarComponent == null) {
-                return;
-            }
-            if (!SourceDragBarComponent.Enabled) {
-                return;
-            }
-            this.PanelSystemOnDragHandler(data, SourceDragBarComponent);
-        }
-        
-        protected virtual void PanelSystemOnBeginDragHandler(uFrame.ECS.UnityUtilities.BeginDragDispatcher data, DragBarComponent source) {
-        }
-        
-        protected void PanelSystemOnBeginDragFilter(uFrame.ECS.UnityUtilities.BeginDragDispatcher data) {
-            var SourceDragBarComponent = DragBarComponentManager[data.EntityId];
-            if (SourceDragBarComponent == null) {
-                return;
-            }
-            if (!SourceDragBarComponent.Enabled) {
-                return;
-            }
-            this.PanelSystemOnBeginDragHandler(data, SourceDragBarComponent);
         }
     }
     

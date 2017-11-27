@@ -29,7 +29,7 @@ namespace MagicFire.HuanHuoUFrame{
         public override void Bind()
         {
             base.Bind();
-            this.avatarStateProperty.CastSkillState.OnCompleted();
+            //this.avatarStateProperty.CastSkillState.OnCompleted();
         }
 
         public override void __init__()
@@ -37,6 +37,16 @@ namespace MagicFire.HuanHuoUFrame{
             base.__init__();
             if (isPlayer())
             {
+                //this.Aggregator.GetEvent<KbeRemoteCallEvent>().Subscribe(evt =>
+                //{
+                //    Debug.Log("AvatarViewModel:GetEvent<KbeRemoteCallEvent>()");
+                //    Debug.Log(evt.RemoteCallName);
+                //    if (evt.CallType == CallType.Base)
+                //        baseCall(evt.RemoteCallName, evt.Params);
+                //    else
+                //        cellCall(evt.RemoteCallName, evt.Params);
+                //});
+
                 KBEngine.Event.registerIn("updatePlayer", this, "updatePlayer");
 
                 KBEngine.Event.registerIn("RequestMove", this, "RequestMove");
@@ -136,6 +146,11 @@ namespace MagicFire.HuanHuoUFrame{
 
             direction.z = dir_y;
             direction.y = dir_z;
+        }
+        public override void Execute(RequestEnterArenaCommand argument)
+        {
+            base.Execute(argument);
+            this.cellCall("requestEnterArena", new object[] { argument.ArenaID });
         }
 
         public void OnLeaveSpaceClientInputInValid()

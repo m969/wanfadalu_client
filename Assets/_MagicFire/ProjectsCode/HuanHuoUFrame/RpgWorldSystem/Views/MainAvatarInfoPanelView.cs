@@ -109,7 +109,7 @@
         public override void SP_MaxChanged(int arg1)
         {
             base.SP_MaxChanged(arg1);
-
+            
             _spMax = arg1;
             if (_sp.HasValue && _spMax.HasValue)
             {

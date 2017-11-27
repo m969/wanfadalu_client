@@ -32,8 +32,6 @@ GameObject:
   - component: {fileID: 114971032631858840}
   - component: {fileID: 114875542349295196}
   - component: {fileID: 114432486116522736}
-  - component: {fileID: 114090242051434372}
-  - component: {fileID: 114089309533661632}
   m_Layer: 5
   m_Name: HeadBar
   m_TagString: Untagged
@@ -1337,30 +1335,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114089309533661632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29c901de1acfb441bbb612f0d1fdb31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Entity: {fileID: 114432486116522736}
---- !u!114 &114090242051434372
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c92f462517bdadd4988f72d12c34e89c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Entity: {fileID: 114432486116522736}
 --- !u!114 &114105721313013498
 MonoBehaviour:
   m_ObjectHideFlags: 1

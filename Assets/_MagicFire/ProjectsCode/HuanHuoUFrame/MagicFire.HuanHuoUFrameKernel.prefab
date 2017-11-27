@@ -177,7 +177,7 @@ MonoBehaviour:
   _eventSystemPrefab: {fileID: 130950, guid: 0d4c015442c100645bee07538fbc4882, type: 2}
   _canvas3DPrefab: {fileID: 1967756560139054, guid: 26da052d1324c4d4f84caaa9ff3786d0,
     type: 2}
-  _playerTargetPrefab: {fileID: 121918, guid: ea6a53071b6b69f4c83a959293f493ba, type: 2}
+  _playerTargetPrefab: {fileID: 121918, guid: 10d66bf4b0cf8df4482d90d04584d076, type: 2}
 --- !u!114 &114285526179396260
 MonoBehaviour:
   m_ObjectHideFlags: 1

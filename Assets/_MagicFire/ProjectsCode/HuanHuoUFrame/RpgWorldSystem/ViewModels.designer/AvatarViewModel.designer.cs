@@ -24,7 +24,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public partial class AvatarViewModelBase : CampEntityViewModel {
+    public partial class AvatarViewModelBase : ArenaSystemViewModel {
         
         private AvatarStateMachine _avatarStateProperty;
         

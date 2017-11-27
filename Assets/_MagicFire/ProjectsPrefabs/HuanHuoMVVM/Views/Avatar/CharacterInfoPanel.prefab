@@ -65,6 +65,7 @@ GameObject:
   - component: {fileID: 114240038413295226}
   - component: {fileID: 114438752380610996}
   - component: {fileID: 114954219030998312}
+  - component: {fileID: 114440668397870228}
   m_Layer: 5
   m_Name: HeadBar
   m_TagString: Untagged
@@ -540,9 +541,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Close
-        m_Mode: 1
+      - m_Target: {fileID: 191816}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1108,7 +1109,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: edb15b89bd9170a4dbbac87da4b0bbf6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d005591e42e87fe49bc7e319a268cbd6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2261,6 +2262,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &114440668397870228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29c901de1acfb441bbb612f0d1fdb31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Entity: {fileID: 114438752380610996}
 --- !u!114 &114551944475648396
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -42,6 +42,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private TriggerController _TriggerController;
         
+        private ArenaSystemController _ArenaSystemController;
+        
         private SkillEntityController _SkillEntityController;
         
         private CampEntityController _CampEntityController;
@@ -172,6 +174,19 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         [uFrame.IOC.InjectAttribute()]
+        public virtual ArenaSystemController ArenaSystemController {
+            get {
+                if (_ArenaSystemController==null) {
+                    _ArenaSystemController = Container.CreateInstance(typeof(ArenaSystemController)) as ArenaSystemController;;
+                }
+                return _ArenaSystemController;
+            }
+            set {
+                _ArenaSystemController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
         public virtual SkillEntityController SkillEntityController {
             get {
                 if (_SkillEntityController==null) {
@@ -268,6 +283,8 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<CampController>(CampController);
             Container.RegisterViewModelManager<TriggerViewModel>(new ViewModelManager<TriggerViewModel>());
             Container.RegisterController<TriggerController>(TriggerController);
+            Container.RegisterViewModelManager<ArenaSystemViewModel>(new ViewModelManager<ArenaSystemViewModel>());
+            Container.RegisterController<ArenaSystemController>(ArenaSystemController);
             Container.RegisterViewModelManager<SkillEntityViewModel>(new ViewModelManager<SkillEntityViewModel>());
             Container.RegisterController<SkillEntityController>(SkillEntityController);
             Container.RegisterViewModelManager<CampEntityViewModel>(new ViewModelManager<CampEntityViewModel>());

@@ -59,8 +59,6 @@ namespace MagicFire.HuanHuoUFrame {
             // This is called when a AvatarViewModel is created
             viewModel.onMainAvatarEnterSpace.Action = this.onMainAvatarEnterSpaceHandler;
             viewModel.onMainAvatarLeaveSpace.Action = this.onMainAvatarLeaveSpaceHandler;
-            viewModel.DoMove.Action = this.DoMoveHandler;
-            viewModel.OnStopMove.Action = this.OnStopMoveHandler;
             AvatarViewModelManager.Add(viewModel);
         }
         
@@ -77,24 +75,10 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace(command.Sender as AvatarViewModel, command);
         }
         
-        public virtual void DoMoveHandler(DoMoveCommand command) {
-            this.DoMove(command.Sender as AvatarViewModel, command);
-        }
-        
-        public virtual void OnStopMoveHandler(OnStopMoveCommand command) {
-            this.OnStopMove(command.Sender as AvatarViewModel, command);
-        }
-        
         public virtual void onMainAvatarEnterSpace(AvatarViewModel viewModel, onMainAvatarEnterSpaceCommand arg) {
         }
         
         public virtual void onMainAvatarLeaveSpace(AvatarViewModel viewModel, onMainAvatarLeaveSpaceCommand arg) {
-        }
-        
-        public virtual void DoMove(AvatarViewModel viewModel, DoMoveCommand arg) {
-        }
-        
-        public virtual void OnStopMove(AvatarViewModel viewModel, OnStopMoveCommand arg) {
         }
     }
 }

@@ -1,0 +1,8 @@
+{
+	"Identifier":"a8d73242-f2f8-4c0b-aa12-20c66154b4b4"	, 
+	"Time":"11/30/2017 22:42:02"	, 
+	"Group":22422	, 
+	"DataRecordId":"c720a8f1-4db1-4cfd-8170-b811408b3f25"	, 
+	"Type":2	, 
+	"RecordType":"uFrame.MVVM.BindingsReference, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"Identifier\":\"c720a8f1-4db1-4cfd-8170-b811408b3f25\"\t, \r\n\t\"Order\":0}\r\n"}

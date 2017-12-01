@@ -11,6 +11,8 @@ TagManager:
   - Fx
   - Effect
   - Arena
+  - Avatar
+  - Main Avatar
   layers:
   - Default
   - TransparentFX

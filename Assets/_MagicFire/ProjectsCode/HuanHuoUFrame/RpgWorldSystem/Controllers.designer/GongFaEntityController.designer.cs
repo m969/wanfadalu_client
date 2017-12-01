@@ -16,7 +16,7 @@ namespace MagicFire.HuanHuoUFrame {
     using System.Linq;
     
     
-    public class GongFaEntityControllerBase : SuperPowerEntityController {
+    public class GongFaEntityControllerBase : MotionSystemController {
         
         private uFrame.MVVM.ViewModels.IViewModelManager<GongFaEntityViewModel> _GongFaEntityViewModelManager;
         

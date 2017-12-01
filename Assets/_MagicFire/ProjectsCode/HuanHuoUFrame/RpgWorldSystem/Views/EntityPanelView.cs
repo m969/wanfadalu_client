@@ -34,7 +34,8 @@ namespace MagicFire.HuanHuoUFrame {
             this.Bindings.Add(
                 Observable.EveryFixedUpdate().Subscribe(evt =>
                 {
-                    var v = Camera.main.WorldToScreenPoint(ViewModelObject.position);
+                    var modelObj = ViewModelObject.renderObj as GameObject;
+                    var v = Camera.main.WorldToScreenPoint(modelObj.transform.position);
                     transform.DOMove(new Vector3(v.x, v.y, 0), 0.1f);
                 })
             );

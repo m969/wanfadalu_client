@@ -1,4 +1,5 @@
 ﻿namespace MagicFire.HuanHuoUFrame {
+    using DG.Tweening;
     using PathologicalGames;
     using System;
     using uFrame.ECS.UnityUtilities;
@@ -11,7 +12,39 @@
     public partial class RpgMoveController
     {
         public const int RayCastHitDist = 400;
-        private GameObject ClickPointObject;
+
+        [SerializeField]
+        private bool _clientControl = false;
+        private bool _canMove = true;
+        private CharacterController _mainAvatarController;
+        private GameObject _clickPointObject;
+        private Vector3 _moveVector = new Vector3(0, 0, 0);
+
+
+        public CharacterController MainAvatarController
+        {
+            get
+            {
+                return _mainAvatarController;
+            }
+            set
+            {
+                _mainAvatarController = value;
+            }
+        }
+
+        public Vector3 MoveVector
+        {
+            get
+            {
+                return _moveVector;
+            }
+            set
+            {
+                _moveVector = value;
+            }
+        }
+
 
         protected override void Start()
         {
@@ -31,11 +64,39 @@
                     OnLeftMouseButtonDown();
                 }).DisposeWith(this);
 
-            Observable.EveryUpdate()
-                .Subscribe(evt =>
+            if (_clientControl)
+            {
+                MainAvatarController.GetComponent<AvatarView>().Avatar.canMoveProperty.ObserveOnMainThread().Subscribe(canMove =>
                 {
-
+                    Debug.Log("RpgMoveController canMoveProperty");
+                    if (canMove == 1)
+                    {
+                        _canMove = true;
+                    }
+                    else
+                    {
+                        _canMove = false;
+                        MoveVector = Vector3.zero;
+                    }
                 }).DisposeWith(this);
+
+                this.OnEvent<StopMoveEvent>().Subscribe(evt =>
+                {
+                    MoveVector = Vector3.zero;
+                });
+
+                Observable.EveryUpdate()
+                    .Subscribe(evt =>
+                    {
+                        KBEngine.Event.fireIn("updatePlayer", transform.position.x, transform.position.y, transform.position.z, transform.eulerAngles.y, transform.eulerAngles.z);
+                    }).DisposeWith(this);
+
+                Observable.EveryFixedUpdate()
+                    .Subscribe(evt =>
+                    {
+                        MainAvatarController.Move(MoveVector);
+                    }).DisposeWith(this);
+            }
         }
 
         private void OnRightMouseButtonDown()
@@ -45,20 +106,34 @@
             var layerMask = 1 << LayerMask.NameToLayer("Terrian");
             if (Physics.Raycast(ray, out hit, RayCastHitDist, layerMask))
             {
-                if (ClickPointObject == null)
+                if (_clickPointObject == null)
                 {
                     var viewPool = PoolManager.Pools["AuxiliaryPool"];
-                    ClickPointObject = viewPool.Spawn("RpgMovePointMarker").gameObject;
+                    _clickPointObject = viewPool.Spawn("RpgMovePointMarker").gameObject;
                 }
                 else
                 {
-                    if (!ClickPointObject.activeInHierarchy)
+                    if (!_clickPointObject.activeInHierarchy)
                     {
-                        ClickPointObject.SetActive(true);
+                        _clickPointObject.SetActive(true);
                     }
-                    ClickPointObject.transform.position = hit.point;
+                    _clickPointObject.transform.position = hit.point;
                 }
-                KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
+
+                if (_clientControl)
+                {
+                    if (_canMove)
+                    {
+                        KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
+                        //MainAvatarController.transform.DOLookAt(new Vector3(hit.point.x, MainAvatarController.transform.position.y, hit.point.z), 0.0f);
+                        MainAvatarController.transform.LookAt(new Vector3(hit.point.x, MainAvatarController.transform.position.y, hit.point.z));
+                        MoveVector = MainAvatarController.transform.forward * 0.4f;
+                    }
+                }
+                else
+                {
+                    KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
+                }
             }
         }
 

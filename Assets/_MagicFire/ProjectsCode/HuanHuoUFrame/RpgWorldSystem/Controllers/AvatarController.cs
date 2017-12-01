@@ -12,10 +12,5 @@ namespace MagicFire.HuanHuoUFrame{
             base.InitializeAvatar(viewModel);
             // This is called when a AvatarViewModel is created
         }
-
-        public override void DoMove(AvatarViewModel viewModel, DoMoveCommand arg)
-        {
-            base.DoMove(viewModel, arg);
-        }
     }
 }

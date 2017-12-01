@@ -30,14 +30,17 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
 
-            this.Bindings.Add(
-                Observable.EveryFixedUpdate().Subscribe(evt =>
-                {
-                    transform.DOMove(ViewModelObject.position, 0.2f);
-                    var dir = ViewModelObject.direction;
-                    transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
-                })
-            );
+            if (!this.EntityCommon.isPlayer())
+            {
+                this.Bindings.Add(
+                    Observable.EveryFixedUpdate().Subscribe(evt =>
+                    {
+                        transform.DOMove(ViewModelObject.position, 0.2f);
+                        var dir = ViewModelObject.direction;
+                        transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
+                    })
+                );
+            }
 
             ViewModelObject.renderObj = gameObject;
             transform.position = ViewModelObject.position;

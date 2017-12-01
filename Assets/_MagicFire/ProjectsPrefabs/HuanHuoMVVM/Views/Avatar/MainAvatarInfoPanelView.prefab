@@ -2625,6 +2625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Entity: {fileID: 114397115497507404}
+  _clientControl: 0
 --- !u!114 &114798297436511152
 MonoBehaviour:
   m_ObjectHideFlags: 1

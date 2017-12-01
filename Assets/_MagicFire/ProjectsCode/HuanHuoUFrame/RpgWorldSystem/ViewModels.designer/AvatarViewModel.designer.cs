@@ -36,10 +36,6 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<onMainAvatarLeaveSpaceCommand> _onMainAvatarLeaveSpace;
         
-        private Signal<DoMoveCommand> _DoMove;
-        
-        private Signal<OnStopMoveCommand> _OnStopMove;
-        
         public AvatarViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
@@ -116,30 +112,10 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual Signal<DoMoveCommand> DoMove {
-            get {
-                return _DoMove;
-            }
-            set {
-                _DoMove = value;
-            }
-        }
-        
-        public virtual Signal<OnStopMoveCommand> OnStopMove {
-            get {
-                return _OnStopMove;
-            }
-            set {
-                _OnStopMove = value;
-            }
-        }
-        
         public override void Bind() {
             base.Bind();
             this.onMainAvatarEnterSpace = new Signal<onMainAvatarEnterSpaceCommand>(this);
             this.onMainAvatarLeaveSpace = new Signal<onMainAvatarLeaveSpaceCommand>(this);
-            this.DoMove = new Signal<DoMoveCommand>(this);
-            this.OnStopMove = new Signal<OnStopMoveCommand>(this);
             _avatarBagProperty = new P<System.Object>(this, "avatarBag");
             _goldCountProperty = new P<Int32>(this, "goldCount");
             _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
@@ -153,14 +129,6 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace.OnNext(argument);
         }
         
-        public virtual void Execute(DoMoveCommand argument) {
-            this.DoMove.OnNext(argument);
-        }
-        
-        public virtual void Execute(OnStopMoveCommand argument) {
-            this.OnStopMove.OnNext(argument);
-        }
-        
         public virtual void onMainAvatarEnterSpace_(Int32 SpaceId, String SpaceName) {
             var cmd = new onMainAvatarEnterSpaceCommand();
             cmd.SpaceId = SpaceId;
@@ -171,17 +139,6 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void onMainAvatarLeaveSpace_() {
             var cmd = new onMainAvatarLeaveSpaceCommand();
             this.onMainAvatarLeaveSpace.OnNext(cmd);
-        }
-        
-        public virtual void DoMove_(Vector3 Point) {
-            var cmd = new DoMoveCommand();
-            cmd.Point = Point;
-            this.DoMove.OnNext(cmd);
-        }
-        
-        public virtual void OnStopMove_() {
-            var cmd = new OnStopMoveCommand();
-            this.OnStopMove.OnNext(cmd);
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -200,8 +157,6 @@ namespace MagicFire.HuanHuoUFrame {
             base.FillCommands(list);
             list.Add(new ViewModelCommandInfo("onMainAvatarEnterSpace", onMainAvatarEnterSpace) { ParameterType = typeof(onMainAvatarEnterSpaceCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarLeaveSpace", onMainAvatarLeaveSpace) { ParameterType = typeof(onMainAvatarLeaveSpaceCommand) });
-            list.Add(new ViewModelCommandInfo("DoMove", DoMove) { ParameterType = typeof(DoMoveCommand) });
-            list.Add(new ViewModelCommandInfo("OnStopMove", OnStopMove) { ParameterType = typeof(OnStopMoveCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

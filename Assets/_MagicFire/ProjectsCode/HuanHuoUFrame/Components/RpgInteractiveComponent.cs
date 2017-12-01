@@ -26,13 +26,17 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class RpgInteractiveComponent : uFrame.ECS.Components.EcsComponent {
         
         [UnityEngine.SerializeField()]
+        private uFrame.MVVM.Views.ViewBase _EntityView;
+        
+        [UnityEngine.SerializeField()]
         private CallType _CallType;
         
         [UnityEngine.SerializeField()]
         private String _RemoteCallName;
         
-        [UnityEngine.SerializeField()]
-        private uFrame.MVVM.Views.ViewBase _EntityView;
+        private Subject<PropertyChangedEvent<uFrame.MVVM.Views.ViewBase>> _EntityViewObservable;
+        
+        private PropertyChangedEvent<uFrame.MVVM.Views.ViewBase> _EntityViewEvent;
         
         private Subject<PropertyChangedEvent<CallType>> _CallTypeObservable;
         
@@ -42,13 +46,15 @@ namespace MagicFire.HuanHuoUFrame {
         
         private PropertyChangedEvent<String> _RemoteCallNameEvent;
         
-        private Subject<PropertyChangedEvent<uFrame.MVVM.Views.ViewBase>> _EntityViewObservable;
-        
-        private PropertyChangedEvent<uFrame.MVVM.Views.ViewBase> _EntityViewEvent;
-        
         public override int ComponentId {
             get {
                 return 10;
+            }
+        }
+        
+        public IObservable<PropertyChangedEvent<uFrame.MVVM.Views.ViewBase>> EntityViewObservable {
+            get {
+                return _EntityViewObservable ?? (_EntityViewObservable = new Subject<PropertyChangedEvent<uFrame.MVVM.Views.ViewBase>>());
             }
         }
         
@@ -64,9 +70,12 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public IObservable<PropertyChangedEvent<uFrame.MVVM.Views.ViewBase>> EntityViewObservable {
+        public uFrame.MVVM.Views.ViewBase EntityView {
             get {
-                return _EntityViewObservable ?? (_EntityViewObservable = new Subject<PropertyChangedEvent<uFrame.MVVM.Views.ViewBase>>());
+                return _EntityView;
+            }
+            set {
+                SetEntityView(value);
             }
         }
         
@@ -88,13 +97,8 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public uFrame.MVVM.Views.ViewBase EntityView {
-            get {
-                return _EntityView;
-            }
-            set {
-                SetEntityView(value);
-            }
+        public virtual void SetEntityView(uFrame.MVVM.Views.ViewBase value) {
+            SetProperty(ref _EntityView, value, ref _EntityViewEvent, _EntityViewObservable);
         }
         
         public virtual void SetCallType(CallType value) {
@@ -103,10 +107,6 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void SetRemoteCallName(String value) {
             SetProperty(ref _RemoteCallName, value, ref _RemoteCallNameEvent, _RemoteCallNameObservable);
-        }
-        
-        public virtual void SetEntityView(uFrame.MVVM.Views.ViewBase value) {
-            SetProperty(ref _EntityView, value, ref _EntityViewEvent, _EntityViewObservable);
         }
     }
 }

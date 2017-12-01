@@ -46,14 +46,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_avatarStateonlyWhenChanged")]
         protected bool _avatarStateOnlyWhenChanged;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("OnStopMove")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindOnStopMove = true;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("DoMove")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindDoMove = true;
-        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -89,12 +81,6 @@ namespace MagicFire.HuanHuoUFrame {
             // Any designer bindings are created in the base implementation.
             if (_BindavatarState) {
                 this.BindStateProperty(this.Avatar.avatarStateProperty, this.avatarStateChanged, _avatarStateOnlyWhenChanged);
-            }
-            if (_BindOnStopMove) {
-                this.BindCommandExecuted(this.Avatar.OnStopMove, this.OnStopMoveExecuted);
-            }
-            if (_BindDoMove) {
-                this.BindCommandExecuted(this.Avatar.DoMove, this.DoMoveExecuted);
             }
         }
         
@@ -137,12 +123,6 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void OnWalkState() {
         }
         
-        public virtual void OnStopMoveExecuted(OnStopMoveCommand command) {
-        }
-        
-        public virtual void DoMoveExecuted(DoMoveCommand command) {
-        }
-        
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarEnterSpace.OnNext(command);
@@ -151,16 +131,6 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
-        }
-        
-        public virtual void ExecuteDoMove(DoMoveCommand command) {
-            command.Sender = Avatar;
-            Avatar.DoMove.OnNext(command);
-        }
-        
-        public virtual void ExecuteOnStopMove(OnStopMoveCommand command) {
-            command.Sender = Avatar;
-            Avatar.OnStopMove.OnNext(command);
         }
     }
 }

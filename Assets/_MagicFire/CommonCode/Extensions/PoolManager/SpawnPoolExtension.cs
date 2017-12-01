@@ -55,7 +55,6 @@ public static class SpawnPoolExtensions
 
     public static void DespawnEntityCommonView(this SpawnPool spawnPool, EntityCommonView entityCommonView)
     {
-        entityCommonView.ViewModelObject.renderObj = null;
         DespawnView(spawnPool, entityCommonView);
     }
 }

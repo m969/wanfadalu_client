@@ -80,15 +80,5 @@ namespace MagicFire.HuanHuoUFrame {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
         }
-        
-        public virtual void ExecuteDoMove(DoMoveCommand command) {
-            command.Sender = Avatar;
-            Avatar.DoMove.OnNext(command);
-        }
-        
-        public virtual void ExecuteOnStopMove(OnStopMoveCommand command) {
-            command.Sender = Avatar;
-            Avatar.OnStopMove.OnNext(command);
-        }
     }
 }

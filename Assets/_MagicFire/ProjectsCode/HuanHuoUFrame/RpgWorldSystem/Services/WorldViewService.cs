@@ -256,7 +256,9 @@ namespace MagicFire.HuanHuoUFrame{
                             var viewPrefab = viewPool.prefabs["MainAvatarInfoPanelView"];
                             if (viewPrefab != null)
                             {
-                                var mainAvatarInfoPanelView = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
+                                var mainAvatarInfoPanelView = viewPool.SpawnEntityCommonView(viewPrefab, viewModel).GetComponent<MainAvatarInfoPanelView>();
+                                var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
+                                moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
                                 var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
                                 ((SkillEntityView)modelView).InitSkills(skillContoller);
                                 skillContoller.Init(modelView as AvatarView);

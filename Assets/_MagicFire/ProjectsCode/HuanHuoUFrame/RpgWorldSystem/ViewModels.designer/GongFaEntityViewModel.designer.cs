@@ -24,7 +24,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public partial class GongFaEntityViewModelBase : SuperPowerEntityViewModel {
+    public partial class GongFaEntityViewModelBase : MotionSystemViewModel {
         
         private P<System.Object> _gongFaListProperty;
         

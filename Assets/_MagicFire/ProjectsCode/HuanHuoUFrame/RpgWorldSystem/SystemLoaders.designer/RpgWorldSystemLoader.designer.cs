@@ -32,6 +32,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private SpacesManagerController _SpacesManagerController;
         
+        private MotionSystemController _MotionSystemController;
+        
         private HealthEntityController _HealthEntityController;
         
         private AccountController _AccountController;
@@ -105,6 +107,19 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _SpacesManagerController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
+        public virtual MotionSystemController MotionSystemController {
+            get {
+                if (_MotionSystemController==null) {
+                    _MotionSystemController = Container.CreateInstance(typeof(MotionSystemController)) as MotionSystemController;;
+                }
+                return _MotionSystemController;
+            }
+            set {
+                _MotionSystemController = value;
             }
         }
         
@@ -273,6 +288,8 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<NpcController>(NpcController);
             Container.RegisterViewModelManager<SpacesManagerViewModel>(new ViewModelManager<SpacesManagerViewModel>());
             Container.RegisterController<SpacesManagerController>(SpacesManagerController);
+            Container.RegisterViewModelManager<MotionSystemViewModel>(new ViewModelManager<MotionSystemViewModel>());
+            Container.RegisterController<MotionSystemController>(MotionSystemController);
             Container.RegisterViewModelManager<HealthEntityViewModel>(new ViewModelManager<HealthEntityViewModel>());
             Container.RegisterController<HealthEntityController>(HealthEntityController);
             Container.RegisterViewModelManager<AccountViewModel>(new ViewModelManager<AccountViewModel>());

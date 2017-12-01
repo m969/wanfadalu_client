@@ -6,7 +6,11 @@
     {
         private void OnTriggerEnter(Collider other)
         {
-            gameObject.SetActive(false);
+            if (other.tag == "Main Avatar")
+            {
+                this.Publish<StopMoveEvent>(new StopMoveEvent());
+                gameObject.SetActive(false);
+            }
         }
     }
 }

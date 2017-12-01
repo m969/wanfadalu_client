@@ -1,4 +1,5 @@
 ﻿namespace MagicFire.HuanHuoUFrame {
+    using DG.Tweening;
     using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
@@ -12,13 +13,15 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
-    
-    
+
+
     public class AvatarView : AvatarViewBase {
 
         [SerializeField]
         [Range(0.1f, 1.0f)]
         private float _speed;
+        [SerializeField]
+        private bool _clientControl = false;
 
         [SerializeField]
         private Animator _animator;
@@ -73,6 +76,21 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
 
+            if (this.Avatar.isPlayer())
+            {
+                if (!_clientControl)
+                {
+                    this.Bindings.Add(
+                        Observable.EveryFixedUpdate().Subscribe(evt =>
+                        {
+                            transform.DOMove(ViewModelObject.position, 0.2f);
+                            var dir = ViewModelObject.direction;
+                            transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
+                        })
+                    );
+                }
+            }
+
             this.Bindings.Add(
                 Observable.EveryUpdate().Subscribe(evt =>
                 {
@@ -82,6 +100,8 @@
 
             if (this.Avatar.isPlayer())
             {
+                this.tag = "Main Avatar";
+
                 this.Bindings.Add(
                     this.OnEvent<ResponseEvent>()
                     .Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestEnterArena"; })
@@ -94,6 +114,12 @@
                     })
                 );
             }
+        }
+
+        public override void canMoveChanged(int arg1)
+        {
+            base.canMoveChanged(arg1);
+            this._canMove = arg1;
         }
 
         public override void OnIdleState()

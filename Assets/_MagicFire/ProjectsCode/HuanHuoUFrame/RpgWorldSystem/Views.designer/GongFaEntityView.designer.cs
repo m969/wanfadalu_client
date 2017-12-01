@@ -24,7 +24,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class GongFaEntityViewBase : SuperPowerEntityView {
+    public class GongFaEntityViewBase : MotionSystemView {
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]

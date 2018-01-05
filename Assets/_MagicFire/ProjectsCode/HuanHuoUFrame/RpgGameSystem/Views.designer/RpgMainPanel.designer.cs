@@ -40,6 +40,26 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public bool _BindExitGame = true;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowGongFaPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowGongFaPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ShowGongFaPanel")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowGongFaPanelbutton")]
+        protected UnityEngine.UI.Button _ShowGongFaPanelButton;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("ExitArena")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindExitArena = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ExitArena")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ExitArenabutton")]
+        protected UnityEngine.UI.Button _ExitArenaButton;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("ShowCharacterInfoPanel")]
         [UnityEngine.HideInInspector()]
         public bool _BindShowCharacterInfoPanel = true;
@@ -92,6 +112,12 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindExitGame) {
                 this.BindCommandExecuted(this.RpgMainScreen.ExitGame, this.ExitGameExecuted);
             }
+            if (_BindShowGongFaPanel) {
+                this.BindButtonToCommand(_ShowGongFaPanelButton, this.RpgMainScreen.ShowGongFaPanel);
+            }
+            if (_BindExitArena) {
+                this.BindButtonToCommand(_ExitArenaButton, this.RpgMainScreen.ExitArena);
+            }
             if (_BindShowCharacterInfoPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowCharacterInfoPanel, this.ShowCharacterInfoPanelExecuted);
             }
@@ -100,6 +126,12 @@ namespace MagicFire.HuanHuoUFrame {
             }
             if (_BindShowCharacterInfoPanel) {
                 this.BindButtonToCommand(_ShowCharacterInfoPanelButton, this.RpgMainScreen.ShowCharacterInfoPanel);
+            }
+            if (_BindShowGongFaPanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowGongFaPanel, this.ShowGongFaPanelExecuted);
+            }
+            if (_BindExitArena) {
+                this.BindCommandExecuted(this.RpgMainScreen.ExitArena, this.ExitArenaExecuted);
             }
             if (_BindShowAvatarBagPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowAvatarBagPanel, this.ShowAvatarBagPanelExecuted);
@@ -112,6 +144,12 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command) {
         }
         
+        public virtual void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command) {
+        }
+        
+        public virtual void ExitArenaExecuted(ExitArenaCommand command) {
+        }
+        
         public virtual void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command) {
         }
         
@@ -120,9 +158,19 @@ namespace MagicFire.HuanHuoUFrame {
             RpgMainScreen.ShowAvatarBagPanel.OnNext(command);
         }
         
+        public virtual void ExecuteExitArena(ExitArenaCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ExitArena.OnNext(command);
+        }
+        
         public virtual void ExecuteShowCharacterInfoPanel(ShowCharacterInfoPanelCommand command) {
             command.Sender = RpgMainScreen;
             RpgMainScreen.ShowCharacterInfoPanel.OnNext(command);
+        }
+        
+        public virtual void ExecuteShowGongFaPanel(ShowGongFaPanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowGongFaPanel.OnNext(command);
         }
         
         public virtual void ExecuteExitGame(ExitGameCommand command) {

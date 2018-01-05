@@ -62,5 +62,10 @@ namespace MagicFire.HuanHuoUFrame {
             command.Sender = ArenaSystem;
             ArenaSystem.RequestEnterArena.OnNext(command);
         }
+        
+        public virtual void ExecuteRequestExitArena(RequestExitArenaCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.RequestExitArena.OnNext(command);
+        }
     }
 }

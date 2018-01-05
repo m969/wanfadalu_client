@@ -25,6 +25,20 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class OnDestroyCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class RequestMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Vector3 _Point;
+        
+        public Vector3 Point {
+            get {
+                return _Point;
+            }
+            set {
+                _Point = value;
+            }
+        }
+    }
+    
     public partial class OnStopMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
@@ -93,6 +107,12 @@ namespace MagicFire.HuanHuoUFrame {
                 _gongFaName = value;
             }
         }
+    }
+    
+    public partial class RequestExitArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
+    public partial class RequestStopMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
     public partial class RequestEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

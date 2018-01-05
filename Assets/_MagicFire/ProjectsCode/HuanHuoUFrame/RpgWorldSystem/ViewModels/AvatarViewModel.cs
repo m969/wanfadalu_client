@@ -49,8 +49,8 @@ namespace MagicFire.HuanHuoUFrame{
 
                 KBEngine.Event.registerIn("updatePlayer", this, "updatePlayer");
 
-                KBEngine.Event.registerIn("RequestMove", this, "RequestMove");
-                KBEngine.Event.registerIn("StopMove", this, "StopMove");
+                //KBEngine.Event.registerIn("RequestMove", this, "RequestMove");
+                //KBEngine.Event.registerIn("StopMove", this, "StopMove");
 
                 KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
 
@@ -147,10 +147,11 @@ namespace MagicFire.HuanHuoUFrame{
             direction.z = dir_y;
             direction.y = dir_z;
         }
+
         public override void Execute(RequestEnterArenaCommand argument)
         {
             base.Execute(argument);
-            this.cellCall("requestEnterArena", new object[] { argument.ArenaID });
+            //this.cellCall("requestEnterArena", new object[] { argument.ArenaID });
         }
 
         public void OnLeaveSpaceClientInputInValid()
@@ -158,15 +159,27 @@ namespace MagicFire.HuanHuoUFrame{
             cellCall("onLeaveSpaceClientInputInValid");
         }
 
-        public void RequestMove(Vector3 point)
+        public override void Execute(RequestMoveCommand argument)
         {
-            cellCall("requestMove", new object[] { point });
+            base.Execute(argument);
+            cellCall("requestMove", new object[] { argument.Point });
         }
 
-        public void StopMove()
+        public override void Execute(RequestStopMoveCommand argument)
         {
-            cellCall("stopMove");
+            base.Execute(argument);
+            cellCall("requestStopMove");
         }
+
+        //public void RequestMove(Vector3 point)
+        //{
+        //    cellCall("requestMove", new object[] { point });
+        //}
+
+        //public void StopMove()
+        //{
+        //    cellCall("stopMove");
+        //}
 
         public void RequestDialog(uint spaceId, string npcName)
         {

@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 22241110}
   - component: {fileID: 11449144}
   - component: {fileID: 114442119159692880}
+  - component: {fileID: 223707372482248078}
+  - component: {fileID: 114915207009773146}
   m_Layer: 5
   m_Name: MessageBoxView
   m_TagString: Untagged
@@ -402,10 +404,10 @@ MonoBehaviour:
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
   _Message: 
+  _BindCloseMessage: 1
+  _CloseMessageButton: {fileID: 0}
   _BindMessage: 1
   _MessageInput: {fileID: 11424754}
-  _BindShowMessage: 1
-  _BindCloseMessage: 1
 --- !u!114 &114744417167766580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -447,12 +449,48 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &114915207009773146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!222 &222891921313181138
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432821131517878}
+--- !u!223 &223707372482248078
+Canvas:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140676}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: -1
+  m_TargetDisplay: 0
 --- !u!224 &224797705759872258
 RectTransform:
   m_ObjectHideFlags: 1

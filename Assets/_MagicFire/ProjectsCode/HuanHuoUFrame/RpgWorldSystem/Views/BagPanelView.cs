@@ -38,7 +38,7 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            _avatarViewPool = PoolManager.Pools["AvatarView"];
+            _avatarViewPool = PoolManager.Pools["AvatarViewPool"];
         }
 
         public override void goldCountChanged(Int32 goldCount)

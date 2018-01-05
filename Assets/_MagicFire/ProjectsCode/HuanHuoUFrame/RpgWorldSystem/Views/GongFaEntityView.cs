@@ -18,13 +18,6 @@
 
     public class GongFaEntityView : GongFaEntityViewBase {
         
-        protected Dictionary<GongFaName, Dictionary<SkillName, ASkill>> _gongFaMap;
-
-        public struct ASkill
-        {
-            public int skillLevel;
-        }
-
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -41,20 +34,7 @@
 
         public override void gongFaListChanged(object arg1)
         {
-            //var gongFaList = ((Dictionary<string, object>)arg1)["values"] as List<Dictionary<string, object>>;
-            //foreach (var gongFaInfo in gongFaList)
-            //{
-            //    var skillList = gongFaInfo["values"] as List<Dictionary<string, object>>;
-            //    var gongFaName = gongFaInfo["gongFa_name"] as string;
-            //    var skillMap = new Dictionary<string, ASkill>();
-            //    foreach (var skillInfo in skillList)
-            //    {
-            //        var skill = new ASkill();
-            //        skill.skillLevel = (int)skillInfo["skill_level"];
-            //        skillMap[skillInfo["skill_name"] as string] = skill;
-            //    }
-            //    this._gongFaMap[gongFaName] = skillMap;
-            //}
+            var gongFaMap = this.GongFaEntity.DecodeGongFaListObject(arg1);
         }
     }
 }

@@ -1,0 +1,8 @@
+{
+	"Identifier":"e038ef59-4317-4690-adc5-a280709331d1"	, 
+	"Time":"12/28/2017 00:03:18"	, 
+	"Group":"0318"	, 
+	"DataRecordId":"39b988ba-6962-4351-91e3-320d0c3d66bb"	, 
+	"Type":2	, 
+	"RecordType":"uFrame.MVVM.PropertiesChildItem, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"RelatedType\":\"01bd44f5-0a8e-49ea-8281-ffec683be6b2\"\t, \r\n\t\"Identifier\":\"39b988ba-6962-4351-91e3-320d0c3d66bb\"\t, \r\n\t\"NodeId\":\"4e45a6e1-2344-47d3-b930-35bb7132c0b2\"\t, \r\n\t\"Order\":0\t, \r\n\t\"Name\":\"OutPoint\"}\r\n"}

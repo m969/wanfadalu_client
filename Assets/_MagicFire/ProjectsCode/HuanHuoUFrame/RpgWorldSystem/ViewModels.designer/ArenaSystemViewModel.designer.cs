@@ -28,6 +28,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<RequestEnterArenaCommand> _RequestEnterArena;
         
+        private Signal<RequestExitArenaCommand> _RequestExitArena;
+        
         public ArenaSystemViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
@@ -41,19 +43,38 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<RequestExitArenaCommand> RequestExitArena {
+            get {
+                return _RequestExitArena;
+            }
+            set {
+                _RequestExitArena = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
             this.RequestEnterArena = new Signal<RequestEnterArenaCommand>(this);
+            this.RequestExitArena = new Signal<RequestExitArenaCommand>(this);
         }
         
         public virtual void Execute(RequestEnterArenaCommand argument) {
             this.RequestEnterArena.OnNext(argument);
         }
         
+        public virtual void Execute(RequestExitArenaCommand argument) {
+            this.RequestExitArena.OnNext(argument);
+        }
+        
         public virtual void RequestEnterArena_(Int32 ArenaID) {
             var cmd = new RequestEnterArenaCommand();
             cmd.ArenaID = ArenaID;
             this.RequestEnterArena.OnNext(cmd);
+        }
+        
+        public virtual void RequestExitArena_() {
+            var cmd = new RequestExitArenaCommand();
+            this.RequestExitArena.OnNext(cmd);
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -67,6 +88,7 @@ namespace MagicFire.HuanHuoUFrame {
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
             list.Add(new ViewModelCommandInfo("RequestEnterArena", RequestEnterArena) { ParameterType = typeof(RequestEnterArenaCommand) });
+            list.Add(new ViewModelCommandInfo("RequestExitArena", RequestExitArena) { ParameterType = typeof(RequestExitArenaCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

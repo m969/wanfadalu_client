@@ -33,6 +33,14 @@
         private CharacterController _characterController;
 
 
+        public bool ClientControl
+        {
+            get
+            {
+                return _clientControl;
+            }
+        }
+
         public float Speed
         {
             get { return _speed; }
@@ -80,29 +88,29 @@
             {
                 if (!_clientControl)
                 {
-                    this.Bindings.Add(
+                    this.AddBinding(
                         Observable.EveryFixedUpdate().Subscribe(evt =>
                         {
                             transform.DOMove(ViewModelObject.position, 0.2f);
                             var dir = ViewModelObject.direction;
                             transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
                         })
-                    );
+                    ).DisposeWith(this);
                 }
             }
 
-            this.Bindings.Add(
+            this.AddBinding(
                 Observable.EveryUpdate().Subscribe(evt =>
                 {
                     transform.GetChild(0).localPosition = Vector3.zero;
                 })
-            );
+            ).DisposeWith(this);
 
             if (this.Avatar.isPlayer())
             {
                 this.tag = "Main Avatar";
 
-                this.Bindings.Add(
+                this.AddBinding(
                     this.OnEvent<ResponseEvent>()
                     .Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestEnterArena"; })
                     .Subscribe(evt =>
@@ -112,7 +120,7 @@
                             ArenaID = ((ArenaView)evt.RpgInteractiveComponent.EntityView).Arena.arenaID
                         });
                     })
-                );
+                ).DisposeWith(this);
             }
         }
 

@@ -195,6 +195,48 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class ASkillBase : uFrame.MVVM.IJSonSerializable {
+        
+        private Int32 _skillLevel;
+        
+        private String _skillName;
+        
+        public Int32 skillLevel {
+            get {
+                return _skillLevel;
+            }
+            set {
+                _skillLevel = value;
+            }
+        }
+        
+        public String skillName {
+            get {
+                return _skillName;
+            }
+            set {
+                _skillName = value;
+            }
+        }
+        
+        public virtual string Serialize() {
+            var jsonObject = new JSONClass();
+            jsonObject.Add("skillLevel", new JSONData(this.skillLevel));
+            jsonObject.Add("skillName", new JSONData(this.skillName));
+            return jsonObject.ToString();
+        }
+        
+        public virtual void Deserialize(string json) {
+            var node = JSON.Parse(json);
+            if (node["skillLevel"] != null) {
+                this.skillLevel = node["skillLevel"].AsInt;
+            }
+            if (node["skillName"] != null) {
+                this.skillName = node["skillName"].AsString;
+            }
+        }
+    }
+    
     public partial class onLeaveWorldEventBase : uFrame.MVVM.IJSonSerializable {
         
         private KBEngine.Entity _Entity;

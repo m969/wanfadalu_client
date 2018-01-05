@@ -28,7 +28,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<ShowAvatarBagPanelCommand> _ShowAvatarBagPanel;
         
+        private Signal<ExitArenaCommand> _ExitArena;
+        
         private Signal<ShowCharacterInfoPanelCommand> _ShowCharacterInfoPanel;
+        
+        private Signal<ShowGongFaPanelCommand> _ShowGongFaPanel;
         
         private Signal<ExitGameCommand> _ExitGame;
         
@@ -45,12 +49,30 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<ExitArenaCommand> ExitArena {
+            get {
+                return _ExitArena;
+            }
+            set {
+                _ExitArena = value;
+            }
+        }
+        
         public virtual Signal<ShowCharacterInfoPanelCommand> ShowCharacterInfoPanel {
             get {
                 return _ShowCharacterInfoPanel;
             }
             set {
                 _ShowCharacterInfoPanel = value;
+            }
+        }
+        
+        public virtual Signal<ShowGongFaPanelCommand> ShowGongFaPanel {
+            get {
+                return _ShowGongFaPanel;
+            }
+            set {
+                _ShowGongFaPanel = value;
             }
         }
         
@@ -66,7 +88,9 @@ namespace MagicFire.HuanHuoUFrame {
         public override void Bind() {
             base.Bind();
             this.ShowAvatarBagPanel = new Signal<ShowAvatarBagPanelCommand>(this);
+            this.ExitArena = new Signal<ExitArenaCommand>(this);
             this.ShowCharacterInfoPanel = new Signal<ShowCharacterInfoPanelCommand>(this);
+            this.ShowGongFaPanel = new Signal<ShowGongFaPanelCommand>(this);
             this.ExitGame = new Signal<ExitGameCommand>(this);
         }
         
@@ -74,8 +98,16 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowAvatarBagPanel.OnNext(argument);
         }
         
+        public virtual void Execute(ExitArenaCommand argument) {
+            this.ExitArena.OnNext(argument);
+        }
+        
         public virtual void Execute(ShowCharacterInfoPanelCommand argument) {
             this.ShowCharacterInfoPanel.OnNext(argument);
+        }
+        
+        public virtual void Execute(ShowGongFaPanelCommand argument) {
+            this.ShowGongFaPanel.OnNext(argument);
         }
         
         public virtual void Execute(ExitGameCommand argument) {
@@ -87,9 +119,19 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowAvatarBagPanel.OnNext(cmd);
         }
         
+        public virtual void ExitArena_() {
+            var cmd = new ExitArenaCommand();
+            this.ExitArena.OnNext(cmd);
+        }
+        
         public virtual void ShowCharacterInfoPanel_() {
             var cmd = new ShowCharacterInfoPanelCommand();
             this.ShowCharacterInfoPanel.OnNext(cmd);
+        }
+        
+        public virtual void ShowGongFaPanel_() {
+            var cmd = new ShowGongFaPanelCommand();
+            this.ShowGongFaPanel.OnNext(cmd);
         }
         
         public virtual void ExitGame_() {
@@ -108,7 +150,9 @@ namespace MagicFire.HuanHuoUFrame {
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
             list.Add(new ViewModelCommandInfo("ShowAvatarBagPanel", ShowAvatarBagPanel) { ParameterType = typeof(ShowAvatarBagPanelCommand) });
+            list.Add(new ViewModelCommandInfo("ExitArena", ExitArena) { ParameterType = typeof(ExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("ShowCharacterInfoPanel", ShowCharacterInfoPanel) { ParameterType = typeof(ShowCharacterInfoPanelCommand) });
+            list.Add(new ViewModelCommandInfo("ShowGongFaPanel", ShowGongFaPanel) { ParameterType = typeof(ShowGongFaPanelCommand) });
             list.Add(new ViewModelCommandInfo("ExitGame", ExitGame) { ParameterType = typeof(ExitGameCommand) });
         }
         

@@ -94,7 +94,9 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void InitializeRpgMainScreen(RpgMainScreenViewModel viewModel) {
             // This is called when a RpgMainScreenViewModel is created
             viewModel.ShowAvatarBagPanel.Action = this.ShowAvatarBagPanelHandler;
+            viewModel.ExitArena.Action = this.ExitArenaHandler;
             viewModel.ShowCharacterInfoPanel.Action = this.ShowCharacterInfoPanelHandler;
+            viewModel.ShowGongFaPanel.Action = this.ShowGongFaPanelHandler;
             viewModel.ExitGame.Action = this.ExitGameHandler;
             RpgMainScreenViewModelManager.Add(viewModel);
         }
@@ -108,8 +110,16 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowAvatarBagPanel(command.Sender as RpgMainScreenViewModel, command);
         }
         
+        public virtual void ExitArenaHandler(ExitArenaCommand command) {
+            this.ExitArena(command.Sender as RpgMainScreenViewModel, command);
+        }
+        
         public virtual void ShowCharacterInfoPanelHandler(ShowCharacterInfoPanelCommand command) {
             this.ShowCharacterInfoPanel(command.Sender as RpgMainScreenViewModel, command);
+        }
+        
+        public virtual void ShowGongFaPanelHandler(ShowGongFaPanelCommand command) {
+            this.ShowGongFaPanel(command.Sender as RpgMainScreenViewModel, command);
         }
         
         public virtual void ExitGameHandler(ExitGameCommand command) {
@@ -119,7 +129,13 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ShowAvatarBagPanel(RpgMainScreenViewModel viewModel, ShowAvatarBagPanelCommand arg) {
         }
         
+        public virtual void ExitArena(RpgMainScreenViewModel viewModel, ExitArenaCommand arg) {
+        }
+        
         public virtual void ShowCharacterInfoPanel(RpgMainScreenViewModel viewModel, ShowCharacterInfoPanelCommand arg) {
+        }
+        
+        public virtual void ShowGongFaPanel(RpgMainScreenViewModel viewModel, ShowGongFaPanelCommand arg) {
         }
         
         public virtual void ExitGame(RpgMainScreenViewModel viewModel, ExitGameCommand arg) {

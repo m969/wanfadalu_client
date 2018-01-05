@@ -192,7 +192,7 @@ namespace MagicFire.HuanHuoUFrame{
                         _modelViewPool.prefabs.TryGetValue(viewModel.entityName, out viewPrefab);
 
                     if (viewPrefab != null)
-                        view = _modelViewPool.SpawnEntityCommonView(viewPrefab, viewModel);
+                        view = _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
                 }
             }
             return view;
@@ -256,9 +256,10 @@ namespace MagicFire.HuanHuoUFrame{
                             var viewPrefab = viewPool.prefabs["MainAvatarInfoPanelView"];
                             if (viewPrefab != null)
                             {
-                                var mainAvatarInfoPanelView = viewPool.SpawnEntityCommonView(viewPrefab, viewModel).GetComponent<MainAvatarInfoPanelView>();
+                                var mainAvatarInfoPanelView = viewPool.SpawnView(viewPrefab, viewModel).GetComponent<MainAvatarInfoPanelView>();
                                 var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
                                 moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
+                                moveContoller.MainAvatarView = modelView.GetComponent<AvatarView>();
                                 var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
                                 ((SkillEntityView)modelView).InitSkills(skillContoller);
                                 skillContoller.Init(modelView as AvatarView);
@@ -327,14 +328,13 @@ namespace MagicFire.HuanHuoUFrame{
 
         private void Set_Position(set_positionEvent evt)
         {
-            //var entity = evt.Entity;
-            //if (entity.renderObj == null)
-            //    return;
-
-            //GameObject go = ((UnityEngine.GameObject)entity.renderObj);
-            //Vector3 currpos = new Vector3(entity.position.x, entity.position.z, go.transform.position.z);
-            //go.GetComponent<EntityCommonView>().destPosition = currpos;
-            //go.GetComponent<EntityCommonView>().position = currpos;
+            var entity = evt.Entity;
+            if (entity.renderObj == null)
+                return;
+            Debug.Log(entity.className + " Set_Position: " + entity.position);
+            GameObject go = ((UnityEngine.GameObject)entity.renderObj);
+            Vector3 currpos = new Vector3(entity.position.x, go.transform.position.y, entity.position.z);
+            go.transform.position = currpos;
         }
 
         private void Set_Direction(set_directionEvent evt)

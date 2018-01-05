@@ -18,7 +18,15 @@
         public override void Execute(RequestEnterArenaCommand argument)
         {
             base.Execute(argument);
-            //this.cellCall("requestEnterArena", new object[] { argument.ArenaID });
+            Debug.Log("ArenaSystemViewModel:Execute RequestEnterArenaCommand");
+            this.cellCall("requestEnterArena", new object[] { argument.ArenaID });
+        }
+
+        public override void Execute(RequestExitArenaCommand argument)
+        {
+            base.Execute(argument);
+            Debug.Log("ArenaSystemViewModel:Execute RequestExitArenaCommand");
+            this.cellCall("requestExitArena");
         }
     }
 }

@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4119981901835916}
   - component: {fileID: 33126563624586854}
   - component: {fileID: 23764189568640112}
-  - component: {fileID: 64002144330723980}
-  m_Layer: 0
+  - component: {fileID: 65347342132659994}
+  m_Layer: 8
   m_Name: cupboard.001
-  m_TagString: Terrian
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -576,6 +576,21 @@ GameObject:
   - component: {fileID: 64642819889754168}
   m_Layer: 0
   m_Name: box.004 (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1373389787285338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4889761796442090}
+  m_Layer: 0
+  m_Name: OutPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1335,6 +1350,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1903184059806664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4955373515799722}
+  m_Layer: 0
+  m_Name: CenterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1929471868099664
 GameObject:
   m_ObjectHideFlags: 1
@@ -1937,6 +1967,8 @@ Transform:
   - {fileID: 4721842582367834}
   - {fileID: 4391807602827312}
   - {fileID: 4047653377156834}
+  - {fileID: 4955373515799722}
+  - {fileID: 4889761796442090}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2452,6 +2484,19 @@ Transform:
   m_Father: {fileID: 4143963480747854}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4889761796442090
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373389787285338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -50, y: 0, z: -12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4398896291211776}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4891989113074690
 Transform:
   m_ObjectHideFlags: 1
@@ -2477,6 +2522,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4391807602827312}
   m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4955373515799722
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903184059806664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4398896291211776}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4976230352003708
 Transform:
@@ -5489,20 +5547,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1027013432893262}
   m_Mesh: {fileID: 4300000, guid: 337acceb6f764c1449484718d6c8391c, type: 3}
---- !u!64 &64002144330723980
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1002371679380384}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: faf06b3544156e7498367ca2c9e95040, type: 3}
 --- !u!64 &64021087830326236
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -6523,6 +6567,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 88.32713, y: 4.891533, z: 4.318901}
   m_Center: {x: 0.14276886, y: 1.9457664, z: 2.4841576}
+--- !u!65 &65347342132659994
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002371679380384}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6184785, y: 0.7753269, z: 1.2623444}
+  m_Center: {x: 0, y: 0.38766345, z: 0.64192045}
 --- !u!65 &65396240286377788
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -6571,9 +6627,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Entity: {fileID: 114831375401374944}
+  _EntityView: {fileID: 114668225677989758}
   _CallType: 1
   _RemoteCallName: requestEnterArena
-  _EntityView: {fileID: 114668225677989758}
 --- !u!114 &114668225677989758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6598,9 +6654,13 @@ MonoBehaviour:
   WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
     type: 2}
   _arenaID: 0
+  _OutPoint: {x: 0, y: 0, z: 0}
+  _CenterPoint: {x: 0, y: 0, z: 0}
   _BindarenaID: 1
   _arenaIDOnlyWhenChanged: 0
   _arenaNpc: {fileID: 1537021388139780}
+  _centerPoint: {fileID: 4955373515799722}
+  _outPoint: {fileID: 4889761796442090}
 --- !u!114 &114831375401374944
 MonoBehaviour:
   m_ObjectHideFlags: 1

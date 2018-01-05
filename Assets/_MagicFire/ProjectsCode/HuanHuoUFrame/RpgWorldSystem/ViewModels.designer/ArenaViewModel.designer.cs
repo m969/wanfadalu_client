@@ -26,10 +26,32 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class ArenaViewModelBase : EntityCommonViewModel {
         
+        private P<Vector3> _OutPointProperty;
+        
+        private P<Vector3> _CenterPointProperty;
+        
         private P<Int32> _arenaIDProperty;
         
         public ArenaViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual P<Vector3> OutPointProperty {
+            get {
+                return _OutPointProperty;
+            }
+            set {
+                _OutPointProperty = value;
+            }
+        }
+        
+        public virtual P<Vector3> CenterPointProperty {
+            get {
+                return _CenterPointProperty;
+            }
+            set {
+                _CenterPointProperty = value;
+            }
         }
         
         public virtual P<Int32> arenaIDProperty {
@@ -38,6 +60,24 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _arenaIDProperty = value;
+            }
+        }
+        
+        public virtual Vector3 OutPoint {
+            get {
+                return OutPointProperty.Value;
+            }
+            set {
+                OutPointProperty.Value = value;
+            }
+        }
+        
+        public virtual Vector3 CenterPoint {
+            get {
+                return CenterPointProperty.Value;
+            }
+            set {
+                CenterPointProperty.Value = value;
             }
         }
         
@@ -52,16 +92,22 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
+            _OutPointProperty = new P<Vector3>(this, "OutPoint");
+            _CenterPointProperty = new P<Vector3>(this, "CenterPoint");
             _arenaIDProperty = new P<Int32>(this, "arenaID");
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this.OutPoint = stream.DeserializeVector3("OutPoint");;
+            this.CenterPoint = stream.DeserializeVector3("CenterPoint");;
             this.arenaID = stream.DeserializeInt("arenaID");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeVector3("OutPoint", this.OutPoint);
+            stream.SerializeVector3("CenterPoint", this.CenterPoint);
             stream.SerializeInt("arenaID", this.arenaID);
         }
         
@@ -71,6 +117,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_OutPointProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_CenterPointProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_arenaIDProperty, false, false, false, false));
         }

@@ -102,6 +102,11 @@ namespace MagicFire.HuanHuoUFrame {
             Avatar.RequestEnterArena.OnNext(command);
         }
         
+        public virtual void ExecuteRequestExitArena(RequestExitArenaCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestExitArena.OnNext(command);
+        }
+        
         public virtual void ExecuteOnSkillStartCast(OnSkillStartCastCommand command) {
             command.Sender = Avatar;
             Avatar.OnSkillStartCast.OnNext(command);
@@ -127,6 +132,11 @@ namespace MagicFire.HuanHuoUFrame {
             Avatar.learnGongFa.OnNext(command);
         }
         
+        public virtual void ExecuteRequestStopMove(RequestStopMoveCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestStopMove.OnNext(command);
+        }
+        
         public virtual void ExecuteOnStopMove(OnStopMoveCommand command) {
             command.Sender = Avatar;
             Avatar.OnStopMove.OnNext(command);
@@ -135,6 +145,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteDoMove(DoMoveCommand command) {
             command.Sender = Avatar;
             Avatar.DoMove.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestMove(RequestMoveCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestMove.OnNext(command);
         }
         
         public virtual void ExecuteOnDestroy(OnDestroyCommand command) {

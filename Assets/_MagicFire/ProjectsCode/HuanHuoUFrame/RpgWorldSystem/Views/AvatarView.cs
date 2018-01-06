@@ -20,6 +20,7 @@
         [SerializeField]
         [Range(0.1f, 1.0f)]
         private float _speed;
+
         [SerializeField]
         private bool _clientControl = false;
 
@@ -83,45 +84,20 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-
             if (this.Avatar.isPlayer())
             {
+                this.tag = "Main Avatar";
                 if (!_clientControl)
                 {
-                    this.AddBinding(
-                        Observable.EveryFixedUpdate().Subscribe(evt =>
+                    Observable.EveryFixedUpdate().Subscribe(evt =>
                         {
                             transform.DOMove(ViewModelObject.position, 0.2f);
                             var dir = ViewModelObject.direction;
                             transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
-                        })
-                    ).DisposeWith(this);
+                        });
                 }
             }
-
-            this.AddBinding(
-                Observable.EveryUpdate().Subscribe(evt =>
-                {
-                    transform.GetChild(0).localPosition = Vector3.zero;
-                })
-            ).DisposeWith(this);
-
-            if (this.Avatar.isPlayer())
-            {
-                this.tag = "Main Avatar";
-
-                this.AddBinding(
-                    this.OnEvent<ResponseEvent>()
-                    .Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestEnterArena"; })
-                    .Subscribe(evt =>
-                    {
-                        this.Avatar.Execute(new RequestEnterArenaCommand()
-                        {
-                            ArenaID = ((ArenaView)evt.RpgInteractiveComponent.EntityView).Arena.arenaID
-                        });
-                    })
-                ).DisposeWith(this);
-            }
+            Observable.EveryUpdate().Subscribe(evt =>{ transform.GetChild(0).localPosition = Vector3.zero; });
         }
 
         public override void canMoveChanged(int arg1)

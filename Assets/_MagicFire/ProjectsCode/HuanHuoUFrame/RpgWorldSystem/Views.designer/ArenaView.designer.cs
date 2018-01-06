@@ -28,16 +28,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public Vector3 _OutPoint;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Vector3 _CenterPoint;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
         public Int32 _arenaID;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("arenaID")]
@@ -74,8 +64,6 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as ArenaViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var arenaview = ((ArenaViewModel)model);
-            arenaview.OutPoint = this._OutPoint;
-            arenaview.CenterPoint = this._CenterPoint;
             arenaview.arenaID = this._arenaID;
         }
         

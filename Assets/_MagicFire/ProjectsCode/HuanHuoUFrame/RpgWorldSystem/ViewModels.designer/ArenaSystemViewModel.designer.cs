@@ -28,7 +28,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<RequestEnterArenaCommand> _RequestEnterArena;
         
+        private Signal<OnExitArenaCommand> _OnExitArena;
+        
         private Signal<RequestExitArenaCommand> _RequestExitArena;
+        
+        private Signal<OnEnterArenaCommand> _OnEnterArena;
         
         public ArenaSystemViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
@@ -43,6 +47,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnExitArenaCommand> OnExitArena {
+            get {
+                return _OnExitArena;
+            }
+            set {
+                _OnExitArena = value;
+            }
+        }
+        
         public virtual Signal<RequestExitArenaCommand> RequestExitArena {
             get {
                 return _RequestExitArena;
@@ -52,18 +65,37 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnEnterArenaCommand> OnEnterArena {
+            get {
+                return _OnEnterArena;
+            }
+            set {
+                _OnEnterArena = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
             this.RequestEnterArena = new Signal<RequestEnterArenaCommand>(this);
+            this.OnExitArena = new Signal<OnExitArenaCommand>(this);
             this.RequestExitArena = new Signal<RequestExitArenaCommand>(this);
+            this.OnEnterArena = new Signal<OnEnterArenaCommand>(this);
         }
         
         public virtual void Execute(RequestEnterArenaCommand argument) {
             this.RequestEnterArena.OnNext(argument);
         }
         
+        public virtual void Execute(OnExitArenaCommand argument) {
+            this.OnExitArena.OnNext(argument);
+        }
+        
         public virtual void Execute(RequestExitArenaCommand argument) {
             this.RequestExitArena.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnEnterArenaCommand argument) {
+            this.OnEnterArena.OnNext(argument);
         }
         
         public virtual void RequestEnterArena_(Int32 ArenaID) {
@@ -72,9 +104,21 @@ namespace MagicFire.HuanHuoUFrame {
             this.RequestEnterArena.OnNext(cmd);
         }
         
+        public virtual void OnExitArena_(Vector3 OutPosition) {
+            var cmd = new OnExitArenaCommand();
+            cmd.OutPosition = OutPosition;
+            this.OnExitArena.OnNext(cmd);
+        }
+        
         public virtual void RequestExitArena_() {
             var cmd = new RequestExitArenaCommand();
             this.RequestExitArena.OnNext(cmd);
+        }
+        
+        public virtual void OnEnterArena_(Vector3 CenterPosition) {
+            var cmd = new OnEnterArenaCommand();
+            cmd.CenterPosition = CenterPosition;
+            this.OnEnterArena.OnNext(cmd);
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -88,7 +132,9 @@ namespace MagicFire.HuanHuoUFrame {
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
             list.Add(new ViewModelCommandInfo("RequestEnterArena", RequestEnterArena) { ParameterType = typeof(RequestEnterArenaCommand) });
+            list.Add(new ViewModelCommandInfo("OnExitArena", OnExitArena) { ParameterType = typeof(OnExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("RequestExitArena", RequestExitArena) { ParameterType = typeof(RequestExitArenaCommand) });
+            list.Add(new ViewModelCommandInfo("OnEnterArena", OnEnterArena) { ParameterType = typeof(OnEnterArenaCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

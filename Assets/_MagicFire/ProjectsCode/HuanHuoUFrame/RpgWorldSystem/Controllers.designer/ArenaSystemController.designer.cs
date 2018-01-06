@@ -58,7 +58,9 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void InitializeArenaSystem(ArenaSystemViewModel viewModel) {
             // This is called when a ArenaSystemViewModel is created
             viewModel.RequestEnterArena.Action = this.RequestEnterArenaHandler;
+            viewModel.OnExitArena.Action = this.OnExitArenaHandler;
             viewModel.RequestExitArena.Action = this.RequestExitArenaHandler;
+            viewModel.OnEnterArena.Action = this.OnEnterArenaHandler;
             ArenaSystemViewModelManager.Add(viewModel);
         }
         
@@ -71,14 +73,28 @@ namespace MagicFire.HuanHuoUFrame {
             this.RequestEnterArena(command.Sender as ArenaSystemViewModel, command);
         }
         
+        public virtual void OnExitArenaHandler(OnExitArenaCommand command) {
+            this.OnExitArena(command.Sender as ArenaSystemViewModel, command);
+        }
+        
         public virtual void RequestExitArenaHandler(RequestExitArenaCommand command) {
             this.RequestExitArena(command.Sender as ArenaSystemViewModel, command);
+        }
+        
+        public virtual void OnEnterArenaHandler(OnEnterArenaCommand command) {
+            this.OnEnterArena(command.Sender as ArenaSystemViewModel, command);
         }
         
         public virtual void RequestEnterArena(ArenaSystemViewModel viewModel, RequestEnterArenaCommand arg) {
         }
         
+        public virtual void OnExitArena(ArenaSystemViewModel viewModel, OnExitArenaCommand arg) {
+        }
+        
         public virtual void RequestExitArena(ArenaSystemViewModel viewModel, RequestExitArenaCommand arg) {
+        }
+        
+        public virtual void OnEnterArena(ArenaSystemViewModel viewModel, OnEnterArenaCommand arg) {
         }
     }
 }

@@ -26,6 +26,14 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class ArenaSystemViewBase : SkillEntityView {
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnEnterArena")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnEnterArena = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnExitArena")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnExitArena = true;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -56,6 +64,18 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.ArenaSystem to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindOnEnterArena) {
+                this.BindCommandExecuted(this.ArenaSystem.OnEnterArena, this.OnEnterArenaExecuted);
+            }
+            if (_BindOnExitArena) {
+                this.BindCommandExecuted(this.ArenaSystem.OnExitArena, this.OnExitArenaExecuted);
+            }
+        }
+        
+        public virtual void OnEnterArenaExecuted(OnEnterArenaCommand command) {
+        }
+        
+        public virtual void OnExitArenaExecuted(OnExitArenaCommand command) {
         }
         
         public virtual void ExecuteRequestEnterArena(RequestEnterArenaCommand command) {
@@ -63,9 +83,19 @@ namespace MagicFire.HuanHuoUFrame {
             ArenaSystem.RequestEnterArena.OnNext(command);
         }
         
+        public virtual void ExecuteOnExitArena(OnExitArenaCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.OnExitArena.OnNext(command);
+        }
+        
         public virtual void ExecuteRequestExitArena(RequestExitArenaCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.RequestExitArena.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnEnterArena(OnEnterArenaCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.OnEnterArena.OnNext(command);
         }
     }
 }

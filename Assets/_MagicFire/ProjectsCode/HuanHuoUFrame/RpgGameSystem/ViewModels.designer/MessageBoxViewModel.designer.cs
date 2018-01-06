@@ -24,7 +24,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public partial class MessageBoxViewModelBase : uFrame.MVVM.ViewModels.ViewModel {
+    public partial class MessageBoxViewModelBase : PanelViewModel {
         
         private P<String> _MessageProperty;
         

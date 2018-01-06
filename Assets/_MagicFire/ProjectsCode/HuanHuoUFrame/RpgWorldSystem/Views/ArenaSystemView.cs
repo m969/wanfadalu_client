@@ -28,5 +28,19 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
         }
+
+        public override void OnEnterArenaExecuted(OnEnterArenaCommand command)
+        {
+            base.OnEnterArenaExecuted(command);
+            Debug.Log("ArenaView:OnEnterArenaExecuted");
+            this.transform.position = command.CenterPosition;
+        }
+
+        public override void OnExitArenaExecuted(OnExitArenaCommand command)
+        {
+            base.OnExitArenaExecuted(command);
+            Debug.Log("ArenaView:OnExitArenaExecuted");
+            this.transform.position = command.OutPosition;
+        }
     }
 }

@@ -55,20 +55,18 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            
-            this.AddBinding(
-                this.OnEvent<ExitArenaEvent>()
-                .Subscribe(evt => 
+
+            this.OnEvent<ExitArenaEvent>()
+                .Subscribe(evt =>
                 {
                     this.Avatar.Execute(new RequestExitArenaCommand());
-                })
-            ).DisposeWith(this);
+                });
 
             transform.SetParent(WorldViewService.MasterCanvas.transform);
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;
             var rect = GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(0, 30);
+            rect.anchoredPosition = new Vector2(0, 50);
         }
 
         public override void HPChanged(int arg1)

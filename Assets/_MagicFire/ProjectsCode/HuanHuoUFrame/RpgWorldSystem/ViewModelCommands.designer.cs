@@ -70,6 +70,20 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class OnLeaveWorldCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class OnExitArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Vector3 _OutPosition;
+        
+        public Vector3 OutPosition {
+            get {
+                return _OutPosition;
+            }
+            set {
+                _OutPosition = value;
+            }
+        }
+    }
+    
     public partial class OnSkillEndCastCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private String _argsString;
@@ -125,6 +139,20 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _ArenaID = value;
+            }
+        }
+    }
+    
+    public partial class OnEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Vector3 _CenterPosition;
+        
+        public Vector3 CenterPosition {
+            get {
+                return _CenterPosition;
+            }
+            set {
+                _CenterPosition = value;
             }
         }
     }

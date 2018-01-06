@@ -36,6 +36,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private RpgMainScreenController _RpgMainScreenController;
         
+        private PanelController _PanelController;
+        
         [uFrame.IOC.InjectAttribute("MessageBox")]
         public virtual MessageBoxViewModel MessageBox {
             get {
@@ -105,6 +107,19 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        [uFrame.IOC.InjectAttribute()]
+        public virtual PanelController PanelController {
+            get {
+                if (_PanelController==null) {
+                    _PanelController = Container.CreateInstance(typeof(PanelController)) as PanelController;;
+                }
+                return _PanelController;
+            }
+            set {
+                _PanelController = value;
+            }
+        }
+        
         public override void Load() {
             Container.RegisterViewModelManager<UserLoginScreenViewModel>(new ViewModelManager<UserLoginScreenViewModel>());
             Container.RegisterController<UserLoginScreenController>(UserLoginScreenController);
@@ -112,6 +127,8 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<MessageBoxController>(MessageBoxController);
             Container.RegisterViewModelManager<RpgMainScreenViewModel>(new ViewModelManager<RpgMainScreenViewModel>());
             Container.RegisterController<RpgMainScreenController>(RpgMainScreenController);
+            Container.RegisterViewModelManager<PanelViewModel>(new ViewModelManager<PanelViewModel>());
+            Container.RegisterController<PanelController>(PanelController);
             Container.RegisterViewModel<MessageBoxViewModel>(MessageBox, "MessageBox");
             Container.RegisterViewModel<UserLoginScreenViewModel>(UserLoginScreen, "UserLoginScreen");
             Container.RegisterViewModel<RpgMainScreenViewModel>(RpgMainScreen, "RpgMainScreen");

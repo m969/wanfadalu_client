@@ -39,82 +39,47 @@ namespace MagicFire.HuanHuoUFrame {
             // Any designer bindings are created in the base implementation.
         }
 
-        public override void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command)
+        private T ShowAvatarPanel<T>(T panelView, string poolName, string panelName) where T : PanelView
         {
-            base.ShowAvatarBagPanelExecuted(command);
-            if (!_bagPanelView)
+            if (!panelView)
             {
-                var spawnPool = PoolManager.Pools["AvatarViewPool"];
-                _bagPanelView = spawnPool.SpawnView(spawnPool.prefabs["BagPanel"], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<BagPanelView>();
-                _bagPanelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
-
-                _bagPanelView.transform.localScale = new Vector3(1, 1, 1);
-                var rect = _bagPanelView.GetComponent<RectTransform>();
+                var spawnPool = PoolManager.Pools[poolName];
+                panelView = spawnPool.SpawnView(spawnPool.prefabs[panelName], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<T>();
+                panelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
+                panelView.transform.localScale = new Vector3(1, 1, 1);
+                var rect = panelView.GetComponent<RectTransform>();
                 rect.anchoredPosition = new Vector2(0, 0);
             }
             else
             {
-                if (_bagPanelView.isActiveAndEnabled)
+                if (panelView.isActiveAndEnabled)
                 {
-                    _bagPanelView.gameObject.SetActive(false);
+                    panelView.gameObject.SetActive(false);
                 }
                 else
                 {
-                    _bagPanelView.gameObject.SetActive(true);
+                    panelView.gameObject.SetActive(true);
                 }
             }
+            return panelView;
+        }
+
+        public override void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command)
+        {
+            base.ShowAvatarBagPanelExecuted(command);
+            _bagPanelView = ShowAvatarPanel(_bagPanelView, "AvatarViewPool", "BagPanel");
         }
 
         public override void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command)
         {
             base.ShowCharacterInfoPanelExecuted(command);
-            if (!_characterInfoPanelView)
-            {
-                var spawnPool = PoolManager.Pools["AvatarViewPool"];
-                _characterInfoPanelView = spawnPool.SpawnView(spawnPool.prefabs["CharacterInfoPanel"], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<CharacterInfoPanelView>();
-                _characterInfoPanelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
-
-                _characterInfoPanelView.transform.localScale = new Vector3(1, 1, 1);
-                var rect = _characterInfoPanelView.GetComponent<RectTransform>();
-                rect.anchoredPosition = new Vector2(0, 0);
-            }
-            else
-            {
-                if (_characterInfoPanelView.isActiveAndEnabled)
-                {
-                    _characterInfoPanelView.gameObject.SetActive(false);
-                }
-                else
-                {
-                    _characterInfoPanelView.gameObject.SetActive(true);
-                }
-            }
+            _characterInfoPanelView = ShowAvatarPanel(_characterInfoPanelView, "AvatarViewPool", "CharacterInfoPanel");
         }
 
         public override void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command)
         {
             base.ShowGongFaPanelExecuted(command);
-            if (!_gongFaPanelView)
-            {
-                var spawnPool = PoolManager.Pools["AvatarViewPool"];
-                _gongFaPanelView = spawnPool.SpawnView(spawnPool.prefabs["GongFaPanel"], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<GongFaPanelView>();
-                _gongFaPanelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
-
-                _gongFaPanelView.transform.localScale = new Vector3(1, 1, 1);
-                var rect = _gongFaPanelView.GetComponent<RectTransform>();
-                rect.anchoredPosition = new Vector2(0, 0);
-            }
-            else
-            {
-                if (_gongFaPanelView.isActiveAndEnabled)
-                {
-                    _gongFaPanelView.gameObject.SetActive(false);
-                }
-                else
-                {
-                    _gongFaPanelView.gameObject.SetActive(true);
-                }
-            }
+            _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "AvatarViewPool", "GongFaPanel");
         }
 
         public override void ExitArenaExecuted(ExitArenaCommand command)

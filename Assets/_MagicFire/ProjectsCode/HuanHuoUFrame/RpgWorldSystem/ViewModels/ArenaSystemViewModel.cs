@@ -15,6 +15,24 @@
     
     
     public partial class ArenaSystemViewModel : ArenaSystemViewModelBase {
+
+        public override void __init__()
+        {
+            base.__init__();
+            if (this.isPlayer())
+            {
+                Debug.Log("ArenaSystemViewModel:Subscribe ResponseEvent");
+                this.Aggregator.GetEvent<ResponseEvent>().Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestEnterArena"; })
+                    .Subscribe(evt =>
+                    {
+                        Debug.Log("ArenaSystemViewModel:OnEvent<ResponseEvent>()");
+                        var arenaID = ((ArenaView)evt.RpgInteractiveComponent.EntityView).Arena.arenaID;
+                        var command = new RequestEnterArenaCommand() { ArenaID = arenaID };
+                        this.Execute(command);
+                    });
+            }
+        }
+
         public override void Execute(RequestEnterArenaCommand argument)
         {
             base.Execute(argument);

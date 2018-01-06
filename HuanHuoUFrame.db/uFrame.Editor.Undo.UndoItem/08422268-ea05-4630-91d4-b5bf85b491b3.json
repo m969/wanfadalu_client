@@ -1,8 +1,0 @@
-{
-	"Identifier":"08422268-ea05-4630-91d4-b5bf85b491b3"	, 
-	"Time":"12/31/2017 01:09:58"	, 
-	"Group":1958	, 
-	"DataRecordId":"16340c3b-3b6b-46ef-828c-3a0d5cf09dbf"	, 
-	"Type":2	, 
-	"RecordType":"uFrame.ECS.Editor.EcsWorkspace, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Identifier\":\"16340c3b-3b6b-46ef-828c-3a0d5cf09dbf\"\t, \r\n\t\"Name\":\"HuanHuoECS\"\t, \r\n\t\"CurrentGraphId\":\"06cb855c-b77b-4cbd-920d-3dd2558c825b\"\t, \r\n\t\"Expanded\":false}\r\n"}

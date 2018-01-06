@@ -36,6 +36,8 @@
         public override void ExitArena(RpgMainScreenViewModel viewModel, ExitArenaCommand arg)
         {
             base.ExitArena(viewModel, arg);
+            Debug.Log("RpgMainScreenController:ExitArena");
+            this.Publish(new ExitArenaEvent());
         }
     }
 }

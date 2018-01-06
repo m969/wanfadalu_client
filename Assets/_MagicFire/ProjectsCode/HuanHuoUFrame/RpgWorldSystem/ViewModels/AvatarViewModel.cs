@@ -46,22 +46,15 @@ namespace MagicFire.HuanHuoUFrame{
                 //    else
                 //        cellCall(evt.RemoteCallName, evt.Params);
                 //});
-
                 KBEngine.Event.registerIn("updatePlayer", this, "updatePlayer");
-
                 //KBEngine.Event.registerIn("RequestMove", this, "RequestMove");
                 //KBEngine.Event.registerIn("StopMove", this, "StopMove");
-
                 KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
-
                 KBEngine.Event.registerIn("RequestBuyGoods", this, "RequestBuyGoods");
                 //KBEngine.Event.registerIn("RequestCastSkillByName", this, "RequestCastSkillByName");
-
                 KBEngine.Event.registerIn("OnLeaveSpaceClientInputInValid", this, "OnLeaveSpaceClientInputInValid");
-
                 KBEngine.Event.registerIn("SendChatMessage", this, "SendChatMessage");
                 KBEngine.Event.registerIn("SendVoiceSample", this, "SendVoiceSample");
-
                 KBEngine.Event.registerIn("FindFriends", this, "FindFriends");
                 KBEngine.Event.registerIn("AddFriends", this, "AddFriends");
                 KBEngine.Event.registerIn("DeleteFriends", this, "DeleteFriends");

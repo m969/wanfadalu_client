@@ -16,10 +16,6 @@
     public class ArenaView : ArenaViewBase {
         [SerializeField]
         private GameObject _arenaNpc;
-        [SerializeField]
-        private Transform _centerPoint;
-        [SerializeField]
-        private Transform _outPoint;
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -34,8 +30,6 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
 
-            this.Arena.CenterPoint = _centerPoint.position;
-            this.Arena.OutPoint = _outPoint.position;
         }
     }
 }

@@ -20,7 +20,7 @@
 
             this.OnMouseDownAsObservable().Subscribe(evt =>
             {
-                Debug.Log("RpgInteractiveComponent OnMouseDownAsObservable");
+                Debug.Log("RpgInteractiveComponent:OnMouseDownAsObservable");
                 //this.Publish<KbeRemoteCallEvent>(new KbeRemoteCallEvent()
                 //{
                 //    RemoteCallName = this.RemoteCallName,

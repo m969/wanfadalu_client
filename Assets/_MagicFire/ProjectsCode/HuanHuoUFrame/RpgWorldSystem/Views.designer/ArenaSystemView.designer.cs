@@ -34,6 +34,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public bool _BindOnExitArena = true;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnMatchEnd")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnMatchEnd = true;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -70,12 +74,18 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindOnExitArena) {
                 this.BindCommandExecuted(this.ArenaSystem.OnExitArena, this.OnExitArenaExecuted);
             }
+            if (_BindOnMatchEnd) {
+                this.BindCommandExecuted(this.ArenaSystem.OnMatchEnd, this.OnMatchEndExecuted);
+            }
         }
         
         public virtual void OnEnterArenaExecuted(OnEnterArenaCommand command) {
         }
         
         public virtual void OnExitArenaExecuted(OnExitArenaCommand command) {
+        }
+        
+        public virtual void OnMatchEndExecuted(OnMatchEndCommand command) {
         }
         
         public virtual void ExecuteRequestEnterArena(RequestEnterArenaCommand command) {
@@ -96,6 +106,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteOnEnterArena(OnEnterArenaCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.OnEnterArena.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnMatchEnd(OnMatchEndCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.OnMatchEnd.OnNext(command);
         }
     }
 }

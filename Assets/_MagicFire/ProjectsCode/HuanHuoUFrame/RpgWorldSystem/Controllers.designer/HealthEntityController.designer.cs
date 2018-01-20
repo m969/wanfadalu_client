@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -56,12 +57,28 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeHealthEntity(HealthEntityViewModel viewModel) {
             // This is called when a HealthEntityViewModel is created
+            viewModel.OnRespawn.Action = this.OnRespawnHandler;
+            viewModel.OnDead.Action = this.OnDeadHandler;
             HealthEntityViewModelManager.Add(viewModel);
         }
         
         public override void DisposingViewModel(uFrame.MVVM.ViewModels.ViewModel viewModel) {
             base.DisposingViewModel(viewModel);
             HealthEntityViewModelManager.Remove(viewModel);
+        }
+        
+        public virtual void OnRespawnHandler(OnRespawnCommand command) {
+            this.OnRespawn(command.Sender as HealthEntityViewModel, command);
+        }
+        
+        public virtual void OnDeadHandler(OnDeadCommand command) {
+            this.OnDead(command.Sender as HealthEntityViewModel, command);
+        }
+        
+        public virtual void OnRespawn(HealthEntityViewModel viewModel, OnRespawnCommand arg) {
+        }
+        
+        public virtual void OnDead(HealthEntityViewModel viewModel, OnDeadCommand arg) {
         }
     }
 }

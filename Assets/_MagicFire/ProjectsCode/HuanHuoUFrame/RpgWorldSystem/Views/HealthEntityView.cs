@@ -38,5 +38,19 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
         }
+
+        public override void OnDeadExecuted(OnDeadCommand command)
+        {
+            base.OnDeadExecuted(command);
+            Debug.Log("HealthEntityView:OnDeadExecuted");
+            //this.Publish(new ShowDeadPanelEvent());
+        }
+
+        public override void OnRespawnExecuted(OnRespawnCommand command)
+        {
+            base.OnRespawnExecuted(command);
+            Debug.Log("HealthEntityView:OnRespawnExecuted");
+            this.transform.position = command.RespawnPosition;
+        }
     }
 }

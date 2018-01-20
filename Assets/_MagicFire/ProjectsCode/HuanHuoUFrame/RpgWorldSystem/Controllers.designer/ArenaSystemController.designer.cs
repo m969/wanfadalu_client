@@ -61,6 +61,7 @@ namespace MagicFire.HuanHuoUFrame {
             viewModel.OnExitArena.Action = this.OnExitArenaHandler;
             viewModel.RequestExitArena.Action = this.RequestExitArenaHandler;
             viewModel.OnEnterArena.Action = this.OnEnterArenaHandler;
+            viewModel.OnMatchEnd.Action = this.OnMatchEndHandler;
             ArenaSystemViewModelManager.Add(viewModel);
         }
         
@@ -85,6 +86,10 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena(command.Sender as ArenaSystemViewModel, command);
         }
         
+        public virtual void OnMatchEndHandler(OnMatchEndCommand command) {
+            this.OnMatchEnd(command.Sender as ArenaSystemViewModel, command);
+        }
+        
         public virtual void RequestEnterArena(ArenaSystemViewModel viewModel, RequestEnterArenaCommand arg) {
         }
         
@@ -95,6 +100,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void OnEnterArena(ArenaSystemViewModel viewModel, OnEnterArenaCommand arg) {
+        }
+        
+        public virtual void OnMatchEnd(ArenaSystemViewModel viewModel, OnMatchEndCommand arg) {
         }
     }
 }

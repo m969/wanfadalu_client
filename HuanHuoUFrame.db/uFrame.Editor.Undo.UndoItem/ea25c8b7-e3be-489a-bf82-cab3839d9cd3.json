@@ -1,8 +1,0 @@
-{
-	"Identifier":"ea25c8b7-e3be-489a-bf82-cab3839d9cd3"	, 
-	"Time":"01/06/2018 12:45:10"	, 
-	"Group":124510	, 
-	"DataRecordId":"5e66d333-32af-4d6d-90e5-1c505432bf87"	, 
-	"Type":2	, 
-	"RecordType":"uFrame.MVVM.SceneProperties, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Identifier\":\"5e66d333-32af-4d6d-90e5-1c505432bf87\"\t, \r\n\t\"Order\":0}\r\n"}

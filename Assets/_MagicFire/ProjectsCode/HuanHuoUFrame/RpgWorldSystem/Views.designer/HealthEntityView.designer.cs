@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -35,6 +36,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public Int32 _HP;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnDead")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnDead = true;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("HP_Max")]
         [UnityEngine.HideInInspector()]
         public bool _BindHP_Max = true;
@@ -44,6 +49,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_HP_MaxonlyWhenChanged")]
         protected bool _HP_MaxOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnRespawn")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnRespawn = true;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("HP")]
         [UnityEngine.HideInInspector()]
@@ -88,18 +97,40 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.HealthEntity to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindOnDead) {
+                this.BindCommandExecuted(this.HealthEntity.OnDead, this.OnDeadExecuted);
+            }
             if (_BindHP_Max) {
                 this.BindProperty(this.HealthEntity.HP_MaxProperty, this.HP_MaxChanged, _HP_MaxOnlyWhenChanged);
+            }
+            if (_BindOnRespawn) {
+                this.BindCommandExecuted(this.HealthEntity.OnRespawn, this.OnRespawnExecuted);
             }
             if (_BindHP) {
                 this.BindProperty(this.HealthEntity.HPProperty, this.HPChanged, _HPOnlyWhenChanged);
             }
         }
         
+        public virtual void OnDeadExecuted(OnDeadCommand command) {
+        }
+        
         public virtual void HP_MaxChanged(Int32 arg1) {
         }
         
+        public virtual void OnRespawnExecuted(OnRespawnCommand command) {
+        }
+        
         public virtual void HPChanged(Int32 arg1) {
+        }
+        
+        public virtual void ExecuteOnRespawn(OnRespawnCommand command) {
+            command.Sender = HealthEntity;
+            HealthEntity.OnRespawn.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnDead(OnDeadCommand command) {
+            command.Sender = HealthEntity;
+            HealthEntity.OnDead.OnNext(command);
         }
     }
 }

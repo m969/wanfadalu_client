@@ -42,5 +42,11 @@
             Debug.Log("ArenaView:OnExitArenaExecuted");
             this.transform.position = command.OutPosition;
         }
+
+        public override void OnMatchEndExecuted(OnMatchEndCommand command)
+        {
+            base.OnMatchEndExecuted(command);
+            Debug.Log("ArenaView:OnMatchEndExecuted IsWin = " + command.IsWin);
+        }
     }
 }

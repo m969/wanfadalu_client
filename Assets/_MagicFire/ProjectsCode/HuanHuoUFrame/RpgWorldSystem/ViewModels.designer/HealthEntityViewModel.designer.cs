@@ -30,6 +30,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         private P<Int32> _HPProperty;
         
+        private Signal<OnRespawnCommand> _OnRespawn;
+        
+        private Signal<OnDeadCommand> _OnDead;
+        
         public HealthEntityViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
@@ -70,10 +74,49 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnRespawnCommand> OnRespawn {
+            get {
+                return _OnRespawn;
+            }
+            set {
+                _OnRespawn = value;
+            }
+        }
+        
+        public virtual Signal<OnDeadCommand> OnDead {
+            get {
+                return _OnDead;
+            }
+            set {
+                _OnDead = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
+            this.OnRespawn = new Signal<OnRespawnCommand>(this);
+            this.OnDead = new Signal<OnDeadCommand>(this);
             _HP_MaxProperty = new P<Int32>(this, "HP_Max");
             _HPProperty = new P<Int32>(this, "HP");
+        }
+        
+        public virtual void Execute(OnRespawnCommand argument) {
+            this.OnRespawn.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnDeadCommand argument) {
+            this.OnDead.OnNext(argument);
+        }
+        
+        public virtual void OnRespawn_(Vector3 RespawnPosition) {
+            var cmd = new OnRespawnCommand();
+            cmd.RespawnPosition = RespawnPosition;
+            this.OnRespawn.OnNext(cmd);
+        }
+        
+        public virtual void OnDead_() {
+            var cmd = new OnDeadCommand();
+            this.OnDead.OnNext(cmd);
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -90,6 +133,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("OnRespawn", OnRespawn) { ParameterType = typeof(OnRespawnCommand) });
+            list.Add(new ViewModelCommandInfo("OnDead", OnDead) { ParameterType = typeof(OnDeadCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

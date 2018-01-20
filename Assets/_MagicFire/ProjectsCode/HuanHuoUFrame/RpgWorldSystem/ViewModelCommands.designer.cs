@@ -42,6 +42,9 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class OnStopMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class OnDeadCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class onMainAvatarEnterSpaceCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Int32 _SpaceId;
@@ -139,6 +142,20 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _ArenaID = value;
+            }
+        }
+    }
+    
+    public partial class OnRespawnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Vector3 _RespawnPosition;
+        
+        public Vector3 RespawnPosition {
+            get {
+                return _RespawnPosition;
+            }
+            set {
+                _RespawnPosition = value;
             }
         }
     }
@@ -245,6 +262,20 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _Point = value;
+            }
+        }
+    }
+    
+    public partial class OnMatchEndCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Boolean _IsWin;
+        
+        public Boolean IsWin {
+            get {
+                return _IsWin;
+            }
+            set {
+                _IsWin = value;
             }
         }
     }

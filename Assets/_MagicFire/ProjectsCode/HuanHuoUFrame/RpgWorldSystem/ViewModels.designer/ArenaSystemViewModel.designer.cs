@@ -34,6 +34,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<OnEnterArenaCommand> _OnEnterArena;
         
+        private Signal<OnMatchEndCommand> _OnMatchEnd;
+        
         public ArenaSystemViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
@@ -74,12 +76,22 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnMatchEndCommand> OnMatchEnd {
+            get {
+                return _OnMatchEnd;
+            }
+            set {
+                _OnMatchEnd = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
             this.RequestEnterArena = new Signal<RequestEnterArenaCommand>(this);
             this.OnExitArena = new Signal<OnExitArenaCommand>(this);
             this.RequestExitArena = new Signal<RequestExitArenaCommand>(this);
             this.OnEnterArena = new Signal<OnEnterArenaCommand>(this);
+            this.OnMatchEnd = new Signal<OnMatchEndCommand>(this);
         }
         
         public virtual void Execute(RequestEnterArenaCommand argument) {
@@ -96,6 +108,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(OnEnterArenaCommand argument) {
             this.OnEnterArena.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnMatchEndCommand argument) {
+            this.OnMatchEnd.OnNext(argument);
         }
         
         public virtual void RequestEnterArena_(Int32 ArenaID) {
@@ -121,6 +137,12 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena.OnNext(cmd);
         }
         
+        public virtual void OnMatchEnd_(Boolean IsWin) {
+            var cmd = new OnMatchEndCommand();
+            cmd.IsWin = IsWin;
+            this.OnMatchEnd.OnNext(cmd);
+        }
+        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
         }
@@ -135,6 +157,7 @@ namespace MagicFire.HuanHuoUFrame {
             list.Add(new ViewModelCommandInfo("OnExitArena", OnExitArena) { ParameterType = typeof(OnExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("RequestExitArena", RequestExitArena) { ParameterType = typeof(RequestExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("OnEnterArena", OnEnterArena) { ParameterType = typeof(OnEnterArenaCommand) });
+            list.Add(new ViewModelCommandInfo("OnMatchEnd", OnMatchEnd) { ParameterType = typeof(OnMatchEndCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

@@ -31,8 +31,9 @@ namespace MagicFire.HuanHuoUFrame{
         private GameObject _playerTargetPrefab;
 
 
-        private SceneState _worldSceneState = SceneState.Destructed;
         private SceneState _loginSceneState = SceneState.Loaded;
+        private SceneState _worldSceneState = SceneState.Destructed;
+        private string _currentSpaceName;
 
         private GameObject _masterCanvas;
 
@@ -108,31 +109,41 @@ namespace MagicFire.HuanHuoUFrame{
             base.Setup();
             // Use the line below to subscribe to events
             // this.OnEvent<MyEvent>().Subscribe(myEventInstance => { TODO });
-
             MasterCanvas.ToString();
             Canvas3D.ToString();
-
             this.OnEvent<OnMainAvatarEnterSpaceEvent>().ObserveOnMainThread().Subscribe(OnMainAvatarEnterSpace);
             this.OnEvent<OnMainAvatarLeaveSpaceEvent>().ObserveOnMainThread().Subscribe(OnMainAvatarLeaveSpace);
-
             this.OnEvent<onEnterWorldEvent>().ObserveOnMainThread().Subscribe(OnEnterWorld);
             this.OnEvent<onLeaveWorldEvent>().ObserveOnMainThread().Subscribe(OnLeaveWorld);
             this.OnEvent<set_positionEvent>().ObserveOnMainThread().Subscribe(Set_Position);
             this.OnEvent<set_directionEvent>().ObserveOnMainThread().Subscribe(Set_Direction);
             this.OnEvent<updatePositionEvent>().ObserveOnMainThread().Subscribe(UpdatePosition);
-
             _modelViewPool = PoolManager.Pools["ModelViewPool"];
             //_ringViewPool = PoolManager.Pools["RingViewPool"];
             //_panelViewPool = PoolManager.Pools["PanelViewPool"];
+            this.OnEvent<SceneLoaderEvent>().Where(x => x.Name == "LoginScene").Where(x => x.State == SceneState.Destructed).Subscribe(OnLoginSceneDestructed);
+            this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
+            this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Unloaded).Subscribe(OnSceneUnLoaded);
+        }
 
-            this.OnEvent<SceneLoaderEvent>()
-                .Where(x => x.Name == "LoginScene")
-                .Where(x => x.State == SceneState.Destructed)
-                .Subscribe(evt =>
-                {
-                    _loginSceneState = SceneState.Destructed;
-                    MasterCanvas.GetComponentInChildren<LoginPanel>().gameObject.SetActive(false);
-                });
+        private void OnLoginSceneDestructed(SceneLoaderEvent @event)
+        {
+            _loginSceneState = SceneState.Destructed;
+            MasterCanvas.GetComponentInChildren<LoginPanel>().gameObject.SetActive(false);
+        }
+
+        private void OnSceneLoaded(SceneLoaderEvent @event)
+        {
+            Debug.Log("OnSceneLoaded = " + @event.Name);
+            var newScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(@event.Name);
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(newScene);
+        }
+
+        private void OnSceneUnLoaded(SceneLoaderEvent @event)
+        {
+            Debug.Log("OnSceneUnLoaded = " + @event.Name);
+            //var newScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(@event.Name);
+            //UnityEngine.SceneManagement.SceneManager.SetActiveScene(newScene);
         }
 
         private void OnMainAvatarEnterSpace(OnMainAvatarEnterSpaceEvent evt)
@@ -141,13 +152,19 @@ namespace MagicFire.HuanHuoUFrame{
 
             if (_loginSceneState == SceneState.Destructed)
             {
-                _worldSceneState = SceneState.Destructed;
+                if (_worldSceneState == SceneState.Loaded)
+                {
+                    Debug.Log("SceneName = " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+                    this.Publish(new UnloadSceneCommand()
+                    {
+                        SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+                    });
+                    _worldSceneState = SceneState.Destructed;
+                }
                 this.Publish(new LoadSceneCommand()
                 {
-                    SceneName = evt.SpaceName,
-                    RestrictToSingleScene = true
+                    SceneName = evt.SpaceName
                 });
-
                 _worldSceneState = SceneState.Loaded;
                 InstantiateAllViews();
             }
@@ -162,7 +179,6 @@ namespace MagicFire.HuanHuoUFrame{
                         this.Publish(new LoadSceneCommand()
                         {
                             SceneName = evt.SpaceName,
-                            RestrictToSingleScene = true
                         });
                         _worldSceneState = SceneState.Loaded;
                         InstantiateAllViews();

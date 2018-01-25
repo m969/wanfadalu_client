@@ -88,6 +88,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void OnMatchEndExecuted(OnMatchEndCommand command) {
         }
         
+        public virtual void ExecuteOnMatchEnd(OnMatchEndCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.OnMatchEnd.OnNext(command);
+        }
+        
         public virtual void ExecuteRequestEnterArena(RequestEnterArenaCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.RequestEnterArena.OnNext(command);
@@ -106,11 +111,6 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteOnEnterArena(OnEnterArenaCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.OnEnterArena.OnNext(command);
-        }
-        
-        public virtual void ExecuteOnMatchEnd(OnMatchEndCommand command) {
-            command.Sender = ArenaSystem;
-            ArenaSystem.OnMatchEnd.OnNext(command);
         }
     }
 }

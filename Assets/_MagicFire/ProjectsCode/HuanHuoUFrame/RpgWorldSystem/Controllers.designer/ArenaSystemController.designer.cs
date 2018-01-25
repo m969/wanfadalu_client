@@ -57,17 +57,21 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeArenaSystem(ArenaSystemViewModel viewModel) {
             // This is called when a ArenaSystemViewModel is created
+            viewModel.OnMatchEnd.Action = this.OnMatchEndHandler;
             viewModel.RequestEnterArena.Action = this.RequestEnterArenaHandler;
             viewModel.OnExitArena.Action = this.OnExitArenaHandler;
             viewModel.RequestExitArena.Action = this.RequestExitArenaHandler;
             viewModel.OnEnterArena.Action = this.OnEnterArenaHandler;
-            viewModel.OnMatchEnd.Action = this.OnMatchEndHandler;
             ArenaSystemViewModelManager.Add(viewModel);
         }
         
         public override void DisposingViewModel(uFrame.MVVM.ViewModels.ViewModel viewModel) {
             base.DisposingViewModel(viewModel);
             ArenaSystemViewModelManager.Remove(viewModel);
+        }
+        
+        public virtual void OnMatchEndHandler(OnMatchEndCommand command) {
+            this.OnMatchEnd(command.Sender as ArenaSystemViewModel, command);
         }
         
         public virtual void RequestEnterArenaHandler(RequestEnterArenaCommand command) {
@@ -86,8 +90,7 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena(command.Sender as ArenaSystemViewModel, command);
         }
         
-        public virtual void OnMatchEndHandler(OnMatchEndCommand command) {
-            this.OnMatchEnd(command.Sender as ArenaSystemViewModel, command);
+        public virtual void OnMatchEnd(ArenaSystemViewModel viewModel, OnMatchEndCommand arg) {
         }
         
         public virtual void RequestEnterArena(ArenaSystemViewModel viewModel, RequestEnterArenaCommand arg) {
@@ -100,9 +103,6 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void OnEnterArena(ArenaSystemViewModel viewModel, OnEnterArenaCommand arg) {
-        }
-        
-        public virtual void OnMatchEnd(ArenaSystemViewModel viewModel, OnMatchEndCommand arg) {
         }
     }
 }

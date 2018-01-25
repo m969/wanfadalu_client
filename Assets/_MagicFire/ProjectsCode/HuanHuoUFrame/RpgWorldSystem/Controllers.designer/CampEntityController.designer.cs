@@ -15,7 +15,7 @@ namespace MagicFire.HuanHuoUFrame {
     using System.Linq;
     
     
-    public class CampEntityControllerBase : SkillEntityController {
+    public class CampEntityControllerBase : SectSystemController {
         
         private uFrame.MVVM.ViewModels.IViewModelManager<CampEntityViewModel> _CampEntityViewModelManager;
         

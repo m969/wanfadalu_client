@@ -46,15 +46,15 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_campNameinput")]
         protected UnityEngine.UI.Text _campNameInput;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("entityName")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
         [UnityEngine.HideInInspector()]
-        public bool _BindentityName = true;
+        public bool _BindsectID = true;
         
-        [uFrame.MVVM.Attributes.UFGroup("entityName")]
+        [uFrame.MVVM.Attributes.UFGroup("sectID")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_entityNameinput")]
-        protected UnityEngine.UI.Text _entityNameInput;
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
+        protected bool _sectIDOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -92,9 +92,12 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindcampName) {
                 this.BindTextToProperty(_campNameInput, this.Avatar.campNameProperty);
             }
-            if (_BindentityName) {
-                this.BindTextToProperty(_entityNameInput, this.Avatar.entityNameProperty);
+            if (_BindsectID) {
+                this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
             }
+        }
+        
+        public virtual void sectIDChanged(Int32 arg1) {
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

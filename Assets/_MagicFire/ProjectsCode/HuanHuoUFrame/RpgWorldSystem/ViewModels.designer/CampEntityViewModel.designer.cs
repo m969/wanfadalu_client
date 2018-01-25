@@ -24,7 +24,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public partial class CampEntityViewModelBase : SkillEntityViewModel {
+    public partial class CampEntityViewModelBase : SectSystemViewModel {
         
         private P<String> _campNameProperty;
         

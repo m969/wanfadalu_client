@@ -26,6 +26,8 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class ArenaSystemViewModelBase : CampEntityViewModel {
         
+        private Signal<OnMatchEndCommand> _OnMatchEnd;
+        
         private Signal<RequestEnterArenaCommand> _RequestEnterArena;
         
         private Signal<OnExitArenaCommand> _OnExitArena;
@@ -34,10 +36,17 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<OnEnterArenaCommand> _OnEnterArena;
         
-        private Signal<OnMatchEndCommand> _OnMatchEnd;
-        
         public ArenaSystemViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual Signal<OnMatchEndCommand> OnMatchEnd {
+            get {
+                return _OnMatchEnd;
+            }
+            set {
+                _OnMatchEnd = value;
+            }
         }
         
         public virtual Signal<RequestEnterArenaCommand> RequestEnterArena {
@@ -76,22 +85,17 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual Signal<OnMatchEndCommand> OnMatchEnd {
-            get {
-                return _OnMatchEnd;
-            }
-            set {
-                _OnMatchEnd = value;
-            }
-        }
-        
         public override void Bind() {
             base.Bind();
+            this.OnMatchEnd = new Signal<OnMatchEndCommand>(this);
             this.RequestEnterArena = new Signal<RequestEnterArenaCommand>(this);
             this.OnExitArena = new Signal<OnExitArenaCommand>(this);
             this.RequestExitArena = new Signal<RequestExitArenaCommand>(this);
             this.OnEnterArena = new Signal<OnEnterArenaCommand>(this);
-            this.OnMatchEnd = new Signal<OnMatchEndCommand>(this);
+        }
+        
+        public virtual void Execute(OnMatchEndCommand argument) {
+            this.OnMatchEnd.OnNext(argument);
         }
         
         public virtual void Execute(RequestEnterArenaCommand argument) {
@@ -110,8 +114,10 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena.OnNext(argument);
         }
         
-        public virtual void Execute(OnMatchEndCommand argument) {
-            this.OnMatchEnd.OnNext(argument);
+        public virtual void OnMatchEnd_(Boolean IsWin) {
+            var cmd = new OnMatchEndCommand();
+            cmd.IsWin = IsWin;
+            this.OnMatchEnd.OnNext(cmd);
         }
         
         public virtual void RequestEnterArena_(Int32 ArenaID) {
@@ -137,12 +143,6 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena.OnNext(cmd);
         }
         
-        public virtual void OnMatchEnd_(Boolean IsWin) {
-            var cmd = new OnMatchEndCommand();
-            cmd.IsWin = IsWin;
-            this.OnMatchEnd.OnNext(cmd);
-        }
-        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
         }
@@ -153,11 +153,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("OnMatchEnd", OnMatchEnd) { ParameterType = typeof(OnMatchEndCommand) });
             list.Add(new ViewModelCommandInfo("RequestEnterArena", RequestEnterArena) { ParameterType = typeof(RequestEnterArenaCommand) });
             list.Add(new ViewModelCommandInfo("OnExitArena", OnExitArena) { ParameterType = typeof(OnExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("RequestExitArena", RequestExitArena) { ParameterType = typeof(RequestExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("OnEnterArena", OnEnterArena) { ParameterType = typeof(OnEnterArenaCommand) });
-            list.Add(new ViewModelCommandInfo("OnMatchEnd", OnMatchEnd) { ParameterType = typeof(OnMatchEndCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

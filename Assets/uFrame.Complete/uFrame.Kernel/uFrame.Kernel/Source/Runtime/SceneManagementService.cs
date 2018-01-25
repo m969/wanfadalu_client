@@ -162,7 +162,8 @@ namespace uFrame.Kernel
             this.Publish(new SceneLoaderEvent()
             {
                 State = SceneState.Loaded,
-                SceneRoot = sceneRoot
+                SceneRoot = sceneRoot,
+                Name = sceneRoot.Name
             });
 
 
@@ -288,6 +289,11 @@ namespace uFrame.Kernel
                 }
                 yield return new WaitForSeconds(0.1f);
             }
+            uFrameKernel.EventAggregator.Publish(new SceneLoaderEvent()
+            {
+                State = SceneState.Loaded,
+                Name = sceneName,
+            });
         }
     }
 

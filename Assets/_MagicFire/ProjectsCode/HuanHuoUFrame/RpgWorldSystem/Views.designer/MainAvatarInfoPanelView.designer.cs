@@ -96,6 +96,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSPonlyWhenChanged")]
         protected bool _MSPOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("magicWeaponList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindmagicWeaponList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("magicWeaponList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_magicWeaponListonlyWhenChanged")]
+        protected bool _magicWeaponListOnlyWhenChanged;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -147,6 +157,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindMSP) {
                 this.BindProperty(this.Avatar.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
             }
+            if (_BindmagicWeaponList) {
+                this.BindProperty(this.Avatar.magicWeaponListProperty, this.magicWeaponListChanged, _magicWeaponListOnlyWhenChanged);
+            }
         }
         
         public virtual void HPChanged(Int32 arg1) {
@@ -165,6 +178,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void MSPChanged(Int32 arg1) {
+        }
+        
+        public virtual void magicWeaponListChanged(object arg1) {
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

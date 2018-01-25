@@ -46,16 +46,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_campNameinput")]
         protected UnityEngine.UI.Text _campNameInput;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("entityName")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindentityName = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("entityName")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_entityNameinput")]
-        protected UnityEngine.UI.Text _entityNameInput;
-        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -91,9 +81,6 @@ namespace MagicFire.HuanHuoUFrame {
             // Any designer bindings are created in the base implementation.
             if (_BindcampName) {
                 this.BindTextToProperty(_campNameInput, this.Avatar.campNameProperty);
-            }
-            if (_BindentityName) {
-                this.BindTextToProperty(_entityNameInput, this.Avatar.entityNameProperty);
             }
         }
         

@@ -160,6 +160,20 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class OnMatchEndCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Boolean _IsWin;
+        
+        public Boolean IsWin {
+            get {
+                return _IsWin;
+            }
+            set {
+                _IsWin = value;
+            }
+        }
+    }
+    
     public partial class OnEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Vector3 _CenterPosition;
@@ -262,20 +276,6 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _Point = value;
-            }
-        }
-    }
-    
-    public partial class OnMatchEndCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
-        
-        private Boolean _IsWin;
-        
-        public Boolean IsWin {
-            get {
-                return _IsWin;
-            }
-            set {
-                _IsWin = value;
             }
         }
     }

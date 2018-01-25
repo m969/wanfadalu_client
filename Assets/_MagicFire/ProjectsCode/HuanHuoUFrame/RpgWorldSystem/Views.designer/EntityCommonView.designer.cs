@@ -31,16 +31,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public String _entityName;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("entityName")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindentityName = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("entityName")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_entityNameonlyWhenChanged")]
-        protected bool _entityNameOnlyWhenChanged;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("OnLeaveWorld")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnLeaveWorld = true;
@@ -81,18 +71,12 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.EntityCommon to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindentityName) {
-                this.BindProperty(this.EntityCommon.entityNameProperty, this.entityNameChanged, _entityNameOnlyWhenChanged);
-            }
             if (_BindOnLeaveWorld) {
                 this.BindCommandExecuted(this.EntityCommon.OnLeaveWorld, this.OnLeaveWorldExecuted);
             }
             if (_BindOnDestroy) {
                 this.BindCommandExecuted(this.EntityCommon.OnDestroy, this.OnDestroyExecuted);
             }
-        }
-        
-        public virtual void entityNameChanged(String arg1) {
         }
         
         public virtual void OnLeaveWorldExecuted(OnLeaveWorldCommand command) {

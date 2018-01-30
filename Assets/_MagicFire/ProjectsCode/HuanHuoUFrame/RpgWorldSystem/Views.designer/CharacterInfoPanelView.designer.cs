@@ -46,6 +46,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_campNameinput")]
         protected UnityEngine.UI.Text _campNameInput;
         
+<<<<<<< HEAD
         [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
         [UnityEngine.HideInInspector()]
         public bool _BindsectID = true;
@@ -56,6 +57,8 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
         protected bool _sectIDOnlyWhenChanged;
         
+=======
+>>>>>>> 3c74a1b340da3a2f8ff04dd7df2ad1bcdfa53476
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -92,9 +95,12 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindcampName) {
                 this.BindTextToProperty(_campNameInput, this.Avatar.campNameProperty);
             }
+<<<<<<< HEAD
             if (_BindsectID) {
                 this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
             }
+=======
+>>>>>>> 3c74a1b340da3a2f8ff04dd7df2ad1bcdfa53476
         }
         
         public virtual void sectIDChanged(Int32 arg1) {

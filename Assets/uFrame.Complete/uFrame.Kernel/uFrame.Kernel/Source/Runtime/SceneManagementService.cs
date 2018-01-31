@@ -178,10 +178,8 @@ namespace uFrame.Kernel
 
         protected IEnumerator UnloadSceneAsync(IScene sceneRoot)
         {
-
             var sceneLoader = SceneLoaders.FirstOrDefault(loader => loader.SceneType == sceneRoot.GetType()) ??
                               _defaultSceneLoader;
-
             var sceneRootName = sceneRoot.Name;//uFrame_kbe
 
             Action<float, string> updateDelegate = (v, m) =>
@@ -196,7 +194,6 @@ namespace uFrame.Kernel
             };
 
             yield return StartCoroutine(sceneLoader.Unload(sceneRoot, updateDelegate));
-
             LoadedScenes.Remove(sceneRoot);
             this.Publish(new SceneLoaderEvent() {State = SceneState.Unloaded, SceneRoot = sceneRoot, Name = sceneRootName});
 
@@ -292,7 +289,7 @@ namespace uFrame.Kernel
             uFrameKernel.EventAggregator.Publish(new SceneLoaderEvent()
             {
                 State = SceneState.Loaded,
-                Name = sceneName,
+                Name = sceneName,//uFrame_kbe
             });
         }
     }

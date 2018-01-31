@@ -123,7 +123,7 @@ namespace MagicFire.HuanHuoUFrame{
             //_panelViewPool = PoolManager.Pools["PanelViewPool"];
             this.OnEvent<SceneLoaderEvent>().Where(x => x.Name == "LoginScene").Where(x => x.State == SceneState.Destructed).Subscribe(OnLoginSceneDestructed);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
-            this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Unloaded).Subscribe(OnSceneUnLoaded);
+            //this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Unloaded).Subscribe(OnSceneUnLoaded);
         }
 
         private void OnLoginSceneDestructed(SceneLoaderEvent @event)
@@ -134,7 +134,6 @@ namespace MagicFire.HuanHuoUFrame{
 
         private void OnSceneLoaded(SceneLoaderEvent @event)
         {
-            Debug.Log("OnSceneLoaded = " + @event.Name);
             var newScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(@event.Name);
             UnityEngine.SceneManagement.SceneManager.SetActiveScene(newScene);
         }
@@ -148,13 +147,10 @@ namespace MagicFire.HuanHuoUFrame{
 
         private void OnMainAvatarEnterSpace(OnMainAvatarEnterSpaceEvent evt)
         {
-            Debug.Log("OnMainAvatarEnterSpace");
-
             if (_loginSceneState == SceneState.Destructed)
             {
                 if (_worldSceneState == SceneState.Loaded)
                 {
-                    Debug.Log("SceneName = " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
                     this.Publish(new UnloadSceneCommand()
                     {
                         SceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name

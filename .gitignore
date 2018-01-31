@@ -59,3 +59,5 @@ sysinfo.txt
 /Assets/EasyTouchBundle/Install.meta
 .vs
 .koinonia
+uFrame.Editor.NavigationSystem.NavHistoryItem
+uFrame.Editor.Undo.UndoItem

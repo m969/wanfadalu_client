@@ -57,3 +57,5 @@ sysinfo.txt
 /Assets/AssetBundleGraph/SettingFiles/AssetReferenceDB.asset.meta
 /Assets/EasyTouchBundle/Install
 /Assets/EasyTouchBundle/Install.meta
+.vs
+.koinonia

@@ -9,7 +9,6 @@
 	: 5/28/2017
  * *********************************************************/
 
-using MagicFire.Mmorpg.AvatarInputState;
 using QuickEngine.Extensions;
 
 namespace MagicFire.HuanHuoUFrame
@@ -34,7 +33,7 @@ namespace MagicFire.HuanHuoUFrame
             {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                Physics.Raycast(ray, out hit, AvatarStateController.RayCastHitDist, 1 << LayerMask.NameToLayer("Terrian"));
+                Physics.Raycast(ray, out hit, 100, 1 << LayerMask.NameToLayer("Terrian"));
                 SkillTrajectory.transform.position = new Vector3(spellcaster.transform.position.x, spellcaster.transform.position.y + 0.5f, spellcaster.transform.position.z);
                 SkillTrajectory.transform.LookAt(new Vector3(hit.point.x, SkillTrajectory.transform.position.y, hit.point.z));
                 if (Input.GetMouseButtonDown(0))

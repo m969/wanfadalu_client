@@ -2,7 +2,6 @@
 {
     using UnityEngine;
     using System.Collections;
-    using MagicFire.Common.Plugin;
     using PathologicalGames;
 
     public class Skill

@@ -1,6 +1,4 @@
 ﻿using DG.Tweening;
-using MagicFire.Common.Plugin;
-using MagicFire.SceneManagement;
 using PathologicalGames;
 using UnityEngine.UI;
 

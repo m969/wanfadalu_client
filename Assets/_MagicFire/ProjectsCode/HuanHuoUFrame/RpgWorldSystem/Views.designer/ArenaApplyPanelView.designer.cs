@@ -71,6 +71,11 @@ namespace MagicFire.HuanHuoUFrame {
             // Any designer bindings are created in the base implementation.
         }
         
+        public virtual void ExecuteTeleport(TeleportCommand command) {
+            command.Sender = Avatar;
+            Avatar.Teleport.OnNext(command);
+        }
+        
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarEnterSpace.OnNext(command);

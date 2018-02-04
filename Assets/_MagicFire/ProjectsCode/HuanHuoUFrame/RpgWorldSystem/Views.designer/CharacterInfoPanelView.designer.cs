@@ -36,16 +36,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public Int32 _goldCount;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("campName")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindcampName = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("campName")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_campNameinput")]
-        protected UnityEngine.UI.Text _campNameInput;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
         [UnityEngine.HideInInspector()]
         public bool _BindsectID = true;
@@ -55,6 +45,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
         protected bool _sectIDOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("campName")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindcampName = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("campName")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_campNameinput")]
+        protected UnityEngine.UI.Text _campNameInput;
         
         public override string DefaultIdentifier {
             get {
@@ -89,15 +89,20 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindcampName) {
-                this.BindTextToProperty(_campNameInput, this.Avatar.campNameProperty);
-            }
             if (_BindsectID) {
                 this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
+            }
+            if (_BindcampName) {
+                this.BindTextToProperty(_campNameInput, this.Avatar.campNameProperty);
             }
         }
         
         public virtual void sectIDChanged(Int32 arg1) {
+        }
+        
+        public virtual void ExecuteTeleport(TeleportCommand command) {
+            command.Sender = Avatar;
+            Avatar.Teleport.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

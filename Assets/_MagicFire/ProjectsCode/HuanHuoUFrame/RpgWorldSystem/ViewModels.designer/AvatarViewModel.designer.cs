@@ -32,6 +32,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private P<Int32> _goldCountProperty;
         
+        private Signal<TeleportCommand> _Teleport;
+        
         private Signal<onMainAvatarEnterSpaceCommand> _onMainAvatarEnterSpace;
         
         private Signal<onMainAvatarLeaveSpaceCommand> _onMainAvatarLeaveSpace;
@@ -94,6 +96,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<TeleportCommand> Teleport {
+            get {
+                return _Teleport;
+            }
+            set {
+                _Teleport = value;
+            }
+        }
+        
         public virtual Signal<onMainAvatarEnterSpaceCommand> onMainAvatarEnterSpace {
             get {
                 return _onMainAvatarEnterSpace;
@@ -114,11 +125,16 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
+            this.Teleport = new Signal<TeleportCommand>(this);
             this.onMainAvatarEnterSpace = new Signal<onMainAvatarEnterSpaceCommand>(this);
             this.onMainAvatarLeaveSpace = new Signal<onMainAvatarLeaveSpaceCommand>(this);
             _avatarBagProperty = new P<System.Object>(this, "avatarBag");
             _goldCountProperty = new P<Int32>(this, "goldCount");
             _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
+        }
+        
+        public virtual void Execute(TeleportCommand argument) {
+            this.Teleport.OnNext(argument);
         }
         
         public virtual void Execute(onMainAvatarEnterSpaceCommand argument) {
@@ -127,6 +143,12 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(onMainAvatarLeaveSpaceCommand argument) {
             this.onMainAvatarLeaveSpace.OnNext(argument);
+        }
+        
+        public virtual void Teleport_(Vector3 Position) {
+            var cmd = new TeleportCommand();
+            cmd.Position = Position;
+            this.Teleport.OnNext(cmd);
         }
         
         public virtual void onMainAvatarEnterSpace_(Int32 SpaceId, String SpaceName) {
@@ -155,6 +177,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("Teleport", Teleport) { ParameterType = typeof(TeleportCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarEnterSpace", onMainAvatarEnterSpace) { ParameterType = typeof(onMainAvatarEnterSpaceCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarLeaveSpace", onMainAvatarLeaveSpace) { ParameterType = typeof(onMainAvatarLeaveSpaceCommand) });
         }

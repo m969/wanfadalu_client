@@ -87,6 +87,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void gongFaListChanged(object arg1) {
         }
         
+        public virtual void ExecuteTeleport(TeleportCommand command) {
+            command.Sender = Avatar;
+            Avatar.Teleport.OnNext(command);
+        }
+        
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarEnterSpace.OnNext(command);

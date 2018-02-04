@@ -56,6 +56,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_HP_MaxonlyWhenChanged")]
         protected bool _HP_MaxOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("magicWeaponList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindmagicWeaponList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("magicWeaponList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_magicWeaponListonlyWhenChanged")]
+        protected bool _magicWeaponListOnlyWhenChanged;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("MSP_Max")]
         [UnityEngine.HideInInspector()]
         public bool _BindMSP_Max = true;
@@ -96,16 +106,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSPonlyWhenChanged")]
         protected bool _MSPOnlyWhenChanged;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("magicWeaponList")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindmagicWeaponList = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("magicWeaponList")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_magicWeaponListonlyWhenChanged")]
-        protected bool _magicWeaponListOnlyWhenChanged;
-        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -145,6 +145,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindHP_Max) {
                 this.BindProperty(this.Avatar.HP_MaxProperty, this.HP_MaxChanged, _HP_MaxOnlyWhenChanged);
             }
+            if (_BindmagicWeaponList) {
+                this.BindProperty(this.Avatar.magicWeaponListProperty, this.magicWeaponListChanged, _magicWeaponListOnlyWhenChanged);
+            }
             if (_BindMSP_Max) {
                 this.BindProperty(this.Avatar.MSP_MaxProperty, this.MSP_MaxChanged, _MSP_MaxOnlyWhenChanged);
             }
@@ -157,15 +160,15 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindMSP) {
                 this.BindProperty(this.Avatar.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
             }
-            if (_BindmagicWeaponList) {
-                this.BindProperty(this.Avatar.magicWeaponListProperty, this.magicWeaponListChanged, _magicWeaponListOnlyWhenChanged);
-            }
         }
         
         public virtual void HPChanged(Int32 arg1) {
         }
         
         public virtual void HP_MaxChanged(Int32 arg1) {
+        }
+        
+        public virtual void magicWeaponListChanged(object arg1) {
         }
         
         public virtual void MSP_MaxChanged(Int32 arg1) {
@@ -180,7 +183,9 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void MSPChanged(Int32 arg1) {
         }
         
-        public virtual void magicWeaponListChanged(object arg1) {
+        public virtual void ExecuteTeleport(TeleportCommand command) {
+            command.Sender = Avatar;
+            Avatar.Teleport.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

@@ -87,6 +87,20 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class TeleportCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Vector3 _Position;
+        
+        public Vector3 Position {
+            get {
+                return _Position;
+            }
+            set {
+                _Position = value;
+            }
+        }
+    }
+    
     public partial class OnSkillEndCastCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private String _argsString;

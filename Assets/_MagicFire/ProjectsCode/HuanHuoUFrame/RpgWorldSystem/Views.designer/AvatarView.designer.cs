@@ -46,6 +46,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_avatarStateonlyWhenChanged")]
         protected bool _avatarStateOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("Teleport")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindTeleport = true;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -81,6 +85,9 @@ namespace MagicFire.HuanHuoUFrame {
             // Any designer bindings are created in the base implementation.
             if (_BindavatarState) {
                 this.BindStateProperty(this.Avatar.avatarStateProperty, this.avatarStateChanged, _avatarStateOnlyWhenChanged);
+            }
+            if (_BindTeleport) {
+                this.BindCommandExecuted(this.Avatar.Teleport, this.TeleportExecuted);
             }
         }
         
@@ -121,6 +128,14 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void OnWalkState() {
+        }
+        
+        public virtual void TeleportExecuted(TeleportCommand command) {
+        }
+        
+        public virtual void ExecuteTeleport(TeleportCommand command) {
+            command.Sender = Avatar;
+            Avatar.Teleport.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

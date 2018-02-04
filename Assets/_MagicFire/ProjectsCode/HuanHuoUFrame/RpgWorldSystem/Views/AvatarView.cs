@@ -100,6 +100,12 @@
             Observable.EveryUpdate().Subscribe(evt =>{ transform.GetChild(0).localPosition = Vector3.zero; });
         }
 
+        public override void TeleportExecuted(TeleportCommand command)
+        {
+            base.TeleportExecuted(command);
+            transform.position = command.Position;
+        }
+
         public override void canMoveChanged(int arg1)
         {
             base.canMoveChanged(arg1);

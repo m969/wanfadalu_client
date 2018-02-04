@@ -57,6 +57,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeAvatar(AvatarViewModel viewModel) {
             // This is called when a AvatarViewModel is created
+            viewModel.Teleport.Action = this.TeleportHandler;
             viewModel.onMainAvatarEnterSpace.Action = this.onMainAvatarEnterSpaceHandler;
             viewModel.onMainAvatarLeaveSpace.Action = this.onMainAvatarLeaveSpaceHandler;
             AvatarViewModelManager.Add(viewModel);
@@ -67,12 +68,19 @@ namespace MagicFire.HuanHuoUFrame {
             AvatarViewModelManager.Remove(viewModel);
         }
         
+        public virtual void TeleportHandler(TeleportCommand command) {
+            this.Teleport(command.Sender as AvatarViewModel, command);
+        }
+        
         public virtual void onMainAvatarEnterSpaceHandler(onMainAvatarEnterSpaceCommand command) {
             this.onMainAvatarEnterSpace(command.Sender as AvatarViewModel, command);
         }
         
         public virtual void onMainAvatarLeaveSpaceHandler(onMainAvatarLeaveSpaceCommand command) {
             this.onMainAvatarLeaveSpace(command.Sender as AvatarViewModel, command);
+        }
+        
+        public virtual void Teleport(AvatarViewModel viewModel, TeleportCommand arg) {
         }
         
         public virtual void onMainAvatarEnterSpace(AvatarViewModel viewModel, onMainAvatarEnterSpaceCommand arg) {

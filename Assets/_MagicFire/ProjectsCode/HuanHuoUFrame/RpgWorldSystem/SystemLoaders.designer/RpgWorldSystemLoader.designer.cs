@@ -24,6 +24,10 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RpgWorldSystemLoaderBase : uFrame.Kernel.SystemLoader {
         
+        private SectSystemController _SectSystemController;
+        
+        private MagicWeaponSystemController _MagicWeaponSystemController;
+        
         private SuperPowerEntityController _SuperPowerEntityController;
         
         private EntityCommonController _EntityCommonController;
@@ -58,9 +62,31 @@ namespace MagicFire.HuanHuoUFrame {
         
         private MonsterController _MonsterController;
         
-        private MagicWeaponSystemController _MagicWeaponSystemController;
+        [uFrame.IOC.InjectAttribute()]
+        public virtual SectSystemController SectSystemController {
+            get {
+                if (_SectSystemController==null) {
+                    _SectSystemController = Container.CreateInstance(typeof(SectSystemController)) as SectSystemController;;
+                }
+                return _SectSystemController;
+            }
+            set {
+                _SectSystemController = value;
+            }
+        }
         
-        private SectSystemController _SectSystemController;
+        [uFrame.IOC.InjectAttribute()]
+        public virtual MagicWeaponSystemController MagicWeaponSystemController {
+            get {
+                if (_MagicWeaponSystemController==null) {
+                    _MagicWeaponSystemController = Container.CreateInstance(typeof(MagicWeaponSystemController)) as MagicWeaponSystemController;;
+                }
+                return _MagicWeaponSystemController;
+            }
+            set {
+                _MagicWeaponSystemController = value;
+            }
+        }
         
         [uFrame.IOC.InjectAttribute()]
         public virtual SuperPowerEntityController SuperPowerEntityController {
@@ -283,33 +309,11 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        [uFrame.IOC.InjectAttribute()]
-        public virtual MagicWeaponSystemController MagicWeaponSystemController {
-            get {
-                if (_MagicWeaponSystemController==null) {
-                    _MagicWeaponSystemController = Container.CreateInstance(typeof(MagicWeaponSystemController)) as MagicWeaponSystemController;;
-                }
-                return _MagicWeaponSystemController;
-            }
-            set {
-                _MagicWeaponSystemController = value;
-            }
-        }
-        
-        [uFrame.IOC.InjectAttribute()]
-        public virtual SectSystemController SectSystemController {
-            get {
-                if (_SectSystemController==null) {
-                    _SectSystemController = Container.CreateInstance(typeof(SectSystemController)) as SectSystemController;;
-                }
-                return _SectSystemController;
-            }
-            set {
-                _SectSystemController = value;
-            }
-        }
-        
         public override void Load() {
+            Container.RegisterViewModelManager<SectSystemViewModel>(new ViewModelManager<SectSystemViewModel>());
+            Container.RegisterController<SectSystemController>(SectSystemController);
+            Container.RegisterViewModelManager<MagicWeaponSystemViewModel>(new ViewModelManager<MagicWeaponSystemViewModel>());
+            Container.RegisterController<MagicWeaponSystemController>(MagicWeaponSystemController);
             Container.RegisterViewModelManager<SuperPowerEntityViewModel>(new ViewModelManager<SuperPowerEntityViewModel>());
             Container.RegisterController<SuperPowerEntityController>(SuperPowerEntityController);
             Container.RegisterViewModelManager<EntityCommonViewModel>(new ViewModelManager<EntityCommonViewModel>());
@@ -344,10 +348,6 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<ArenaController>(ArenaController);
             Container.RegisterViewModelManager<MonsterViewModel>(new ViewModelManager<MonsterViewModel>());
             Container.RegisterController<MonsterController>(MonsterController);
-            Container.RegisterViewModelManager<MagicWeaponSystemViewModel>(new ViewModelManager<MagicWeaponSystemViewModel>());
-            Container.RegisterController<MagicWeaponSystemController>(MagicWeaponSystemController);
-            Container.RegisterViewModelManager<SectSystemViewModel>(new ViewModelManager<SectSystemViewModel>());
-            Container.RegisterController<SectSystemController>(SectSystemController);
         }
     }
 }

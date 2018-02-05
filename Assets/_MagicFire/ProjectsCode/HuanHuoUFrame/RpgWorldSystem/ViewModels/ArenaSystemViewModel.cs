@@ -46,5 +46,19 @@
             Debug.Log("ArenaSystemViewModel:Execute RequestExitArenaCommand");
             this.cellCall("requestExitArena");
         }
+
+        public override void Execute(RequestRankingListCommand argument)
+        {
+            base.Execute(argument);
+            Debug.Log("ArenaSystemViewModel:Execute RequestRankingListCommand");
+            this.cellCall("requestRankingList");
+        }
+
+        public override void Execute(RequestSelfRankingCommand argument)
+        {
+            base.Execute(argument);
+            Debug.Log("ArenaSystemViewModel:Execute RequestSelfRankingCommand");
+            this.cellCall("requestSelfRanking");
+        }
     }
 }

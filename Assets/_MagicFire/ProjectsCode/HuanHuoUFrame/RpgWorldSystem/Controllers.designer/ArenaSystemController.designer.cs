@@ -57,11 +57,15 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeArenaSystem(ArenaSystemViewModel viewModel) {
             // This is called when a ArenaSystemViewModel is created
+            viewModel.RequestSelfRanking.Action = this.RequestSelfRankingHandler;
             viewModel.OnMatchEnd.Action = this.OnMatchEndHandler;
             viewModel.RequestEnterArena.Action = this.RequestEnterArenaHandler;
+            viewModel.RequestRankingList.Action = this.RequestRankingListHandler;
             viewModel.OnExitArena.Action = this.OnExitArenaHandler;
             viewModel.RequestExitArena.Action = this.RequestExitArenaHandler;
             viewModel.OnEnterArena.Action = this.OnEnterArenaHandler;
+            viewModel.OnRequestRankingListReturn.Action = this.OnRequestRankingListReturnHandler;
+            viewModel.OnRequestSelfRankingReturn.Action = this.OnRequestSelfRankingReturnHandler;
             ArenaSystemViewModelManager.Add(viewModel);
         }
         
@@ -70,12 +74,20 @@ namespace MagicFire.HuanHuoUFrame {
             ArenaSystemViewModelManager.Remove(viewModel);
         }
         
+        public virtual void RequestSelfRankingHandler(RequestSelfRankingCommand command) {
+            this.RequestSelfRanking(command.Sender as ArenaSystemViewModel, command);
+        }
+        
         public virtual void OnMatchEndHandler(OnMatchEndCommand command) {
             this.OnMatchEnd(command.Sender as ArenaSystemViewModel, command);
         }
         
         public virtual void RequestEnterArenaHandler(RequestEnterArenaCommand command) {
             this.RequestEnterArena(command.Sender as ArenaSystemViewModel, command);
+        }
+        
+        public virtual void RequestRankingListHandler(RequestRankingListCommand command) {
+            this.RequestRankingList(command.Sender as ArenaSystemViewModel, command);
         }
         
         public virtual void OnExitArenaHandler(OnExitArenaCommand command) {
@@ -90,10 +102,24 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena(command.Sender as ArenaSystemViewModel, command);
         }
         
+        public virtual void OnRequestRankingListReturnHandler(OnRequestRankingListReturnCommand command) {
+            this.OnRequestRankingListReturn(command.Sender as ArenaSystemViewModel, command);
+        }
+        
+        public virtual void OnRequestSelfRankingReturnHandler(OnRequestSelfRankingReturnCommand command) {
+            this.OnRequestSelfRankingReturn(command.Sender as ArenaSystemViewModel, command);
+        }
+        
+        public virtual void RequestSelfRanking(ArenaSystemViewModel viewModel, RequestSelfRankingCommand arg) {
+        }
+        
         public virtual void OnMatchEnd(ArenaSystemViewModel viewModel, OnMatchEndCommand arg) {
         }
         
         public virtual void RequestEnterArena(ArenaSystemViewModel viewModel, RequestEnterArenaCommand arg) {
+        }
+        
+        public virtual void RequestRankingList(ArenaSystemViewModel viewModel, RequestRankingListCommand arg) {
         }
         
         public virtual void OnExitArena(ArenaSystemViewModel viewModel, OnExitArenaCommand arg) {
@@ -103,6 +129,12 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void OnEnterArena(ArenaSystemViewModel viewModel, OnEnterArenaCommand arg) {
+        }
+        
+        public virtual void OnRequestRankingListReturn(ArenaSystemViewModel viewModel, OnRequestRankingListReturnCommand arg) {
+        }
+        
+        public virtual void OnRequestSelfRankingReturn(ArenaSystemViewModel viewModel, OnRequestSelfRankingReturnCommand arg) {
         }
     }
 }

@@ -26,9 +26,13 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class ArenaSystemViewModelBase : CampEntityViewModel {
         
+        private Signal<RequestSelfRankingCommand> _RequestSelfRanking;
+        
         private Signal<OnMatchEndCommand> _OnMatchEnd;
         
         private Signal<RequestEnterArenaCommand> _RequestEnterArena;
+        
+        private Signal<RequestRankingListCommand> _RequestRankingList;
         
         private Signal<OnExitArenaCommand> _OnExitArena;
         
@@ -36,8 +40,21 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<OnEnterArenaCommand> _OnEnterArena;
         
+        private Signal<OnRequestRankingListReturnCommand> _OnRequestRankingListReturn;
+        
+        private Signal<OnRequestSelfRankingReturnCommand> _OnRequestSelfRankingReturn;
+        
         public ArenaSystemViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual Signal<RequestSelfRankingCommand> RequestSelfRanking {
+            get {
+                return _RequestSelfRanking;
+            }
+            set {
+                _RequestSelfRanking = value;
+            }
         }
         
         public virtual Signal<OnMatchEndCommand> OnMatchEnd {
@@ -55,6 +72,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _RequestEnterArena = value;
+            }
+        }
+        
+        public virtual Signal<RequestRankingListCommand> RequestRankingList {
+            get {
+                return _RequestRankingList;
+            }
+            set {
+                _RequestRankingList = value;
             }
         }
         
@@ -85,13 +111,39 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnRequestRankingListReturnCommand> OnRequestRankingListReturn {
+            get {
+                return _OnRequestRankingListReturn;
+            }
+            set {
+                _OnRequestRankingListReturn = value;
+            }
+        }
+        
+        public virtual Signal<OnRequestSelfRankingReturnCommand> OnRequestSelfRankingReturn {
+            get {
+                return _OnRequestSelfRankingReturn;
+            }
+            set {
+                _OnRequestSelfRankingReturn = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
+            this.RequestSelfRanking = new Signal<RequestSelfRankingCommand>(this);
             this.OnMatchEnd = new Signal<OnMatchEndCommand>(this);
             this.RequestEnterArena = new Signal<RequestEnterArenaCommand>(this);
+            this.RequestRankingList = new Signal<RequestRankingListCommand>(this);
             this.OnExitArena = new Signal<OnExitArenaCommand>(this);
             this.RequestExitArena = new Signal<RequestExitArenaCommand>(this);
             this.OnEnterArena = new Signal<OnEnterArenaCommand>(this);
+            this.OnRequestRankingListReturn = new Signal<OnRequestRankingListReturnCommand>(this);
+            this.OnRequestSelfRankingReturn = new Signal<OnRequestSelfRankingReturnCommand>(this);
+        }
+        
+        public virtual void Execute(RequestSelfRankingCommand argument) {
+            this.RequestSelfRanking.OnNext(argument);
         }
         
         public virtual void Execute(OnMatchEndCommand argument) {
@@ -100,6 +152,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(RequestEnterArenaCommand argument) {
             this.RequestEnterArena.OnNext(argument);
+        }
+        
+        public virtual void Execute(RequestRankingListCommand argument) {
+            this.RequestRankingList.OnNext(argument);
         }
         
         public virtual void Execute(OnExitArenaCommand argument) {
@@ -114,6 +170,19 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena.OnNext(argument);
         }
         
+        public virtual void Execute(OnRequestRankingListReturnCommand argument) {
+            this.OnRequestRankingListReturn.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnRequestSelfRankingReturnCommand argument) {
+            this.OnRequestSelfRankingReturn.OnNext(argument);
+        }
+        
+        public virtual void RequestSelfRanking_() {
+            var cmd = new RequestSelfRankingCommand();
+            this.RequestSelfRanking.OnNext(cmd);
+        }
+        
         public virtual void OnMatchEnd_(Boolean IsWin) {
             var cmd = new OnMatchEndCommand();
             cmd.IsWin = IsWin;
@@ -124,6 +193,11 @@ namespace MagicFire.HuanHuoUFrame {
             var cmd = new RequestEnterArenaCommand();
             cmd.ArenaID = ArenaID;
             this.RequestEnterArena.OnNext(cmd);
+        }
+        
+        public virtual void RequestRankingList_() {
+            var cmd = new RequestRankingListCommand();
+            this.RequestRankingList.OnNext(cmd);
         }
         
         public virtual void OnExitArena_(Vector3 OutPosition) {
@@ -143,6 +217,18 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnEnterArena.OnNext(cmd);
         }
         
+        public virtual void OnRequestRankingListReturn_(object RankingList) {
+            var cmd = new OnRequestRankingListReturnCommand();
+            cmd.RankingList = RankingList;
+            this.OnRequestRankingListReturn.OnNext(cmd);
+        }
+        
+        public virtual void OnRequestSelfRankingReturn_(object RankingInfo) {
+            var cmd = new OnRequestSelfRankingReturnCommand();
+            cmd.RankingInfo = RankingInfo;
+            this.OnRequestSelfRankingReturn.OnNext(cmd);
+        }
+        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
         }
@@ -153,11 +239,15 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("RequestSelfRanking", RequestSelfRanking) { ParameterType = typeof(RequestSelfRankingCommand) });
             list.Add(new ViewModelCommandInfo("OnMatchEnd", OnMatchEnd) { ParameterType = typeof(OnMatchEndCommand) });
             list.Add(new ViewModelCommandInfo("RequestEnterArena", RequestEnterArena) { ParameterType = typeof(RequestEnterArenaCommand) });
+            list.Add(new ViewModelCommandInfo("RequestRankingList", RequestRankingList) { ParameterType = typeof(RequestRankingListCommand) });
             list.Add(new ViewModelCommandInfo("OnExitArena", OnExitArena) { ParameterType = typeof(OnExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("RequestExitArena", RequestExitArena) { ParameterType = typeof(RequestExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("OnEnterArena", OnEnterArena) { ParameterType = typeof(OnEnterArenaCommand) });
+            list.Add(new ViewModelCommandInfo("OnRequestRankingListReturn", OnRequestRankingListReturn) { ParameterType = typeof(OnRequestRankingListReturnCommand) });
+            list.Add(new ViewModelCommandInfo("OnRequestSelfRankingReturn", OnRequestSelfRankingReturn) { ParameterType = typeof(OnRequestSelfRankingReturnCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

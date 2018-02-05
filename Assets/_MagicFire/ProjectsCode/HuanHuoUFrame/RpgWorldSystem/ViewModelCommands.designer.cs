@@ -146,6 +146,9 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class RequestStopMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class RequestSelfRankingCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class RequestEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Int32 _ArenaID;
@@ -277,6 +280,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class RequestRankingListCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class onMainAvatarLeaveSpaceCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
@@ -290,6 +296,34 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _Point = value;
+            }
+        }
+    }
+    
+    public partial class OnRequestRankingListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _RankingList;
+        
+        public object RankingList {
+            get {
+                return _RankingList;
+            }
+            set {
+                _RankingList = value;
+            }
+        }
+    }
+    
+    public partial class OnRequestSelfRankingReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _RankingInfo;
+        
+        public object RankingInfo {
+            get {
+                return _RankingInfo;
+            }
+            set {
+                _RankingInfo = value;
             }
         }
     }

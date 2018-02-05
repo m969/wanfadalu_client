@@ -88,6 +88,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void OnMatchEndExecuted(OnMatchEndCommand command) {
         }
         
+        public virtual void ExecuteRequestSelfRanking(RequestSelfRankingCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.RequestSelfRanking.OnNext(command);
+        }
+        
         public virtual void ExecuteOnMatchEnd(OnMatchEndCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.OnMatchEnd.OnNext(command);
@@ -96,6 +101,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteRequestEnterArena(RequestEnterArenaCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.RequestEnterArena.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestRankingList(RequestRankingListCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.RequestRankingList.OnNext(command);
         }
         
         public virtual void ExecuteOnExitArena(OnExitArenaCommand command) {
@@ -111,6 +121,16 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteOnEnterArena(OnEnterArenaCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.OnEnterArena.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnRequestRankingListReturn(OnRequestRankingListReturnCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.OnRequestRankingListReturn.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnRequestSelfRankingReturn(OnRequestSelfRankingReturnCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.OnRequestSelfRankingReturn.OnNext(command);
         }
     }
 }

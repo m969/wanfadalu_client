@@ -26,6 +26,16 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RpgMainPanelBase : uFrame.MVVM.Views.ViewBase {
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowRankingListPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowRankingListPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ShowRankingListPanel")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowRankingListPanelbutton")]
+        protected UnityEngine.UI.Button _ShowRankingListPanelButton;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("ShowAvatarBagPanel")]
         [UnityEngine.HideInInspector()]
         public bool _BindShowAvatarBagPanel = true;
@@ -63,6 +73,16 @@ namespace MagicFire.HuanHuoUFrame {
         [uFrame.MVVM.Attributes.UFToggleGroup("ShowCharacterInfoPanel")]
         [UnityEngine.HideInInspector()]
         public bool _BindShowCharacterInfoPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowSectPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowSectPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ShowSectPanel")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowSectPanelbutton")]
+        protected UnityEngine.UI.Button _ShowSectPanelButton;
         
         [uFrame.MVVM.Attributes.UFGroup("ExitGame")]
         [UnityEngine.SerializeField()]
@@ -106,6 +126,9 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.RpgMainScreen to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindShowRankingListPanel) {
+                this.BindButtonToCommand(_ShowRankingListPanelButton, this.RpgMainScreen.ShowRankingListPanel);
+            }
             if (_BindShowAvatarBagPanel) {
                 this.BindButtonToCommand(_ShowAvatarBagPanelButton, this.RpgMainScreen.ShowAvatarBagPanel);
             }
@@ -118,8 +141,17 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindExitArena) {
                 this.BindButtonToCommand(_ExitArenaButton, this.RpgMainScreen.ExitArena);
             }
+            if (_BindShowRankingListPanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowRankingListPanel, this.ShowRankingListPanelExecuted);
+            }
             if (_BindShowCharacterInfoPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowCharacterInfoPanel, this.ShowCharacterInfoPanelExecuted);
+            }
+            if (_BindShowSectPanel) {
+                this.BindButtonToCommand(_ShowSectPanelButton, this.RpgMainScreen.ShowSectPanel);
+            }
+            if (_BindShowSectPanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowSectPanel, this.ShowSectPanelExecuted);
             }
             if (_BindExitGame) {
                 this.BindButtonToCommand(_ExitGameButton, this.RpgMainScreen.ExitGame);
@@ -141,7 +173,13 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExitGameExecuted(ExitGameCommand command) {
         }
         
+        public virtual void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command) {
+        }
+        
         public virtual void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command) {
+        }
+        
+        public virtual void ShowSectPanelExecuted(ShowSectPanelCommand command) {
         }
         
         public virtual void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command) {
@@ -153,6 +191,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command) {
         }
         
+        public virtual void ExecuteShowSectPanel(ShowSectPanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowSectPanel.OnNext(command);
+        }
+        
         public virtual void ExecuteShowAvatarBagPanel(ShowAvatarBagPanelCommand command) {
             command.Sender = RpgMainScreen;
             RpgMainScreen.ShowAvatarBagPanel.OnNext(command);
@@ -161,6 +204,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteExitArena(ExitArenaCommand command) {
             command.Sender = RpgMainScreen;
             RpgMainScreen.ExitArena.OnNext(command);
+        }
+        
+        public virtual void ExecuteShowRankingListPanel(ShowRankingListPanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowRankingListPanel.OnNext(command);
         }
         
         public virtual void ExecuteShowCharacterInfoPanel(ShowCharacterInfoPanelCommand command) {

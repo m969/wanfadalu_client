@@ -191,6 +191,20 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class OnRequestRankingListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _RankingList;
+        
+        public object RankingList {
+            get {
+                return _RankingList;
+            }
+            set {
+                _RankingList = value;
+            }
+        }
+    }
+    
     public partial class OnEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Vector3 _CenterPosition;
@@ -280,6 +294,20 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class OnRequestSelfRankingReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _RankingInfo;
+        
+        public object RankingInfo {
+            get {
+                return _RankingInfo;
+            }
+            set {
+                _RankingInfo = value;
+            }
+        }
+    }
+    
     public partial class RequestRankingListCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
@@ -296,34 +324,6 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _Point = value;
-            }
-        }
-    }
-    
-    public partial class OnRequestRankingListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
-        
-        private object _RankingList;
-        
-        public object RankingList {
-            get {
-                return _RankingList;
-            }
-            set {
-                _RankingList = value;
-            }
-        }
-    }
-    
-    public partial class OnRequestSelfRankingReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
-        
-        private object _RankingInfo;
-        
-        public object RankingInfo {
-            get {
-                return _RankingInfo;
-            }
-            set {
-                _RankingInfo = value;
             }
         }
     }

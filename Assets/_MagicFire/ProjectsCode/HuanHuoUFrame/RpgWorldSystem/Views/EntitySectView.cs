@@ -1,5 +1,4 @@
 ﻿namespace MagicFire.HuanHuoUFrame {
-    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -14,7 +13,8 @@
     using UnityEngine;
     
     
-    public class SectPanelView : SectPanelViewBase {
+    public class EntitySectView : EntitySectViewBase
+    {
         
         public override void sectIDChanged(Int32 arg1) {
         }
@@ -22,13 +22,13 @@
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
-            // var vm = model as AvatarViewModel;
+            // var vm = model as SectSystemViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
         }
         
         public override void Bind() {
             base.Bind();
-            // Use this.Avatar to access the viewmodel.
+            // Use this.SectSystem to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
         }

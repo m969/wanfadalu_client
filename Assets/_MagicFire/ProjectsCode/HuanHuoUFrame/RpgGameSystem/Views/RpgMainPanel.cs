@@ -24,6 +24,8 @@ namespace MagicFire.HuanHuoUFrame {
         private BagPanelView _bagPanelView;
         private CharacterInfoPanelView _characterInfoPanelView;
         private GongFaPanelView _gongFaPanelView;
+        private RankingListPanelView _rankingListPanelView;
+        private SectPanelView _sectPanelView;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -80,6 +82,18 @@ namespace MagicFire.HuanHuoUFrame {
         {
             base.ShowGongFaPanelExecuted(command);
             _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "AvatarViewPool", "GongFaPanel");
+        }
+
+        public override void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command)
+        {
+            base.ShowRankingListPanelExecuted(command);
+            _rankingListPanelView = ShowAvatarPanel(_rankingListPanelView, "AvatarViewPool", "RankingListPanel");
+        }
+
+        public override void ShowSectPanelExecuted(ShowSectPanelCommand command)
+        {
+            base.ShowSectPanelExecuted(command);
+            _sectPanelView = ShowAvatarPanel(_sectPanelView, "AvatarViewPool", "SectPanel");
         }
 
         public override void ExitArenaExecuted(ExitArenaCommand command)

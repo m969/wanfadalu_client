@@ -113,14 +113,14 @@ namespace MagicFire.HuanHuoUFrame {
             ArenaSystem.OnExitArena.OnNext(command);
         }
         
+        public virtual void ExecuteOnRequestSelfRankingReturn(OnRequestSelfRankingReturnCommand command) {
+            command.Sender = ArenaSystem;
+            ArenaSystem.OnRequestSelfRankingReturn.OnNext(command);
+        }
+        
         public virtual void ExecuteRequestExitArena(RequestExitArenaCommand command) {
             command.Sender = ArenaSystem;
             ArenaSystem.RequestExitArena.OnNext(command);
-        }
-        
-        public virtual void ExecuteOnEnterArena(OnEnterArenaCommand command) {
-            command.Sender = ArenaSystem;
-            ArenaSystem.OnEnterArena.OnNext(command);
         }
         
         public virtual void ExecuteOnRequestRankingListReturn(OnRequestRankingListReturnCommand command) {
@@ -128,9 +128,9 @@ namespace MagicFire.HuanHuoUFrame {
             ArenaSystem.OnRequestRankingListReturn.OnNext(command);
         }
         
-        public virtual void ExecuteOnRequestSelfRankingReturn(OnRequestSelfRankingReturnCommand command) {
+        public virtual void ExecuteOnEnterArena(OnEnterArenaCommand command) {
             command.Sender = ArenaSystem;
-            ArenaSystem.OnRequestSelfRankingReturn.OnNext(command);
+            ArenaSystem.OnEnterArena.OnNext(command);
         }
     }
 }

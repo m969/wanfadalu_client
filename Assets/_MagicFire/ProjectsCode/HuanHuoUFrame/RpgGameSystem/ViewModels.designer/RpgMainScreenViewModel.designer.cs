@@ -26,9 +26,13 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class RpgMainScreenViewModelBase : uFrame.MVVM.ViewModels.ViewModel {
         
+        private Signal<ShowSectPanelCommand> _ShowSectPanel;
+        
         private Signal<ShowAvatarBagPanelCommand> _ShowAvatarBagPanel;
         
         private Signal<ExitArenaCommand> _ExitArena;
+        
+        private Signal<ShowRankingListPanelCommand> _ShowRankingListPanel;
         
         private Signal<ShowCharacterInfoPanelCommand> _ShowCharacterInfoPanel;
         
@@ -38,6 +42,15 @@ namespace MagicFire.HuanHuoUFrame {
         
         public RpgMainScreenViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual Signal<ShowSectPanelCommand> ShowSectPanel {
+            get {
+                return _ShowSectPanel;
+            }
+            set {
+                _ShowSectPanel = value;
+            }
         }
         
         public virtual Signal<ShowAvatarBagPanelCommand> ShowAvatarBagPanel {
@@ -55,6 +68,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _ExitArena = value;
+            }
+        }
+        
+        public virtual Signal<ShowRankingListPanelCommand> ShowRankingListPanel {
+            get {
+                return _ShowRankingListPanel;
+            }
+            set {
+                _ShowRankingListPanel = value;
             }
         }
         
@@ -87,11 +109,17 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
+            this.ShowSectPanel = new Signal<ShowSectPanelCommand>(this);
             this.ShowAvatarBagPanel = new Signal<ShowAvatarBagPanelCommand>(this);
             this.ExitArena = new Signal<ExitArenaCommand>(this);
+            this.ShowRankingListPanel = new Signal<ShowRankingListPanelCommand>(this);
             this.ShowCharacterInfoPanel = new Signal<ShowCharacterInfoPanelCommand>(this);
             this.ShowGongFaPanel = new Signal<ShowGongFaPanelCommand>(this);
             this.ExitGame = new Signal<ExitGameCommand>(this);
+        }
+        
+        public virtual void Execute(ShowSectPanelCommand argument) {
+            this.ShowSectPanel.OnNext(argument);
         }
         
         public virtual void Execute(ShowAvatarBagPanelCommand argument) {
@@ -100,6 +128,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(ExitArenaCommand argument) {
             this.ExitArena.OnNext(argument);
+        }
+        
+        public virtual void Execute(ShowRankingListPanelCommand argument) {
+            this.ShowRankingListPanel.OnNext(argument);
         }
         
         public virtual void Execute(ShowCharacterInfoPanelCommand argument) {
@@ -114,6 +146,11 @@ namespace MagicFire.HuanHuoUFrame {
             this.ExitGame.OnNext(argument);
         }
         
+        public virtual void ShowSectPanel_() {
+            var cmd = new ShowSectPanelCommand();
+            this.ShowSectPanel.OnNext(cmd);
+        }
+        
         public virtual void ShowAvatarBagPanel_() {
             var cmd = new ShowAvatarBagPanelCommand();
             this.ShowAvatarBagPanel.OnNext(cmd);
@@ -122,6 +159,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExitArena_() {
             var cmd = new ExitArenaCommand();
             this.ExitArena.OnNext(cmd);
+        }
+        
+        public virtual void ShowRankingListPanel_() {
+            var cmd = new ShowRankingListPanelCommand();
+            this.ShowRankingListPanel.OnNext(cmd);
         }
         
         public virtual void ShowCharacterInfoPanel_() {
@@ -149,8 +191,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("ShowSectPanel", ShowSectPanel) { ParameterType = typeof(ShowSectPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowAvatarBagPanel", ShowAvatarBagPanel) { ParameterType = typeof(ShowAvatarBagPanelCommand) });
             list.Add(new ViewModelCommandInfo("ExitArena", ExitArena) { ParameterType = typeof(ExitArenaCommand) });
+            list.Add(new ViewModelCommandInfo("ShowRankingListPanel", ShowRankingListPanel) { ParameterType = typeof(ShowRankingListPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowCharacterInfoPanel", ShowCharacterInfoPanel) { ParameterType = typeof(ShowCharacterInfoPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowGongFaPanel", ShowGongFaPanel) { ParameterType = typeof(ShowGongFaPanelCommand) });
             list.Add(new ViewModelCommandInfo("ExitGame", ExitGame) { ParameterType = typeof(ExitGameCommand) });

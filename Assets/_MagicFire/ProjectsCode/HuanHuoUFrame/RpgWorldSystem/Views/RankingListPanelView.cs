@@ -14,9 +14,12 @@
     using UnityEngine;
     
     
-    public class SectPanelView : SectPanelViewBase {
+    public class RankingListPanelView : RankingListPanelViewBase {
         
-        public override void sectIDChanged(Int32 arg1) {
+        public override void OnRequestRankingListReturnExecuted(OnRequestRankingListReturnCommand command) {
+        }
+        
+        public override void OnRequestSelfRankingReturnExecuted(OnRequestSelfRankingReturnCommand command) {
         }
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {

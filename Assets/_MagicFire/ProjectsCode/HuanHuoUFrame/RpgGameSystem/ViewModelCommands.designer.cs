@@ -22,6 +22,9 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
+    public partial class ShowSectPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class ShowGongFaPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
@@ -29,6 +32,9 @@ namespace MagicFire.HuanHuoUFrame {
     }
     
     public partial class ShowAvatarBagPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
+    public partial class ShowRankingListPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
     public partial class Test03LoginCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

@@ -14,12 +14,12 @@ namespace MagicFire.HuanHuoUFrame{
     public class LoginSceneLoader : LoginSceneLoaderBase {
         
         protected override IEnumerator LoadScene(LoginScene scene, Action<float, string> progressDelegate) {
-            Debug.Log("LoginSceneLoader LoadScene " + progressDelegate);
+            //Debug.Log("LoginSceneLoader LoadScene " + progressDelegate);
             yield break;
         }
 
         protected override IEnumerator UnloadScene(LoginScene scene, Action<float, string> progressDelegate) {
-            Debug.Log("LoginSceneLoader UnloadScene " + progressDelegate);
+            //Debug.Log("LoginSceneLoader UnloadScene " + progressDelegate);
             yield break;
         }
     }

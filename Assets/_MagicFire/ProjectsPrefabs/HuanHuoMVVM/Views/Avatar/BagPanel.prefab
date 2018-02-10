@@ -907,8 +907,8 @@ MonoBehaviour:
   OnPointerEnter:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onPointerEnterPunchPresetCategory: Uncategorized
   onPointerEnterPunchPresetName: DefaultPreset
   loadOnPointerEnterPunchPresetAtRuntime: 0
@@ -946,8 +946,8 @@ MonoBehaviour:
   OnPointerExit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onPointerExitPunchPresetCategory: Uncategorized
   onPointerExitPunchPresetName: DefaultPreset
   loadOnPointerExitPunchPresetAtRuntime: 0
@@ -984,8 +984,8 @@ MonoBehaviour:
   OnPointerDown:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onPointerDownPunchPresetCategory: Uncategorized
   onPointerDownPunchPresetName: DefaultPreset
   loadOnPointerDownPunchPresetAtRuntime: 0
@@ -1022,8 +1022,8 @@ MonoBehaviour:
   OnPointerUp:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onPointerUpPunchPresetCategory: Uncategorized
   onPointerUpPunchPresetName: DefaultPreset
   loadOnPointerUpPunchPresetAtRuntime: 0
@@ -1062,8 +1062,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onClickPunchPresetCategory: Uncategorized
   onClickPunchPresetName: DefaultPreset
   loadOnClickPunchPresetAtRuntime: 0
@@ -1102,8 +1102,8 @@ MonoBehaviour:
   OnDoubleClick:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onDoubleClickPunchPresetCategory: Uncategorized
   onDoubleClickPunchPresetName: DefaultPreset
   loadOnDoubleClickPunchPresetAtRuntime: 0
@@ -1142,8 +1142,8 @@ MonoBehaviour:
   OnLongClick:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onLongClickPunchPresetCategory: Uncategorized
   onLongClickPunchPresetName: DefaultPreset
   loadOnLongClickPunchPresetAtRuntime: 0
@@ -1351,6 +1351,7 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
+  _headBar: {fileID: 11489878}
   _goldCount: 0
   _BindgoldCount: 1
   _goldCountOnlyWhenChanged: 0

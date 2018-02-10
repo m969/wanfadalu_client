@@ -62,6 +62,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private MonsterController _MonsterController;
         
+        private SectController _SectController;
+        
         [uFrame.IOC.InjectAttribute()]
         public virtual SectSystemController SectSystemController {
             get {
@@ -309,6 +311,19 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        [uFrame.IOC.InjectAttribute()]
+        public virtual SectController SectController {
+            get {
+                if (_SectController==null) {
+                    _SectController = Container.CreateInstance(typeof(SectController)) as SectController;;
+                }
+                return _SectController;
+            }
+            set {
+                _SectController = value;
+            }
+        }
+        
         public override void Load() {
             Container.RegisterViewModelManager<SectSystemViewModel>(new ViewModelManager<SectSystemViewModel>());
             Container.RegisterController<SectSystemController>(SectSystemController);
@@ -348,6 +363,8 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<ArenaController>(ArenaController);
             Container.RegisterViewModelManager<MonsterViewModel>(new ViewModelManager<MonsterViewModel>());
             Container.RegisterController<MonsterController>(MonsterController);
+            Container.RegisterViewModelManager<SectViewModel>(new ViewModelManager<SectViewModel>());
+            Container.RegisterController<SectController>(SectController);
         }
     }
 }

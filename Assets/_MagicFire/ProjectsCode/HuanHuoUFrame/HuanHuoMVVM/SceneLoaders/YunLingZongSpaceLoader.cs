@@ -14,12 +14,12 @@ namespace MagicFire.HuanHuoUFrame{
     public class YunLingZongSpaceLoader : YunLingZongSpaceLoaderBase {
         
         protected override IEnumerator LoadScene(YunLingZongSpace scene, Action<float, string> progressDelegate) {
-            Debug.Log("YunLingZongSpaceLoader LoadScene " + progressDelegate);
+            //Debug.Log("YunLingZongSpaceLoader LoadScene " + progressDelegate);
             yield break;
         }
         
         protected override IEnumerator UnloadScene(YunLingZongSpace scene, Action<float, string> progressDelegate) {
-            Debug.Log("YunLingZongSpaceLoader UnloadScene " + progressDelegate);
+            //Debug.Log("YunLingZongSpaceLoader UnloadScene " + progressDelegate);
             yield break;
         }
     }

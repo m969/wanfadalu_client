@@ -43,7 +43,7 @@ namespace MagicFire.HuanHuoUFrame {
 
         private T ShowAvatarPanel<T>(T panelView, string poolName, string panelName) where T : PanelView
         {
-            if (!panelView)
+            if (panelView == null)
             {
                 var spawnPool = PoolManager.Pools[poolName];
                 panelView = spawnPool.SpawnView(spawnPool.prefabs[panelName], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<T>();

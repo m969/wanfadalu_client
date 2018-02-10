@@ -2337,11 +2337,12 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
+  _headBar: {fileID: 11492440}
   _goldCount: 0
+  _BindsectID: 1
+  _sectIDOnlyWhenChanged: 0
   _BindcampName: 1
   _campNameInput: {fileID: 11447878}
-  _BindentityName: 1
-  _entityNameInput: {fileID: 0}
 --- !u!114 &114690811149569850
 MonoBehaviour:
   m_ObjectHideFlags: 1

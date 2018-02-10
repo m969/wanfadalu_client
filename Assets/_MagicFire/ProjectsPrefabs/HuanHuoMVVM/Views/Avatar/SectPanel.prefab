@@ -671,7 +671,8 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _sectID: 0
+  _headBar: {fileID: 11492440}
+  _goldCount: 0
   _BindsectID: 1
   _sectIDOnlyWhenChanged: 0
 --- !u!114 &114954219030998312

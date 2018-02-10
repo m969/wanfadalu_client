@@ -973,37 +973,10 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _entityName: 
-  _BindentityName: 1
-  _entityNameOnlyWhenChanged: 0
-  _BindOnLeaveWorld: 1
-  _BindOnDestroy: 1
-  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
-    type: 2}
-  _HP_Max: 0
-  _HP: 0
-  _BindHP_Max: 1
-  _HP_MaxOnlyWhenChanged: 0
-  _BindHP: 1
-  _HPOnlyWhenChanged: 0
-  _MSP: 0
-  _MSP_Max: 0
-  _SP_Max: 0
-  _SP: 0
-  _BindSP: 1
-  _SPOnlyWhenChanged: 0
-  _BindMSP_Max: 1
-  _MSP_MaxOnlyWhenChanged: 0
-  _BindSP_Max: 1
-  _SP_MaxOnlyWhenChanged: 0
-  _BindMSP: 1
-  _MSPOnlyWhenChanged: 0
-  _canMove: 0
-  _BindcanMove: 1
-  _canMoveOnlyWhenChanged: 0
+  _headBar: {fileID: 11492440}
+  _goldCount: 0
   _BindgongFaList: 1
   _gongFaListOnlyWhenChanged: 0
-  _goldCount: 0
   _gongFaContentTransform: {fileID: 224599298384854642}
   _gongFaItemPrefab: {fileID: 224391580008351820, guid: 1c42ae7e4f9c3624fa1ef3970a34fcb1,
     type: 2}

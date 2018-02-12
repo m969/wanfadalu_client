@@ -19,6 +19,7 @@
         [SerializeField]
         private Image _headBar;
         private Vector3 _lastPosition;
+
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -31,6 +32,8 @@
             // Use this.Panel to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_headBar == null)
+                return;
             _headBar.GetComponent<Image>().OnBeginDragAsObservable().Subscribe(evt =>
             {
                 Vector3 currentPosition;

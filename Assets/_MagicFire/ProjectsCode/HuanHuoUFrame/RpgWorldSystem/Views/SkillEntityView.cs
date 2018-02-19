@@ -20,8 +20,7 @@ namespace MagicFire.HuanHuoUFrame {
     public class SkillEntityView : SkillEntityViewBase {
         private RpgSkillController _skillController;
         private GameObject _iceImprisonEffect;
-        public readonly Dictionary<int, Skill> SkillMap = new Dictionary<int, Skill>();
-        public readonly Dictionary<string, Skill> SkillDict = new Dictionary<string, Skill>();
+        public readonly Dictionary<string, Skill> SkillMap = new Dictionary<string, Skill>();
 
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
@@ -42,7 +41,7 @@ namespace MagicFire.HuanHuoUFrame {
         {
             this._skillController = skillController;
 
-            AddSkill(new SkillQ(this));
+            AddSkill(new Shoot(this));
             AddSkill(new SkillW(this));
             AddSkill(new SkillE(this));
             AddSkill(new GongKan(this));
@@ -51,8 +50,7 @@ namespace MagicFire.HuanHuoUFrame {
         public void AddSkill(Skill skill)
         {
             skill.SkillController = _skillController;
-            SkillMap.Add(skill.SkillID, skill);
-            SkillDict.Add(skill.SkillName, skill);
+            SkillMap.Add(skill.GongFaID + ":" + skill.SkillIndex, skill);
         }
 
         public override void isIceFreezingChanged(Int32 arg1)
@@ -87,7 +85,7 @@ namespace MagicFire.HuanHuoUFrame {
             base.OnSkillStartCastExecuted(command);
 
             Skill skill;
-            SkillDict.TryGetValue(command.skillName, out skill);
+            SkillMap.TryGetValue(command.skillName, out skill);
             if (skill != null)
                 skill.OnCast(command.argsString);
         }

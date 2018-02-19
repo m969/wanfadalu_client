@@ -22,8 +22,8 @@ namespace MagicFire.HuanHuoUFrame
     {
         public SkillE(SkillEntityView spellcaster) : base(spellcaster)
         {
-            SkillName = "基础冰系法术:寒冰刺";
-            SkillID = 3;
+            GongFaID = 1003;
+            SkillIndex = 0;
         }
 
         public override void Ready(AvatarView spellcaster)

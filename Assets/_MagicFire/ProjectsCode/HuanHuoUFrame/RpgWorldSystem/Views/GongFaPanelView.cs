@@ -45,7 +45,7 @@
                 //Debug.Log(item.Key + ":" + item.Value);
                 var gongFaItem = Instantiate(_gongFaItemPrefab);
                 gongFaItem.SetParent(_gongFaContentTransform);
-                gongFaItem.Find("Text").GetComponent<Text>().text = item.Key;
+                gongFaItem.Find("Text").GetComponent<Text>().text = item.Key.ToString();
             }
         }
     }

@@ -90,9 +90,9 @@ namespace MagicFire.HuanHuoUFrame {
             SectSystem.OnSkillEndCast.OnNext(command);
         }
         
-        public virtual void ExecuteRequestCastSkillByName(RequestCastSkillByNameCommand command) {
+        public virtual void ExecuteRequestCastSkill(RequestCastSkillCommand command) {
             command.Sender = SectSystem;
-            SectSystem.RequestCastSkillByName.OnNext(command);
+            SectSystem.RequestCastSkill.OnNext(command);
         }
         
         public virtual void ExecuteOnSkillStartSing(OnSkillStartSingCommand command) {

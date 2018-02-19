@@ -41,22 +41,19 @@ namespace MagicFire.HuanHuoUFrame {
             _avatarViewPool = PoolManager.Pools["AvatarViewPool"];
         }
 
-        public override void goldCountChanged(Int32 goldCount)
+        public override void propListChanged(object arg1)
         {
-            base.goldCountChanged(goldCount);
-            _goldCountText.text = goldCount.ToString();
-        }
-
-        public override void avatarBagChanged(System.Object avatarBagObject)
-        {
-            base.avatarBagChanged(avatarBagObject);
-            var tmpAvatarBag = ((Dictionary<string, object>)avatarBagObject)["values"] as List<int>;
-            if (tmpAvatarBag != null)
+            base.propListChanged(arg1);
+            Debug.Log("BagPanelView:propListChanged " + arg1);
+            var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            Debug.Log(tmpPropList);
+            if (tmpPropList != null)
             {
-                foreach (var item in tmpAvatarBag)
+                foreach (var item in tmpPropList)
                 {
-                    var goodsItem = _avatarViewPool.Spawn(_avatarViewPool.prefabs["BagItem"]);
-                    goodsItem.SetParent(_itemsPanel);
+                    Debug.Log(item);
+                    //var goodsItem = _avatarViewPool.Spawn(_avatarViewPool.prefabs["BagItem"]);
+                    //goodsItem.SetParent(_itemsPanel);
                 }
             }
         }

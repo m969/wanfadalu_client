@@ -12,28 +12,28 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
-    using GongFaName = System.String;
-    using SkillName = System.String;
+    using GongFaID = System.Int32;
+    using SkillID = System.Int32;
 
 
     public partial class GongFaEntityViewModel : GongFaEntityViewModelBase {
-        public Dictionary<GongFaName, Dictionary<SkillName, ASkill>> DecodeGongFaListObject(object gongFaListObject)
+        public Dictionary<GongFaID, Dictionary<SkillID, ASkill>> DecodeGongFaListObject(object gongFaListObject)
         {
-            var gongFaMap = new Dictionary<GongFaName, Dictionary<SkillName, ASkill>>();
+            var gongFaMap = new Dictionary<GongFaID, Dictionary<SkillID, ASkill>>();
             var gongFaList = ((Dictionary<string, object>)gongFaListObject)["values"] as List<object>;
             foreach (var gongFaInfo in gongFaList)
             {
                 var skillList = ((Dictionary<string, object>)gongFaInfo)["values"] as List<object>;
-                var gongFaName = ((Dictionary<string, object>)gongFaInfo)["gongFa_name"] as string;
-                var skillMap = new Dictionary<string, ASkill>();
+                var gongFaName = (int)((Dictionary<string, object>)gongFaInfo)["gongFaID"];
+                var skillMap = new Dictionary<int, ASkill>();
                 foreach (var skillInfo in skillList)
                 {
                     var skill = new ASkill();
-                    var skillName = (string)((Dictionary<string, object>)skillInfo)["skill_name"];
-                    var skillLevel = (int)((Dictionary<string, object>)skillInfo)["skill_level"];
-                    skill.skillName = skillName;
+                    var skillIndex = (int)((Dictionary<string, object>)skillInfo)["skillIndex"];
+                    var skillLevel = (int)((Dictionary<string, object>)skillInfo)["skillLevel"];
+                    skill.skillIndex = skillIndex;
                     skill.skillLevel = skillLevel;
-                    skillMap[skillName] = skill;
+                    skillMap[skillIndex] = skill;
                 }
                 gongFaMap[gongFaName] = skillMap;
             }

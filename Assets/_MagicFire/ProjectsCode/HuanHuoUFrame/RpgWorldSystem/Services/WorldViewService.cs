@@ -18,14 +18,14 @@ namespace MagicFire.HuanHuoUFrame{
 
     public class WorldViewService : WorldViewServiceBase {
 
-        [SerializeField]
-        private GameObject _masterCanvasPrefab;
+        //[SerializeField]
+        //private GameObject _masterCanvasPrefab;
 
-        [SerializeField]
-        private GameObject _eventSystemPrefab;
+        //[SerializeField]
+        //private GameObject _eventSystemPrefab;
 
-        [SerializeField]
-        private GameObject _canvas3DPrefab;
+        //[SerializeField]
+        //private GameObject _canvas3DPrefab;
 
         [SerializeField]
         private GameObject _playerTargetPrefab;
@@ -61,16 +61,9 @@ namespace MagicFire.HuanHuoUFrame{
                     _masterCanvas = GameObject.Find("MasterCanvas");
                     _eventSystem = GameObject.Find("EventSystem");
                     _uiManager = GameObject.Find("UIManager");
-                    if (_uiManager != null)
-                        DontDestroyOnLoad(_uiManager);
-                    if (_masterCanvas == null)
-                        _masterCanvas = Instantiate(_masterCanvasPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    if (_masterCanvas != null)
-                        DontDestroyOnLoad(_masterCanvas);
-                    if (_eventSystem == null)
-                        _eventSystem = Instantiate(_eventSystemPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    if (_eventSystem != null)
-                        DontDestroyOnLoad(_eventSystem);
+                    DontDestroyOnLoad(_uiManager);
+                    DontDestroyOnLoad(_masterCanvas);
+                    DontDestroyOnLoad(_eventSystem);
                 }
                 return _masterCanvas;
             }
@@ -83,15 +76,16 @@ namespace MagicFire.HuanHuoUFrame{
                 if (_canvas3D == null)
                 {
                     _canvas3D = GameObject.Find("3DCanvas");
-                    if (_canvas3D == null)
-                    {
-                        _canvas3D = Instantiate(_canvas3DPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                        if (_canvas3D != null)
-                        {
-                            DontDestroyOnLoad(_canvas3D);
-                            _canvas3D.transform.eulerAngles = new Vector3(90, 0, 0);
-                        }
-                    }
+                    DontDestroyOnLoad(_canvas3D);
+                    //if (_canvas3D == null)
+                    //{
+                    //    _canvas3D = Instantiate(_canvas3DPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    //    if (_canvas3D != null)
+                    //    {
+                            
+                    //        _canvas3D.transform.eulerAngles = new Vector3(90, 0, 0);
+                    //    }
+                    //}
                 }
                 return _canvas3D;
             }
@@ -298,27 +292,16 @@ namespace MagicFire.HuanHuoUFrame{
             {
                 _rpgMainPanel = MasterCanvas.transform.Find("RpgMainPanel").GetComponent<RpgMainPanel>();
                 _rpgMainPanel.gameObject.SetActive(true);
-                //var spawnPool = PoolManager.Pools["UIPanelPool"];
-                //_rpgMainPanel = spawnPool.Spawn("RpgMainPanel").GetComponent<RpgMainPanel>();
-                //_rpgMainPanel.transform.SetParent(MasterCanvas.transform);
-                //_rpgMainPanel.transform.localScale = new Vector3(1, 1, 1);
-                //var rect = _rpgMainPanel.GetComponent<RectTransform>();
-                //rect.anchorMin = new Vector2(0.0f, 0.0f);
-                //rect.anchorMax = new Vector2(1, 1);
-                //rect.offsetMax = new Vector2(-0, 0);
-                //rect.offsetMin = new Vector2(0, 0);
             }
         }
 
         private void OnEnterWorld(onEnterWorldEvent evt)
         {
-
             if (_worldSceneState != SceneState.Loaded)
             {
                 _entitiesPool.Add(evt.Entity);
                 return;
             }
-
             var entity = evt.Entity;
             InstantiateViews(entity);
         }
@@ -354,7 +337,6 @@ namespace MagicFire.HuanHuoUFrame{
             //var entity = evt.Entity;
             //if (entity.renderObj == null)
             //    return;
-
             //((UnityEngine.GameObject)entity.renderObj).GetComponent<EntityCommonView>().destDirection =
             //    new Vector3(entity.direction.y, entity.direction.z, entity.direction.x);
         }
@@ -362,10 +344,8 @@ namespace MagicFire.HuanHuoUFrame{
         private void UpdatePosition(updatePositionEvent evt)
         {
             //var entity = evt.Entity;
-
             //if (entity.renderObj == null)
             //    return;
-
             //EntityCommonView EntityCommonView = ((UnityEngine.GameObject)entity.renderObj).GetComponent<EntityCommonView>();
             //GameObject go = ((UnityEngine.GameObject)entity.renderObj);
             //EntityCommonView.destPosition = new Vector3(entity.position.x, entity.position.z, go.transform.position.z);

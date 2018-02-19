@@ -9,8 +9,8 @@ namespace MagicFire.HuanHuoUFrame
     {
         public GongKan(SkillEntityView spellcaster):base(spellcaster)
         {
-            SkillName = "PrimaryArrowGongFa:GongKan";
-            SkillID = 4;
+            GongFaID = 1001;
+            SkillIndex = 1;
         }
 
         public override void Ready(AvatarView spellcaster)

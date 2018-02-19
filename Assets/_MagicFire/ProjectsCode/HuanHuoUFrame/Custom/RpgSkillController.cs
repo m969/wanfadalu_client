@@ -12,9 +12,7 @@
     public partial class RpgSkillController
     {
         public AvatarView Avatar { get; set; }
-
-        private readonly Dictionary<int, Skill> _skillMap = new Dictionary<int, Skill>();
-        private readonly Dictionary<string, Skill> _skillDict = new Dictionary<string, Skill>();
+        private readonly Dictionary<string, Skill> _skillMap = new Dictionary<string, Skill>();
         private SkillState CurrentSkillState { get; set; }
         private SkillReadyState _skillReadyState;
         private SkillEmptyState _skillEmptyState;
@@ -43,13 +41,13 @@
                     CurrentSkillState.Run();
 
                     if (Input.GetKeyDown(KeyCode.Q))
-                        SkillReady(1);
+                        SkillReady(1001, 0);
                     if (Input.GetKeyDown(KeyCode.W))
-                        SkillReady(2);
+                        SkillReady(1002, 0);
                     if (Input.GetKeyDown(KeyCode.E))
-                        SkillReady(3);
+                        SkillReady(1001, 1);
                     if (Input.GetKeyDown(KeyCode.R))
-                        GetSkillRef(4).Conjure();
+                        GetSkillRef(1004, 0).Conjure();
                 });
 
             Observable.EveryUpdate()
@@ -70,16 +68,16 @@
         public void AddSkill(Skill skill)
         {
             skill.SkillController = this;
-            _skillDict.Add(skill.SkillName, skill);
+            _skillMap.Add(skill.GongFaID + ":" + skill.SkillIndex, skill);
         }
 
-        public void SkillReady(int skillId)
+        public void SkillReady(int gongfaID, int skillIndex)
         {
             CancelReady();
             if (Avatar != null)
             {
                 Skill skill;
-                Avatar.SkillMap.TryGetValue(skillId, out skill);
+                Avatar.SkillMap.TryGetValue(gongfaID + ":" + skillIndex, out skill);
                 _skillReadyState.CurrentReadySkill = skill;
                 CurrentSkillState = _skillReadyState;
             }
@@ -105,16 +103,11 @@
             CurrentSkillState = _skillEmptyState;
         }
 
-        public Skill GetSkillRef(int skillId)
+        public Skill GetSkillRef(int gongfaID, int skillIndex)
         {
             Skill skill = null;
-            Avatar.SkillMap.TryGetValue(skillId, out skill);
+            Avatar.SkillMap.TryGetValue(gongfaID + ":" + skillIndex, out skill);
             return skill;
-        }
-
-        public void OnCastSkill(string skillName, string argsString)
-        {
-
         }
 
         private class SkillState

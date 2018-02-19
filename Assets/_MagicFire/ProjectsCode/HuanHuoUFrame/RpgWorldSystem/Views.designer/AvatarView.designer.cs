@@ -26,16 +26,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class AvatarViewBase : ArenaSystemView {
         
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public object _avatarBag;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("avatarState")]
         [UnityEngine.HideInInspector()]
         public bool _BindavatarState = true;
@@ -74,8 +64,6 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var avatarview = ((AvatarViewModel)model);
-            avatarview.avatarBag = this._avatarBag;
-            avatarview.goldCount = this._goldCount;
         }
         
         public override void Bind() {

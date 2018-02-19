@@ -233,18 +233,29 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
-    public partial class RequestCastSkillByNameCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    public partial class RequestCastSkillCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
-        private String _skillName;
+        private Int32 _gongFaID;
+        
+        private Int32 _skillIndex;
         
         private String _argsString;
         
-        public String skillName {
+        public Int32 gongFaID {
             get {
-                return _skillName;
+                return _gongFaID;
             }
             set {
-                _skillName = value;
+                _gongFaID = value;
+            }
+        }
+        
+        public Int32 skillIndex {
+            get {
+                return _skillIndex;
+            }
+            set {
+                _skillIndex = value;
             }
         }
         

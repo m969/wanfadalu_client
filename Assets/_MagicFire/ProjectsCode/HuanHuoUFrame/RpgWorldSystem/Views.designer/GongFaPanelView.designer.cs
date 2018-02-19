@@ -26,16 +26,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class GongFaPanelViewBase : PanelView {
         
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public object _avatarBag;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("gongFaList")]
         [UnityEngine.HideInInspector()]
         public bool _BindgongFaList = true;
@@ -70,8 +60,6 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var gongfapanelview = ((AvatarViewModel)model);
-            gongfapanelview.avatarBag = this._avatarBag;
-            gongfapanelview.goldCount = this._goldCount;
         }
         
         public override void Bind() {

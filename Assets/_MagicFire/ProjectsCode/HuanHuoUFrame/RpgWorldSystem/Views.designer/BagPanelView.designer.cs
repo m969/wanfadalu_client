@@ -26,35 +26,15 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class BagPanelViewBase : PanelView {
         
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("propList")]
         [UnityEngine.HideInInspector()]
-        public object _avatarBag;
+        public bool _BindpropList = true;
         
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("goldCount")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindgoldCount = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("goldCount")]
+        [uFrame.MVVM.Attributes.UFGroup("propList")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_goldCountonlyWhenChanged")]
-        protected bool _goldCountOnlyWhenChanged;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("avatarBag")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindavatarBag = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("avatarBag")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_avatarBagonlyWhenChanged")]
-        protected bool _avatarBagOnlyWhenChanged;
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_propListonlyWhenChanged")]
+        protected bool _propListOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -80,8 +60,6 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var bagpanelview = ((AvatarViewModel)model);
-            bagpanelview.avatarBag = this._avatarBag;
-            bagpanelview.goldCount = this._goldCount;
         }
         
         public override void Bind() {
@@ -89,18 +67,12 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindgoldCount) {
-                this.BindProperty(this.Avatar.goldCountProperty, this.goldCountChanged, _goldCountOnlyWhenChanged);
-            }
-            if (_BindavatarBag) {
-                this.BindProperty(this.Avatar.avatarBagProperty, this.avatarBagChanged, _avatarBagOnlyWhenChanged);
+            if (_BindpropList) {
+                this.BindProperty(this.Avatar.propListProperty, this.propListChanged, _propListOnlyWhenChanged);
             }
         }
         
-        public virtual void goldCountChanged(Int32 arg1) {
-        }
-        
-        public virtual void avatarBagChanged(object arg1) {
+        public virtual void propListChanged(object arg1) {
         }
         
         public virtual void ExecuteTeleport(TeleportCommand command) {

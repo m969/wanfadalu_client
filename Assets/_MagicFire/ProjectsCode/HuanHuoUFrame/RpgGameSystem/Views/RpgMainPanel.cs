@@ -21,11 +21,16 @@ namespace MagicFire.HuanHuoUFrame {
         [Inject("WorldViewService")]
         public WorldViewService WorldViewService;
 
-        private BagPanelView _bagPanelView;
-        private CharacterInfoPanelView _characterInfoPanelView;
-        private GongFaPanelView _gongFaPanelView;
-        private RankingListPanelView _rankingListPanelView;
-        private SectPanelView _sectPanelView;
+        private BagPanelView 
+            _bagPanelView;
+        private CharacterInfoPanelView 
+            _characterInfoPanelView;
+        private GongFaPanelView
+            _gongFaPanelView;
+        private RankingListPanelView 
+            _rankingListPanelView;
+        private SectPanelView 
+            _sectPanelView;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);

@@ -6,8 +6,8 @@
 
     public class Skill
     {
-        public int SkillID = 0;
-        public string SkillName = "";
+        public int GongFaID = 0;
+        public int SkillIndex = 0;
         public string ArgsString = "";
         public RpgSkillController SkillController;
         protected readonly SkillEntityView Spellcaster;
@@ -53,9 +53,10 @@
         //技能施放
         public virtual void Conjure(params object[] args)
         {
-            Spellcaster.SkillEntity.Execute(new RequestCastSkillByNameCommand()
+            Spellcaster.SkillEntity.Execute(new RequestCastSkillCommand()
             {
-                skillName = SkillName,
+                gongFaID = GongFaID,
+                skillIndex = SkillIndex,
                 argsString = ArgsString
             });
         }

@@ -1,6 +1,6 @@
 {
-	"RelatedType":"String"	, 
+	"RelatedType":"Int32"	, 
 	"Identifier":"679fb38f-59b8-4399-9d8b-42f01a1623d9"	, 
 	"NodeId":"cad7f986-680b-470b-9dc9-ec6e8fa6ba5e"	, 
 	"Order":0	, 
-	"Name":"skillName"}
+	"Name":"gongFaID"}

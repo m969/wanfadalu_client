@@ -22,8 +22,8 @@ namespace MagicFire.HuanHuoUFrame
     {
         public SkillW(SkillEntityView spellcaster) : base(spellcaster)
         {
-            SkillName = "基础土系法术:碎石阵";
-            SkillID = 2;
+            GongFaID = 1002;
+            SkillIndex = 0;
         }
 
         public override void Ready(AvatarView spellcaster)

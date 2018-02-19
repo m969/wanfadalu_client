@@ -32,7 +32,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<OnSkillEndCastCommand> _OnSkillEndCast;
         
-        private Signal<RequestCastSkillByNameCommand> _RequestCastSkillByName;
+        private Signal<RequestCastSkillCommand> _RequestCastSkill;
         
         private Signal<OnSkillStartSingCommand> _OnSkillStartSing;
         
@@ -76,12 +76,12 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual Signal<RequestCastSkillByNameCommand> RequestCastSkillByName {
+        public virtual Signal<RequestCastSkillCommand> RequestCastSkill {
             get {
-                return _RequestCastSkillByName;
+                return _RequestCastSkill;
             }
             set {
-                _RequestCastSkillByName = value;
+                _RequestCastSkill = value;
             }
         }
         
@@ -98,7 +98,7 @@ namespace MagicFire.HuanHuoUFrame {
             base.Bind();
             this.OnSkillStartCast = new Signal<OnSkillStartCastCommand>(this);
             this.OnSkillEndCast = new Signal<OnSkillEndCastCommand>(this);
-            this.RequestCastSkillByName = new Signal<RequestCastSkillByNameCommand>(this);
+            this.RequestCastSkill = new Signal<RequestCastSkillCommand>(this);
             this.OnSkillStartSing = new Signal<OnSkillStartSingCommand>(this);
             _isIceFreezingProperty = new P<Int32>(this, "isIceFreezing");
         }
@@ -111,8 +111,8 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnSkillEndCast.OnNext(argument);
         }
         
-        public virtual void Execute(RequestCastSkillByNameCommand argument) {
-            this.RequestCastSkillByName.OnNext(argument);
+        public virtual void Execute(RequestCastSkillCommand argument) {
+            this.RequestCastSkill.OnNext(argument);
         }
         
         public virtual void Execute(OnSkillStartSingCommand argument) {
@@ -134,11 +134,12 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnSkillEndCast.OnNext(cmd);
         }
         
-        public virtual void RequestCastSkillByName_(String skillName, String argsString) {
-            var cmd = new RequestCastSkillByNameCommand();
-            cmd.skillName = skillName;
+        public virtual void RequestCastSkill_(Int32 gongFaID, Int32 skillIndex, String argsString) {
+            var cmd = new RequestCastSkillCommand();
+            cmd.gongFaID = gongFaID;
+            cmd.skillIndex = skillIndex;
             cmd.argsString = argsString;
-            this.RequestCastSkillByName.OnNext(cmd);
+            this.RequestCastSkill.OnNext(cmd);
         }
         
         public virtual void OnSkillStartSing_(Single singTime) {
@@ -161,7 +162,7 @@ namespace MagicFire.HuanHuoUFrame {
             base.FillCommands(list);
             list.Add(new ViewModelCommandInfo("OnSkillStartCast", OnSkillStartCast) { ParameterType = typeof(OnSkillStartCastCommand) });
             list.Add(new ViewModelCommandInfo("OnSkillEndCast", OnSkillEndCast) { ParameterType = typeof(OnSkillEndCastCommand) });
-            list.Add(new ViewModelCommandInfo("RequestCastSkillByName", RequestCastSkillByName) { ParameterType = typeof(RequestCastSkillByNameCommand) });
+            list.Add(new ViewModelCommandInfo("RequestCastSkill", RequestCastSkill) { ParameterType = typeof(RequestCastSkillCommand) });
             list.Add(new ViewModelCommandInfo("OnSkillStartSing", OnSkillStartSing) { ParameterType = typeof(OnSkillStartSingCommand) });
         }
         

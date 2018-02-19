@@ -59,7 +59,7 @@ namespace MagicFire.HuanHuoUFrame {
             // This is called when a SkillEntityViewModel is created
             viewModel.OnSkillStartCast.Action = this.OnSkillStartCastHandler;
             viewModel.OnSkillEndCast.Action = this.OnSkillEndCastHandler;
-            viewModel.RequestCastSkillByName.Action = this.RequestCastSkillByNameHandler;
+            viewModel.RequestCastSkill.Action = this.RequestCastSkillHandler;
             viewModel.OnSkillStartSing.Action = this.OnSkillStartSingHandler;
             SkillEntityViewModelManager.Add(viewModel);
         }
@@ -77,8 +77,8 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnSkillEndCast(command.Sender as SkillEntityViewModel, command);
         }
         
-        public virtual void RequestCastSkillByNameHandler(RequestCastSkillByNameCommand command) {
-            this.RequestCastSkillByName(command.Sender as SkillEntityViewModel, command);
+        public virtual void RequestCastSkillHandler(RequestCastSkillCommand command) {
+            this.RequestCastSkill(command.Sender as SkillEntityViewModel, command);
         }
         
         public virtual void OnSkillStartSingHandler(OnSkillStartSingCommand command) {
@@ -91,7 +91,7 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void OnSkillEndCast(SkillEntityViewModel viewModel, OnSkillEndCastCommand arg) {
         }
         
-        public virtual void RequestCastSkillByName(SkillEntityViewModel viewModel, RequestCastSkillByNameCommand arg) {
+        public virtual void RequestCastSkill(SkillEntityViewModel viewModel, RequestCastSkillCommand arg) {
         }
         
         public virtual void OnSkillStartSing(SkillEntityViewModel viewModel, OnSkillStartSingCommand arg) {

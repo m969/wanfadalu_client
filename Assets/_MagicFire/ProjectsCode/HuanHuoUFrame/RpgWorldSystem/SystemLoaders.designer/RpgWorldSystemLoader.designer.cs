@@ -40,6 +40,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private HealthEntityController _HealthEntityController;
         
+        private SectController _SectController;
+        
         private AccountController _AccountController;
         
         private SpaceController _SpaceController;
@@ -58,11 +60,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         private GongFaEntityController _GongFaEntityController;
         
+        private PropSystemController _PropSystemController;
+        
         private ArenaController _ArenaController;
         
         private MonsterController _MonsterController;
-        
-        private SectController _SectController;
         
         [uFrame.IOC.InjectAttribute()]
         public virtual SectSystemController SectSystemController {
@@ -165,6 +167,19 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _HealthEntityController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
+        public virtual SectController SectController {
+            get {
+                if (_SectController==null) {
+                    _SectController = Container.CreateInstance(typeof(SectController)) as SectController;;
+                }
+                return _SectController;
+            }
+            set {
+                _SectController = value;
             }
         }
         
@@ -286,6 +301,19 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         [uFrame.IOC.InjectAttribute()]
+        public virtual PropSystemController PropSystemController {
+            get {
+                if (_PropSystemController==null) {
+                    _PropSystemController = Container.CreateInstance(typeof(PropSystemController)) as PropSystemController;;
+                }
+                return _PropSystemController;
+            }
+            set {
+                _PropSystemController = value;
+            }
+        }
+        
+        [uFrame.IOC.InjectAttribute()]
         public virtual ArenaController ArenaController {
             get {
                 if (_ArenaController==null) {
@@ -311,19 +339,6 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        [uFrame.IOC.InjectAttribute()]
-        public virtual SectController SectController {
-            get {
-                if (_SectController==null) {
-                    _SectController = Container.CreateInstance(typeof(SectController)) as SectController;;
-                }
-                return _SectController;
-            }
-            set {
-                _SectController = value;
-            }
-        }
-        
         public override void Load() {
             Container.RegisterViewModelManager<SectSystemViewModel>(new ViewModelManager<SectSystemViewModel>());
             Container.RegisterController<SectSystemController>(SectSystemController);
@@ -341,6 +356,8 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<MotionSystemController>(MotionSystemController);
             Container.RegisterViewModelManager<HealthEntityViewModel>(new ViewModelManager<HealthEntityViewModel>());
             Container.RegisterController<HealthEntityController>(HealthEntityController);
+            Container.RegisterViewModelManager<SectViewModel>(new ViewModelManager<SectViewModel>());
+            Container.RegisterController<SectController>(SectController);
             Container.RegisterViewModelManager<AccountViewModel>(new ViewModelManager<AccountViewModel>());
             Container.RegisterController<AccountController>(AccountController);
             Container.RegisterViewModelManager<SpaceViewModel>(new ViewModelManager<SpaceViewModel>());
@@ -359,12 +376,12 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<AvatarController>(AvatarController);
             Container.RegisterViewModelManager<GongFaEntityViewModel>(new ViewModelManager<GongFaEntityViewModel>());
             Container.RegisterController<GongFaEntityController>(GongFaEntityController);
+            Container.RegisterViewModelManager<PropSystemViewModel>(new ViewModelManager<PropSystemViewModel>());
+            Container.RegisterController<PropSystemController>(PropSystemController);
             Container.RegisterViewModelManager<ArenaViewModel>(new ViewModelManager<ArenaViewModel>());
             Container.RegisterController<ArenaController>(ArenaController);
             Container.RegisterViewModelManager<MonsterViewModel>(new ViewModelManager<MonsterViewModel>());
             Container.RegisterController<MonsterController>(MonsterController);
-            Container.RegisterViewModelManager<SectViewModel>(new ViewModelManager<SectViewModel>());
-            Container.RegisterController<SectController>(SectController);
         }
     }
 }

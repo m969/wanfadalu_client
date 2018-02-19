@@ -26,16 +26,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RankingListPanelViewBase : PanelView {
         
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public object _avatarBag;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("RequestSelfRanking")]
         [UnityEngine.HideInInspector()]
         public bool _BindRequestSelfRanking = true;
@@ -88,8 +78,6 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var rankinglistpanelview = ((AvatarViewModel)model);
-            rankinglistpanelview.avatarBag = this._avatarBag;
-            rankinglistpanelview.goldCount = this._goldCount;
         }
         
         public override void Bind() {

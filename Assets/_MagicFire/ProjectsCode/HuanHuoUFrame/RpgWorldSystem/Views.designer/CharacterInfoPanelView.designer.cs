@@ -26,16 +26,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class CharacterInfoPanelViewBase : PanelView {
         
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public object _avatarBag;
-        
-        [UnityEngine.SerializeField()]
-        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
-        [UnityEngine.HideInInspector()]
-        public Int32 _goldCount;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
         [UnityEngine.HideInInspector()]
         public bool _BindsectID = true;
@@ -80,8 +70,6 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var characterinfopanelview = ((AvatarViewModel)model);
-            characterinfopanelview.avatarBag = this._avatarBag;
-            characterinfopanelview.goldCount = this._goldCount;
         }
         
         public override void Bind() {

@@ -85,9 +85,9 @@ namespace MagicFire.HuanHuoUFrame {
             SkillEntity.OnSkillEndCast.OnNext(command);
         }
         
-        public virtual void ExecuteRequestCastSkillByName(RequestCastSkillByNameCommand command) {
+        public virtual void ExecuteRequestCastSkill(RequestCastSkillCommand command) {
             command.Sender = SkillEntity;
-            SkillEntity.RequestCastSkillByName.OnNext(command);
+            SkillEntity.RequestCastSkill.OnNext(command);
         }
         
         public virtual void ExecuteOnSkillStartSing(OnSkillStartSingCommand command) {

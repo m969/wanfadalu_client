@@ -199,7 +199,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Int32 _skillLevel;
         
-        private String _skillName;
+        private Int32 _skillIndex;
         
         public Int32 skillLevel {
             get {
@@ -210,19 +210,19 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public String skillName {
+        public Int32 skillIndex {
             get {
-                return _skillName;
+                return _skillIndex;
             }
             set {
-                _skillName = value;
+                _skillIndex = value;
             }
         }
         
         public virtual string Serialize() {
             var jsonObject = new JSONClass();
             jsonObject.Add("skillLevel", new JSONData(this.skillLevel));
-            jsonObject.Add("skillName", new JSONData(this.skillName));
+            jsonObject.Add("skillIndex", new JSONData(this.skillIndex));
             return jsonObject.ToString();
         }
         
@@ -231,8 +231,8 @@ namespace MagicFire.HuanHuoUFrame {
             if (node["skillLevel"] != null) {
                 this.skillLevel = node["skillLevel"].AsInt;
             }
-            if (node["skillName"] != null) {
-                this.skillName = node["skillName"].AsString;
+            if (node["skillIndex"] != null) {
+                this.skillIndex = node["skillIndex"].AsInt;
             }
         }
     }

@@ -16,24 +16,19 @@ namespace MagicFire.HuanHuoUFrame
     using UnityEngine;
     using System.Collections;
 
-    //[RequireComponent(typeof())]
-    //[AddComponentMenu("")]
     public class SkillW : Skill
     {
         public SkillW(SkillEntityView spellcaster) : base(spellcaster)
         {
-            GongFaID = 1002;
+            GongFaID = 1003;
             SkillIndex = 0;
         }
 
         public override void Ready(AvatarView spellcaster)
         {
             base.Ready(spellcaster);
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Physics.Raycast(ray, out hit, 100, 1 << LayerMask.NameToLayer("Terrian"));
             SkillTrajectory.transform.eulerAngles = new Vector3(90, 0, 0);
-            SkillTrajectory.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z);
+            SkillTrajectory.transform.position = new Vector3(RaycastHit.point.x, RaycastHit.point.y + 1.0f, RaycastHit.point.z);
             if (Input.GetMouseButtonDown(0))
                 Conjure();
         }
@@ -42,15 +37,13 @@ namespace MagicFire.HuanHuoUFrame
         {
             var point = SkillTrajectory.transform.position;
             ArgsString = point.x + ":" + point.y + ":" + point.z + ":";
-            base.Conjure();
+            base.Conjure(args);
             SkillController.CancelReady();
         }
 
         public override void OnCast(string argsString)
         {
-            //var args = argsString.Split(":");
-            //Spellcaster.transform.LookAt(new Vector3(int.Parse(args[0]), int.Parse(args[1]), int.Parse(args[2])));
             ((AvatarView)Spellcaster).Animator.SetTrigger("Attack_2");
         }
     }
-}//namespace_end
+}

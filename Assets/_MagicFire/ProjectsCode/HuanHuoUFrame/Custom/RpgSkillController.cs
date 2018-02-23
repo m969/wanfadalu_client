@@ -43,11 +43,11 @@
                     if (Input.GetKeyDown(KeyCode.Q))
                         SkillReady(1001, 0);
                     if (Input.GetKeyDown(KeyCode.W))
-                        SkillReady(1002, 0);
+                        SkillReady(1003, 0);
                     if (Input.GetKeyDown(KeyCode.E))
-                        SkillReady(1001, 1);
+                        SkillReady(1002, 0);
                     if (Input.GetKeyDown(KeyCode.R))
-                        GetSkillRef(1004, 0).Conjure();
+                        GetSkillRef(1001, 1).Conjure();
                 });
 
             Observable.EveryUpdate()
@@ -93,13 +93,9 @@
         public void CancelReady()
         {
             if (CurrentSkillState == _skillEmptyState)
-            {
                 return;
-            }
             if (CurrentSkillState == _skillReadyState)
-            {
                 _skillReadyState.CurrentReadySkill.CancelReady();
-            }
             CurrentSkillState = _skillEmptyState;
         }
 

@@ -13,6 +13,15 @@
     using UniRx;
     using UnityEngine;
     using UnityEngine.UI;
+    using Newtonsoft.Json.Linq;
+    using PathologicalGames;
+
+
+    public struct Prop
+    {
+        public string propUUID;
+        public JObject propData;
+    }
 
 
     public class MainAvatarInfoPanelView : MainAvatarInfoPanelViewBase {
@@ -42,6 +51,9 @@
         private int? _spMax;
         private int? _msp;
         private int? _mspMax;
+
+        private Dictionary<string, Prop> _propList;
+        private Dictionary<int, string> _magicWeaponList;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -150,6 +162,52 @@
                     _mspSliderImage.fillAmount = (float)_msp / (float)_mspMax;
                 if (_mspAmountText != null)
                     _mspAmountText.text = "" + _msp + "/" + _mspMax;
+            }
+        }
+
+        public override void propListChanged(object arg1)
+        {
+            base.propListChanged(arg1);
+            Debug.Log("MainAvatarInfoPanelView:propListChanged ");
+            var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            if (_propList == null)
+                _propList = new Dictionary<string, Prop>();
+            if (tmpPropList != null)
+            {
+                foreach (var item in tmpPropList)
+                {
+                    var propObject = (Dictionary<string, object>)item;
+                    var propData = JObject.Parse(propObject["propData"] as string);
+                    var prop = new Prop();
+                    prop.propUUID = propObject["propUUID"] as string;
+                    prop.propData = propData;
+                    _propList.Add(prop.propUUID, prop);
+                }
+            }
+        }
+
+        public override void magicWeaponListChanged(object arg1)
+        {
+            base.magicWeaponListChanged(arg1);
+            Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
+            var tmpList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            if (_magicWeaponList == null)
+                _magicWeaponList = new Dictionary<int, string>();
+            if (tmpList != null)
+            {
+                foreach (var item in tmpList)
+                {
+                    var value = (Dictionary<string, object>)item;
+                    _magicWeaponList.Add((int)value["index"], value["propUUID"] as string);
+                    Prop prop;
+                    if (_propList.TryGetValue(value["propUUID"] as string, out prop))
+                    {
+                        var index = (int)value["index"];
+                        var propID = (int)prop.propData["id"];
+                        Debug.Log("index = " + index);
+                        Debug.Log("propID = " + propID);
+                    }
+                }
             }
         }
     }

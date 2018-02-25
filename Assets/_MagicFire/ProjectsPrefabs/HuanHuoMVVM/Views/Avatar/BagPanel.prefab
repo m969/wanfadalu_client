@@ -684,7 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewModelId: 
   _InjectView: 0
-  _BindOnStart: 0
+  _BindOnStart: 1
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
   _headBar: {fileID: 11489878}

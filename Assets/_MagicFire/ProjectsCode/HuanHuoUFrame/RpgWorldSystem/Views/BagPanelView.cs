@@ -15,6 +15,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UniRx;
     using UnityEngine;
     using UnityEngine.UI;
+    using Newtonsoft.Json.Linq;
 
 
     public class BagPanelView : BagPanelViewBase
@@ -23,8 +24,6 @@ namespace MagicFire.HuanHuoUFrame {
         private Text _goldCountText;
         [SerializeField]
         private Transform _itemsPanel;
-
-        private SpawnPool _avatarViewPool;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -38,22 +37,23 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            _avatarViewPool = PoolManager.Pools["AvatarViewPool"];
         }
 
         public override void propListChanged(object arg1)
         {
             base.propListChanged(arg1);
-            Debug.Log("BagPanelView:propListChanged " + arg1);
+            Debug.Log("BagPanelView:propListChanged ");
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            Debug.Log(tmpPropList);
             if (tmpPropList != null)
             {
                 foreach (var item in tmpPropList)
                 {
                     Debug.Log(item);
-                    //var goodsItem = _avatarViewPool.Spawn(_avatarViewPool.prefabs["BagItem"]);
-                    //goodsItem.SetParent(_itemsPanel);
+                    var prop = (Dictionary<string, object>)item;
+                    JObject propData = JObject.Parse(prop["propData"] as string);
+                    var propItem = PoolManager.Pools["AvatarViewPool"].Spawn(PoolManager.Pools["AvatarViewPool"].prefabs["BagItem"]);
+                    propItem.Find("Text").GetComponent<Text>().text = propData["test"].ToString();
+                    propItem.SetParent(_itemsPanel);
                 }
             }
         }

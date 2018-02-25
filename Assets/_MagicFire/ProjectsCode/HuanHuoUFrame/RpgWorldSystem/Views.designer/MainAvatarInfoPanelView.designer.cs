@@ -96,6 +96,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSPonlyWhenChanged")]
         protected bool _MSPOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("propList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindpropList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("propList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_propListonlyWhenChanged")]
+        protected bool _propListOnlyWhenChanged;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -148,6 +158,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindMSP) {
                 this.BindProperty(this.Avatar.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
             }
+            if (_BindpropList) {
+                this.BindProperty(this.Avatar.propListProperty, this.propListChanged, _propListOnlyWhenChanged);
+            }
         }
         
         public virtual void HPChanged(Int32 arg1) {
@@ -169,6 +182,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void MSPChanged(Int32 arg1) {
+        }
+        
+        public virtual void propListChanged(object arg1) {
         }
         
         public virtual void ExecuteTeleport(TeleportCommand command) {

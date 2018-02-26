@@ -4269,6 +4269,9 @@ MonoBehaviour:
   _SPOnlyWhenChanged: 0
   _BindMSP: 1
   _MSPOnlyWhenChanged: 0
+  _BindpropList: 1
+  _propListOnlyWhenChanged: 0
+  _weaponListParent: {fileID: 1904800703291516}
   _hpSliderImage: {fileID: 114509952155613200}
   _mspSliderImage: {fileID: 114635029893813580}
   _spSliderImage: {fileID: 114411854192736932}

@@ -26,6 +26,8 @@
 
     public class MainAvatarInfoPanelView : MainAvatarInfoPanelViewBase {
         [SerializeField]
+        private GameObject _weaponListParent;
+        [SerializeField]
         private Image _hpSliderImage;
         [SerializeField]
         private Image _mspSliderImage;
@@ -170,8 +172,7 @@
             base.propListChanged(arg1);
             Debug.Log("MainAvatarInfoPanelView:propListChanged ");
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            if (_propList == null)
-                _propList = new Dictionary<string, Prop>();
+            var propList = new Dictionary<string, Prop>();
             if (tmpPropList != null)
             {
                 foreach (var item in tmpPropList)
@@ -181,9 +182,22 @@
                     var prop = new Prop();
                     prop.propUUID = propObject["propUUID"] as string;
                     prop.propData = propData;
-                    _propList.Add(prop.propUUID, prop);
+                    propList.Add(prop.propUUID, prop);
                 }
             }
+            if (_propList == null)
+            {
+                if (_magicWeaponList != null)
+                {
+                    Debug.Log(_magicWeaponList);
+                    foreach (var item in _magicWeaponList)
+                    {
+                        Debug.Log(item.Value);
+                        _weaponListParent.transform.GetChild(item.Key).Find("Text").GetComponent<Text>().text = propList[item.Value].propData["id"].ToString();
+                    }
+                }
+            }
+            _propList = propList;
         }
 
         public override void magicWeaponListChanged(object arg1)
@@ -200,12 +214,15 @@
                     var value = (Dictionary<string, object>)item;
                     _magicWeaponList.Add((int)value["index"], value["propUUID"] as string);
                     Prop prop;
+                    if (_propList == null)
+                        return;
                     if (_propList.TryGetValue(value["propUUID"] as string, out prop))
                     {
                         var index = (int)value["index"];
                         var propID = (int)prop.propData["id"];
                         Debug.Log("index = " + index);
                         Debug.Log("propID = " + propID);
+                        _weaponListParent.transform.GetChild(index).Find("Text").GetComponent<Text>().text = propID.ToString();
                     }
                 }
             }

@@ -213,17 +213,19 @@
                 {
                     var value = (Dictionary<string, object>)item;
                     _magicWeaponList.Add((int)value["index"], value["propUUID"] as string);
-                    Prop prop;
-                    if (_propList == null)
-                        return;
-                    if (_propList.TryGetValue(value["propUUID"] as string, out prop))
-                    {
-                        var index = (int)value["index"];
-                        var propID = (int)prop.propData["id"];
-                        Debug.Log("index = " + index);
-                        Debug.Log("propID = " + propID);
-                        _weaponListParent.transform.GetChild(index).Find("Text").GetComponent<Text>().text = propID.ToString();
-                    }
+                    Debug.Log("index = " + value["index"] + " propUUID = " + value["propUUID"]);
+                }
+            }
+            if (_propList == null)
+                return;
+            foreach (var item in _magicWeaponList)
+            {
+                Prop prop;
+                if (_propList.TryGetValue(item.Value, out prop))
+                {
+                    var index = item.Key;
+                    var propID = (int)prop.propData["id"];
+                    _weaponListParent.transform.GetChild(index).Find("Text").GetComponent<Text>().text = propID.ToString();
                 }
             }
         }

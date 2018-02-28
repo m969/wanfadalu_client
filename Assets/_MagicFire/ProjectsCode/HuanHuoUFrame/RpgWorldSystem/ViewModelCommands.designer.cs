@@ -179,9 +179,9 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class OnMatchEndCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
-        private Boolean _IsWin;
+        private Int32 _IsWin;
         
-        public Boolean IsWin {
+        public Int32 IsWin {
             get {
                 return _IsWin;
             }

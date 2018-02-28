@@ -189,10 +189,8 @@
             {
                 if (_magicWeaponList != null)
                 {
-                    Debug.Log(_magicWeaponList);
                     foreach (var item in _magicWeaponList)
                     {
-                        Debug.Log(item.Value);
                         _weaponListParent.transform.GetChild(item.Key).Find("Text").GetComponent<Text>().text = propList[item.Value].propData["id"].ToString();
                     }
                 }
@@ -213,7 +211,6 @@
                 {
                     var value = (Dictionary<string, object>)item;
                     _magicWeaponList.Add((int)value["index"], value["propUUID"] as string);
-                    Debug.Log("index = " + value["index"] + " propUUID = " + value["propUUID"]);
                 }
             }
             if (_propList == null)

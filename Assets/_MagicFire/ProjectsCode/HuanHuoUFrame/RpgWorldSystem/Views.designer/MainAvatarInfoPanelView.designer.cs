@@ -66,6 +66,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSP_MaxonlyWhenChanged")]
         protected bool _MSP_MaxOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("propList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindpropList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("propList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_propListonlyWhenChanged")]
+        protected bool _propListOnlyWhenChanged;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("SP_Max")]
         [UnityEngine.HideInInspector()]
         public bool _BindSP_Max = true;
@@ -95,16 +105,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSPonlyWhenChanged")]
         protected bool _MSPOnlyWhenChanged;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("propList")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindpropList = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("propList")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_propListonlyWhenChanged")]
-        protected bool _propListOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -149,6 +149,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindMSP_Max) {
                 this.BindProperty(this.Avatar.MSP_MaxProperty, this.MSP_MaxChanged, _MSP_MaxOnlyWhenChanged);
             }
+            if (_BindpropList) {
+                this.BindProperty(this.Avatar.propListProperty, this.propListChanged, _propListOnlyWhenChanged);
+            }
             if (_BindSP_Max) {
                 this.BindProperty(this.Avatar.SP_MaxProperty, this.SP_MaxChanged, _SP_MaxOnlyWhenChanged);
             }
@@ -157,9 +160,6 @@ namespace MagicFire.HuanHuoUFrame {
             }
             if (_BindMSP) {
                 this.BindProperty(this.Avatar.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
-            }
-            if (_BindpropList) {
-                this.BindProperty(this.Avatar.propListProperty, this.propListChanged, _propListOnlyWhenChanged);
             }
         }
         
@@ -175,6 +175,9 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void MSP_MaxChanged(Int32 arg1) {
         }
         
+        public virtual void propListChanged(object arg1) {
+        }
+        
         public virtual void SP_MaxChanged(Int32 arg1) {
         }
         
@@ -182,9 +185,6 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void MSPChanged(Int32 arg1) {
-        }
-        
-        public virtual void propListChanged(object arg1) {
         }
         
         public virtual void ExecuteTeleport(TeleportCommand command) {

@@ -15,13 +15,6 @@
     
     
     public class RankingListPanelView : RankingListPanelViewBase {
-        
-        public override void OnRequestRankingListReturnExecuted(OnRequestRankingListReturnCommand command) {
-        }
-        
-        public override void OnRequestSelfRankingReturnExecuted(OnRequestSelfRankingReturnCommand command) {
-        }
-        
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -34,6 +27,18 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+        }
+
+        public override void OnRequestRankingListReturnExecuted(OnRequestRankingListReturnCommand command)
+        {
+            Debug.Log("RankingListPanelView:OnRequestRankingListReturnExecuted");
+            Debug.Log(command.RankingList);
+        }
+
+        public override void OnRequestSelfRankingReturnExecuted(OnRequestSelfRankingReturnCommand command)
+        {
+            Debug.Log("RankingListPanelView:OnRequestSelfRankingReturnExecuted");
+            Debug.Log(command.RankingInfo);
         }
     }
 }

@@ -48,7 +48,6 @@ namespace MagicFire.HuanHuoUFrame {
             {
                 foreach (var item in tmpPropList)
                 {
-                    Debug.Log(item);
                     var prop = (Dictionary<string, object>)item;
                     JObject propData = JObject.Parse(prop["propData"] as string);
                     var propItem = PoolManager.Pools["AvatarViewPool"].Spawn(PoolManager.Pools["AvatarViewPool"].prefabs["BagItem"]);

@@ -183,7 +183,7 @@ namespace MagicFire.HuanHuoUFrame {
             this.RequestSelfRanking.OnNext(cmd);
         }
         
-        public virtual void OnMatchEnd_(Boolean IsWin) {
+        public virtual void OnMatchEnd_(Int32 IsWin) {
             var cmd = new OnMatchEndCommand();
             cmd.IsWin = IsWin;
             this.OnMatchEnd.OnNext(cmd);

@@ -31,6 +31,8 @@ namespace MagicFire.HuanHuoUFrame {
             _rankingListPanelView;
         private SectPanelView 
             _sectPanelView;
+        private DialogPanelView
+            _dialogPanelView;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -60,56 +62,50 @@ namespace MagicFire.HuanHuoUFrame {
             else
             {
                 if (panelView.isActiveAndEnabled)
-                {
                     panelView.gameObject.SetActive(false);
-                }
                 else
-                {
                     panelView.gameObject.SetActive(true);
-                }
             }
             return panelView;
         }
 
         public override void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command)
         {
-            base.ShowAvatarBagPanelExecuted(command);
             _bagPanelView = ShowAvatarPanel(_bagPanelView, "AvatarViewPool", "BagPanel");
         }
 
         public override void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command)
         {
-            base.ShowCharacterInfoPanelExecuted(command);
             _characterInfoPanelView = ShowAvatarPanel(_characterInfoPanelView, "AvatarViewPool", "CharacterInfoPanel");
         }
 
         public override void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command)
         {
-            base.ShowGongFaPanelExecuted(command);
             _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "AvatarViewPool", "GongFaPanel");
         }
 
         public override void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command)
         {
-            base.ShowRankingListPanelExecuted(command);
             _rankingListPanelView = ShowAvatarPanel(_rankingListPanelView, "AvatarViewPool", "RankingListPanel");
         }
 
         public override void ShowSectPanelExecuted(ShowSectPanelCommand command)
         {
-            base.ShowSectPanelExecuted(command);
             _sectPanelView = ShowAvatarPanel(_sectPanelView, "AvatarViewPool", "SectPanel");
+        }
+
+        public override void ExecuteShowDialogPanel(ShowDialogPanelCommand command)
+        {
+            _dialogPanelView = ShowAvatarPanel(_dialogPanelView, "NpcViewPool", "DialogPanel");
         }
 
         public override void ExitArenaExecuted(ExitArenaCommand command)
         {
-            base.ExitArenaExecuted(command);
             Debug.Log("RpgMainPanel:ExitArenaExecuted");
         }
 
         public override void ExitGameExecuted(ExitGameCommand command)
         {
-            base.ExitGameExecuted(command);
             Debug.Log("RpgMainPanel:ExitGameExecuted");
         }
     }

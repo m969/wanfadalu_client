@@ -289,23 +289,17 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _prefabName: 
   _entityName: 
-  _modelName: 
-  _BindentityName: 1
-  _entityNameOnlyWhenChanged: 0
   _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
-  _BindprefabName: 1
-  _prefabNameOnlyWhenChanged: 0
-  _BindmodelName: 1
-  _modelNameOnlyWhenChanged: 0
   WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
     type: 2}
   _HP_Max: 0
   _HP: 0
   _BindHP_Max: 1
   _HP_MaxOnlyWhenChanged: 0
+  _BindOnRespawn: 1
+  _BindOnDead: 1
   _BindHP: 1
   _HPOnlyWhenChanged: 0
   _MSP: 0
@@ -638,7 +632,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 180, y: 110}
-  m_SizeDelta: {x: 8, y: 8}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224966086887931122
 RectTransform:

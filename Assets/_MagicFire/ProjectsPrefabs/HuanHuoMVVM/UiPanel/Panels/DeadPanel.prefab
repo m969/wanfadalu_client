@@ -10,7 +10,6 @@ GameObject:
   - component: {fileID: 22483408}
   - component: {fileID: 22205898}
   - component: {fileID: 11447802}
-  - component: {fileID: 11477094}
   m_Layer: 5
   m_Name: DeadPanel
   m_TagString: Untagged
@@ -45,26 +44,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11477094
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf2d7bc223347142b1616b1f2d887e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _parentLayer: 2
-  _layoutStruct:
-    _anchorMin: {x: 0, y: 0}
-    _anchorMax: {x: 1, y: 1}
-    _pivot: {x: 0.5, y: 0.5}
-    _offsetMax: {x: 0, y: 0}
-    _offsetMin: {x: 0, y: 0}
-    _anchoredPosition: {x: 0, y: 0}
-    _sizeDelta: {x: 0, y: 0}
 --- !u!222 &22205898
 CanvasRenderer:
   m_ObjectHideFlags: 1

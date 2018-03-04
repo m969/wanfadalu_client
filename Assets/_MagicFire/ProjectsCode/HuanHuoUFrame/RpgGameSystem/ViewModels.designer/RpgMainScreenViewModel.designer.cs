@@ -38,6 +38,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<ShowGongFaPanelCommand> _ShowGongFaPanel;
         
+        private Signal<ShowDialogPanelCommand> _ShowDialogPanel;
+        
         private Signal<ExitGameCommand> _ExitGame;
         
         public RpgMainScreenViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
@@ -98,6 +100,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<ShowDialogPanelCommand> ShowDialogPanel {
+            get {
+                return _ShowDialogPanel;
+            }
+            set {
+                _ShowDialogPanel = value;
+            }
+        }
+        
         public virtual Signal<ExitGameCommand> ExitGame {
             get {
                 return _ExitGame;
@@ -115,6 +126,7 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowRankingListPanel = new Signal<ShowRankingListPanelCommand>(this);
             this.ShowCharacterInfoPanel = new Signal<ShowCharacterInfoPanelCommand>(this);
             this.ShowGongFaPanel = new Signal<ShowGongFaPanelCommand>(this);
+            this.ShowDialogPanel = new Signal<ShowDialogPanelCommand>(this);
             this.ExitGame = new Signal<ExitGameCommand>(this);
         }
         
@@ -140,6 +152,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(ShowGongFaPanelCommand argument) {
             this.ShowGongFaPanel.OnNext(argument);
+        }
+        
+        public virtual void Execute(ShowDialogPanelCommand argument) {
+            this.ShowDialogPanel.OnNext(argument);
         }
         
         public virtual void Execute(ExitGameCommand argument) {
@@ -176,6 +192,11 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowGongFaPanel.OnNext(cmd);
         }
         
+        public virtual void ShowDialogPanel_() {
+            var cmd = new ShowDialogPanelCommand();
+            this.ShowDialogPanel.OnNext(cmd);
+        }
+        
         public virtual void ExitGame_() {
             var cmd = new ExitGameCommand();
             this.ExitGame.OnNext(cmd);
@@ -197,6 +218,7 @@ namespace MagicFire.HuanHuoUFrame {
             list.Add(new ViewModelCommandInfo("ShowRankingListPanel", ShowRankingListPanel) { ParameterType = typeof(ShowRankingListPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowCharacterInfoPanel", ShowCharacterInfoPanel) { ParameterType = typeof(ShowCharacterInfoPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowGongFaPanel", ShowGongFaPanel) { ParameterType = typeof(ShowGongFaPanelCommand) });
+            list.Add(new ViewModelCommandInfo("ShowDialogPanel", ShowDialogPanel) { ParameterType = typeof(ShowDialogPanelCommand) });
             list.Add(new ViewModelCommandInfo("ExitGame", ExitGame) { ParameterType = typeof(ExitGameCommand) });
         }
         

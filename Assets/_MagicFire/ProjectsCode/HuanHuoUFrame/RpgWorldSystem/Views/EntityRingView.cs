@@ -37,7 +37,7 @@ namespace MagicFire.HuanHuoUFrame {
                     var entityObj = ViewModelObject.renderObj as GameObject;
                     if (entityObj == null)
                         return;
-                    var v = new Vector3(entityObj.transform.position.x, entityObj.transform.position.z, -1);
+                    var v = new Vector3(entityObj.transform.position.x, entityObj.transform.position.z, -0.1f);
                     transform.DOLocalMove(v, 0.01f);
                 })
             );

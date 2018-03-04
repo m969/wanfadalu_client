@@ -69,13 +69,9 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-
-            this.OnEvent<ExitArenaEvent>()
-                .Subscribe(evt =>
-                {
-                    this.Avatar.Execute(new RequestExitArenaCommand());
-                });
-
+            this.OnEvent<ExitArenaEvent>().Subscribe(evt => { this.Avatar.Execute(new RequestExitArenaCommand()); });
+            this.OnEvent<ResponseEvent>().Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestInteractive"; })
+                .Subscribe(evt => { this.Publish(new ShowAvatarBagEvent()); });
             transform.SetParent(WorldViewService.MasterCanvas.transform);
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;

@@ -89,6 +89,9 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class ShowCharacterInfoPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class ShowDialogPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class CloseMessageCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
 }

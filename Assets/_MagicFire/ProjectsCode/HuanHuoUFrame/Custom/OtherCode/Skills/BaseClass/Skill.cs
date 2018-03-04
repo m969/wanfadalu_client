@@ -38,11 +38,8 @@
         //技能预备
         public virtual void Ready(AvatarView spellcaster)
         {
-            if (SkillTrajectory == null)
-                InstantiateSkillTrajectory();
-            else
-                if (SkillTrajectory.activeInHierarchy == false)
-                    SkillTrajectory.SetActive(true);
+            if (SkillTrajectory.activeInHierarchy == false)
+                SkillTrajectory.SetActive(true);
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out RaycastHit, RaycastHitDist, 1 << LayerMask.NameToLayer("Terrian"));
         }
@@ -50,8 +47,7 @@
         //取消技能预备
         public virtual void CancelReady()
         {
-            if (SkillTrajectory != null)
-                SkillTrajectory.SetActive(false);
+            SkillTrajectory.SetActive(false);
         }
 
         //技能施放

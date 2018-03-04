@@ -147,7 +147,7 @@
                         //KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
                         //MainAvatarController.transform.DOLookAt(new Vector3(hit.point.x, MainAvatarController.transform.position.y, hit.point.z), 0.0f);
                         MainAvatarController.transform.LookAt(new Vector3(hit.point.x, MainAvatarController.transform.position.y, hit.point.z));
-                        MoveVector = MainAvatarController.transform.forward * 0.4f;
+                        MoveVector = MainAvatarController.transform.forward * 0.2f * MainAvatarView.Speed;
                     }
                 }
                 else

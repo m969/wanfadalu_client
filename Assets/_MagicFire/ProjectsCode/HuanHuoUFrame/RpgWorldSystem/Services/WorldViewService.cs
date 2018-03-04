@@ -184,61 +184,33 @@ namespace MagicFire.HuanHuoUFrame{
 
         private EntityCommonView InstantiateModelView(KBEngine.Entity entity)
         {
-            EntityCommonView view = null;
-            if (_modelViewPool != null)
-            {
-                var viewModel = entity as EntityCommonViewModel;
-                if (viewModel != null)
-                {
-                    Transform viewPrefab = null;
-
-                    if (entity.className == "AvatarViewModel")
-                        _modelViewPool.prefabs.TryGetValue("AvatarView", out viewPrefab);
-                    else
-                        _modelViewPool.prefabs.TryGetValue(viewModel.entityName, out viewPrefab);
-
-                    if (viewPrefab != null)
-                        view = _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
-                }
-            }
+            var viewModel = entity as EntityCommonViewModel;
+            Transform viewPrefab = null;
+            if (entity.className == "AvatarViewModel")
+                _modelViewPool.prefabs.TryGetValue("AvatarView", out viewPrefab);
+            else
+                _modelViewPool.prefabs.TryGetValue(viewModel.entityName, out viewPrefab);
+            var view = _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
             return view;
         }
 
         private EntityCommonView InstantiateRingView(KBEngine.Entity entity)
         {
-            EntityCommonView view = null;
-
             var entityType = entity.className.Replace("ViewModel", "");
             var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-            if (viewPool != null)
-            {
-                var viewModel = entity as EntityCommonViewModel;
-                if (viewModel != null)
-                {
-                    var viewPrefab = viewPool.prefabs[entityType + "RingView"];
-                    if (viewPrefab != null)
-                        view = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
-                }
-            }
+            var viewModel = entity as EntityCommonViewModel;
+            var viewPrefab = viewPool.prefabs[entityType + "RingView"];
+            var view = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
             return view;
         }
 
         private EntityCommonView InstantiatePanelView(KBEngine.Entity entity)
         {
-            EntityCommonView view = null;
-
             var entityType = entity.className.Replace("ViewModel", "");
             var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-            if (viewPool != null)
-            {
-                var viewModel = entity as EntityCommonViewModel;
-                if (viewModel != null)
-                {
-                    var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
-                    if (viewPrefab != null)
-                        view = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
-                }
-            }
+            var viewModel = entity as EntityCommonViewModel;
+            var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
+            var view = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
             return view;
         }
 
@@ -257,23 +229,16 @@ namespace MagicFire.HuanHuoUFrame{
                     if (viewPool != null)
                     {
                         var viewModel = entity as EntityCommonViewModel;
-                        if (viewModel != null)
-                        {
-                            var viewPrefab = viewPool.prefabs["MainAvatarInfoPanelView"];
-                            if (viewPrefab != null)
-                            {
-                                var mainAvatarInfoPanelView = viewPool.SpawnView(viewPrefab, viewModel).GetComponent<MainAvatarInfoPanelView>();
-                                var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
-                                moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
-                                moveContoller.MainAvatarView = modelView.GetComponent<AvatarView>();
-                                var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
-                                ((SkillEntityView)modelView).InitSkills(skillContoller);
-                                skillContoller.Init(modelView as AvatarView);
-                            }
-                        }
+                        var viewPrefab = viewPool.prefabs["MainAvatarInfoPanelView"];
+                        var mainAvatarInfoPanelView = viewPool.SpawnView(viewPrefab, viewModel).GetComponent<MainAvatarInfoPanelView>();
+                        var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
+                        moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
+                        moveContoller.MainAvatarView = modelView.GetComponent<AvatarView>();
+                        var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
+                        ((SkillEntityView)modelView).InitSkills(skillContoller);
+                        skillContoller.Init(modelView as AvatarView);
                     }
                 }
-
                 if (entity.className == "AvatarViewModel")
                 {
                     var ringView = InstantiateRingView(entity);

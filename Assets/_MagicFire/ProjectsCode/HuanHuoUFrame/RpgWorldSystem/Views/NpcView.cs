@@ -28,5 +28,33 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
         }
+
+        public override void entityNameChanged(string arg1)
+        {
+            _entityName = arg1;
+        }
+
+        public override void npcIDChanged(int arg1)
+        {
+            _npcID = arg1;
+        }
+
+        public override void npcTypeChanged(int arg1)
+        {
+            _npcType = arg1;
+        }
+
+        public override void arenaIDChanged(int arg1)
+        {
+            _arenaID = arg1;
+        }
+
+        public override void OnDestroyExecuted(OnDestroyCommand command)
+        {
+        }
+
+        public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)
+        {
+        }
     }
 }

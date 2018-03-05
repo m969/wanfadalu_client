@@ -97,13 +97,18 @@
                         });
                 }
             }
-            var ray = new Ray();
-            ray.origin = ViewModelObject.position + Vector3.up * 10;
-            ray.direction = Vector3.down;
-            RaycastHit raycastHit;
-            Physics.Raycast(ray, out raycastHit, 20, 1 << LayerMask.NameToLayer("Terrian"));
-            transform.position = raycastHit.point;
-            Debug.Log("raycastHit.point " + raycastHit.point);
+            var v = new Vector3(ViewModelObject.position.x, 5, ViewModelObject.position.z);
+            transform.position = v;
+            ViewModelObject.position = v;
+            //var ray = new Ray();
+            //ray.origin = ViewModelObject.position + Vector3.up * 10;
+            //ray.direction = Vector3.down;
+            //RaycastHit raycastHit;
+            //Physics.Raycast(ray, out raycastHit, 20, 1 << LayerMask.NameToLayer("Terrian"));
+            //transform.position = raycastHit.point;
+            //Debug.Log("raycastHit.point " + raycastHit.point);
+            //Debug.Log("ViewModelObject.position " + ViewModelObject.position);
+            //Debug.Log("transform.position " + transform.position);
             Observable.EveryUpdate().Subscribe(evt =>{ transform.GetChild(0).localPosition = Vector3.zero; });
         }
 

@@ -31,6 +31,10 @@
                 {
                     RpgInteractiveComponent = this
                 });
+                //if (tag == "Npc")
+                //{
+                //    this.Publish(new ShowDialogPanelEvent());
+                //}
             });
         }
     }

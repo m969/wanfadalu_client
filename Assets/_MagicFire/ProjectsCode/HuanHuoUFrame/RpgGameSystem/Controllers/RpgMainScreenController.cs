@@ -30,12 +30,15 @@
 
         private void ShowGongFaPanel(ShowGongFaPanelEvent evt)
         {
-            this.ShowGongFaPanel(this.RpgMainScreen, new ShowGongFaPanelCommand());
+            this.RpgMainScreen.Execute(new ShowGongFaPanelCommand());
+            //this.ShowGongFaPanel(this.RpgMainScreen, new ShowGongFaPanelCommand());
         }
 
         private void ShowDialogPanelEvent(ShowDialogPanelEvent evt)
         {
-            this.ShowDialogPanel(this.RpgMainScreen, new ShowDialogPanelCommand());
+            this.RpgMainScreen.Execute(new ShowDialogPanelCommand());
+            this.RpgMainScreen.ShowDialogPanel.Action.Invoke(new ShowDialogPanelCommand());
+            //this.ShowDialogPanel(this.RpgMainScreen, new ShowDialogPanelCommand());
             Debug.Log("RpgMainScreenController:ShowDialogPanelEvent");
         }
 

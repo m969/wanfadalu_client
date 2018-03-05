@@ -186,12 +186,22 @@ namespace MagicFire.HuanHuoUFrame{
         {
             var viewModel = entity as EntityCommonViewModel;
             Transform viewPrefab = null;
+            var viewName = "";
             if (entity.className == "AvatarViewModel")
-                _modelViewPool.prefabs.TryGetValue("AvatarView", out viewPrefab);
+                viewName = "AvatarView";
+            else if (entity.className == "NpcViewModel")
+                viewName = "NpcView";
             else
-                _modelViewPool.prefabs.TryGetValue(viewModel.entityName, out viewPrefab);
-            var view = _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
-            return view;
+                viewName = viewModel.entityName;
+            viewPrefab = _modelViewPool.prefabs[viewName];
+            return _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
+            //if (_modelViewPool.prefabs.TryGetValue(viewName, out viewPrefab))
+            //    return _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
+            //else
+            //{
+            //    Debug.LogError(viewName + " is null");
+            //    return null;
+            //}
         }
 
         private EntityCommonView InstantiateRingView(KBEngine.Entity entity)

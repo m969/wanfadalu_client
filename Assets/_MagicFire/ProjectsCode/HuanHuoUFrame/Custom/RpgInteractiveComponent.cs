@@ -33,7 +33,11 @@
                 });
                 //if (tag == "Npc")
                 //{
-                //    this.Publish(new ShowDialogPanelEvent());
+                //    var npcView = GetComponent<NpcView>();
+                //    if (npcView.Npc.npcType == 1)
+                //        this.Publish(new ShowDialogPanelEvent());
+                //    else
+                //        this.Publish(new ShowAvatarBagEvent());
                 //}
             });
         }

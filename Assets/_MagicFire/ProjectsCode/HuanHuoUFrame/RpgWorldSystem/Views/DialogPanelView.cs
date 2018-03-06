@@ -14,13 +14,6 @@
     
     
     public class DialogPanelView : DialogPanelViewBase {
-        
-        public override void arenaIDChanged(Int32 arg1) {
-        }
-        
-        public override void npcTypeChanged(Int32 arg1) {
-        }
-        
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.

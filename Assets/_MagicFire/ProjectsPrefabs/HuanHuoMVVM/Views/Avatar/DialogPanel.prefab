@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224117980756343382}
   - component: {fileID: 222819464105699806}
+  - component: {fileID: 114502074337984724}
   m_Layer: 5
   m_Name: DialogPanel
   m_TagString: Untagged
@@ -278,6 +279,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114502074337984724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381654447120454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05cf66e3808e55341af928213e4b4457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewModelId: 
+  _InjectView: 0
+  _BindOnStart: 1
+  _DisposeViewModelOnDestroy: 1
+  _overrideViewModel: 0
+  _headBar: {fileID: 0}
 --- !u!114 &114523944185590230
 MonoBehaviour:
   m_ObjectHideFlags: 1

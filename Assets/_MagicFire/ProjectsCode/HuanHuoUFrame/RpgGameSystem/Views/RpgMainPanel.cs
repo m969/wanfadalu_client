@@ -98,22 +98,22 @@ namespace MagicFire.HuanHuoUFrame {
         {
             Debug.Log("RpgMainPanel:ShowDialogPanelExecuted");
             //_dialogPanelView = ShowAvatarPanel(_dialogPanelView, "UIPanelPool", "DialogPanel");
-            //if (_dialogPanelView == null)
-            //{
-            //    var spawnPool = PoolManager.Pools["UIPanelPool"];
-            //    _dialogPanelView = spawnPool.SpawnView(spawnPool.prefabs["DialogPanel"], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<DialogPanelView>();
-            //    _dialogPanelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
-            //    _dialogPanelView.transform.localScale = new Vector3(1, 1, 1);
-            //    var rect = _dialogPanelView.GetComponent<RectTransform>();
-            //    rect.anchoredPosition = new Vector2(0, 0);
-            //}
-            //else
-            //{
-            //    if (_dialogPanelView.isActiveAndEnabled)
-            //        _dialogPanelView.gameObject.SetActive(false);
-            //    else
-            //        _dialogPanelView.gameObject.SetActive(true);
-            //}
+            if (_dialogPanelView == null)
+            {
+                var spawnPool = PoolManager.Pools["UIPanelPool"];
+                _dialogPanelView = spawnPool.SpawnView(spawnPool.prefabs["DialogPanel"], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<DialogPanelView>();
+                _dialogPanelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
+                _dialogPanelView.transform.localScale = new Vector3(1, 1, 1);
+                var rect = _dialogPanelView.GetComponent<RectTransform>();
+                rect.anchoredPosition = new Vector2(0, 0);
+            }
+            else
+            {
+                if (_dialogPanelView.isActiveAndEnabled)
+                    _dialogPanelView.gameObject.SetActive(false);
+                else
+                    _dialogPanelView.gameObject.SetActive(true);
+            }
         }
 
         public override void ExitArenaExecuted(ExitArenaCommand command)

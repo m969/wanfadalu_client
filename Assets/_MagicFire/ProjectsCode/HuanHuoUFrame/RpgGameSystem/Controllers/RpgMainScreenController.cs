@@ -36,10 +36,8 @@
 
         private void ShowDialogPanelEvent(ShowDialogPanelEvent evt)
         {
-            this.RpgMainScreen.Execute(new ShowDialogPanelCommand());
-            this.RpgMainScreen.ShowDialogPanel.Action.Invoke(new ShowDialogPanelCommand());
-            //this.ShowDialogPanel(this.RpgMainScreen, new ShowDialogPanelCommand());
             Debug.Log("RpgMainScreenController:ShowDialogPanelEvent");
+            this.RpgMainScreen.Execute(new ShowDialogPanelCommand() { NpcView = evt.NpcView});
         }
 
         public override void ExitArena(RpgMainScreenViewModel viewModel, ExitArenaCommand arg)

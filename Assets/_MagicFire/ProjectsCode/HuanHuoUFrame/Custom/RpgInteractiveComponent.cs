@@ -27,10 +27,10 @@
                 //    CallType = this.CallType,
                 //    Params = new object[] { }
                 //});
-                this.Publish<ResponseEvent>(new ResponseEvent()
-                {
-                    RpgInteractiveComponent = this
-                });
+                //this.Publish<ResponseEvent>(new ResponseEvent()
+                //{
+                //    RpgInteractiveComponent = this
+                //});
                 //if (tag == "Npc")
                 //{
                 //    var npcView = GetComponent<NpcView>();

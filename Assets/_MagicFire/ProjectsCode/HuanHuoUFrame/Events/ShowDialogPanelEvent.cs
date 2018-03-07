@@ -19,5 +19,17 @@ namespace MagicFire.HuanHuoUFrame {
     
     [uFrame.Attributes.EventId(8)]
     public partial class ShowDialogPanelEvent : object {
+        
+        [UnityEngine.SerializeField()]
+        private NpcView _NpcView;
+        
+        public NpcView NpcView {
+            get {
+                return _NpcView;
+            }
+            set {
+                _NpcView = value;
+            }
+        }
     }
 }

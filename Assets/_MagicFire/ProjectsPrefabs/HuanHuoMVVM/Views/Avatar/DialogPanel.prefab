@@ -296,6 +296,8 @@ MonoBehaviour:
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
   _headBar: {fileID: 0}
+  _npcPanel: {fileID: 1831943838446032}
+  _playerPanel: {fileID: 1689534624124060}
 --- !u!114 &114523944185590230
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -27,6 +27,11 @@
             // Use this.Npc to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            this.OnMouseEvent(MouseEventType.OnMouseDown).Subscribe(evt =>
+            {
+                Debug.Log("NpcView:OnMouseDown");
+                this.Publish(new ShowDialogPanelEvent() { NpcView = this });
+            });
         }
 
         public override void entityNameChanged(string arg1)

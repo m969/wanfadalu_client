@@ -14,8 +14,9 @@ namespace MagicFire.HuanHuoUFrame {
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
-    
-    
+    using UnityEngine.UI;
+
+
     public class RpgMainPanel : RpgMainPanelBase
     {
         [Inject("WorldViewService")]
@@ -97,22 +98,23 @@ namespace MagicFire.HuanHuoUFrame {
         public override void ShowDialogPanelExecuted(ShowDialogPanelCommand command)
         {
             Debug.Log("RpgMainPanel:ShowDialogPanelExecuted");
-            //_dialogPanelView = ShowAvatarPanel(_dialogPanelView, "UIPanelPool", "DialogPanel");
-            if (_dialogPanelView == null)
+            _dialogPanelView = ShowAvatarPanel(_dialogPanelView, "UIPanelPool", "DialogPanel");
+            if (_dialogPanelView.isActiveAndEnabled)
             {
-                var spawnPool = PoolManager.Pools["UIPanelPool"];
-                _dialogPanelView = spawnPool.SpawnView(spawnPool.prefabs["DialogPanel"], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<DialogPanelView>();
-                _dialogPanelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
-                _dialogPanelView.transform.localScale = new Vector3(1, 1, 1);
-                var rect = _dialogPanelView.GetComponent<RectTransform>();
-                rect.anchoredPosition = new Vector2(0, 0);
-            }
-            else
-            {
-                if (_dialogPanelView.isActiveAndEnabled)
-                    _dialogPanelView.gameObject.SetActive(false);
-                else
-                    _dialogPanelView.gameObject.SetActive(true);
+                _dialogPanelView.ClearDialogItem();
+                if (command.NpcView._npcType == 1)
+                {
+                    _dialogPanelView.AddDialogItem("我要上擂台", evt => {
+                        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
+                        _dialogPanelView.gameObject.SetActive(false);
+                    });
+                    _dialogPanelView.AddDialogItem("算了，我怂了", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                }
+                else if (command.NpcView._npcType == 2)
+                {
+                    _dialogPanelView.AddDialogItem("我要购买道具", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                    _dialogPanelView.AddDialogItem("算了，没钱", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                }
             }
         }
 

@@ -90,6 +90,17 @@ namespace MagicFire.HuanHuoUFrame {
     }
     
     public partial class ShowDialogPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private NpcView _NpcView;
+        
+        public NpcView NpcView {
+            get {
+                return _NpcView;
+            }
+            set {
+                _NpcView = value;
+            }
+        }
     }
     
     public partial class CloseMessageCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

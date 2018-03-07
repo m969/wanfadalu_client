@@ -70,12 +70,6 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
             this.OnEvent<ExitArenaEvent>().Subscribe(evt => { this.Avatar.Execute(new RequestExitArenaCommand()); });
-            this.OnEvent<ResponseEvent>().Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "npcInteractive"; })
-                .Subscribe(evt => 
-                {
-                    Debug.Log("MainAvatarInfoPanelView:OnEvent<ResponseEvent>()");
-                    this.Publish(new ShowDialogPanelEvent());
-                });
             transform.SetParent(WorldViewService.MasterCanvas.transform);
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;

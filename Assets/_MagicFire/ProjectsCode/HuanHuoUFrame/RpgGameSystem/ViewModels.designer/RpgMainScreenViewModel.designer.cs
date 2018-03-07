@@ -192,8 +192,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowGongFaPanel.OnNext(cmd);
         }
         
-        public virtual void ShowDialogPanel_() {
+        public virtual void ShowDialogPanel_(NpcView NpcView) {
             var cmd = new ShowDialogPanelCommand();
+            cmd.NpcView = NpcView;
             this.ShowDialogPanel.OnNext(cmd);
         }
         

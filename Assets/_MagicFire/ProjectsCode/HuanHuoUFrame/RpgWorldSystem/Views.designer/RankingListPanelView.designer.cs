@@ -26,26 +26,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RankingListPanelViewBase : PanelView {
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("RequestSelfRanking")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindRequestSelfRanking = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("RequestSelfRanking")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_RequestSelfRankingbutton")]
-        protected UnityEngine.UI.Button _RequestSelfRankingButton;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("RequestRankingList")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindRequestRankingList = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("RequestRankingList")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_RequestRankingListbutton")]
-        protected UnityEngine.UI.Button _RequestRankingListButton;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("OnRequestRankingListReturn")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnRequestRankingListReturn = true;
@@ -85,12 +65,6 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindRequestSelfRanking) {
-                this.BindButtonToCommand(_RequestSelfRankingButton, this.Avatar.RequestSelfRanking);
-            }
-            if (_BindRequestRankingList) {
-                this.BindButtonToCommand(_RequestRankingListButton, this.Avatar.RequestRankingList);
-            }
             if (_BindOnRequestRankingListReturn) {
                 this.BindCommandExecuted(this.Avatar.OnRequestRankingListReturn, this.OnRequestRankingListReturnExecuted);
             }

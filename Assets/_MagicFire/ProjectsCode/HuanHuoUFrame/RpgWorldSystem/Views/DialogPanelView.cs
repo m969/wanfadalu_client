@@ -54,13 +54,7 @@
         public void ClearDialogItem()
         {
             Debug.Log("DialogPanelView:ClearDialogItem childCount=" + _playerPanel.transform.childCount);
-            if (_playerPanel.transform.childCount == 0)
-                return;
-            var rang = Observable.Range(0, _playerPanel.transform.childCount);
-            rang.Subscribe(i =>
-            {
-                Destroy(_playerPanel.transform.GetChild(i).gameObject);
-            });
+            _playerPanel.DestroyChildren();
         }
     }
 }

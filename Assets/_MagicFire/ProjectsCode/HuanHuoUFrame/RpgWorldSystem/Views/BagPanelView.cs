@@ -51,6 +51,7 @@ namespace MagicFire.HuanHuoUFrame {
                     JObject propData = JObject.Parse(prop["propData"] as string);
                     var propItem = PoolManager.Pools["AvatarViewPool"].Spawn(PoolManager.Pools["AvatarViewPool"].prefabs["BagItem"]);
                     propItem.name = prop["propUUID"] as string;
+                    propItem.Find("Background").GetComponent<Image>().overrideSprite = Resources.Load<Sprite>("prop_" + (int)propData["id"]);
                     propItem.Find("Text").GetComponent<Text>().text = propData["id"].ToString();
                     propItem.SetParent(_itemsPanel);
                 }

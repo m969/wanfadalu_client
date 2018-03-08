@@ -194,7 +194,7 @@ namespace MagicFire.HuanHuoUFrame{
             else
                 viewName = viewModel.entityName;
             viewPrefab = _modelViewPool.prefabs[viewName];
-            return _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
+            return _modelViewPool.SpawnEntityCommonViewObject<EntityCommonView>(viewPrefab, viewModel);
             //if (_modelViewPool.prefabs.TryGetValue(viewName, out viewPrefab))
             //    return _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
             //else
@@ -210,7 +210,7 @@ namespace MagicFire.HuanHuoUFrame{
             var viewPool = PoolManager.Pools[entityType + "ViewPool"];
             var viewModel = entity as EntityCommonViewModel;
             var viewPrefab = viewPool.prefabs[entityType + "RingView"];
-            var view = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
+            var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
             return view;
         }
 
@@ -220,7 +220,7 @@ namespace MagicFire.HuanHuoUFrame{
             var viewPool = PoolManager.Pools[entityType + "ViewPool"];
             var viewModel = entity as EntityCommonViewModel;
             var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
-            var view = viewPool.SpawnEntityCommonView(viewPrefab, viewModel);
+            var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
             return view;
         }
 
@@ -240,7 +240,7 @@ namespace MagicFire.HuanHuoUFrame{
                     {
                         var viewModel = entity as EntityCommonViewModel;
                         var viewPrefab = viewPool.prefabs["MainAvatarInfoPanelView"];
-                        var mainAvatarInfoPanelView = viewPool.SpawnView(viewPrefab, viewModel).GetComponent<MainAvatarInfoPanelView>();
+                        var mainAvatarInfoPanelView = viewPool.SpawnView<MainAvatarInfoPanelView>(viewPrefab, viewModel);
                         var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
                         moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
                         moveContoller.MainAvatarView = modelView.GetComponent<AvatarView>();

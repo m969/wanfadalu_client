@@ -33,8 +33,6 @@ namespace uFrame.MVVM.Bindings
             Signal<TSignalType> command)
             where TSignalType : IViewModelCommand, new()
         {
-            if (button == null) return null;//uFrame_kbe
-
             var d = button.AsClickObservable().Subscribe(_ =>
             {
                 var obj = new TSignalType();

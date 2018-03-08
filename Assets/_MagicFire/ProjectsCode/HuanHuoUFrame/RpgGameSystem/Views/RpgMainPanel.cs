@@ -54,7 +54,7 @@ namespace MagicFire.HuanHuoUFrame {
             if (panelView == null)
             {
                 var spawnPool = PoolManager.Pools[poolName];
-                panelView = spawnPool.SpawnView(spawnPool.prefabs[panelName], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<T>();
+                panelView = spawnPool.SpawnView<T>(spawnPool.prefabs[panelName], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<T>();
                 panelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
                 panelView.transform.localScale = new Vector3(1, 1, 1);
                 var rect = panelView.GetComponent<RectTransform>();

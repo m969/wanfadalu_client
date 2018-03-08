@@ -9,10 +9,10 @@ using MagicFire.HuanHuoUFrame;
 
 public static class SpawnPoolExtensions
 {
-    public static ViewBase SpawnView(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel)
+    public static T SpawnView<T>(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel) where T: ViewBase
     {
         var result = spawnPool.Spawn(viewPrefab, viewModel.position, Quaternion.identity);
-        var resultView = result.GetComponent<ViewBase>();
+        var resultView = result.GetComponent<T>();
         if (viewModel != null)
         {
             resultView.Identifier = viewModel.Identifier;
@@ -25,25 +25,25 @@ public static class SpawnPoolExtensions
         return resultView;
     }
 
-    public static ViewBase SpawnViewObject(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel)
+    public static T SpawnViewObject<T>(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel) where T : ViewBase
     {
-        var resultView = SpawnView(spawnPool, viewPrefab, viewModel);
+        var resultView = SpawnView<T>(spawnPool, viewPrefab, viewModel);
         resultView.transform.eulerAngles = new Vector3(viewModel.direction.x, viewModel.direction.z, viewModel.direction.y);
         resultView.transform.position = viewModel.position;
         return resultView;
     }
 
-    public static EntityCommonView SpawnEntityCommonView(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel)
+    public static T SpawnEntityCommonView<T>(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel) where T : EntityCommonView
     {
-        var entityCommonView = SpawnView(spawnPool, viewPrefab, viewModel) as EntityCommonView;
+        var entityCommonView = SpawnView<T>(spawnPool, viewPrefab, viewModel) as T;
         if (entityCommonView != null)
             entityCommonView.ParentSpawnPool = spawnPool;
         return entityCommonView;
     }
 
-    public static EntityCommonView SpawnEntityCommonViewObject(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel)
+    public static T SpawnEntityCommonViewObject<T>(this SpawnPool spawnPool, Transform viewPrefab, ViewModel viewModel) where T : EntityCommonView
     {
-        var entityCommonView = SpawnViewObject(spawnPool, viewPrefab, viewModel) as EntityCommonView;
+        var entityCommonView = SpawnViewObject<T>(spawnPool, viewPrefab, viewModel) as T;
         if (entityCommonView != null)
             entityCommonView.ParentSpawnPool = spawnPool;
         return entityCommonView;

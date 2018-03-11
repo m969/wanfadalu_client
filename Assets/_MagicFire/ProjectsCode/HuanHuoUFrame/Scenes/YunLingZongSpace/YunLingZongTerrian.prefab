@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4510140185298344}
   - component: {fileID: 218789298672572404}
   - component: {fileID: 154745394239793654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YunLingZongTerrian
-  m_TagString: Untagged
+  m_TagString: Terrian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

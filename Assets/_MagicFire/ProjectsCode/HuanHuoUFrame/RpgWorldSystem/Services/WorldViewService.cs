@@ -117,7 +117,6 @@ namespace MagicFire.HuanHuoUFrame{
             //_panelViewPool = PoolManager.Pools["PanelViewPool"];
             this.OnEvent<SceneLoaderEvent>().Where(x => x.Name == "LoginScene").Where(x => x.State == SceneState.Destructed).Subscribe(OnLoginSceneDestructed);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
-            //this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Unloaded).Subscribe(OnSceneUnLoaded);
         }
 
         private void OnLoginSceneDestructed(SceneLoaderEvent @event)
@@ -135,8 +134,6 @@ namespace MagicFire.HuanHuoUFrame{
         private void OnSceneUnLoaded(SceneLoaderEvent @event)
         {
             Debug.Log("OnSceneUnLoaded = " + @event.Name);
-            //var newScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(@event.Name);
-            //UnityEngine.SceneManagement.SceneManager.SetActiveScene(newScene);
         }
 
         private void OnMainAvatarEnterSpace(OnMainAvatarEnterSpaceEvent evt)
@@ -191,17 +188,12 @@ namespace MagicFire.HuanHuoUFrame{
                 viewName = "AvatarView";
             else if (entity.className == "NpcViewModel")
                 viewName = "NpcView";
+            else if (entity.className == "SectViewModel")
+                viewName = "SectView";
             else
                 viewName = viewModel.entityName;
             viewPrefab = _modelViewPool.prefabs[viewName];
             return _modelViewPool.SpawnEntityCommonViewObject<EntityCommonView>(viewPrefab, viewModel);
-            //if (_modelViewPool.prefabs.TryGetValue(viewName, out viewPrefab))
-            //    return _modelViewPool.SpawnEntityCommonViewObject(viewPrefab, viewModel);
-            //else
-            //{
-            //    Debug.LogError(viewName + " is null");
-            //    return null;
-            //}
         }
 
         private EntityCommonView InstantiateRingView(KBEngine.Entity entity)
@@ -301,9 +293,9 @@ namespace MagicFire.HuanHuoUFrame{
             var entity = evt.Entity;
             if (entity.renderObj == null)
                 return;
-            Debug.Log(entity.className + " Set_Position: " + entity.position);
             GameObject go = ((UnityEngine.GameObject)entity.renderObj);
-            Vector3 currpos = new Vector3(entity.position.x, go.transform.position.y, entity.position.z);
+            Vector3 currpos = (Vector3)entity.getDefinedProperty("position");
+            Debug.Log(entity.className + " Set_Position: " + currpos);
             go.transform.position = currpos;
         }
 

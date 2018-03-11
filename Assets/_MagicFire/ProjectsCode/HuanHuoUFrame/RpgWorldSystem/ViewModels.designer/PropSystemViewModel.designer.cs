@@ -28,6 +28,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         private P<System.Object> _propListProperty;
         
+        private Signal<OnPullStorePropListReturnCommand> _OnPullStorePropListReturn;
+        
+        private Signal<RequestPullStorePropListCommand> _RequestPullStorePropList;
+        
         public PropSystemViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
@@ -50,9 +54,49 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnPullStorePropListReturnCommand> OnPullStorePropListReturn {
+            get {
+                return _OnPullStorePropListReturn;
+            }
+            set {
+                _OnPullStorePropListReturn = value;
+            }
+        }
+        
+        public virtual Signal<RequestPullStorePropListCommand> RequestPullStorePropList {
+            get {
+                return _RequestPullStorePropList;
+            }
+            set {
+                _RequestPullStorePropList = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
+            this.OnPullStorePropListReturn = new Signal<OnPullStorePropListReturnCommand>(this);
+            this.RequestPullStorePropList = new Signal<RequestPullStorePropListCommand>(this);
             _propListProperty = new P<System.Object>(this, "propList");
+        }
+        
+        public virtual void Execute(OnPullStorePropListReturnCommand argument) {
+            this.OnPullStorePropListReturn.OnNext(argument);
+        }
+        
+        public virtual void Execute(RequestPullStorePropListCommand argument) {
+            this.RequestPullStorePropList.OnNext(argument);
+        }
+        
+        public virtual void OnPullStorePropListReturn_(object StorePropList) {
+            var cmd = new OnPullStorePropListReturnCommand();
+            cmd.StorePropList = StorePropList;
+            this.OnPullStorePropListReturn.OnNext(cmd);
+        }
+        
+        public virtual void RequestPullStorePropList_(Int32 StoreNpcID) {
+            var cmd = new RequestPullStorePropListCommand();
+            cmd.StoreNpcID = StoreNpcID;
+            this.RequestPullStorePropList.OnNext(cmd);
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -65,6 +109,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("OnPullStorePropListReturn", OnPullStorePropListReturn) { ParameterType = typeof(OnPullStorePropListReturnCommand) });
+            list.Add(new ViewModelCommandInfo("RequestPullStorePropList", RequestPullStorePropList) { ParameterType = typeof(RequestPullStorePropListCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

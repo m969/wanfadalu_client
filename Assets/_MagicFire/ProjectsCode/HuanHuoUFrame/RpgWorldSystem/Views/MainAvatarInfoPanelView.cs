@@ -19,7 +19,8 @@
 
     public struct Prop
     {
-        public string propUUID;
+        public ulong propUUID;
+        public int index;
         public JObject propData;
     }
 
@@ -54,8 +55,7 @@
         private int? _msp;
         private int? _mspMax;
 
-        private Dictionary<string, Prop> _propList;
-        private Dictionary<int, string> _magicWeaponList;
+        private Dictionary<ulong, Prop> _magicWeaponList;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -161,12 +161,12 @@
             }
         }
 
-        public override void propListChanged(object arg1)
+        public override void magicWeaponListChanged(object arg1)
         {
-            base.propListChanged(arg1);
-            Debug.Log("MainAvatarInfoPanelView:propListChanged ");
+            base.magicWeaponListChanged(arg1);
+            Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            var propList = new Dictionary<string, Prop>();
+            _magicWeaponList = new Dictionary<ulong, Prop>();
             if (tmpPropList != null)
             {
                 foreach (var item in tmpPropList)
@@ -174,50 +174,19 @@
                     var propObject = (Dictionary<string, object>)item;
                     var propData = JObject.Parse(propObject["propData"] as string);
                     var prop = new Prop();
-                    prop.propUUID = propObject["propUUID"] as string;
+                    prop.propUUID = (ulong)propObject["propUUID"];
+                    prop.index = (int)propObject["index"];
                     prop.propData = propData;
-                    propList.Add(prop.propUUID, prop);
+                    _magicWeaponList.Add(prop.propUUID, prop);
                 }
             }
-            if (_propList == null)
-            {
-                if (_magicWeaponList != null)
-                {
-                    foreach (var item in _magicWeaponList)
-                    {
-                        _weaponListParent.transform.GetChild(item.Key).Find("Text").GetComponent<Text>().text = propList[item.Value].propData["id"].ToString();
-                    }
-                }
-            }
-            _propList = propList;
-        }
-
-        public override void magicWeaponListChanged(object arg1)
-        {
-            base.magicWeaponListChanged(arg1);
-            Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
-            var tmpList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            if (_magicWeaponList == null)
-                _magicWeaponList = new Dictionary<int, string>();
-            if (tmpList != null)
-            {
-                foreach (var item in tmpList)
-                {
-                    var value = (Dictionary<string, object>)item;
-                    _magicWeaponList.Add((int)value["index"], value["propUUID"] as string);
-                }
-            }
-            if (_propList == null)
-                return;
             foreach (var item in _magicWeaponList)
             {
-                Prop prop;
-                if (_propList.TryGetValue(item.Value, out prop))
-                {
-                    var index = item.Key;
-                    var propID = (int)prop.propData["id"];
-                    _weaponListParent.transform.GetChild(index).Find("Text").GetComponent<Text>().text = propID.ToString();
-                }
+                var child = _weaponListParent.transform.GetChild(item.Value.index);
+                var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
+                var itemImage = child.GetComponent<Image>();
+                var tempType = itemImage.sprite;
+                itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
             }
         }
     }

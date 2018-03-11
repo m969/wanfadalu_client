@@ -70,6 +70,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ExitArenabutton")]
         protected UnityEngine.UI.Button _ExitArenaButton;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowStorePanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowStorePanel = true;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("ShowCharacterInfoPanel")]
         [UnityEngine.HideInInspector()]
         public bool _BindShowCharacterInfoPanel = true;
@@ -148,6 +152,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindShowRankingListPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowRankingListPanel, this.ShowRankingListPanelExecuted);
             }
+            if (_BindShowStorePanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowStorePanel, this.ShowStorePanelExecuted);
+            }
             if (_BindShowCharacterInfoPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowCharacterInfoPanel, this.ShowCharacterInfoPanelExecuted);
             }
@@ -181,6 +188,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command) {
+        }
+        
+        public virtual void ShowStorePanelExecuted(ShowStorePanelCommand command) {
         }
         
         public virtual void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command) {
@@ -224,6 +234,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteShowCharacterInfoPanel(ShowCharacterInfoPanelCommand command) {
             command.Sender = RpgMainScreen;
             RpgMainScreen.ShowCharacterInfoPanel.OnNext(command);
+        }
+        
+        public virtual void ExecuteShowStorePanel(ShowStorePanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowStorePanel.OnNext(command);
         }
         
         public virtual void ExecuteShowGongFaPanel(ShowGongFaPanelCommand command) {

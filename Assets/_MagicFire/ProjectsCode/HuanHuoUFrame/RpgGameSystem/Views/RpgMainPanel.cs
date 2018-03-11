@@ -34,6 +34,8 @@ namespace MagicFire.HuanHuoUFrame {
             _sectPanelView;
         private DialogPanelView
             _dialogPanelView;
+        private StorePanelView
+            _storePanelView;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -112,10 +114,19 @@ namespace MagicFire.HuanHuoUFrame {
                 }
                 else if (command.NpcView._npcType == 2)
                 {
-                    _dialogPanelView.AddDialogItem("我要购买道具", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                    _dialogPanelView.AddDialogItem("我要购买道具", evt => {
+                        this.Publish(new ShowStorePanelEvent());
+                        _dialogPanelView.gameObject.SetActive(false);
+                    });
                     _dialogPanelView.AddDialogItem("算了，没钱", evt => { _dialogPanelView.gameObject.SetActive(false); });
                 }
             }
+        }
+
+        public override void ShowStorePanelExecuted(ShowStorePanelCommand command)
+        {
+            Debug.Log("RpgMainPanel:ShowStorePanelExecuted");
+            _storePanelView = ShowAvatarPanel(_storePanelView, "UIPanelPool", "StorePanel");
         }
 
         public override void ExitArenaExecuted(ExitArenaCommand command)

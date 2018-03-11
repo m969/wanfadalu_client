@@ -45,14 +45,17 @@ namespace MagicFire.HuanHuoUFrame {
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
             if (tmpPropList != null)
             {
+                var spawnPool = PoolManager.Pools["UIPanelPool"];
                 foreach (var item in tmpPropList)
                 {
                     var prop = (Dictionary<string, object>)item;
                     JObject propData = JObject.Parse(prop["propData"] as string);
-                    var propItem = PoolManager.Pools["AvatarViewPool"].Spawn(PoolManager.Pools["AvatarViewPool"].prefabs["BagItem"]);
+                    var propItem = spawnPool.Spawn(spawnPool.prefabs["BagItem"]);
                     propItem.name = prop["propUUID"] as string;
-                    propItem.Find("Background").GetComponent<Image>().overrideSprite = Resources.Load<Sprite>("prop_" + (int)propData["id"]);
-                    propItem.Find("Text").GetComponent<Text>().text = propData["id"].ToString();
+                    var srcName = "PropImages/prop_" + int.Parse(propData["id"].ToString());
+                    var itemImage = propItem.Find("Background").GetComponent<Image>();
+                    Sprite tempType = itemImage.sprite;
+                    itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
                     propItem.SetParent(_itemsPanel);
                 }
             }

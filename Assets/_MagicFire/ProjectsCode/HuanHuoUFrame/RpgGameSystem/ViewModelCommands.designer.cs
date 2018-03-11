@@ -40,6 +40,9 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class Test03LoginCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class ShowStorePanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class ShowRegistePanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private MagicFire.HuanHuoUFrame.RegistePanel _RegistePanel;

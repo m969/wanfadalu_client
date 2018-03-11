@@ -32,36 +32,37 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            this.Avatar.RequestRankingList.OnNext(new RequestRankingListCommand());
-            this.Avatar.RequestSelfRanking.OnNext(new RequestSelfRankingCommand());
+            this.Avatar.Execute(new RequestRankingListCommand());
+            this.Avatar.Execute(new RequestSelfRankingCommand());
+            //this.Avatar.RequestRankingList.OnNext(new RequestRankingListCommand());
+            //this.Avatar.RequestSelfRanking.OnNext(new RequestSelfRankingCommand());
         }
 
         private void OnEnable()
         {
             if (this.Avatar == null) return;
-            this.Avatar.RequestRankingList.OnNext(new RequestRankingListCommand());
-            this.Avatar.RequestSelfRanking.OnNext(new RequestSelfRankingCommand());
+            this.Avatar.Execute(new RequestRankingListCommand());
+            this.Avatar.Execute(new RequestSelfRankingCommand());
         }
 
         public override void OnRequestRankingListReturnExecuted(OnRequestRankingListReturnCommand command)
         {
             Debug.Log("RankingListPanelView:OnRequestRankingListReturnExecuted");
-            _rankingItemsPanel.DestroyChildren();
             var rankingList = ((Dictionary<string, object>)command.RankingList)["values"] as List<object>;
             foreach (var item in rankingList)
             {
                 var rankingItemInfo = (Dictionary<string, object>)item;
                 var spawnPool = PathologicalGames.PoolManager.Pools["UIPanelPool"];
-                var rankingItem = spawnPool.Spawn(spawnPool.prefabs["RankingItem"]);
-                rankingItem.Find("Text").GetComponent<UnityEngine.UI.Text>().text = rankingItemInfo["avatarName"].ToString();
-                rankingItem.SetParent(_rankingItemsPanel.transform);
+                var rankingItem = _rankingItemsPanel.transform.GetChild((int)(ulong)rankingItemInfo["ranking"] - 1);
+                rankingItem.Find("Text").GetComponent<UnityEngine.UI.Text>().text = rankingItemInfo["ranking"] + "：" + rankingItemInfo["avatarName"] + " 胜利场次：" + rankingItemInfo["winAmount"];
             }
         }
 
         public override void OnRequestSelfRankingReturnExecuted(OnRequestSelfRankingReturnCommand command)
         {
             Debug.Log("RankingListPanelView:OnRequestSelfRankingReturnExecuted");
-            _selfRankingPanel.transform.Find("Text").GetComponent<UnityEngine.UI.Text>().text = command.RankingInfo.ToString();
+            var rankingInfo = (Dictionary<string, object>)command.RankingInfo;
+            _selfRankingPanel.transform.Find("Text").GetComponent<UnityEngine.UI.Text>().text = rankingInfo["avatarName"] + " 第" + rankingInfo["ranking"] + "名" + " 胜利场次：" + rankingInfo["winAmount"];
         }
     }
 }

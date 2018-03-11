@@ -97,9 +97,10 @@
                         });
                 }
             }
-            var v = new Vector3(ViewModelObject.position.x, 5, ViewModelObject.position.z);
-            transform.position = v;
-            ViewModelObject.position = v;
+            //var v = new Vector3(ViewModelObject.position.x, 5, ViewModelObject.position.z);
+            //transform.position = v;
+            //ViewModelObject.position = v;
+
             //var ray = new Ray();
             //ray.origin = ViewModelObject.position + Vector3.up * 10;
             //ray.direction = Vector3.down;

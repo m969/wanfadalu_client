@@ -110,7 +110,7 @@ namespace MagicFire.HuanHuoUFrame {
                         _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
                         _dialogPanelView.gameObject.SetActive(false);
                     });
-                    _dialogPanelView.AddDialogItem("算了，我怂了", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                    _dialogPanelView.AddDialogItem("算了，怂", evt => { _dialogPanelView.gameObject.SetActive(false); });
                 }
                 else if (command.NpcView._npcType == 2)
                 {
@@ -118,7 +118,16 @@ namespace MagicFire.HuanHuoUFrame {
                         this.Publish(new ShowStorePanelEvent());
                         _dialogPanelView.gameObject.SetActive(false);
                     });
-                    _dialogPanelView.AddDialogItem("算了，没钱", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                    _dialogPanelView.AddDialogItem("算了，穷", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                }
+                else if (command.NpcView._npcType == 3)
+                {
+                    _dialogPanelView.AddDialogItem("我要加入宗门", evt => {
+                        //this.Publish(new ShowStorePanelEvent());
+                        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
+                        _dialogPanelView.gameObject.SetActive(false);
+                    });
+                    _dialogPanelView.AddDialogItem("算了，流浪挺好", evt => { _dialogPanelView.gameObject.SetActive(false); });
                 }
             }
         }

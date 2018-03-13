@@ -38,7 +38,7 @@
         private void ShowDialogPanel(ShowDialogPanelEvent evt)
         {
             Debug.Log("RpgMainScreenController:ShowDialogPanelEvent");
-            this.RpgMainScreen.Execute(new ShowDialogPanelCommand() { NpcView = evt.NpcView});
+            this.RpgMainScreen.Execute(new ShowDialogPanelCommand() { DialogItemsObject = evt.DialogItemsObject });
         }
 
         private void ShowStorePanel(ShowStorePanelEvent evt)

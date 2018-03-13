@@ -104,31 +104,43 @@ namespace MagicFire.HuanHuoUFrame {
             if (_dialogPanelView.isActiveAndEnabled)
             {
                 _dialogPanelView.ClearDialogItem();
-                if (command.NpcView._npcType == 1)
+                var itemList = ((Dictionary<string, object>)command.DialogItemsObject)["values"] as List<object>;
+                //var dialogItemList = new List<Dictionary<string, object>>();
+                foreach (var item in itemList)
                 {
-                    _dialogPanelView.AddDialogItem("我要上擂台", evt => {
-                        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
+                    var itemInfo = item as Dictionary<string, object>;
+                    _dialogPanelView.AddDialogItem((string)itemInfo["content"], evt =>
+                    {
+                        KBEngine.KBEngineApp.app.player().cellCall("selectDialogItem", (int)itemInfo["id"]);
                         _dialogPanelView.gameObject.SetActive(false);
                     });
-                    _dialogPanelView.AddDialogItem("算了，怂", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                    //dialogItemList.Add(itemInfo);
                 }
-                else if (command.NpcView._npcType == 2)
-                {
-                    _dialogPanelView.AddDialogItem("我要购买道具", evt => {
-                        this.Publish(new ShowStorePanelEvent());
-                        _dialogPanelView.gameObject.SetActive(false);
-                    });
-                    _dialogPanelView.AddDialogItem("算了，穷", evt => { _dialogPanelView.gameObject.SetActive(false); });
-                }
-                else if (command.NpcView._npcType == 3)
-                {
-                    _dialogPanelView.AddDialogItem("我要加入宗门", evt => {
-                        //this.Publish(new ShowStorePanelEvent());
-                        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
-                        _dialogPanelView.gameObject.SetActive(false);
-                    });
-                    _dialogPanelView.AddDialogItem("算了，流浪挺好", evt => { _dialogPanelView.gameObject.SetActive(false); });
-                }
+                //if (command.NpcView._npcType == 1)
+                //{
+                //    _dialogPanelView.AddDialogItem("我要上擂台", evt => {
+                //        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
+                //        _dialogPanelView.gameObject.SetActive(false);
+                //    });
+                //    _dialogPanelView.AddDialogItem("算了，怂", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                //}
+                //else if (command.NpcView._npcType == 2)
+                //{
+                //    _dialogPanelView.AddDialogItem("我要购买道具", evt => {
+                //        this.Publish(new ShowStorePanelEvent());
+                //        _dialogPanelView.gameObject.SetActive(false);
+                //    });
+                //    _dialogPanelView.AddDialogItem("算了，穷", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                //}
+                //else if (command.NpcView._npcType == 3)
+                //{
+                //    _dialogPanelView.AddDialogItem("我要加入宗门", evt => {
+                //        //this.Publish(new ShowStorePanelEvent());
+                //        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
+                //        _dialogPanelView.gameObject.SetActive(false);
+                //    });
+                //    _dialogPanelView.AddDialogItem("算了，流浪挺好", evt => { _dialogPanelView.gameObject.SetActive(false); });
+                //}
             }
         }
 

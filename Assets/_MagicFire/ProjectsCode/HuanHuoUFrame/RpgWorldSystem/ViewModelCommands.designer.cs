@@ -59,6 +59,20 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class OnDeadCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class SelectDialogItemCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _DialogID;
+        
+        public Int32 DialogID {
+            get {
+                return _DialogID;
+            }
+            set {
+                _DialogID = value;
+            }
+        }
+    }
+    
     public partial class OnPullStorePropListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private object _StorePropList;
@@ -187,6 +201,20 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _ArenaID = value;
+            }
+        }
+    }
+    
+    public partial class OnDialogItemsReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _DialogItemsObject;
+        
+        public object DialogItemsObject {
+            get {
+                return _DialogItemsObject;
+            }
+            set {
+                _DialogItemsObject = value;
             }
         }
     }
@@ -351,6 +379,20 @@ namespace MagicFire.HuanHuoUFrame {
     }
     
     public partial class onMainAvatarLeaveSpaceCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
+    public partial class RequestDialogCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _NpcID;
+        
+        public Int32 NpcID {
+            get {
+                return _NpcID;
+            }
+            set {
+                _NpcID = value;
+            }
+        }
     }
     
     public partial class DoMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

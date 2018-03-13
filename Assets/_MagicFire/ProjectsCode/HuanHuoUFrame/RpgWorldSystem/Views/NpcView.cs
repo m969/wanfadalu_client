@@ -30,7 +30,7 @@
             this.OnMouseEvent(MouseEventType.OnMouseDown).Subscribe(evt =>
             {
                 Debug.Log("NpcView:OnMouseDown");
-                this.Publish(new ShowDialogPanelEvent() { NpcView = this });
+                KBEngine.KBEngineApp.app.player().cellCall("requestDialog", Npc.id);
             });
         }
 

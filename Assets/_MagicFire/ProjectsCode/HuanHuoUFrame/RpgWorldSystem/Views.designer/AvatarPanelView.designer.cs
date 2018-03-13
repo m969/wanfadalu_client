@@ -59,9 +59,24 @@ namespace MagicFire.HuanHuoUFrame {
             // Any designer bindings are created in the base implementation.
         }
         
+        public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnDialogItemsReturn.OnNext(command);
+        }
+        
+        public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
+            command.Sender = Avatar;
+            Avatar.SelectDialogItem.OnNext(command);
+        }
+        
         public virtual void ExecuteTeleport(TeleportCommand command) {
             command.Sender = Avatar;
             Avatar.Teleport.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestDialog(RequestDialogCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestDialog.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

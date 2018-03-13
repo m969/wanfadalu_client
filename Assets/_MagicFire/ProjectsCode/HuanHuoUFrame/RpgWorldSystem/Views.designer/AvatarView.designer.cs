@@ -26,6 +26,10 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class AvatarViewBase : ArenaSystemView {
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnDialogItemsReturn")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnDialogItemsReturn = true;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("avatarState")]
         [UnityEngine.HideInInspector()]
         public bool _BindavatarState = true;
@@ -71,12 +75,18 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindOnDialogItemsReturn) {
+                this.BindCommandExecuted(this.Avatar.OnDialogItemsReturn, this.OnDialogItemsReturnExecuted);
+            }
             if (_BindavatarState) {
                 this.BindStateProperty(this.Avatar.avatarStateProperty, this.avatarStateChanged, _avatarStateOnlyWhenChanged);
             }
             if (_BindTeleport) {
                 this.BindCommandExecuted(this.Avatar.Teleport, this.TeleportExecuted);
             }
+        }
+        
+        public virtual void OnDialogItemsReturnExecuted(OnDialogItemsReturnCommand command) {
         }
         
         public virtual void avatarStateChanged(uFrame.MVVM.StateMachines.State arg1) {
@@ -121,9 +131,24 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void TeleportExecuted(TeleportCommand command) {
         }
         
+        public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnDialogItemsReturn.OnNext(command);
+        }
+        
+        public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
+            command.Sender = Avatar;
+            Avatar.SelectDialogItem.OnNext(command);
+        }
+        
         public virtual void ExecuteTeleport(TeleportCommand command) {
             command.Sender = Avatar;
             Avatar.Teleport.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestDialog(RequestDialogCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestDialog.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {

@@ -213,9 +213,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowGongFaPanel.OnNext(cmd);
         }
         
-        public virtual void ShowDialogPanel_(NpcView NpcView) {
+        public virtual void ShowDialogPanel_(object DialogItemsObject) {
             var cmd = new ShowDialogPanelCommand();
-            cmd.NpcView = NpcView;
+            cmd.DialogItemsObject = DialogItemsObject;
             this.ShowDialogPanel.OnNext(cmd);
         }
         

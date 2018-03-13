@@ -28,7 +28,13 @@ namespace MagicFire.HuanHuoUFrame {
         
         private AvatarStateMachine _avatarStateProperty;
         
+        private Signal<OnDialogItemsReturnCommand> _OnDialogItemsReturn;
+        
+        private Signal<SelectDialogItemCommand> _SelectDialogItem;
+        
         private Signal<TeleportCommand> _Teleport;
+        
+        private Signal<RequestDialogCommand> _RequestDialog;
         
         private Signal<onMainAvatarEnterSpaceCommand> _onMainAvatarEnterSpace;
         
@@ -56,12 +62,39 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnDialogItemsReturnCommand> OnDialogItemsReturn {
+            get {
+                return _OnDialogItemsReturn;
+            }
+            set {
+                _OnDialogItemsReturn = value;
+            }
+        }
+        
+        public virtual Signal<SelectDialogItemCommand> SelectDialogItem {
+            get {
+                return _SelectDialogItem;
+            }
+            set {
+                _SelectDialogItem = value;
+            }
+        }
+        
         public virtual Signal<TeleportCommand> Teleport {
             get {
                 return _Teleport;
             }
             set {
                 _Teleport = value;
+            }
+        }
+        
+        public virtual Signal<RequestDialogCommand> RequestDialog {
+            get {
+                return _RequestDialog;
+            }
+            set {
+                _RequestDialog = value;
             }
         }
         
@@ -85,14 +118,29 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
+            this.OnDialogItemsReturn = new Signal<OnDialogItemsReturnCommand>(this);
+            this.SelectDialogItem = new Signal<SelectDialogItemCommand>(this);
             this.Teleport = new Signal<TeleportCommand>(this);
+            this.RequestDialog = new Signal<RequestDialogCommand>(this);
             this.onMainAvatarEnterSpace = new Signal<onMainAvatarEnterSpaceCommand>(this);
             this.onMainAvatarLeaveSpace = new Signal<onMainAvatarLeaveSpaceCommand>(this);
             _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
         }
         
+        public virtual void Execute(OnDialogItemsReturnCommand argument) {
+            this.OnDialogItemsReturn.OnNext(argument);
+        }
+        
+        public virtual void Execute(SelectDialogItemCommand argument) {
+            this.SelectDialogItem.OnNext(argument);
+        }
+        
         public virtual void Execute(TeleportCommand argument) {
             this.Teleport.OnNext(argument);
+        }
+        
+        public virtual void Execute(RequestDialogCommand argument) {
+            this.RequestDialog.OnNext(argument);
         }
         
         public virtual void Execute(onMainAvatarEnterSpaceCommand argument) {
@@ -103,10 +151,28 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace.OnNext(argument);
         }
         
+        public virtual void OnDialogItemsReturn_(object DialogItemsObject) {
+            var cmd = new OnDialogItemsReturnCommand();
+            cmd.DialogItemsObject = DialogItemsObject;
+            this.OnDialogItemsReturn.OnNext(cmd);
+        }
+        
+        public virtual void SelectDialogItem_(Int32 DialogID) {
+            var cmd = new SelectDialogItemCommand();
+            cmd.DialogID = DialogID;
+            this.SelectDialogItem.OnNext(cmd);
+        }
+        
         public virtual void Teleport_(Vector3 Position) {
             var cmd = new TeleportCommand();
             cmd.Position = Position;
             this.Teleport.OnNext(cmd);
+        }
+        
+        public virtual void RequestDialog_(Int32 NpcID) {
+            var cmd = new RequestDialogCommand();
+            cmd.NpcID = NpcID;
+            this.RequestDialog.OnNext(cmd);
         }
         
         public virtual void onMainAvatarEnterSpace_(Int32 SpaceId, String SpaceName) {
@@ -133,7 +199,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("OnDialogItemsReturn", OnDialogItemsReturn) { ParameterType = typeof(OnDialogItemsReturnCommand) });
+            list.Add(new ViewModelCommandInfo("SelectDialogItem", SelectDialogItem) { ParameterType = typeof(SelectDialogItemCommand) });
             list.Add(new ViewModelCommandInfo("Teleport", Teleport) { ParameterType = typeof(TeleportCommand) });
+            list.Add(new ViewModelCommandInfo("RequestDialog", RequestDialog) { ParameterType = typeof(RequestDialogCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarEnterSpace", onMainAvatarEnterSpace) { ParameterType = typeof(onMainAvatarEnterSpaceCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarLeaveSpace", onMainAvatarLeaveSpace) { ParameterType = typeof(onMainAvatarLeaveSpaceCommand) });
         }

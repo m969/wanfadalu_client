@@ -158,5 +158,11 @@
             base.OnCastSkillState();
             //.OnCastSkill(Avatar.CurrentSkillName, Avatar.CurrentSkillArgs);
         }
+
+        public override void OnDialogItemsReturnExecuted(OnDialogItemsReturnCommand command)
+        {
+            Debug.Log("AvatarView:OnDialogItemsReturnExecuted " + command);
+            this.Publish(new ShowDialogPanelEvent() { DialogItemsObject = command.DialogItemsObject });
+        }
     }
 }

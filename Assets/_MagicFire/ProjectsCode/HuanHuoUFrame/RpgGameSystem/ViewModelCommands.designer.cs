@@ -94,14 +94,14 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class ShowDialogPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
-        private NpcView _NpcView;
+        private object _DialogItemsObject;
         
-        public NpcView NpcView {
+        public object DialogItemsObject {
             get {
-                return _NpcView;
+                return _DialogItemsObject;
             }
             set {
-                _NpcView = value;
+                _DialogItemsObject = value;
             }
         }
     }

@@ -408,4 +408,18 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
     }
+    
+    public partial class OnJoinSectResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _Result;
+        
+        public Int32 Result {
+            get {
+                return _Result;
+            }
+            set {
+                _Result = value;
+            }
+        }
+    }
 }

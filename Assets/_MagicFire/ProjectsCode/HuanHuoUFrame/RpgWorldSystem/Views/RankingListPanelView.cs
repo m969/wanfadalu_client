@@ -19,6 +19,8 @@
         private GameObject _rankingItemsPanel;
         [SerializeField]
         private GameObject _selfRankingPanel;
+        [SerializeField]
+        private GameObject _rankingItem;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);

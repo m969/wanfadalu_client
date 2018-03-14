@@ -24,8 +24,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RpgWorldSystemLoaderBase : uFrame.Kernel.SystemLoader {
         
-        private SectSystemController _SectSystemController;
-        
         private MagicWeaponSystemController _MagicWeaponSystemController;
         
         private SuperPowerEntityController _SuperPowerEntityController;
@@ -65,19 +63,6 @@ namespace MagicFire.HuanHuoUFrame {
         private ArenaController _ArenaController;
         
         private MonsterController _MonsterController;
-        
-        [uFrame.IOC.InjectAttribute()]
-        public virtual SectSystemController SectSystemController {
-            get {
-                if (_SectSystemController==null) {
-                    _SectSystemController = Container.CreateInstance(typeof(SectSystemController)) as SectSystemController;;
-                }
-                return _SectSystemController;
-            }
-            set {
-                _SectSystemController = value;
-            }
-        }
         
         [uFrame.IOC.InjectAttribute()]
         public virtual MagicWeaponSystemController MagicWeaponSystemController {
@@ -340,8 +325,6 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public override void Load() {
-            Container.RegisterViewModelManager<SectSystemViewModel>(new ViewModelManager<SectSystemViewModel>());
-            Container.RegisterController<SectSystemController>(SectSystemController);
             Container.RegisterViewModelManager<MagicWeaponSystemViewModel>(new ViewModelManager<MagicWeaponSystemViewModel>());
             Container.RegisterController<MagicWeaponSystemController>(MagicWeaponSystemController);
             Container.RegisterViewModelManager<SuperPowerEntityViewModel>(new ViewModelManager<SuperPowerEntityViewModel>());

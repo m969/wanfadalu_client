@@ -74,27 +74,27 @@ namespace MagicFire.HuanHuoUFrame {
 
         public override void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command)
         {
-            _bagPanelView = ShowAvatarPanel(_bagPanelView, "AvatarViewPool", "BagPanel");
+            _bagPanelView = ShowAvatarPanel(_bagPanelView, "UIPanelPool", "BagPanel");
         }
 
         public override void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command)
         {
-            _characterInfoPanelView = ShowAvatarPanel(_characterInfoPanelView, "AvatarViewPool", "CharacterInfoPanel");
+            _characterInfoPanelView = ShowAvatarPanel(_characterInfoPanelView, "UIPanelPool", "CharacterInfoPanel");
         }
 
         public override void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command)
         {
-            _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "AvatarViewPool", "GongFaPanel");
+            _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "UIPanelPool", "GongFaPanel");
         }
 
         public override void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command)
         {
-            _rankingListPanelView = ShowAvatarPanel(_rankingListPanelView, "AvatarViewPool", "RankingListPanel");
+            _rankingListPanelView = ShowAvatarPanel(_rankingListPanelView, "UIPanelPool", "RankingListPanel");
         }
 
         public override void ShowSectPanelExecuted(ShowSectPanelCommand command)
         {
-            _sectPanelView = ShowAvatarPanel(_sectPanelView, "AvatarViewPool", "SectPanel");
+            _sectPanelView = ShowAvatarPanel(_sectPanelView, "UIPanelPool", "SectPanel");
         }
 
         public override void ShowDialogPanelExecuted(ShowDialogPanelCommand command)

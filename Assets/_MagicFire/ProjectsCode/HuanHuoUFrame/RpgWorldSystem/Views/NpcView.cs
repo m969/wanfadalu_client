@@ -11,6 +11,7 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
+    using PathologicalGames;
     
     
     public class NpcView : NpcViewBase {
@@ -32,6 +33,20 @@
                 Debug.Log("NpcView:OnMouseDown");
                 KBEngine.KBEngineApp.app.player().cellCall("requestDialog", Npc.id);
             });
+            var viewPool = PoolManager.Pools["NpcViewPool"];
+            //Transform npcModel = null;
+            var npcModel = viewPool.Spawn(viewPool.prefabs[_entityName]);
+            if (npcModel != null)
+            {
+                npcModel.SetParent(transform);
+                npcModel.localPosition = Vector3.zero;
+            }
+            if (_entityName == "sect")
+            {
+                var mainAvatar = KBEngine.KBEngineApp.app.player() as AvatarViewModel;
+                //if (_sectID == mainAvatar.sectID)
+                //    npcModel.GetComponent<BoxCollider>().enabled = false;
+            }
         }
 
         public override void entityNameChanged(string arg1)

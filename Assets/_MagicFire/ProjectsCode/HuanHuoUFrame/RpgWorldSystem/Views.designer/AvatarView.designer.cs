@@ -26,6 +26,11 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class AvatarViewBase : ArenaSystemView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("OnDialogItemsReturn")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnDialogItemsReturn = true;
@@ -43,6 +48,20 @@ namespace MagicFire.HuanHuoUFrame {
         [uFrame.MVVM.Attributes.UFToggleGroup("Teleport")]
         [UnityEngine.HideInInspector()]
         public bool _BindTeleport = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnJoinSectResult")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnJoinSectResult = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindsectID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("sectID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
+        protected bool _sectIDOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -68,6 +87,7 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var avatarview = ((AvatarViewModel)model);
+            avatarview.sectID = this._sectID;
         }
         
         public override void Bind() {
@@ -83,6 +103,12 @@ namespace MagicFire.HuanHuoUFrame {
             }
             if (_BindTeleport) {
                 this.BindCommandExecuted(this.Avatar.Teleport, this.TeleportExecuted);
+            }
+            if (_BindOnJoinSectResult) {
+                this.BindCommandExecuted(this.Avatar.OnJoinSectResult, this.OnJoinSectResultExecuted);
+            }
+            if (_BindsectID) {
+                this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
             }
         }
         
@@ -131,6 +157,12 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void TeleportExecuted(TeleportCommand command) {
         }
         
+        public virtual void OnJoinSectResultExecuted(OnJoinSectResultCommand command) {
+        }
+        
+        public virtual void sectIDChanged(Int32 arg1) {
+        }
+        
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
             command.Sender = Avatar;
             Avatar.OnDialogItemsReturn.OnNext(command);
@@ -159,6 +191,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnJoinSectResult(OnJoinSectResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnJoinSectResult.OnNext(command);
         }
     }
 }

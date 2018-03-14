@@ -28,6 +28,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private AvatarStateMachine _avatarStateProperty;
         
+        private P<Int32> _sectIDProperty;
+        
         private Signal<OnDialogItemsReturnCommand> _OnDialogItemsReturn;
         
         private Signal<SelectDialogItemCommand> _SelectDialogItem;
@@ -39,6 +41,8 @@ namespace MagicFire.HuanHuoUFrame {
         private Signal<onMainAvatarEnterSpaceCommand> _onMainAvatarEnterSpace;
         
         private Signal<onMainAvatarLeaveSpaceCommand> _onMainAvatarLeaveSpace;
+        
+        private Signal<OnJoinSectResultCommand> _OnJoinSectResult;
         
         public AvatarViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
@@ -59,6 +63,24 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 avatarStateProperty.Value = value;
+            }
+        }
+        
+        public virtual P<Int32> sectIDProperty {
+            get {
+                return _sectIDProperty;
+            }
+            set {
+                _sectIDProperty = value;
+            }
+        }
+        
+        public virtual Int32 sectID {
+            get {
+                return sectIDProperty.Value;
+            }
+            set {
+                sectIDProperty.Value = value;
             }
         }
         
@@ -116,6 +138,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnJoinSectResultCommand> OnJoinSectResult {
+            get {
+                return _OnJoinSectResult;
+            }
+            set {
+                _OnJoinSectResult = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
             this.OnDialogItemsReturn = new Signal<OnDialogItemsReturnCommand>(this);
@@ -124,6 +155,8 @@ namespace MagicFire.HuanHuoUFrame {
             this.RequestDialog = new Signal<RequestDialogCommand>(this);
             this.onMainAvatarEnterSpace = new Signal<onMainAvatarEnterSpaceCommand>(this);
             this.onMainAvatarLeaveSpace = new Signal<onMainAvatarLeaveSpaceCommand>(this);
+            this.OnJoinSectResult = new Signal<OnJoinSectResultCommand>(this);
+            _sectIDProperty = new P<Int32>(this, "sectID");
             _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
         }
         
@@ -149,6 +182,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(onMainAvatarLeaveSpaceCommand argument) {
             this.onMainAvatarLeaveSpace.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnJoinSectResultCommand argument) {
+            this.OnJoinSectResult.OnNext(argument);
         }
         
         public virtual void OnDialogItemsReturn_(object DialogItemsObject) {
@@ -187,13 +224,21 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace.OnNext(cmd);
         }
         
+        public virtual void OnJoinSectResult_(Int32 Result) {
+            var cmd = new OnJoinSectResultCommand();
+            cmd.Result = Result;
+            this.OnJoinSectResult.OnNext(cmd);
+        }
+        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this.sectID = stream.DeserializeInt("sectID");;
             this._avatarStateProperty.SetState(stream.DeserializeString("avatarState"));
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeInt("sectID", this.sectID);
             stream.SerializeString("avatarState", this.avatarState.Name);;
         }
         
@@ -205,10 +250,13 @@ namespace MagicFire.HuanHuoUFrame {
             list.Add(new ViewModelCommandInfo("RequestDialog", RequestDialog) { ParameterType = typeof(RequestDialogCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarEnterSpace", onMainAvatarEnterSpace) { ParameterType = typeof(onMainAvatarEnterSpaceCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarLeaveSpace", onMainAvatarLeaveSpace) { ParameterType = typeof(onMainAvatarLeaveSpaceCommand) });
+            list.Add(new ViewModelCommandInfo("OnJoinSectResult", OnJoinSectResult) { ParameterType = typeof(OnJoinSectResultCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_sectIDProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_avatarStateProperty, false, false, false, false));
         }

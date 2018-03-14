@@ -63,6 +63,7 @@ namespace MagicFire.HuanHuoUFrame {
             viewModel.RequestDialog.Action = this.RequestDialogHandler;
             viewModel.onMainAvatarEnterSpace.Action = this.onMainAvatarEnterSpaceHandler;
             viewModel.onMainAvatarLeaveSpace.Action = this.onMainAvatarLeaveSpaceHandler;
+            viewModel.OnJoinSectResult.Action = this.OnJoinSectResultHandler;
             AvatarViewModelManager.Add(viewModel);
         }
         
@@ -95,6 +96,10 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace(command.Sender as AvatarViewModel, command);
         }
         
+        public virtual void OnJoinSectResultHandler(OnJoinSectResultCommand command) {
+            this.OnJoinSectResult(command.Sender as AvatarViewModel, command);
+        }
+        
         public virtual void OnDialogItemsReturn(AvatarViewModel viewModel, OnDialogItemsReturnCommand arg) {
         }
         
@@ -111,6 +116,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void onMainAvatarLeaveSpace(AvatarViewModel viewModel, onMainAvatarLeaveSpaceCommand arg) {
+        }
+        
+        public virtual void OnJoinSectResult(AvatarViewModel viewModel, OnJoinSectResultCommand arg) {
         }
     }
 }

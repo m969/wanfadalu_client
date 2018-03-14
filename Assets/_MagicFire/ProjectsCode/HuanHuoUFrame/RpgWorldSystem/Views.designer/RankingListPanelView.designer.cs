@@ -26,6 +26,11 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RankingListPanelViewBase : PanelView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("OnRequestRankingListReturn")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnRequestRankingListReturn = true;
@@ -58,6 +63,7 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var rankinglistpanelview = ((AvatarViewModel)model);
+            rankinglistpanelview.sectID = this._sectID;
         }
         
         public override void Bind() {
@@ -107,6 +113,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnJoinSectResult(OnJoinSectResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnJoinSectResult.OnNext(command);
         }
     }
 }

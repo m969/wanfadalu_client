@@ -164,5 +164,10 @@
             Debug.Log("AvatarView:OnDialogItemsReturnExecuted " + command);
             this.Publish(new ShowDialogPanelEvent() { DialogItemsObject = command.DialogItemsObject });
         }
+
+        public override void sectIDChanged(int arg1)
+        {
+            _sectID = arg1;
+        }
     }
 }

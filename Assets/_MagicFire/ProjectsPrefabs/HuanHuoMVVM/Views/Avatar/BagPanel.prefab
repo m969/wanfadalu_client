@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.85294116, g: 0.85294116, b: 0.85294116, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 1573420865, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.568}
   m_EffectDistance: {x: -4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &11470382
@@ -688,6 +688,7 @@ MonoBehaviour:
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
   _headBar: {fileID: 11489878}
+  _sectID: 0
   _BindpropList: 1
   _propListOnlyWhenChanged: 0
   _goldCountText: {fileID: 11458276}

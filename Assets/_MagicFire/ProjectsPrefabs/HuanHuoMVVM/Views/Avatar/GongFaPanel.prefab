@@ -146,8 +146,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.17647058, g: 0.17647058, b: 0.17647058, a: 1}
-    m_HighlightedColor: {r: 0.71323526, g: 0, b: 0, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -974,11 +974,13 @@ MonoBehaviour:
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
   _headBar: {fileID: 11492440}
-  _goldCount: 0
+  _sectID: 0
   _BindgongFaList: 1
   _gongFaListOnlyWhenChanged: 0
   _gongFaContentTransform: {fileID: 224599298384854642}
   _gongFaItemPrefab: {fileID: 224391580008351820, guid: 1c42ae7e4f9c3624fa1ef3970a34fcb1,
+    type: 2}
+  _skillItemPrefab: {fileID: 224384195591447750, guid: 6b490259e1a55e14a85f22d73b6128c2,
     type: 2}
 --- !u!114 &114748522358448412
 MonoBehaviour:

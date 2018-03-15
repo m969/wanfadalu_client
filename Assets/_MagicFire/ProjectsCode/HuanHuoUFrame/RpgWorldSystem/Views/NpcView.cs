@@ -44,8 +44,8 @@
             if (_entityName == "sect")
             {
                 var mainAvatar = KBEngine.KBEngineApp.app.player() as AvatarViewModel;
-                //if (_sectID == mainAvatar.sectID)
-                //    npcModel.GetComponent<BoxCollider>().enabled = false;
+                if (_sectID == mainAvatar.sectID)
+                    npcModel.GetComponent<BoxCollider>().enabled = false;
             }
         }
 
@@ -67,6 +67,11 @@
         public override void arenaIDChanged(int arg1)
         {
             _arenaID = arg1;
+        }
+
+        public override void sectIDChanged(int arg1)
+        {
+            _sectID = arg1;
         }
 
         public override void OnDestroyExecuted(OnDestroyCommand command)

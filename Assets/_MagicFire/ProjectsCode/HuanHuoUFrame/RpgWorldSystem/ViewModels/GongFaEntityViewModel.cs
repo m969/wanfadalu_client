@@ -24,7 +24,7 @@
             foreach (var gongFaInfo in gongFaList)
             {
                 var skillList = ((Dictionary<string, object>)gongFaInfo)["values"] as List<object>;
-                var gongFaName = (int)((Dictionary<string, object>)gongFaInfo)["gongFaID"];
+                var gongFaID = (int)((Dictionary<string, object>)gongFaInfo)["gongFaID"];
                 var skillMap = new Dictionary<int, ASkill>();
                 foreach (var skillInfo in skillList)
                 {
@@ -35,7 +35,7 @@
                     skill.skillLevel = skillLevel;
                     skillMap[skillIndex] = skill;
                 }
-                gongFaMap[gongFaName] = skillMap;
+                gongFaMap[gongFaID] = skillMap;
             }
             return gongFaMap;
         }

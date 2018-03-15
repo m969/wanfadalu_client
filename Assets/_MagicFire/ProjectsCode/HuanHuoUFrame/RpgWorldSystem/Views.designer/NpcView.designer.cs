@@ -28,6 +28,11 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
         public Int32 _npcID;
         
         [UnityEngine.SerializeField()]
@@ -59,6 +64,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_npcTypeonlyWhenChanged")]
         protected bool _npcTypeOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindsectID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("sectID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
+        protected bool _sectIDOnlyWhenChanged;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("entityName")]
         [UnityEngine.HideInInspector()]
@@ -104,6 +119,7 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as NpcViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var npcview = ((NpcViewModel)model);
+            npcview.sectID = this._sectID;
             npcview.npcID = this._npcID;
             npcview.npcType = this._npcType;
             npcview.arenaID = this._arenaID;
@@ -120,6 +136,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindnpcType) {
                 this.BindProperty(this.Npc.npcTypeProperty, this.npcTypeChanged, _npcTypeOnlyWhenChanged);
             }
+            if (_BindsectID) {
+                this.BindProperty(this.Npc.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
+            }
             if (_BindentityName) {
                 this.BindProperty(this.Npc.entityNameProperty, this.entityNameChanged, _entityNameOnlyWhenChanged);
             }
@@ -132,6 +151,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void npcTypeChanged(Int32 arg1) {
+        }
+        
+        public virtual void sectIDChanged(Int32 arg1) {
         }
         
         public virtual void entityNameChanged(String arg1) {

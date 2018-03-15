@@ -26,6 +26,8 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class NpcViewModelBase : EntityCommonViewModel {
         
+        private P<Int32> _sectIDProperty;
+        
         private P<Int32> _npcIDProperty;
         
         private P<Int32> _npcTypeProperty;
@@ -34,6 +36,15 @@ namespace MagicFire.HuanHuoUFrame {
         
         public NpcViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual P<Int32> sectIDProperty {
+            get {
+                return _sectIDProperty;
+            }
+            set {
+                _sectIDProperty = value;
+            }
         }
         
         public virtual P<Int32> npcIDProperty {
@@ -60,6 +71,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _arenaIDProperty = value;
+            }
+        }
+        
+        public virtual Int32 sectID {
+            get {
+                return sectIDProperty.Value;
+            }
+            set {
+                sectIDProperty.Value = value;
             }
         }
         
@@ -92,6 +112,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
+            _sectIDProperty = new P<Int32>(this, "sectID");
             _npcIDProperty = new P<Int32>(this, "npcID");
             _npcTypeProperty = new P<Int32>(this, "npcType");
             _arenaIDProperty = new P<Int32>(this, "arenaID");
@@ -99,6 +120,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this.sectID = stream.DeserializeInt("sectID");;
             this.npcID = stream.DeserializeInt("npcID");;
             this.npcType = stream.DeserializeInt("npcType");;
             this.arenaID = stream.DeserializeInt("arenaID");;
@@ -106,6 +128,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeInt("sectID", this.sectID);
             stream.SerializeInt("npcID", this.npcID);
             stream.SerializeInt("npcType", this.npcType);
             stream.SerializeInt("arenaID", this.arenaID);
@@ -117,6 +140,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_sectIDProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_npcIDProperty, false, false, false, false));
             // PropertiesChildItem

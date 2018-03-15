@@ -191,6 +191,20 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class RequestSelfRankingCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class OnJoinSectResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _Result;
+        
+        public Int32 Result {
+            get {
+                return _Result;
+            }
+            set {
+                _Result = value;
+            }
+        }
+    }
+    
     public partial class RequestEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Int32 _ArenaID;
@@ -405,20 +419,6 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _Point = value;
-            }
-        }
-    }
-    
-    public partial class OnJoinSectResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
-        
-        private Int32 _Result;
-        
-        public Int32 Result {
-            get {
-                return _Result;
-            }
-            set {
-                _Result = value;
             }
         }
     }

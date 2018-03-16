@@ -58,12 +58,15 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void InitializeAvatar(AvatarViewModel viewModel) {
             // This is called when a AvatarViewModel is created
             viewModel.OnDialogItemsReturn.Action = this.OnDialogItemsReturnHandler;
+            viewModel.OnError.Action = this.OnErrorHandler;
             viewModel.SelectDialogItem.Action = this.SelectDialogItemHandler;
+            viewModel.OnTargetItemListReturn.Action = this.OnTargetItemListReturnHandler;
             viewModel.Teleport.Action = this.TeleportHandler;
             viewModel.RequestDialog.Action = this.RequestDialogHandler;
             viewModel.onMainAvatarEnterSpace.Action = this.onMainAvatarEnterSpaceHandler;
             viewModel.onMainAvatarLeaveSpace.Action = this.onMainAvatarLeaveSpaceHandler;
             viewModel.OnJoinSectResult.Action = this.OnJoinSectResultHandler;
+            viewModel.OnRequestForgeResult.Action = this.OnRequestForgeResultHandler;
             AvatarViewModelManager.Add(viewModel);
         }
         
@@ -76,8 +79,16 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnDialogItemsReturn(command.Sender as AvatarViewModel, command);
         }
         
+        public virtual void OnErrorHandler(OnErrorCommand command) {
+            this.OnError(command.Sender as AvatarViewModel, command);
+        }
+        
         public virtual void SelectDialogItemHandler(SelectDialogItemCommand command) {
             this.SelectDialogItem(command.Sender as AvatarViewModel, command);
+        }
+        
+        public virtual void OnTargetItemListReturnHandler(OnTargetItemListReturnCommand command) {
+            this.OnTargetItemListReturn(command.Sender as AvatarViewModel, command);
         }
         
         public virtual void TeleportHandler(TeleportCommand command) {
@@ -100,10 +111,20 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnJoinSectResult(command.Sender as AvatarViewModel, command);
         }
         
+        public virtual void OnRequestForgeResultHandler(OnRequestForgeResultCommand command) {
+            this.OnRequestForgeResult(command.Sender as AvatarViewModel, command);
+        }
+        
         public virtual void OnDialogItemsReturn(AvatarViewModel viewModel, OnDialogItemsReturnCommand arg) {
         }
         
+        public virtual void OnError(AvatarViewModel viewModel, OnErrorCommand arg) {
+        }
+        
         public virtual void SelectDialogItem(AvatarViewModel viewModel, SelectDialogItemCommand arg) {
+        }
+        
+        public virtual void OnTargetItemListReturn(AvatarViewModel viewModel, OnTargetItemListReturnCommand arg) {
         }
         
         public virtual void Teleport(AvatarViewModel viewModel, TeleportCommand arg) {
@@ -119,6 +140,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void OnJoinSectResult(AvatarViewModel viewModel, OnJoinSectResultCommand arg) {
+        }
+        
+        public virtual void OnRequestForgeResult(AvatarViewModel viewModel, OnRequestForgeResultCommand arg) {
         }
     }
 }

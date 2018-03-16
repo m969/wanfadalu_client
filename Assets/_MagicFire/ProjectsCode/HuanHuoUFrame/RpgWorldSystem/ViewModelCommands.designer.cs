@@ -182,6 +182,20 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class OnRequestForgeResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _Result;
+        
+        public Int32 Result {
+            get {
+                return _Result;
+            }
+            set {
+                _Result = value;
+            }
+        }
+    }
+    
     public partial class RequestExitArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
@@ -201,6 +215,20 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _Result = value;
+            }
+        }
+    }
+    
+    public partial class OnErrorCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _ErrorCode;
+        
+        public Int32 ErrorCode {
+            get {
+                return _ErrorCode;
+            }
+            set {
+                _ErrorCode = value;
             }
         }
     }
@@ -385,6 +413,20 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _RankingInfo = value;
+            }
+        }
+    }
+    
+    public partial class OnTargetItemListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _TargetItemListObject;
+        
+        public object TargetItemListObject {
+            get {
+                return _TargetItemListObject;
+            }
+            set {
+                _TargetItemListObject = value;
             }
         }
     }

@@ -16,7 +16,7 @@ namespace MagicFire.HuanHuoUFrame {
     using System.Linq;
     
     
-    public class ArenaSystemControllerBase : CampEntityController {
+    public class ArenaSystemControllerBase : MagicWeaponSystemController {
         
         private uFrame.MVVM.ViewModels.IViewModelManager<ArenaSystemViewModel> _ArenaSystemViewModelManager;
         

@@ -29,6 +29,11 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
+        public Int32 _lingshiAmount;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
         public Int32 _sectID;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("HP")]
@@ -135,6 +140,7 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var mainavatarinfopanelview = ((AvatarViewModel)model);
+            mainavatarinfopanelview.lingshiAmount = this._lingshiAmount;
             mainavatarinfopanelview.sectID = this._sectID;
         }
         
@@ -198,9 +204,19 @@ namespace MagicFire.HuanHuoUFrame {
             Avatar.OnDialogItemsReturn.OnNext(command);
         }
         
+        public virtual void ExecuteOnError(OnErrorCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnError.OnNext(command);
+        }
+        
         public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
             command.Sender = Avatar;
             Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnTargetItemListReturn.OnNext(command);
         }
         
         public virtual void ExecuteTeleport(TeleportCommand command) {
@@ -226,6 +242,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteOnJoinSectResult(OnJoinSectResultCommand command) {
             command.Sender = Avatar;
             Avatar.OnJoinSectResult.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnRequestForgeResult(OnRequestForgeResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnRequestForgeResult.OnNext(command);
         }
     }
 }

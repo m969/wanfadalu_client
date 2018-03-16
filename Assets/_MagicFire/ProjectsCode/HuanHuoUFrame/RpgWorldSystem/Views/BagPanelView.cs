@@ -21,9 +21,12 @@ namespace MagicFire.HuanHuoUFrame {
     public class BagPanelView : BagPanelViewBase
     {
         [SerializeField]
-        private Text _goldCountText;
-        [SerializeField]
         private Transform _itemsPanel;
+        [SerializeField]
+        private Transform _propItemPrefab;
+        [SerializeField]
+        private Text _lingshiAmountText;
+
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -45,12 +48,11 @@ namespace MagicFire.HuanHuoUFrame {
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
             if (tmpPropList != null)
             {
-                var spawnPool = PoolManager.Pools["UIPanelPool"];
                 foreach (var item in tmpPropList)
                 {
                     var prop = (Dictionary<string, object>)item;
                     JObject propData = JObject.Parse(prop["propData"] as string);
-                    var propItem = spawnPool.Spawn(spawnPool.prefabs["BagItem"]);
+                    var propItem = Instantiate(_propItemPrefab);
                     propItem.name = prop["propUUID"] as string;
                     var srcName = "PropImages/prop_" + int.Parse(propData["id"].ToString());
                     var itemImage = propItem.Find("Background").GetComponent<Image>();
@@ -59,6 +61,11 @@ namespace MagicFire.HuanHuoUFrame {
                     propItem.SetParent(_itemsPanel);
                 }
             }
+        }
+
+        public override void lingshiAmountChanged(int arg1)
+        {
+            _lingshiAmountText.text = arg1.ToString();
         }
     }
 }

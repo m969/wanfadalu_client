@@ -162,25 +162,25 @@ namespace MagicFire.HuanHuoUFrame{
             return viewPool.SpawnEntityCommonViewObject<EntityCommonView>(viewPrefab, viewModel);
         }
 
-        private EntityCommonView InstantiateRingView(KBEngine.Entity entity)
-        {
-            var entityType = entity.className.Replace("ViewModel", "");
-            var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-            var viewModel = entity as EntityCommonViewModel;
-            var viewPrefab = viewPool.prefabs[entityType + "RingView"];
-            var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
-            return view;
-        }
+        //private EntityCommonView InstantiateRingView(KBEngine.Entity entity)
+        //{
+        //    var entityType = entity.className.Replace("ViewModel", "");
+        //    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
+        //    var viewModel = entity as EntityCommonViewModel;
+        //    var viewPrefab = viewPool.prefabs[entityType + "RingView"];
+        //    var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
+        //    return view;
+        //}
 
-        private EntityCommonView InstantiatePanelView(KBEngine.Entity entity)
-        {
-            var entityType = entity.className.Replace("ViewModel", "");
-            var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-            var viewModel = entity as EntityCommonViewModel;
-            var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
-            var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
-            return view;
-        }
+        //private EntityCommonView InstantiatePanelView(KBEngine.Entity entity)
+        //{
+        //    var entityType = entity.className.Replace("ViewModel", "");
+        //    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
+        //    var viewModel = entity as EntityCommonViewModel;
+        //    var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
+        //    var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
+        //    return view;
+        //}
 
         private void InstantiateViews(KBEngine.Entity entity)
         {
@@ -209,8 +209,13 @@ namespace MagicFire.HuanHuoUFrame{
                 }
                 if (entity.className == "AvatarViewModel")
                 {
-                    var ringView = InstantiateRingView(entity);
-                    var panelView = InstantiatePanelView(entity);
+                    var entityType = entity.className.Replace("ViewModel", "");
+                    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
+                    var viewModel = entity as EntityCommonViewModel;
+                    var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
+                    viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
+                    viewPrefab = viewPool.prefabs[entityType + "RingView"];
+                    viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
                 }
             }
         }
@@ -241,17 +246,17 @@ namespace MagicFire.HuanHuoUFrame{
 
         private void OnLeaveWorld(onLeaveWorldEvent evt)
         {
-            var entity = evt.Entity;
-            if (entity.renderObj == null)
-                return;
+            //var entity = evt.Entity;
+            //if (entity.renderObj == null)
+            //    return;
 
-            var viewObj = (GameObject)entity.renderObj;
-            if (viewObj.activeInHierarchy == true)
-            {
-                viewObj.transform.parent.GetComponent<SpawnPool>().Despawn(viewObj.transform);
-                entity.renderObj = null;
-            }
-            viewObj.GetComponent<ViewBase>().ViewModelObject = null;
+            //var viewObj = (GameObject)entity.renderObj;
+            //if (viewObj.activeInHierarchy == true)
+            //{
+            //    viewObj.transform.parent.GetComponent<SpawnPool>().Despawn(viewObj.transform);
+            //    entity.renderObj = null;
+            //}
+            //viewObj.GetComponent<ViewBase>().ViewModelObject = null;
         }
 
         private void Set_Position(set_positionEvent evt)

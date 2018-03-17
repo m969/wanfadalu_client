@@ -163,8 +163,7 @@
 
         public override void magicWeaponListChanged(object arg1)
         {
-            base.magicWeaponListChanged(arg1);
-            Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
+            //Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
             _magicWeaponList = new Dictionary<ulong, Prop>();
             if (tmpPropList != null)
@@ -184,6 +183,7 @@
             {
                 var child = _weaponListParent.transform.GetChild(item.Value.index);
                 var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
+                //Debug.Log(srcName);
                 var itemImage = child.GetComponent<Image>();
                 var tempType = itemImage.sprite;
                 itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;

@@ -1,9 +1,16 @@
 fileFormatVersion: 2
-guid: 0ef7c6ae8574bf744b3607319d173260
-timeCreated: 1476322011
-licenseType: Free
+guid: 753e5750f0f3e47488ac83ce7371109a
+labels:
+- Character
+- Girl
+- Hero
+- Thief
+- Stealth
+- Rogue
+- Assassin
+timeCreated: 1460051700
+licenseType: Store
 NativeFormatImporter:
-  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

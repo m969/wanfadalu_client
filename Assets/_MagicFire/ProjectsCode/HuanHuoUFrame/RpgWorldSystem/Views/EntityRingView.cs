@@ -30,26 +30,20 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.SuperPowerEntity to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-
             this.Bindings.Add(
                 Observable.EveryFixedUpdate().Subscribe(evt =>
                 {
                     var entityObj = ViewModelObject.renderObj as GameObject;
                     if (entityObj == null)
                         return;
-                    var v = new Vector3(entityObj.transform.position.x, entityObj.transform.position.z, -0.1f);
-                    transform.DOLocalMove(v, 0.01f);
+                    //var v = new Vector3(entityObj.transform.position.x, entityObj.transform.position.y, entityObj.transform.position.z + 0.5f);
+                    transform.DOLocalMove(entityObj.transform.position, 0.01f);
                 })
             );
-
-            if (WorldViewService)
-                transform.SetParent(WorldViewService.Canvas3D.transform);
-            else
-                Debug.LogError("WorldViewService is null");
-
-            var entity3DPanelPosition = new Vector3(ViewModelObject.position.x, ViewModelObject.position.z, -1);
-            transform.localPosition = entity3DPanelPosition;
-            transform.localEulerAngles = Vector3.zero;
+            transform.SetParent(WorldViewService.Canvas3D.transform);
+            //var entity3DPanelPosition = new Vector3(ViewModelObject.position.x, ViewModelObject.position.z, -1);
+            //transform.localPosition = entity3DPanelPosition;
+            transform.localEulerAngles = new Vector3(90, 0, 0);
         }
     }
 }

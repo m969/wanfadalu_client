@@ -125,6 +125,11 @@
             this._canMove = arg1;
         }
 
+        public override void sectIDChanged(int arg1)
+        {
+            _sectID = arg1;
+        }
+
         public override void OnIdleState()
         {
             base.OnIdleState();
@@ -165,9 +170,9 @@
             this.Publish(new ShowDialogPanelEvent() { DialogItemsObject = command.DialogItemsObject });
         }
 
-        public override void sectIDChanged(int arg1)
+        public override void OnPullStorePropListReturnExecuted(OnPullStorePropListReturnCommand command)
         {
-            _sectID = arg1;
+            Debug.Log("AvatarView:OnPullStorePropListReturnExecuted " + command);
         }
     }
 }

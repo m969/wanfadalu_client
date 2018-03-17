@@ -68,6 +68,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
         protected bool _sectIDOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnPullStorePropListReturn")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnPullStorePropListReturn = true;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -115,6 +119,9 @@ namespace MagicFire.HuanHuoUFrame {
             }
             if (_BindsectID) {
                 this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
+            }
+            if (_BindOnPullStorePropListReturn) {
+                this.BindCommandExecuted(this.Avatar.OnPullStorePropListReturn, this.OnPullStorePropListReturnExecuted);
             }
         }
         
@@ -167,6 +174,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void sectIDChanged(Int32 arg1) {
+        }
+        
+        public virtual void OnPullStorePropListReturnExecuted(OnPullStorePropListReturnCommand command) {
         }
         
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {

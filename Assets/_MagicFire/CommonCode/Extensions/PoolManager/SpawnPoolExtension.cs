@@ -53,8 +53,7 @@ public static class SpawnPoolExtensions
     {
         if (view.ViewModelObject != null)
             view.ViewModelObject = null;
-        if (view.gameObject.activeInHierarchy == true)
-            spawnPool.Despawn(view.transform);
+        spawnPool.Despawn(view.transform);
     }
 
     public static void DespawnEntityCommonView(this SpawnPool spawnPool, EntityCommonView entityCommonView)

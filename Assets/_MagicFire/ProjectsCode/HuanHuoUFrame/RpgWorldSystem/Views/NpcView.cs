@@ -15,6 +15,7 @@
     
     
     public class NpcView : NpcViewBase {
+        private Transform _npcModel;
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -35,17 +36,17 @@
             });
             var viewPool = PoolManager.Pools["NpcViewPool"];
             //Transform npcModel = null;
-            var npcModel = viewPool.Spawn(viewPool.prefabs[_entityName]);
-            if (npcModel != null)
+            _npcModel = viewPool.Spawn(viewPool.prefabs[_entityName]);
+            if (_npcModel != null)
             {
-                npcModel.SetParent(transform);
-                npcModel.localPosition = Vector3.zero;
+                _npcModel.SetParent(transform);
+                _npcModel.localPosition = Vector3.zero;
             }
             if (_entityName == "sect")
             {
                 var mainAvatar = KBEngine.KBEngineApp.app.player() as AvatarViewModel;
                 if (_sectID == mainAvatar.sectID)
-                    npcModel.GetComponent<BoxCollider>().enabled = false;
+                    _npcModel.GetComponent<BoxCollider>().enabled = false;
             }
         }
 
@@ -76,10 +77,26 @@
 
         public override void OnDestroyExecuted(OnDestroyCommand command)
         {
+            Debug.Log("NpcView:OnDestroyExecuted");
+            if (_npcModel.gameObject.activeSelf)
+            {
+                _npcModel.SetParent(ParentSpawnPool.transform);
+                ParentSpawnPool.Despawn(_npcModel);
+            }
+            base.OnDestroyExecuted(command);
+            //Destroy(gameObject);
         }
 
         public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)
         {
+            Debug.Log("NpcView:OnLeaveWorldExecuted");
+            if (_npcModel.gameObject.activeSelf)
+            {
+                _npcModel.SetParent(ParentSpawnPool.transform);
+                ParentSpawnPool.Despawn(_npcModel);
+            }
+            base.OnLeaveWorldExecuted(command);
+            //Destroy(gameObject);
         }
     }
 }

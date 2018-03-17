@@ -30,24 +30,26 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.EntityCommon to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-
             this.Bindings.Add(
                 Observable.EveryFixedUpdate().Subscribe(evt =>
                 {
-                    var modelObj = ViewModelObject.renderObj as GameObject;
-                    var v = Camera.main.WorldToScreenPoint(modelObj.transform.position);
-                    transform.DOMove(new Vector3(v.x, v.y, 0), 0.1f);
+                    var entityObj = ViewModelObject.renderObj as GameObject;
+                    var v = new Vector3(entityObj.transform.position.x, entityObj.transform.position.y + 2.0f, entityObj.transform.position.z);
+                    transform.DOLocalMove(v, 0.01f);
+                    transform.eulerAngles = Camera.main.transform.eulerAngles;
+                    //var v = Camera.main.WorldToScreenPoint(entityObj.transform.position);
+                    //transform.DOMove(new Vector3(v.x, v.y, 0), 0.1f);
                 })
             );
-
-            transform.SetParent(WorldViewService.MasterCanvas.transform);
-
-            var entityPanelPosition = Camera.main.WorldToScreenPoint(ViewModelObject.position);
-            entityPanelPosition = new Vector3(entityPanelPosition.x, entityPanelPosition.y, 0);
-
-            transform.localPosition = entityPanelPosition;
-            transform.localEulerAngles = Vector3.zero;
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.SetParent(WorldViewService.Canvas3D.transform);
+            //var entity3DPanelPosition = new Vector3(ViewModelObject.position.x, ViewModelObject.position.z, -1);
+            //transform.localPosition = entity3DPanelPosition;
+            //transform.localEulerAngles = Vector3.zero;
+            //var entityPanelPosition = Camera.main.WorldToScreenPoint(ViewModelObject.position);
+            //entityPanelPosition = new Vector3(entityPanelPosition.x, entityPanelPosition.y, 0);
+            //transform.localPosition = entityPanelPosition;
+            //transform.localEulerAngles = Vector3.zero;
+            //transform.localScale = new Vector3(1, 1, 1);
         }
     }
 }

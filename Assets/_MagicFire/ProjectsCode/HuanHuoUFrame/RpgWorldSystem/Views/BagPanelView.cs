@@ -44,7 +44,7 @@ namespace MagicFire.HuanHuoUFrame {
 
         public override void propListChanged(object arg1)
         {
-            base.propListChanged(arg1);
+            //Debug.Log("BagPanelView:propListChanged");
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
             if (tmpPropList != null)
             {
@@ -53,6 +53,7 @@ namespace MagicFire.HuanHuoUFrame {
                     var prop = (Dictionary<string, object>)item;
                     JObject propData = JObject.Parse(prop["propData"] as string);
                     var propItem = Instantiate(_propItemPrefab);
+                    //Debug.Log(prop["propUUID"] + " " + propItem);
                     propItem.name = prop["propUUID"] as string;
                     var srcName = "PropImages/prop_" + int.Parse(propData["id"].ToString());
                     var itemImage = propItem.Find("Background").GetComponent<Image>();

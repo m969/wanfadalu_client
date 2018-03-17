@@ -86,7 +86,7 @@ MonoBehaviour:
     cullMaxPerPass: 5
     _logMessages: 0
     spawnPool: {fileID: 0}
-  - prefab: {fileID: 22408162, guid: 1a8ee1fce823b6649be3df2211a64df4, type: 2}
+  - prefab: {fileID: 224763796071826738, guid: 2f267dc23dae48649bcff84710fa983f, type: 2}
     preloadAmount: 1
     preloadTime: 0
     preloadFrames: 2

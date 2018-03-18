@@ -42,30 +42,31 @@ namespace MagicFire.HuanHuoUFrame {
         {
             //Debug.Log("EntityCommonView:OnDestroyExecuted");
             ParentSpawnPool.DespawnEntityCommonView(this);
+            ViewModelObject = null;
             //if (gameObject.activeSelf)
             //{
             //    ParentSpawnPool.Despawn(this.transform);
             //}
-            if (gameObject.activeSelf)
-            {
-                Debug.Log(name + " SetActive(false)");
-                gameObject.SetActive(false);
-            }
+            //if (gameObject.activeSelf)
+            //{
+            //    Debug.Log(name + " SetActive(false)");
+            //    gameObject.SetActive(false);
+            //}
         }
 
         public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)
         {
             //Debug.Log("EntityCommonView:OnLeaveWorldExecuted");
-            ParentSpawnPool.DespawnEntityCommonView(this);
+            //ParentSpawnPool.DespawnEntityCommonView(this);
             //if (gameObject.activeSelf)
             //{
             //    ParentSpawnPool.Despawn(this.transform);
             //}
-            if (gameObject.activeSelf)
-            {
-                Debug.Log(name + " SetActive(false)");
-                gameObject.SetActive(false);
-            }
+            //if (gameObject.activeSelf)
+            //{
+            //    Debug.Log(name + " SetActive(false)");
+            //    gameObject.SetActive(false);
+            //}
         }
     }
 }

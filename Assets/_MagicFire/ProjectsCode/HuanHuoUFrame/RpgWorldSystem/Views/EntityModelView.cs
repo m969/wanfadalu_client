@@ -29,7 +29,6 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.SuperPowerEntity to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-
             if (!this.EntityCommon.isPlayer())
             {
                 this.Bindings.Add(
@@ -41,11 +40,11 @@ namespace MagicFire.HuanHuoUFrame {
                     })
                 );
             }
-
+            Debug.Log(this.ViewModelType.Name + " " + ViewModelObject.direction);
             ViewModelObject.renderObj = gameObject;
-            transform.position = ViewModelObject.position;
-            var dirt = ViewModelObject.direction;
-            transform.eulerAngles = new Vector3(dirt.x, dirt.z, dirt.y);
+            //transform.position = ViewModelObject.position;
+            //var dirt = ViewModelObject.direction;
+            //transform.eulerAngles = new Vector3(dirt.x, dirt.z, dirt.y);
         }
     }
 }

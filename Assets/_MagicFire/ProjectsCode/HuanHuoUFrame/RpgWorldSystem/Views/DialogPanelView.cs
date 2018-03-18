@@ -56,5 +56,20 @@
             Debug.Log("DialogPanelView:ClearDialogItem childCount=" + _playerPanel.transform.childCount);
             _playerPanel.DestroyChildren();
         }
+
+        public void RefreshPanel(object DialogItemsObject)
+        {
+            ClearDialogItem();
+            var itemList = ((Dictionary<string, object>)DialogItemsObject)["values"] as List<object>;
+            foreach (var item in itemList)
+            {
+                var itemInfo = item as Dictionary<string, object>;
+                AddDialogItem((string)itemInfo["content"], evt =>
+                {
+                    KBEngine.KBEngineApp.app.player().cellCall("selectDialogItem", (int)itemInfo["id"]);
+                    gameObject.SetActive(false);
+                });
+            }
+        }
     }
 }

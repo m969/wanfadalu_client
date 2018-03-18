@@ -41,6 +41,17 @@ namespace MagicFire.HuanHuoUFrame {
     }
     
     public partial class ShowStorePanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private OnPullStorePropListReturnCommand _StorePropListReturnCommand;
+        
+        public OnPullStorePropListReturnCommand StorePropListReturnCommand {
+            get {
+                return _StorePropListReturnCommand;
+            }
+            set {
+                _StorePropListReturnCommand = value;
+            }
+        }
     }
     
     public partial class ShowRegistePanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

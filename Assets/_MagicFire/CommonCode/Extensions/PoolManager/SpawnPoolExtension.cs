@@ -51,8 +51,6 @@ public static class SpawnPoolExtensions
 
     public static void DespawnView(this SpawnPool spawnPool, ViewBase view)
     {
-        if (view.ViewModelObject != null)
-            view.ViewModelObject = null;
         spawnPool.Despawn(view.transform);
     }
 

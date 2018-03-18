@@ -173,6 +173,12 @@
         public override void OnPullStorePropListReturnExecuted(OnPullStorePropListReturnCommand command)
         {
             Debug.Log("AvatarView:OnPullStorePropListReturnExecuted " + command);
+            this.Publish(new ShowStorePanelEvent() { StorePropListReturnCommand = command });
+        }
+
+        public override void OnJoinSectResultExecuted(OnJoinSectResultCommand command)
+        {
+            Debug.Log("AvatarView:OnJoinSectResultExecuted " + command);
         }
     }
 }

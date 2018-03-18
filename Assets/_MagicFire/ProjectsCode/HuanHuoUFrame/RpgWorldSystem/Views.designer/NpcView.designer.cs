@@ -23,7 +23,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class NpcViewBase : EntityCommonView {
+    public class NpcViewBase : EntityModelView {
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]

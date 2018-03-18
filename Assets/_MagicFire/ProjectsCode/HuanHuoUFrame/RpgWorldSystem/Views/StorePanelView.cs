@@ -12,10 +12,19 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
-    
-    
+    using UnityEngine.UI;
+
+
     public class StorePanelView : StorePanelViewBase {
-        
+        [SerializeField]
+        private Transform _itemListPanel;
+        [SerializeField]
+        private Transform _itemInfoPanel;
+        private int _npcID;
+        private Transform _currentSelectItem;
+        //[SerializeField]
+        //private Transform _outlineImage;
+
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -28,13 +37,54 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            foreach (var item in _itemListPanel)
+            {
+                var button = ((Transform)item).GetComponent<Button>();
+                button.onClick.AsObservable().Subscribe(x=>
+                {
+                    if (_currentSelectItem != null)
+                        _currentSelectItem.Find("Describtion").gameObject.SetActive(false);
+                    _currentSelectItem = (Transform)item;
+                    _currentSelectItem.Find("Describtion").gameObject.SetActive(true);
+                    //_outlineImage.gameObject.SetActive(true);
+                    //_outlineImage.SetParent(_currentSelectItem);
+                });
+                button.transform.Find("Describtion").gameObject.SetActive(false);
+                button.interactable = false;
+            }
         }
 
-        private void OnEnable()
+        public void RefreshPanel(int npcID, object StorePropList)
         {
-            if (this.Avatar == null) return;
-            //this.Avatar.Execute(new RequestRankingListCommand());
-            //this.Avatar.Execute(new RequestSelfRankingCommand());
+            foreach (var item in _itemListPanel)
+            {
+                var button = ((Transform)item).GetComponent<Button>().interactable = false;
+            }
+            //_outlineImage.gameObject.SetActive(false);
+            if (_currentSelectItem != null)
+                _currentSelectItem.Find("Describtion").gameObject.SetActive(false);
+            _currentSelectItem = null;
+            _npcID = npcID;
+            var itemList = ((Dictionary<string, object>)StorePropList)["values"] as List<object>;
+            foreach (var item in itemList)
+            {
+                var index = itemList.IndexOf(item);
+                var itemInfo = item as Dictionary<string, object>;
+                var childItem = _itemListPanel.GetChild(index);
+                childItem.name = index.ToString();
+                childItem.Find("Describtion").GetComponent<Text>().text = itemInfo["propID"].ToString();
+                childItem.GetComponent<Button>().interactable = true;
+                var srcName = "PropImages/prop_" + itemInfo["propID"];
+                var itemImage = childItem.GetComponent<Image>();
+                Sprite tempType = itemImage.sprite;
+                itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+            }
+        }
+
+        public void Buy()
+        {
+            if (_currentSelectItem != null)
+                KBEngine.KBEngineApp.app.player().cellCall("requestBuyProp", _npcID, int.Parse(_currentSelectItem.name));
         }
     }
 }

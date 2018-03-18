@@ -102,52 +102,15 @@ namespace MagicFire.HuanHuoUFrame {
             Debug.Log("RpgMainPanel:ShowDialogPanelExecuted");
             _dialogPanelView = ShowAvatarPanel(_dialogPanelView, "UIPanelPool", "DialogPanel");
             if (_dialogPanelView.isActiveAndEnabled)
-            {
-                _dialogPanelView.ClearDialogItem();
-                var itemList = ((Dictionary<string, object>)command.DialogItemsObject)["values"] as List<object>;
-                //var dialogItemList = new List<Dictionary<string, object>>();
-                foreach (var item in itemList)
-                {
-                    var itemInfo = item as Dictionary<string, object>;
-                    _dialogPanelView.AddDialogItem((string)itemInfo["content"], evt =>
-                    {
-                        KBEngine.KBEngineApp.app.player().cellCall("selectDialogItem", (int)itemInfo["id"]);
-                        _dialogPanelView.gameObject.SetActive(false);
-                    });
-                    //dialogItemList.Add(itemInfo);
-                }
-                //if (command.NpcView._npcType == 1)
-                //{
-                //    _dialogPanelView.AddDialogItem("我要上擂台", evt => {
-                //        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
-                //        _dialogPanelView.gameObject.SetActive(false);
-                //    });
-                //    _dialogPanelView.AddDialogItem("算了，怂", evt => { _dialogPanelView.gameObject.SetActive(false); });
-                //}
-                //else if (command.NpcView._npcType == 2)
-                //{
-                //    _dialogPanelView.AddDialogItem("我要购买道具", evt => {
-                //        this.Publish(new ShowStorePanelEvent());
-                //        _dialogPanelView.gameObject.SetActive(false);
-                //    });
-                //    _dialogPanelView.AddDialogItem("算了，穷", evt => { _dialogPanelView.gameObject.SetActive(false); });
-                //}
-                //else if (command.NpcView._npcType == 3)
-                //{
-                //    _dialogPanelView.AddDialogItem("我要加入宗门", evt => {
-                //        //this.Publish(new ShowStorePanelEvent());
-                //        _dialogPanelView.Avatar.Execute(new RequestEnterArenaCommand() { ArenaID = command.NpcView._arenaID });
-                //        _dialogPanelView.gameObject.SetActive(false);
-                //    });
-                //    _dialogPanelView.AddDialogItem("算了，流浪挺好", evt => { _dialogPanelView.gameObject.SetActive(false); });
-                //}
-            }
+                _dialogPanelView.RefreshPanel(command.DialogItemsObject);
         }
 
         public override void ShowStorePanelExecuted(ShowStorePanelCommand command)
         {
             Debug.Log("RpgMainPanel:ShowStorePanelExecuted");
             _storePanelView = ShowAvatarPanel(_storePanelView, "UIPanelPool", "StorePanel");
+            if (_storePanelView.isActiveAndEnabled)
+                _storePanelView.RefreshPanel(command.StorePropListReturnCommand.NpcID, command.StorePropListReturnCommand.StorePropList);
         }
 
         public override void ExitArenaExecuted(ExitArenaCommand command)

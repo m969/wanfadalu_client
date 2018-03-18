@@ -33,20 +33,29 @@
             {
                 Debug.Log("NpcView:OnMouseDown");
                 KBEngine.KBEngineApp.app.player().cellCall("requestDialog", Npc.id);
-            });
+            }).DisposeWith(this);
             var viewPool = PoolManager.Pools["NpcViewPool"];
-            //Transform npcModel = null;
             _npcModel = viewPool.Spawn(viewPool.prefabs[_entityName]);
             if (_npcModel != null)
             {
                 _npcModel.SetParent(transform);
                 _npcModel.localPosition = Vector3.zero;
             }
-            if (_entityName == "sect")
+            if (_npcType == 3)
             {
                 var mainAvatar = KBEngine.KBEngineApp.app.player() as AvatarViewModel;
                 if (_sectID == mainAvatar.sectID)
                     _npcModel.GetComponent<BoxCollider>().enabled = false;
+                else
+                {
+                    mainAvatar.sectIDProperty.Subscribe(x =>
+                    {
+                        if (x == _sectID)
+                        {
+                            _npcModel.GetComponent<BoxCollider>().enabled = false;
+                        }
+                    });
+                }
             }
         }
 
@@ -83,8 +92,9 @@
                 _npcModel.SetParent(ParentSpawnPool.transform);
                 ParentSpawnPool.Despawn(_npcModel);
             }
-            base.OnDestroyExecuted(command);
-            //Destroy(gameObject);
+            Npc.renderObj = null;
+            //base.OnDestroyExecuted(command);
+            DestroyImmediate(gameObject);
         }
 
         public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)
@@ -95,8 +105,9 @@
                 _npcModel.SetParent(ParentSpawnPool.transform);
                 ParentSpawnPool.Despawn(_npcModel);
             }
-            base.OnLeaveWorldExecuted(command);
-            //Destroy(gameObject);
+            Npc.renderObj = null;
+            //base.OnLeaveWorldExecuted(command);
+            DestroyImmediate(gameObject);
         }
     }
 }

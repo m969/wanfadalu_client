@@ -87,8 +87,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.RequestPullStorePropList.OnNext(argument);
         }
         
-        public virtual void OnPullStorePropListReturn_(object StorePropList) {
+        public virtual void OnPullStorePropListReturn_(Int32 NpcID, object StorePropList) {
             var cmd = new OnPullStorePropListReturnCommand();
+            cmd.NpcID = NpcID;
             cmd.StorePropList = StorePropList;
             this.OnPullStorePropListReturn.OnNext(cmd);
         }

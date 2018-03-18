@@ -19,5 +19,17 @@ namespace MagicFire.HuanHuoUFrame {
     
     [uFrame.Attributes.EventId(9)]
     public partial class ShowStorePanelEvent : object {
+        
+        [UnityEngine.SerializeField()]
+        private OnPullStorePropListReturnCommand _StorePropListReturnCommand;
+        
+        public OnPullStorePropListReturnCommand StorePropListReturnCommand {
+            get {
+                return _StorePropListReturnCommand;
+            }
+            set {
+                _StorePropListReturnCommand = value;
+            }
+        }
     }
 }

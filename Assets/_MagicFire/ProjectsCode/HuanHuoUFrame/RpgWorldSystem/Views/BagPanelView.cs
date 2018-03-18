@@ -45,6 +45,7 @@ namespace MagicFire.HuanHuoUFrame {
         public override void propListChanged(object arg1)
         {
             //Debug.Log("BagPanelView:propListChanged");
+            _itemsPanel.DestroyChildren();
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
             if (tmpPropList != null)
             {

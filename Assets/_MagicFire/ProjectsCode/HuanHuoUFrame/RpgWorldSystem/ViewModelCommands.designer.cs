@@ -75,7 +75,18 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class OnPullStorePropListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
+        private Int32 _NpcID;
+        
         private object _StorePropList;
+        
+        public Int32 NpcID {
+            get {
+                return _NpcID;
+            }
+            set {
+                _NpcID = value;
+            }
+        }
         
         public object StorePropList {
             get {
@@ -207,7 +218,18 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class OnJoinSectResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
+        private Int32 _SectID;
+        
         private Int32 _Result;
+        
+        public Int32 SectID {
+            get {
+                return _SectID;
+            }
+            set {
+                _SectID = value;
+            }
+        }
         
         public Int32 Result {
             get {

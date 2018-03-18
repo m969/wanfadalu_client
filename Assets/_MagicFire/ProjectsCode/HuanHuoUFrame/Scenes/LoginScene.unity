@@ -576,6 +576,10 @@ Prefab:
       propertyPath: m_Name
       value: UIE - LoginPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 130318, guid: 48662a6935978a84ea6b818e1105a9a5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48662a6935978a84ea6b818e1105a9a5, type: 2}
   m_IsPrefabParent: 0

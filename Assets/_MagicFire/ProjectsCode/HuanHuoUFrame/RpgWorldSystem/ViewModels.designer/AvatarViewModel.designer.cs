@@ -305,8 +305,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace.OnNext(cmd);
         }
         
-        public virtual void OnJoinSectResult_(Int32 Result) {
+        public virtual void OnJoinSectResult_(Int32 SectID, Int32 Result) {
             var cmd = new OnJoinSectResultCommand();
+            cmd.SectID = SectID;
             cmd.Result = Result;
             this.OnJoinSectResult.OnNext(cmd);
         }

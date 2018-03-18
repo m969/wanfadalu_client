@@ -203,8 +203,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowCharacterInfoPanel.OnNext(cmd);
         }
         
-        public virtual void ShowStorePanel_() {
+        public virtual void ShowStorePanel_(OnPullStorePropListReturnCommand StorePropListReturnCommand) {
             var cmd = new ShowStorePanelCommand();
+            cmd.StorePropListReturnCommand = StorePropListReturnCommand;
             this.ShowStorePanel.OnNext(cmd);
         }
         

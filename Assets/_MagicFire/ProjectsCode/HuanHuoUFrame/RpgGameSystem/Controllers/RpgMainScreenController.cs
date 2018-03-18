@@ -44,7 +44,7 @@
         private void ShowStorePanel(ShowStorePanelEvent evt)
         {
             Debug.Log("RpgMainScreenController:ShowDialogPanelEvent");
-            this.RpgMainScreen.Execute(new ShowStorePanelCommand());
+            this.RpgMainScreen.Execute(new ShowStorePanelCommand() { StorePropListReturnCommand = evt.StorePropListReturnCommand });
         }
 
         public override void ExitArena(RpgMainScreenViewModel viewModel, ExitArenaCommand arg)

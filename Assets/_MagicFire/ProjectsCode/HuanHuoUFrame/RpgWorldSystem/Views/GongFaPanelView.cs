@@ -48,6 +48,7 @@
                 gongFaItem.SetParent(_gongFaContentTransform);
                 var itemImage = gongFaItem.Find("GongFaImage").GetComponent<Image>();
                 var tempType = itemImage.sprite;
+                Debug.Log(item.Key);
                 var srcName = "GongFaImages/gongfa_" + item.Key;
                 itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
                 var skillList = gongFaItem.Find("GongFaInfoPanel").Find("SkillList");

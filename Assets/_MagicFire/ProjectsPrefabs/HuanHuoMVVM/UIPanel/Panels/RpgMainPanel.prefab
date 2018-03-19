@@ -1215,7 +1215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1136062142272948
 GameObject:
   m_ObjectHideFlags: 1
@@ -1865,9 +1865,11 @@ MonoBehaviour:
   _ShowGongFaPanelButton: {fileID: 11451236}
   _BindExitArena: 1
   _ExitArenaButton: {fileID: 114795881230873400}
+  _BindShowStorePanel: 1
   _BindShowCharacterInfoPanel: 1
   _BindShowSectPanel: 1
   _ShowSectPanelButton: {fileID: 11432220}
+  _BindShowDialogPanel: 1
   _ExitGameButton: {fileID: 11475918}
   _ShowCharacterInfoPanelButton: {fileID: 114653808965845846}
   WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,

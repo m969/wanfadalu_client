@@ -1333,12 +1333,12 @@ GameObject:
   - component: {fileID: 114795881230873400}
   - component: {fileID: 114962760864018528}
   m_Layer: 5
-  m_Name: New UIButton
+  m_Name: EscapeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1972760628345860
 GameObject:
   m_ObjectHideFlags: 1
@@ -1874,6 +1874,7 @@ MonoBehaviour:
   _ShowCharacterInfoPanelButton: {fileID: 114653808965845846}
   WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
     type: 2}
+  _escapeButton: {fileID: 1792246467034148}
 --- !u!114 &114795881230873400
 MonoBehaviour:
   m_ObjectHideFlags: 1

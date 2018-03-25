@@ -22,6 +22,9 @@ namespace MagicFire.HuanHuoUFrame {
         [Inject("WorldViewService")]
         public WorldViewService WorldViewService;
 
+        [SerializeField]
+        private GameObject _escapeButton;
+
         private BagPanelView 
             _bagPanelView;
         private CharacterInfoPanelView 
@@ -37,7 +40,7 @@ namespace MagicFire.HuanHuoUFrame {
         private StorePanelView
             _storePanelView;
 
-        protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
+        protected override void InitializeViewModel(ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
             // var vm = model as RpgMainScreenViewModel;
@@ -49,6 +52,8 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.RpgMainScreen to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            this.OnEvent<OnEnterArenaCommand>().Where(cmd=> { return cmd.Sender.isPlayer(); }).Subscribe(cmd => { _escapeButton.SetActive(true); }).DisposeWith(this);
+            this.OnEvent<OnExitArenaCommand>().Where(cmd => { return cmd.Sender.isPlayer(); }).Subscribe(cmd => { _escapeButton.SetActive(false); }).DisposeWith(this);
         }
 
         private T ShowAvatarPanel<T>(T panelView, string poolName, string panelName) where T : PanelView

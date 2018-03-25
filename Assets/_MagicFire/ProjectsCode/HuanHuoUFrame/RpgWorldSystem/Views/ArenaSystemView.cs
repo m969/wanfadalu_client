@@ -33,14 +33,15 @@
         {
             base.OnEnterArenaExecuted(command);
             Debug.Log("ArenaView:OnEnterArenaExecuted");
-            this.transform.position = command.CenterPosition;
+            //this.transform.position = command.CenterPosition;
+            this.Publish(new OnEnterArenaCommand());
         }
 
         public override void OnExitArenaExecuted(OnExitArenaCommand command)
         {
             base.OnExitArenaExecuted(command);
             Debug.Log("ArenaView:OnExitArenaExecuted");
-            this.transform.position = command.OutPosition;
+            //this.transform.position = command.OutPosition;
         }
 
         public override void OnMatchEndExecuted(OnMatchEndCommand command)

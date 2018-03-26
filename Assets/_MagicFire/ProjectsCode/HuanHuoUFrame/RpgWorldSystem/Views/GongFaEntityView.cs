@@ -14,9 +14,12 @@
     using UnityEngine;
     using GongFaName = System.String;
     using SkillName = System.String;
+    using PathologicalGames;
 
 
     public class GongFaEntityView : GongFaEntityViewBase {
+        [SerializeField]
+        private Transform _weaponListNode;
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -35,6 +38,12 @@
         public override void gongFaListChanged(object arg1)
         {
             var gongFaMap = this.GongFaEntity.DecodeGongFaListObject(arg1);
+            foreach (var item in gongFaMap)
+            {
+                var spawnPool = PoolManager.Pools["MagicWeaponPool"];
+                var weapon = spawnPool.Spawn(spawnPool.prefabs["weapon_" + item.Key]);
+                weapon.SetParent(_weaponListNode.GetChild(item.Value.index));
+            }
         }
     }
 }

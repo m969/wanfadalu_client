@@ -27,7 +27,7 @@
 
     public class MainAvatarInfoPanelView : MainAvatarInfoPanelViewBase {
         [SerializeField]
-        private GameObject _weaponListParent;
+        private GameObject _gongFaListParent;
         [SerializeField]
         private Image _hpSliderImage;
         [SerializeField]
@@ -161,33 +161,74 @@
             }
         }
 
-        public override void magicWeaponListChanged(object arg1)
+        public override void gongFaListChanged(object arg1)
         {
-            //Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
-            var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            _magicWeaponList = new Dictionary<ulong, Prop>();
-            if (tmpPropList != null)
+            var gongFaMap = this.Avatar.DecodeGongFaListObject(arg1);
+            foreach (var item in gongFaMap)
             {
-                foreach (var item in tmpPropList)
-                {
-                    var propObject = (Dictionary<string, object>)item;
-                    var propData = JObject.Parse(propObject["propData"] as string);
-                    var prop = new Prop();
-                    prop.propUUID = (ulong)propObject["propUUID"];
-                    prop.index = (int)propObject["index"];
-                    prop.propData = propData;
-                    _magicWeaponList.Add(prop.propUUID, prop);
-                }
-            }
-            foreach (var item in _magicWeaponList)
-            {
-                var child = _weaponListParent.transform.GetChild(item.Value.index);
-                var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
-                //Debug.Log(srcName);
+                var child = _gongFaListParent.transform.GetChild(item.Value.index);
+                var srcName = "GongFaImages/gongfa_" + item.Value.gongFaID;
                 var itemImage = child.GetComponent<Image>();
                 var tempType = itemImage.sprite;
                 itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+
+                //var gongFaItem = Instantiate(_gongFaItemPrefab);
+                //gongFaItem.SetParent(_gongFaContentTransform);
+                //var itemImage = gongFaItem.Find("GongFaImage").GetComponent<Image>();
+                //var tempType = itemImage.sprite;
+                //Debug.Log(item.Key);
+                //var srcName = "GongFaImages/gongfa_" + item.Key;
+                //itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                //var skillList = gongFaItem.Find("GongFaInfoPanel").Find("SkillList");
+                //gongFaItem.Find("GongFaInfoPanel").Find("GongFaName").GetComponent<Text>().text = item.Key.ToString();
+                //foreach (var skill in item.Value)
+                //{
+                //    var skillItem = Instantiate(_skillItemPrefab);
+                //    skillItem.SetParent(skillList);
+                //    var skillImage = skillItem.GetComponent<Image>();
+                //    tempType = skillImage.sprite;
+                //    srcName = "SkillImages/skill_" + (item.Key * 10 + skill.Key);
+                //    skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                //}
             }
+            //foreach (var item in _magicWeaponList)
+            //{
+            //    var child = _weaponListParent.transform.GetChild(item.Value.index);
+            //    var srcName = "GongFaImages/gongfa_" + item.Value.propData["id"].ToString();
+            //    //Debug.Log(srcName);
+            //    var itemImage = child.GetComponent<Image>();
+            //    var tempType = itemImage.sprite;
+            //    itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+            //}
         }
+
+        //public override void magicWeaponListChanged(object arg1)
+        //{
+        //    //Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
+        //    var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+        //    _magicWeaponList = new Dictionary<ulong, Prop>();
+        //    if (tmpPropList != null)
+        //    {
+        //        foreach (var item in tmpPropList)
+        //        {
+        //            var propObject = (Dictionary<string, object>)item;
+        //            var propData = JObject.Parse(propObject["propData"] as string);
+        //            var prop = new Prop();
+        //            prop.propUUID = (ulong)propObject["propUUID"];
+        //            prop.index = (int)propObject["index"];
+        //            prop.propData = propData;
+        //            _magicWeaponList.Add(prop.propUUID, prop);
+        //        }
+        //    }
+        //    foreach (var item in _magicWeaponList)
+        //    {
+        //        var child = _weaponListParent.transform.GetChild(item.Value.index);
+        //        var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
+        //        //Debug.Log(srcName);
+        //        var itemImage = child.GetComponent<Image>();
+        //        var tempType = itemImage.sprite;
+        //        itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+        //    }
+        //}
     }
 }

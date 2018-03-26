@@ -15,17 +15,25 @@
     using GongFaID = System.Int32;
     using SkillID = System.Int32;
 
+    public class GongFa
+    {
+        public int index;
+        public int gongFaID;
+        public Dictionary<SkillID, ASkill> skillList;
+    }
 
     public partial class GongFaEntityViewModel : GongFaEntityViewModelBase {
-        public Dictionary<GongFaID, Dictionary<SkillID, ASkill>> DecodeGongFaListObject(object gongFaListObject)
+        public Dictionary<GongFaID, GongFa> DecodeGongFaListObject(object gongFaListObject)
         {
-            var gongFaMap = new Dictionary<GongFaID, Dictionary<SkillID, ASkill>>();
+            var gongFaMap = new Dictionary<GongFaID, GongFa>();
             var gongFaList = ((Dictionary<string, object>)gongFaListObject)["values"] as List<object>;
             foreach (var gongFaInfo in gongFaList)
             {
+                var gongFa = new GongFa();
                 var skillList = ((Dictionary<string, object>)gongFaInfo)["values"] as List<object>;
                 var gongFaID = (int)((Dictionary<string, object>)gongFaInfo)["gongFaID"];
-                var skillMap = new Dictionary<int, ASkill>();
+                var index = (int)((Dictionary<string, object>)gongFaInfo)["index"];
+                var skillMap = new Dictionary<SkillID, ASkill>();
                 foreach (var skillInfo in skillList)
                 {
                     var skill = new ASkill();
@@ -35,7 +43,10 @@
                     skill.skillLevel = skillLevel;
                     skillMap[skillIndex] = skill;
                 }
-                gongFaMap[gongFaID] = skillMap;
+                gongFa.index = index;
+                gongFa.gongFaID = gongFaID;
+                gongFa.skillList = skillMap;
+                gongFaMap[gongFaID] = gongFa;
             }
             return gongFaMap;
         }

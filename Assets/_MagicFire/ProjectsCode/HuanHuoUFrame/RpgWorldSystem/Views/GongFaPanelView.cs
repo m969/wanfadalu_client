@@ -53,7 +53,7 @@
                 itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
                 var skillList = gongFaItem.Find("GongFaInfoPanel").Find("SkillList");
                 gongFaItem.Find("GongFaInfoPanel").Find("GongFaName").GetComponent<Text>().text = item.Key.ToString();
-                foreach (var skill in item.Value)
+                foreach (var skill in item.Value.skillList)
                 {
                     var skillItem = Instantiate(_skillItemPrefab);
                     skillItem.SetParent(skillList);

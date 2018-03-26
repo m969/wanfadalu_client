@@ -4261,8 +4261,6 @@ MonoBehaviour:
   _HPOnlyWhenChanged: 0
   _BindHP_Max: 1
   _HP_MaxOnlyWhenChanged: 0
-  _BindmagicWeaponList: 1
-  _magicWeaponListOnlyWhenChanged: 0
   _BindMSP_Max: 1
   _MSP_MaxOnlyWhenChanged: 0
   _BindpropList: 1
@@ -4273,7 +4271,9 @@ MonoBehaviour:
   _SPOnlyWhenChanged: 0
   _BindMSP: 1
   _MSPOnlyWhenChanged: 0
-  _weaponListParent: {fileID: 1904800703291516}
+  _BindgongFaList: 1
+  _gongFaListOnlyWhenChanged: 0
+  _gongFaListParent: {fileID: 1904800703291516}
   _hpSliderImage: {fileID: 114509952155613200}
   _mspSliderImage: {fileID: 114635029893813580}
   _spSliderImage: {fileID: 114411854192736932}

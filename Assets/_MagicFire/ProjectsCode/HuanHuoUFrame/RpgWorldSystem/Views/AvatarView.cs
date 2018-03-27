@@ -13,25 +13,25 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
+    using Newtonsoft.Json.Linq;
+    using PathologicalGames;
 
 
     public class AvatarView : AvatarViewBase {
-
         [SerializeField]
         [Range(0.1f, 1.0f)]
         private float _speed;
-
         [SerializeField]
         private bool _clientControl = false;
-
         [SerializeField]
         private Animator _animator;
-
         [SerializeField]
         private Animation _animation;
-
         [SerializeField]
         private CharacterController _characterController;
+        [SerializeField]
+        private Transform _weaponListNode;
+        private Dictionary<ulong, Prop> _magicWeaponList;
 
 
         public bool ClientControl
@@ -179,6 +179,40 @@
         public override void OnJoinSectResultExecuted(OnJoinSectResultCommand command)
         {
             Debug.Log("AvatarView:OnJoinSectResultExecuted " + command);
+        }
+
+        public override void magicWeaponListChanged(object arg1)
+        {
+            //Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
+            var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            _magicWeaponList = new Dictionary<ulong, Prop>();
+            if (tmpPropList != null)
+            {
+                foreach (var item in tmpPropList)
+                {
+                    var propObject = (Dictionary<string, object>)item;
+                    var propData = JObject.Parse(propObject["propData"] as string);
+                    var prop = new Prop();
+                    prop.propUUID = (ulong)propObject["propUUID"];
+                    prop.index = (int)propObject["index"];
+                    prop.propData = propData;
+                    _magicWeaponList.Add(prop.propUUID, prop);
+                    var spawnPool = PoolManager.Pools["MagicWeaponPool"];
+                    var weapon = spawnPool.Spawn(spawnPool.prefabs["weapon_" + propData["id"]]);
+                    weapon.SetParent(_weaponListNode.GetChild(prop.index));
+                    weapon.localScale = Vector3.one;
+                    weapon.localPosition = Vector3.zero;
+                }
+            }
+            //foreach (var item in _magicWeaponList)
+            //{
+            //    var child = _weaponListParent.transform.GetChild(item.Value.index);
+            //    var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
+            //    //Debug.Log(srcName);
+            //    var itemImage = child.GetComponent<Image>();
+            //    var tempType = itemImage.sprite;
+            //    itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+            //}
         }
     }
 }

@@ -18,8 +18,6 @@
 
 
     public class GongFaEntityView : GongFaEntityViewBase {
-        [SerializeField]
-        private Transform _weaponListNode;
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -37,13 +35,16 @@
 
         public override void gongFaListChanged(object arg1)
         {
-            var gongFaMap = this.GongFaEntity.DecodeGongFaListObject(arg1);
-            foreach (var item in gongFaMap)
-            {
-                var spawnPool = PoolManager.Pools["MagicWeaponPool"];
-                var weapon = spawnPool.Spawn(spawnPool.prefabs["weapon_" + item.Key]);
-                weapon.SetParent(_weaponListNode.GetChild(item.Value.index));
-            }
+            //Debug.Log("GongFaEntityView:gongFaListChanged");
+            //var gongFaMap = this.GongFaEntity.DecodeGongFaListObject(arg1);
+            //foreach (var item in gongFaMap)
+            //{
+            //    var spawnPool = PoolManager.Pools["MagicWeaponPool"];
+            //    var weapon = spawnPool.Spawn(spawnPool.prefabs["weapon_" + item.Key]);
+            //    weapon.SetParent(_weaponListNode.GetChild(item.Value.index));
+            //    weapon.localScale = Vector3.one;
+            //    weapon.localPosition = Vector3.zero;
+            //}
         }
     }
 }

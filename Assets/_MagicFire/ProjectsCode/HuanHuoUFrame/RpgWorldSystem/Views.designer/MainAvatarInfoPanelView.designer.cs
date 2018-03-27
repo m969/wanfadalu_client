@@ -46,6 +46,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_HPonlyWhenChanged")]
         protected bool _HPOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("gongFaList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindgongFaList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("gongFaList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_gongFaListonlyWhenChanged")]
+        protected bool _gongFaListOnlyWhenChanged;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("HP_Max")]
         [UnityEngine.HideInInspector()]
         public bool _BindHP_Max = true;
@@ -106,16 +116,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSPonlyWhenChanged")]
         protected bool _MSPOnlyWhenChanged;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("gongFaList")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindgongFaList = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("gongFaList")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_gongFaListonlyWhenChanged")]
-        protected bool _gongFaListOnlyWhenChanged;
-        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -152,6 +152,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindHP) {
                 this.BindProperty(this.Avatar.HPProperty, this.HPChanged, _HPOnlyWhenChanged);
             }
+            if (_BindgongFaList) {
+                this.BindProperty(this.Avatar.gongFaListProperty, this.gongFaListChanged, _gongFaListOnlyWhenChanged);
+            }
             if (_BindHP_Max) {
                 this.BindProperty(this.Avatar.HP_MaxProperty, this.HP_MaxChanged, _HP_MaxOnlyWhenChanged);
             }
@@ -170,12 +173,12 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindMSP) {
                 this.BindProperty(this.Avatar.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
             }
-            if (_BindgongFaList) {
-                this.BindProperty(this.Avatar.gongFaListProperty, this.gongFaListChanged, _gongFaListOnlyWhenChanged);
-            }
         }
         
         public virtual void HPChanged(Int32 arg1) {
+        }
+        
+        public virtual void gongFaListChanged(object arg1) {
         }
         
         public virtual void HP_MaxChanged(Int32 arg1) {
@@ -194,9 +197,6 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void MSPChanged(Int32 arg1) {
-        }
-        
-        public virtual void gongFaListChanged(object arg1) {
         }
         
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {

@@ -58,6 +58,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public bool _BindTeleport = true;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("magicWeaponList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindmagicWeaponList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("magicWeaponList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_magicWeaponListonlyWhenChanged")]
+        protected bool _magicWeaponListOnlyWhenChanged;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("OnJoinSectResult")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnJoinSectResult = true;
@@ -71,16 +81,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
         protected bool _sectIDOnlyWhenChanged;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("magicWeaponList")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindmagicWeaponList = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("magicWeaponList")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_magicWeaponListonlyWhenChanged")]
-        protected bool _magicWeaponListOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -127,14 +127,14 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindTeleport) {
                 this.BindCommandExecuted(this.Avatar.Teleport, this.TeleportExecuted);
             }
+            if (_BindmagicWeaponList) {
+                this.BindProperty(this.Avatar.magicWeaponListProperty, this.magicWeaponListChanged, _magicWeaponListOnlyWhenChanged);
+            }
             if (_BindOnJoinSectResult) {
                 this.BindCommandExecuted(this.Avatar.OnJoinSectResult, this.OnJoinSectResultExecuted);
             }
             if (_BindsectID) {
                 this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
-            }
-            if (_BindmagicWeaponList) {
-                this.BindProperty(this.Avatar.magicWeaponListProperty, this.magicWeaponListChanged, _magicWeaponListOnlyWhenChanged);
             }
         }
         
@@ -186,13 +186,13 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void TeleportExecuted(TeleportCommand command) {
         }
         
+        public virtual void magicWeaponListChanged(object arg1) {
+        }
+        
         public virtual void OnJoinSectResultExecuted(OnJoinSectResultCommand command) {
         }
         
         public virtual void sectIDChanged(Int32 arg1) {
-        }
-        
-        public virtual void magicWeaponListChanged(object arg1) {
         }
         
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {

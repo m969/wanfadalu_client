@@ -67,6 +67,19 @@ namespace MagicFire.HuanHuoUFrame {
 
         public override void lingshiAmountChanged(int arg1)
         {
+            if (_lingshiAmount != 0)
+            {
+                var change = arg1 - _lingshiAmount;
+                if (change < 0)
+                {
+                    this.Publish(new ShowTipsEvent() { TipsContent = string.Format("失去{0}灵石", change) });
+                }
+                else
+                {
+                    this.Publish(new ShowTipsEvent() { TipsContent = string.Format("得到{0}灵石", change) });
+                }
+            }
+            _lingshiAmount = arg1;
             _lingshiAmountText.text = arg1.ToString();
         }
     }

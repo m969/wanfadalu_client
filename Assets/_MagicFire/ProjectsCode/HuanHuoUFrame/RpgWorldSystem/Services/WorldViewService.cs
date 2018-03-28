@@ -72,6 +72,8 @@ namespace MagicFire.HuanHuoUFrame{
             // this.OnEvent<MyEvent>().Subscribe(myEventInstance => { TODO });
             MasterCanvas.ToString();
             Canvas3D.ToString();
+            var tipsText = MasterCanvas.transform.Find("TipsText").GetComponent<UnityEngine.UI.Text>();
+            this.OnEvent<ShowTipsEvent>().Subscribe(evt => { tipsText.text = evt.TipsContent; tipsText.gameObject.SetActive(true); });
             this.OnEvent<OnMainAvatarEnterSpaceEvent>().ObserveOnMainThread().Subscribe(OnMainAvatarEnterSpace);
             this.OnEvent<OnMainAvatarLeaveSpaceEvent>().ObserveOnMainThread().Subscribe(OnMainAvatarLeaveSpace);
             this.OnEvent<onEnterWorldEvent>().ObserveOnMainThread().Subscribe(OnEnterWorld);
@@ -161,26 +163,6 @@ namespace MagicFire.HuanHuoUFrame{
             viewPrefab = viewPool.prefabs[viewName];
             return viewPool.SpawnEntityCommonViewObject<EntityCommonView>(viewPrefab, viewModel);
         }
-
-        //private EntityCommonView InstantiateRingView(KBEngine.Entity entity)
-        //{
-        //    var entityType = entity.className.Replace("ViewModel", "");
-        //    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-        //    var viewModel = entity as EntityCommonViewModel;
-        //    var viewPrefab = viewPool.prefabs[entityType + "RingView"];
-        //    var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
-        //    return view;
-        //}
-
-        //private EntityCommonView InstantiatePanelView(KBEngine.Entity entity)
-        //{
-        //    var entityType = entity.className.Replace("ViewModel", "");
-        //    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-        //    var viewModel = entity as EntityCommonViewModel;
-        //    var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
-        //    var view = viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
-        //    return view;
-        //}
 
         private void InstantiateViews(KBEngine.Entity entity)
         {

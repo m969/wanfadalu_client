@@ -93,14 +93,15 @@ namespace MagicFire.HuanHuoUFrame {
         public override void gongFaListChanged(object arg1)
         {
             base.gongFaListChanged(arg1);
-            //foreach (var gongFaInfo in this._gongFaMap)
-            //{
-            //    foreach (var skillInfo in gongFaInfo.Value)
-            //    {
-            //        var skillName = skillInfo.Key;
-            //        var skill = skillInfo.Value;
-            //    }
-            //}
+            var gongFaMap = this.SkillEntity.DecodeGongFaListObject(arg1);
+            foreach (var item in gongFaMap)
+            {
+                Debug.Log(item.Key);
+                foreach (var skill in item.Value.skillList)
+                {
+                    
+                }
+            }
         }
     }
 }

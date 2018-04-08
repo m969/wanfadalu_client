@@ -19,13 +19,13 @@
     {
         public int index;
         public int gongFaID;
-        public Dictionary<SkillID, ASkill> skillList;
+        public Dictionary<int, ASkill> skillList;
     }
 
     public partial class GongFaEntityViewModel : GongFaEntityViewModelBase {
-        public Dictionary<GongFaID, GongFa> DecodeGongFaListObject(object gongFaListObject)
+        public Dictionary<int, GongFa> DecodeGongFaListObject(object gongFaListObject)
         {
-            var gongFaMap = new Dictionary<GongFaID, GongFa>();
+            var gongFaMap = new Dictionary<int, GongFa>();
             var gongFaList = ((Dictionary<string, object>)gongFaListObject)["values"] as List<object>;
             foreach (var gongFaInfo in gongFaList)
             {
@@ -33,7 +33,7 @@
                 var skillList = ((Dictionary<string, object>)gongFaInfo)["values"] as List<object>;
                 var gongFaID = (int)((Dictionary<string, object>)gongFaInfo)["gongFaID"];
                 var index = (int)((Dictionary<string, object>)gongFaInfo)["index"];
-                var skillMap = new Dictionary<SkillID, ASkill>();
+                var skillMap = new Dictionary<int, ASkill>();
                 foreach (var skillInfo in skillList)
                 {
                     var skill = new ASkill();
@@ -46,7 +46,7 @@
                 gongFa.index = index;
                 gongFa.gongFaID = gongFaID;
                 gongFa.skillList = skillMap;
-                gongFaMap[gongFaID] = gongFa;
+                gongFaMap[index] = gongFa;
             }
             return gongFaMap;
         }

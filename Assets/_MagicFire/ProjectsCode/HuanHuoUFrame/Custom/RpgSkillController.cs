@@ -12,7 +12,6 @@
     public partial class RpgSkillController
     {
         public AvatarView Avatar { get; set; }
-        private readonly Dictionary<string, Skill> _skillMap = new Dictionary<string, Skill>();
         private SkillState CurrentSkillState { get; set; }
         private SkillReadyState _skillReadyState;
         private SkillEmptyState _skillEmptyState;
@@ -21,19 +20,11 @@
         public void Init(AvatarView avatar)
         {
             Avatar = avatar;
-            //_skillMap.Add(1, new SkillQ(Avatar));
-            //_skillMap.Add(2, new SkillW(Avatar));
-            //_skillMap.Add(3, new SkillE(Avatar));
-            //_skillMap.Add(4, new GongKan(Avatar));
-
-            //AddSkill(new SkillQ(Avatar));
-            //AddSkill(new SkillW(Avatar));
-            //AddSkill(new SkillE(Avatar));
-            //AddSkill(new GongKan(Avatar));
-
             _skillEmptyState = new SkillEmptyState(Avatar);
             _skillReadyState = new SkillReadyState(Avatar);
             CurrentSkillState = _skillEmptyState;
+
+            Observable.EveryUpdate().Where(x => { return Input.anyKeyDown; }).Subscribe(x => { Debug.Log(Event.current.keyCode); });
 
             Observable.EveryUpdate()
                 .Subscribe(evt =>
@@ -68,7 +59,6 @@
         public void AddSkill(Skill skill)
         {
             skill.SkillController = this;
-            _skillMap.Add(skill.GongFaID + ":" + skill.SkillIndex, skill);
         }
 
         public void SkillReady(int gongfaID, int skillIndex)

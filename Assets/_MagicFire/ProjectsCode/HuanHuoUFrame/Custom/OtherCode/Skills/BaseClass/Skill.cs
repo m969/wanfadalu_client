@@ -3,8 +3,10 @@
     using UnityEngine;
     using System.Collections;
     using PathologicalGames;
+    using System.Collections.Generic;
+    using System;
 
-    public class Skill
+    public abstract class Skill
     {
         public int GongFaID = 0;
         public int SkillIndex = 0;
@@ -14,6 +16,13 @@
         protected GameObject SkillTrajectory;
         public RaycastHit RaycastHit;
         public const int RaycastHitDist = 500;
+
+        public readonly Dictionary<int, Type> SkillTypeMap = new Dictionary<int, Type>();
+
+        public static void InitSkillTypeMap()
+        {
+            //SkillTypeMap.Add(100100, )
+        }
 
 
         protected Skill(SkillEntityView spellcaster)

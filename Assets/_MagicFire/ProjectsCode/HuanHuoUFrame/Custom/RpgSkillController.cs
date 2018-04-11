@@ -23,8 +23,21 @@
             _skillEmptyState = new SkillEmptyState(Avatar);
             _skillReadyState = new SkillReadyState(Avatar);
             CurrentSkillState = _skillEmptyState;
+            if (!Avatar.Avatar.isPlayer())
+            {
+                return;
+            }
 
-            Observable.EveryUpdate().Where(x => { return Input.anyKeyDown; }).Subscribe(x => { Debug.Log(Event.current.keyCode); });
+            Observable.EveryUpdate().Where(x => { return Input.anyKeyDown; }).Subscribe(x => 
+            {
+                //Debug.Log(Input.);
+                //Event e = Event.current;
+                //Event.PopEvent(e);
+                //if (e.isKey)
+                //{
+                //    Debug.Log(e.keyCode);
+                //}
+            });
 
             Observable.EveryUpdate()
                 .Subscribe(evt =>
@@ -32,13 +45,13 @@
                     CurrentSkillState.Run();
 
                     if (Input.GetKeyDown(KeyCode.Q))
-                        SkillReady(1001, 0);
+                        SkillReady(1001 * 10 + 0);
                     if (Input.GetKeyDown(KeyCode.W))
-                        SkillReady(1003, 0);
+                        SkillReady(1003 * 10 + 0);
                     if (Input.GetKeyDown(KeyCode.E))
-                        SkillReady(1002, 0);
+                        SkillReady(1002 * 10 + 0);
                     if (Input.GetKeyDown(KeyCode.R))
-                        GetSkillRef(1001, 1).Conjure();
+                        GetSkillRef(1001 * 10 + 1).Conjure();
                 });
 
             Observable.EveryUpdate()
@@ -56,20 +69,21 @@
                 });
         }
 
-        public void AddSkill(Skill skill)
-        {
-            skill.SkillController = this;
-        }
-
-        public void SkillReady(int gongfaID, int skillIndex)
+        public void SkillReady(int skillID)
         {
             CancelReady();
             if (Avatar != null)
             {
                 Skill skill;
-                Avatar.SkillMap.TryGetValue(gongfaID + ":" + skillIndex, out skill);
-                _skillReadyState.CurrentReadySkill = skill;
-                CurrentSkillState = _skillReadyState;
+                if (Avatar.SkillMap.TryGetValue(skillID, out skill))
+                {
+                    _skillReadyState.CurrentReadySkill = skill;
+                    CurrentSkillState = _skillReadyState;
+                }
+                else
+                {
+                    Debug.LogError("RpgSkillController:SkillReady Error! Not Found Skill " + skillID);
+                }
             }
         }
 
@@ -89,10 +103,10 @@
             CurrentSkillState = _skillEmptyState;
         }
 
-        public Skill GetSkillRef(int gongfaID, int skillIndex)
+        public Skill GetSkillRef(int skillID)
         {
             Skill skill = null;
-            Avatar.SkillMap.TryGetValue(gongfaID + ":" + skillIndex, out skill);
+            Avatar.SkillMap.TryGetValue(skillID, out skill);
             return skill;
         }
 

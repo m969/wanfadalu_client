@@ -156,9 +156,18 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class OnSkillEndCastCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
+        private Int32 _skillID;
+        
         private String _argsString;
         
-        private String _skillName;
+        public Int32 skillID {
+            get {
+                return _skillID;
+            }
+            set {
+                _skillID = value;
+            }
+        }
         
         public String argsString {
             get {
@@ -166,15 +175,6 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _argsString = value;
-            }
-        }
-        
-        public String skillName {
-            get {
-                return _skillName;
-            }
-            set {
-                _skillName = value;
             }
         }
     }
@@ -391,18 +391,18 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class OnSkillStartCastCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
-        private String _skillName;
+        private Int32 _skillID;
         
         private String _argsString;
         
         private Single _castTime;
         
-        public String skillName {
+        public Int32 skillID {
             get {
-                return _skillName;
+                return _skillID;
             }
             set {
-                _skillName = value;
+                _skillID = value;
             }
         }
         

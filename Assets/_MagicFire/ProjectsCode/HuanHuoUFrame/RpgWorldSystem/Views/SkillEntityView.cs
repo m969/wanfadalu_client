@@ -20,7 +20,7 @@ namespace MagicFire.HuanHuoUFrame {
     public class SkillEntityView : SkillEntityViewBase {
         private RpgSkillController _skillController;
         private GameObject _iceImprisonEffect;
-        public readonly Dictionary<string, Skill> SkillMap = new Dictionary<string, Skill>();
+        public readonly Dictionary<int, Skill> SkillMap = new Dictionary<int, Skill>();
 
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
@@ -40,17 +40,16 @@ namespace MagicFire.HuanHuoUFrame {
         public void InitSkills(RpgSkillController skillController)
         {
             this._skillController = skillController;
-
-            AddSkill(new Shoot(this));
-            AddSkill(new SkillW(this));
-            AddSkill(new SkillE(this));
-            AddSkill(new GongKan(this));
+            //AddSkill(new Shoot(this));
+            //AddSkill(new SkillW(this));
+            //AddSkill(new SkillE(this));
+            //AddSkill(new GongKan(this));
         }
 
         public void AddSkill(Skill skill)
         {
-            skill.SkillController = _skillController;
-            SkillMap.Add(skill.GongFaID + ":" + skill.SkillIndex, skill);
+            skill.SkillController = GetComponent<RpgSkillController>();
+            SkillMap.Add(skill.GongFaID * 10 + skill.SkillIndex, skill);
         }
 
         public override void isIceFreezingChanged(Int32 arg1)
@@ -83,9 +82,8 @@ namespace MagicFire.HuanHuoUFrame {
         public override void OnSkillStartCastExecuted(OnSkillStartCastCommand command)
         {
             base.OnSkillStartCastExecuted(command);
-
             Skill skill;
-            SkillMap.TryGetValue(command.skillName, out skill);
+            SkillMap.TryGetValue(command.skillID, out skill);
             if (skill != null)
                 skill.OnCast(command.argsString);
         }
@@ -96,10 +94,20 @@ namespace MagicFire.HuanHuoUFrame {
             var gongFaMap = this.SkillEntity.DecodeGongFaListObject(arg1);
             foreach (var item in gongFaMap)
             {
-                Debug.Log(item.Key);
                 foreach (var skill in item.Value.skillList)
                 {
-                    
+                    Type skillType;
+                    if (Skill.SkillTypeMap.TryGetValue(item.Value.gongFaID * 10 + skill.Key, out skillType))
+                    {
+                        Skill s = Activator.CreateInstance(skillType, new object[] { this }) as Skill;
+                        s.GongFaID = item.Value.gongFaID;
+                        s.SkillIndex = skill.Key;
+                        AddSkill(s);
+                    }
+                    else
+                    {
+                        Debug.LogError("Error! Not Found skill " + (item.Value.gongFaID * 10 + skill.Key));
+                    }
                 }
             }
         }

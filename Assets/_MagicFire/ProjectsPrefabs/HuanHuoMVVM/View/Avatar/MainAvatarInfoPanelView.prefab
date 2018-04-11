@@ -997,7 +997,6 @@ GameObject:
   - component: {fileID: 114990479928923332}
   - component: {fileID: 114796281805205554}
   - component: {fileID: 114397115497507404}
-  - component: {fileID: 114962815136530670}
   m_Layer: 5
   m_Name: MainAvatarInfoPanelView
   m_TagString: Untagged
@@ -4112,18 +4111,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &114962815136530670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866922079813010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 224513f35d84b6a41ba6e5d001d85c68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Entity: {fileID: 114397115497507404}
 --- !u!114 &114964406180351426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4259,6 +4246,8 @@ MonoBehaviour:
   _sectID: 0
   _BindHP: 1
   _HPOnlyWhenChanged: 0
+  _BindgongFaList: 1
+  _gongFaListOnlyWhenChanged: 0
   _BindHP_Max: 1
   _HP_MaxOnlyWhenChanged: 0
   _BindMSP_Max: 1
@@ -4271,8 +4260,6 @@ MonoBehaviour:
   _SPOnlyWhenChanged: 0
   _BindMSP: 1
   _MSPOnlyWhenChanged: 0
-  _BindgongFaList: 1
-  _gongFaListOnlyWhenChanged: 0
   _gongFaListParent: {fileID: 1904800703291516}
   _hpSliderImage: {fileID: 114509952155613200}
   _mspSliderImage: {fileID: 114635029893813580}

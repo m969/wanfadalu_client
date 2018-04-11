@@ -20,8 +20,6 @@ namespace MagicFire.HuanHuoUFrame
     {
         public SkillW(SkillEntityView spellcaster) : base(spellcaster)
         {
-            GongFaID = 1003;
-            SkillIndex = 0;
         }
 
         public override void Ready(AvatarView spellcaster)

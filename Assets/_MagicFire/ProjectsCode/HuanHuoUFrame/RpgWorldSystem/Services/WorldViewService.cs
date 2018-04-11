@@ -83,6 +83,7 @@ namespace MagicFire.HuanHuoUFrame{
             this.OnEvent<updatePositionEvent>().ObserveOnMainThread().Subscribe(UpdatePosition);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.Name == "LoginScene").Where(x => x.State == SceneState.Destructed).Subscribe(OnLoginSceneDestructed);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
+            Skill.InitSkillTypeMap();
         }
 
         private void OnLoginSceneDestructed(SceneLoaderEvent @event)
@@ -184,9 +185,9 @@ namespace MagicFire.HuanHuoUFrame{
                         var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
                         moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
                         moveContoller.MainAvatarView = modelView.GetComponent<AvatarView>();
-                        var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
-                        ((SkillEntityView)modelView).InitSkills(skillContoller);
-                        skillContoller.Init(modelView as AvatarView);
+                        //var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
+                        //((SkillEntityView)modelView).InitSkills(skillContoller);
+                        //skillContoller.Init(modelView as AvatarView);
                     }
                 }
                 if (entity.className == "AvatarViewModel")

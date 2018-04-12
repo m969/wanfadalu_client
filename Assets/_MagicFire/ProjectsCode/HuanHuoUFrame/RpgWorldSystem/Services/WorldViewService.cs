@@ -170,12 +170,10 @@ namespace MagicFire.HuanHuoUFrame{
             if (entity.className != "CampViewModel" && entity.className != "SpaceViewModel" && entity.renderObj == null)
             {
                 var modelView = InstantiateModelView(entity);
-
                 if (entity.isPlayer())
                 {
                     var playerTarget = Instantiate(_playerTargetPrefab).GetComponent<RpgLookAtPlayerComponent>();
                     playerTarget.Target = modelView.transform;
-
                     var viewPool = PoolManager.Pools["UIPanelPool"];
                     if (viewPool != null)
                     {
@@ -185,13 +183,12 @@ namespace MagicFire.HuanHuoUFrame{
                         var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
                         moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
                         moveContoller.MainAvatarView = modelView.GetComponent<AvatarView>();
-                        //var skillContoller = mainAvatarInfoPanelView.GetComponent<RpgSkillController>();
-                        //((SkillEntityView)modelView).InitSkills(skillContoller);
-                        //skillContoller.Init(modelView as AvatarView);
                     }
                 }
                 if (entity.className == "AvatarViewModel")
                 {
+                    var skillContoller = modelView.GetComponent<RpgSkillController>();
+                    skillContoller.Init(modelView as AvatarView);
                     var entityType = entity.className.Replace("ViewModel", "");
                     var viewPool = PoolManager.Pools[entityType + "ViewPool"];
                     var viewModel = entity as EntityCommonViewModel;

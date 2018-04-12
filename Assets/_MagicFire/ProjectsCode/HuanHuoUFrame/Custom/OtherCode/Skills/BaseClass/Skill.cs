@@ -73,7 +73,8 @@
         //取消技能预备
         public virtual void CancelReady()
         {
-            SkillTrajectory.SetActive(false);
+            if (SkillTrajectory != null)
+                SkillTrajectory.SetActive(false);
         }
 
         //技能施放

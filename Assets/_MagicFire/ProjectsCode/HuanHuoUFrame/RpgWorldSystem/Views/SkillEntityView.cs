@@ -18,7 +18,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     
     public class SkillEntityView : SkillEntityViewBase {
-        private RpgSkillController _skillController;
         private GameObject _iceImprisonEffect;
         public readonly Dictionary<int, Skill> SkillMap = new Dictionary<int, Skill>();
 
@@ -35,15 +34,6 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.SkillEntity to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-        }
-
-        public void InitSkills(RpgSkillController skillController)
-        {
-            this._skillController = skillController;
-            //AddSkill(new Shoot(this));
-            //AddSkill(new SkillW(this));
-            //AddSkill(new SkillE(this));
-            //AddSkill(new GongKan(this));
         }
 
         public void AddSkill(Skill skill)

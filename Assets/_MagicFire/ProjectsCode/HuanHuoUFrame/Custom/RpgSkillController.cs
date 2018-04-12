@@ -24,56 +24,44 @@
             _skillReadyState = new SkillReadyState(Avatar);
             CurrentSkillState = _skillEmptyState;
             if (!Avatar.Avatar.isPlayer())
-            {
                 return;
-            }
-
-            Observable.EveryUpdate().Where(x => { return Input.anyKeyDown; }).Subscribe(x => 
-            {
-                //Debug.Log(Input.);
-                //Event e = Event.current;
-                //Event.PopEvent(e);
-                //if (e.isKey)
-                //{
-                //    Debug.Log(e.keyCode);
-                //}
-            });
-
             Observable.EveryUpdate()
                 .Subscribe(evt =>
                 {
-                    CurrentSkillState.Run();
-
                     if (Input.GetKeyDown(KeyCode.Q))
-                        SkillReady(1001 * 10 + 0);
+                        SkillReady((int)KeyCode.Q);
                     if (Input.GetKeyDown(KeyCode.W))
-                        SkillReady(1003 * 10 + 0);
+                        SkillReady((int)KeyCode.W);
                     if (Input.GetKeyDown(KeyCode.E))
-                        SkillReady(1002 * 10 + 0);
-                    if (Input.GetKeyDown(KeyCode.R))
-                        GetSkillRef(1001 * 10 + 1).Conjure();
+                        SkillReady((int)KeyCode.E);
+                    if (Input.GetKeyDown(KeyCode.A))
+                        SkillReady((int)KeyCode.A);
+                    if (Input.GetKeyDown(KeyCode.S))
+                        SkillReady((int)KeyCode.S);
+                    if (Input.GetKeyDown(KeyCode.D))
+                        SkillReady((int)KeyCode.D);
+                    if (Input.GetKeyDown(KeyCode.Z))
+                        SkillReady((int)KeyCode.Z);
+                    if (Input.GetKeyDown(KeyCode.X))
+                        SkillReady((int)KeyCode.X);
+                    if (Input.GetKeyDown(KeyCode.C))
+                        SkillReady((int)KeyCode.C);
+                    CurrentSkillState.Run();
                 });
-
             Observable.EveryUpdate()
                 .Where(evt => { return Input.GetMouseButtonDown(1); })
                 .Subscribe(evt =>
                 {
                     this.CancelReady();
                 });
-
-            Observable.EveryUpdate()
-                .Where(evt => { return Input.GetMouseButtonDown(0); })
-                .Subscribe(evt =>
-                {
-                    //this.CancelReady();
-                });
         }
 
-        public void SkillReady(int skillID)
+        public void SkillReady(int keyCode)
         {
             CancelReady();
             if (Avatar != null)
             {
+                var skillID = int.Parse(Avatar.SkillKeyOptions[keyCode.ToString()].ToString());
                 Skill skill;
                 if (Avatar.SkillMap.TryGetValue(skillID, out skill))
                 {
@@ -103,12 +91,6 @@
             CurrentSkillState = _skillEmptyState;
         }
 
-        public Skill GetSkillRef(int skillID)
-        {
-            Skill skill = null;
-            Avatar.SkillMap.TryGetValue(skillID, out skill);
-            return skill;
-        }
 
         private class SkillState
         {

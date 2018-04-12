@@ -32,6 +32,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private P<Int32> _sectIDProperty;
         
+        private P<String> _skillKeyOptionsProperty;
+        
         private Signal<OnDialogItemsReturnCommand> _OnDialogItemsReturn;
         
         private Signal<OnErrorCommand> _OnError;
@@ -92,6 +94,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual P<String> skillKeyOptionsProperty {
+            get {
+                return _skillKeyOptionsProperty;
+            }
+            set {
+                _skillKeyOptionsProperty = value;
+            }
+        }
+        
         public virtual Int32 lingshiAmount {
             get {
                 return lingshiAmountProperty.Value;
@@ -107,6 +118,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 sectIDProperty.Value = value;
+            }
+        }
+        
+        public virtual String skillKeyOptions {
+            get {
+                return skillKeyOptionsProperty.Value;
+            }
+            set {
+                skillKeyOptionsProperty.Value = value;
             }
         }
         
@@ -214,6 +234,7 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnRequestForgeResult = new Signal<OnRequestForgeResultCommand>(this);
             _lingshiAmountProperty = new P<Int32>(this, "lingshiAmount");
             _sectIDProperty = new P<Int32>(this, "sectID");
+            _skillKeyOptionsProperty = new P<String>(this, "skillKeyOptions");
             _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
         }
         
@@ -323,6 +344,7 @@ namespace MagicFire.HuanHuoUFrame {
             this.lingshiAmount = stream.DeserializeInt("lingshiAmount");;
             this.sectID = stream.DeserializeInt("sectID");;
             this._avatarStateProperty.SetState(stream.DeserializeString("avatarState"));
+            this.skillKeyOptions = stream.DeserializeString("skillKeyOptions");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -330,6 +352,7 @@ namespace MagicFire.HuanHuoUFrame {
             stream.SerializeInt("lingshiAmount", this.lingshiAmount);
             stream.SerializeInt("sectID", this.sectID);
             stream.SerializeString("avatarState", this.avatarState.Name);;
+            stream.SerializeString("skillKeyOptions", this.skillKeyOptions);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
@@ -354,6 +377,8 @@ namespace MagicFire.HuanHuoUFrame {
             list.Add(new ViewModelPropertyInfo(_sectIDProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_avatarStateProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_skillKeyOptionsProperty, false, false, false, false));
         }
     }
     

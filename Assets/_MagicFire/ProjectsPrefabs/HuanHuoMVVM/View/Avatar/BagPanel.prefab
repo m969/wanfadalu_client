@@ -2942,8 +2942,8 @@ MonoBehaviour:
   _BindpropList: 1
   _propListOnlyWhenChanged: 0
   _itemsPanel: {fileID: 22465688}
-  _propItemPrefab: {fileID: 22407284, guid: 3979975f03716bf41bb2f294ab9fe779, type: 2}
   _lingshiAmountText: {fileID: 11458276}
+  _sellButton: {fileID: 114114948320651926}
 --- !u!114 &114114948320651926
 MonoBehaviour:
   m_ObjectHideFlags: 1

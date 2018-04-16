@@ -17,6 +17,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine.UI;
     using Newtonsoft.Json.Linq;
     using UnityEngine.EventSystems;
+    using UniRx.Triggers;
 
 
     public class BagPanelView : BagPanelViewBase
@@ -66,7 +67,7 @@ namespace MagicFire.HuanHuoUFrame {
                 item.Find("Text").GetComponent<Text>().text = "";
                 item.GetComponent<Button>().interactable = false;
                 item.GetComponent<Button>().onClick.RemoveAllListeners();
-                item.GetComponent<EventTrigger>().triggers.Clear();
+                //item.GetComponent<EventTrigger>().triggers.Clear();
             }
         }
 
@@ -88,13 +89,39 @@ namespace MagicFire.HuanHuoUFrame {
                     var srcName = "PropImages/prop_" + propID;
                     Sprite tempType = itemImage.sprite;
                     itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                    itemImage.color = Color.white;
                     var itemText = propItem.Find("Text").GetComponent<Text>();
                     itemText.text = PropSystemController.PropConfigList[propID].name;
-                    propItem.GetComponent<EventTrigger>().AsObservableOfPointerDown()
+                    propItem.GetComponent<Button>().OnBeginDragAsObservable()
                         .Where(x => { return x.button == PointerEventData.InputButton.Left; })
                         .Subscribe(x => {
-                            Debug.Log("BagPanelView:PointerDown " + propID);
+                            Debug.Log("BagPanelView:OnBeginDragAsObservable " + propID);
+                            var spawnPool = PoolManager.Pools["UIPanelPool"];
+                            var dragPropItem = Instantiate(spawnPool.Spawn(spawnPool.prefabs["DragPropItem"]));
+                            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+                            dragPropItem.SetParent(worldViewService.MasterCanvas.transform);
+
+                            Vector3 currentPosition;
+                            RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(),
+                                x.position, x.pressEventCamera, out currentPosition);
+                            var v = GameObject.Find("MasterCanvas").GetComponent<RectTransform>().rect.size / 2;
+                            var _lastPosition = currentPosition - new Vector3(v.x, v.y) - this.transform.localPosition;
+                            dragPropItem.GetComponent<Image>().OnDragAsObservable().Subscribe(evt =>
+                            {
+                                Debug.Log("BagPanelView:dragPropItem.OnDragAsObservable");
+                                Vector3 currentPos;
+
+                                RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
+                                    evt.position, evt.pressEventCamera, out currentPos);
+
+                                var point = this.transform.localPosition;
+                                var v1 = worldViewService.MasterCanvas.GetComponent<RectTransform>().rect.size / 2;
+                                this.transform.localPosition = currentPos - new Vector3(v1.x, v1.y) - _lastPosition;
+
+                            });
+                            this.Publish(new OnBagItemBeginDragEvent() { BagItem = propItem });
                         });
+
 
                     //var propItem = Instantiate(_propItemPrefab);
                     //Debug.Log(prop["propUUID"] + " " + propItem);

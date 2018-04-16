@@ -34,7 +34,7 @@
             // Any designer bindings are created in the base implementation.
             if (_headBar == null)
                 return;
-            _headBar.GetComponent<Image>().OnBeginDragAsObservable().Subscribe(evt =>
+            _headBar.OnBeginDragAsObservable().Subscribe(evt =>
             {
                 Vector3 currentPosition;
 
@@ -45,7 +45,7 @@
                 _lastPosition = currentPosition - new Vector3(v.x, v.y) - this.transform.localPosition;
             }).DisposeWith(this);
 
-            _headBar.GetComponent<Image>().OnDragAsObservable().Subscribe(evt =>
+            _headBar.OnDragAsObservable().Subscribe(evt =>
             {
                 Vector3 currentPosition;
 

@@ -15,22 +15,9 @@ namespace MagicFire.HuanHuoUFrame {
     using System.Linq;
     using uFrame.ECS;
     using UniRx;
-    using UnityEngine;
     
     
-    [uFrame.Attributes.EventId(11)]
-    public partial class OnBagItemBeginDragEvent : object {
-        
-        [UnityEngine.SerializeField()]
-        private Transform _BagItem;
-        
-        public Transform BagItem {
-            get {
-                return _BagItem;
-            }
-            set {
-                _BagItem = value;
-            }
-        }
+    [uFrame.Attributes.EventId(12)]
+    public partial class ShowForgePanelEvent : object {
     }
 }

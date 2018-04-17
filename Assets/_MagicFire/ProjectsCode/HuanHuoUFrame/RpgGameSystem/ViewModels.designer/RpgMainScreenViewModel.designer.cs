@@ -32,6 +32,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<ExitArenaCommand> _ExitArena;
         
+        private Signal<ShowForgePanelCommand> _ShowForgePanel;
+        
         private Signal<ShowRankingListPanelCommand> _ShowRankingListPanel;
         
         private Signal<ShowCharacterInfoPanelCommand> _ShowCharacterInfoPanel;
@@ -72,6 +74,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _ExitArena = value;
+            }
+        }
+        
+        public virtual Signal<ShowForgePanelCommand> ShowForgePanel {
+            get {
+                return _ShowForgePanel;
+            }
+            set {
+                _ShowForgePanel = value;
             }
         }
         
@@ -134,6 +145,7 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowSectPanel = new Signal<ShowSectPanelCommand>(this);
             this.ShowAvatarBagPanel = new Signal<ShowAvatarBagPanelCommand>(this);
             this.ExitArena = new Signal<ExitArenaCommand>(this);
+            this.ShowForgePanel = new Signal<ShowForgePanelCommand>(this);
             this.ShowRankingListPanel = new Signal<ShowRankingListPanelCommand>(this);
             this.ShowCharacterInfoPanel = new Signal<ShowCharacterInfoPanelCommand>(this);
             this.ShowStorePanel = new Signal<ShowStorePanelCommand>(this);
@@ -152,6 +164,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(ExitArenaCommand argument) {
             this.ExitArena.OnNext(argument);
+        }
+        
+        public virtual void Execute(ShowForgePanelCommand argument) {
+            this.ShowForgePanel.OnNext(argument);
         }
         
         public virtual void Execute(ShowRankingListPanelCommand argument) {
@@ -191,6 +207,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExitArena_() {
             var cmd = new ExitArenaCommand();
             this.ExitArena.OnNext(cmd);
+        }
+        
+        public virtual void ShowForgePanel_() {
+            var cmd = new ShowForgePanelCommand();
+            this.ShowForgePanel.OnNext(cmd);
         }
         
         public virtual void ShowRankingListPanel_() {
@@ -238,6 +259,7 @@ namespace MagicFire.HuanHuoUFrame {
             list.Add(new ViewModelCommandInfo("ShowSectPanel", ShowSectPanel) { ParameterType = typeof(ShowSectPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowAvatarBagPanel", ShowAvatarBagPanel) { ParameterType = typeof(ShowAvatarBagPanelCommand) });
             list.Add(new ViewModelCommandInfo("ExitArena", ExitArena) { ParameterType = typeof(ExitArenaCommand) });
+            list.Add(new ViewModelCommandInfo("ShowForgePanel", ShowForgePanel) { ParameterType = typeof(ShowForgePanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowRankingListPanel", ShowRankingListPanel) { ParameterType = typeof(ShowRankingListPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowCharacterInfoPanel", ShowCharacterInfoPanel) { ParameterType = typeof(ShowCharacterInfoPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowStorePanel", ShowStorePanel) { ParameterType = typeof(ShowStorePanelCommand) });

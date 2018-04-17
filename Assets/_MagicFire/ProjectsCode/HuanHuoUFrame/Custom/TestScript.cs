@@ -8,17 +8,20 @@ using System;
 
 public class TestScript : MonoBehaviour
 {
+    [SerializeField]
+    private Image _headBar;
 
     // Use this for initialization
     void Start () {
-        this.GetComponent<Image>().OnPointerDownAsObservable().Subscribe(evt =>
-        {
-            Debug.Log("TestScript OnPointerDownAsObservable");
-        });
+        Debug.Log("TestScript:Start");
+        //_headBar.OnBeginDragAsObservable().Subscribe(evt =>
+        //{
+        //    Debug.Log("TestScript:OnBeginDragAsObservable");
+        //});
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

@@ -28,6 +28,8 @@ namespace MagicFire.HuanHuoUFrame {
         private Text _lingshiAmountText;
         [SerializeField]
         private Button _sellButton;
+        //[SerializeField]
+        //private Image _headBar2;
 
         private int _currentSelectProp = 0;
 
@@ -44,6 +46,20 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            //_headBar2.OnBeginDragAsObservable().Subscribe(evt =>
+            //{
+            //    Debug.Log("BagPanelView:OnBeginDragAsObservable");
+            //}).DisposeWith(this);
+
+            //_headBar2.OnBeginDragAsObservable().Subscribe(evt =>
+            //{
+            //    Debug.Log("PanelView:OnBeginDragAsObservable");
+            //}).DisposeWith(this);
+            //_headBar2.OnDragAsObservable().Subscribe(evt =>
+            //{
+            //    Debug.Log("PanelView:OnDragAsObservable");
+            //}).DisposeWith(this);
+
             _sellButton.OnClickAsObservable().Subscribe(x => {
                 if (_currentSelectProp > 0)
                 {
@@ -67,7 +83,6 @@ namespace MagicFire.HuanHuoUFrame {
                 item.Find("Text").GetComponent<Text>().text = "";
                 item.GetComponent<Button>().interactable = false;
                 item.GetComponent<Button>().onClick.RemoveAllListeners();
-                //item.GetComponent<EventTrigger>().triggers.Clear();
             }
         }
 
@@ -77,6 +92,8 @@ namespace MagicFire.HuanHuoUFrame {
             ClearItems();
             var i = 0;
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            Transform dragPropItem = null;
+            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
             if (tmpPropList != null)
             {
                 foreach (var item in tmpPropList)
@@ -92,36 +109,39 @@ namespace MagicFire.HuanHuoUFrame {
                     itemImage.color = Color.white;
                     var itemText = propItem.Find("Text").GetComponent<Text>();
                     itemText.text = PropSystemController.PropConfigList[propID].name;
-                    propItem.GetComponent<Button>().OnBeginDragAsObservable()
+                    var propItemButton = propItem.GetComponent<Button>();
+                    propItemButton.interactable = true;
+                    propItemButton.OnBeginDragAsObservable()
                         .Where(x => { return x.button == PointerEventData.InputButton.Left; })
-                        .Subscribe(x => {
-                            Debug.Log("BagPanelView:OnBeginDragAsObservable " + propID);
+                        .Subscribe(x =>
+                        {
+                            //Debug.Log("BagPanelView:OnBeginDragAsObservable ");
                             var spawnPool = PoolManager.Pools["UIPanelPool"];
-                            var dragPropItem = Instantiate(spawnPool.Spawn(spawnPool.prefabs["DragPropItem"]));
-                            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+                            dragPropItem = Instantiate(spawnPool.Spawn(spawnPool.prefabs["DragPropItem"]));
                             dragPropItem.SetParent(worldViewService.MasterCanvas.transform);
-
+                            dragPropItem.Find("Foreground").GetComponent<Image>().sprite = itemImage.sprite;
                             Vector3 currentPosition;
-                            RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(),
+                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
                                 x.position, x.pressEventCamera, out currentPosition);
-                            var v = GameObject.Find("MasterCanvas").GetComponent<RectTransform>().rect.size / 2;
-                            var _lastPosition = currentPosition - new Vector3(v.x, v.y) - this.transform.localPosition;
-                            dragPropItem.GetComponent<Image>().OnDragAsObservable().Subscribe(evt =>
-                            {
-                                Debug.Log("BagPanelView:dragPropItem.OnDragAsObservable");
-                                Vector3 currentPos;
-
-                                RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
-                                    evt.position, evt.pressEventCamera, out currentPos);
-
-                                var point = this.transform.localPosition;
-                                var v1 = worldViewService.MasterCanvas.GetComponent<RectTransform>().rect.size / 2;
-                                this.transform.localPosition = currentPos - new Vector3(v1.x, v1.y) - _lastPosition;
-
-                            });
+                            dragPropItem.position = currentPosition;
                             this.Publish(new OnBagItemBeginDragEvent() { BagItem = propItem });
-                        });
-
+                        }).DisposeWith(this);
+                    propItemButton.OnDragAsObservable().Subscribe(evt =>
+                        {
+                            //Debug.Log("BagPanelView:OnDragAsObservable");
+                            Vector3 currentPos;
+                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
+                                evt.position, evt.pressEventCamera, out currentPos);
+                            var point = this.transform.localPosition;
+                            var v1 = worldViewService.MasterCanvas.GetComponent<RectTransform>().rect.size / 2;
+                            dragPropItem.localPosition = currentPos - new Vector3(v1.x, v1.y);
+                        }).DisposeWith(this);
+                    propItemButton.OnEndDragAsObservable().Subscribe(evt =>
+                    {
+                        //Debug.Log("BagPanelView:OnEndDragAsObservable");
+                        Destroy(dragPropItem.gameObject);
+                        this.Publish(new OnBagItemEndDragEvent() { BagItem = dragPropItem });
+                    }).DisposeWith(this);
 
                     //var propItem = Instantiate(_propItemPrefab);
                     //Debug.Log(prop["propUUID"] + " " + propItem);

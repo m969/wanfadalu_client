@@ -18,8 +18,8 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    [uFrame.Attributes.EventId(11)]
-    public partial class OnBagItemBeginDragEvent : object {
+    [uFrame.Attributes.EventId(13)]
+    public partial class OnBagItemEndDragEvent : object {
         
         [UnityEngine.SerializeField()]
         private Transform _BagItem;

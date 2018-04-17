@@ -96,6 +96,7 @@ namespace MagicFire.HuanHuoUFrame {
             viewModel.ShowSectPanel.Action = this.ShowSectPanelHandler;
             viewModel.ShowAvatarBagPanel.Action = this.ShowAvatarBagPanelHandler;
             viewModel.ExitArena.Action = this.ExitArenaHandler;
+            viewModel.ShowForgePanel.Action = this.ShowForgePanelHandler;
             viewModel.ShowRankingListPanel.Action = this.ShowRankingListPanelHandler;
             viewModel.ShowCharacterInfoPanel.Action = this.ShowCharacterInfoPanelHandler;
             viewModel.ShowStorePanel.Action = this.ShowStorePanelHandler;
@@ -120,6 +121,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void ExitArenaHandler(ExitArenaCommand command) {
             this.ExitArena(command.Sender as RpgMainScreenViewModel, command);
+        }
+        
+        public virtual void ShowForgePanelHandler(ShowForgePanelCommand command) {
+            this.ShowForgePanel(command.Sender as RpgMainScreenViewModel, command);
         }
         
         public virtual void ShowRankingListPanelHandler(ShowRankingListPanelCommand command) {
@@ -153,6 +158,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void ExitArena(RpgMainScreenViewModel viewModel, ExitArenaCommand arg) {
+        }
+        
+        public virtual void ShowForgePanel(RpgMainScreenViewModel viewModel, ShowForgePanelCommand arg) {
         }
         
         public virtual void ShowRankingListPanel(RpgMainScreenViewModel viewModel, ShowRankingListPanelCommand arg) {

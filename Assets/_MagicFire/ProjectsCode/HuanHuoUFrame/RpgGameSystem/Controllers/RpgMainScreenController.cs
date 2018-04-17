@@ -15,6 +15,7 @@
             this.OnEvent<ShowAvatarBagEvent>().Subscribe(ShowAvatarBag);
             this.OnEvent<ShowCharacterInfoPanelEvent>().Subscribe(ShowCharacterInfoPanel);
             this.OnEvent<ShowGongFaPanelEvent>().Subscribe(ShowGongFaPanel);
+            this.OnEvent<ShowForgePanelEvent>().Subscribe(ShowForgePanel);
             this.OnEvent<ShowDialogPanelEvent>().Subscribe(ShowDialogPanel);
             this.OnEvent<ShowStorePanelEvent>().Subscribe(ShowStorePanel);
         }
@@ -33,6 +34,11 @@
         {
             this.RpgMainScreen.Execute(new ShowGongFaPanelCommand());
             //this.ShowGongFaPanel(this.RpgMainScreen, new ShowGongFaPanelCommand());
+        }
+
+        private void ShowForgePanel(ShowForgePanelEvent evt)
+        {
+            this.RpgMainScreen.Execute(new ShowForgePanelCommand());
         }
 
         private void ShowDialogPanel(ShowDialogPanelEvent evt)

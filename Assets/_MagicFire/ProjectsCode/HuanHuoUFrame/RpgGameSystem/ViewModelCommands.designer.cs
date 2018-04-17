@@ -71,6 +71,9 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class Test01LoginCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class ShowForgePanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class ExitGameCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     

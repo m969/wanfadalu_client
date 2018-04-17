@@ -31,6 +31,8 @@ namespace MagicFire.HuanHuoUFrame {
             _characterInfoPanelView;
         private GongFaPanelView
             _gongFaPanelView;
+        private ForgePanelView
+            _forgePanelView;
         private RankingListPanelView 
             _rankingListPanelView;
         private SectPanelView 
@@ -90,6 +92,11 @@ namespace MagicFire.HuanHuoUFrame {
         public override void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command)
         {
             _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "UIPanelPool", "GongFaPanel");
+        }
+
+        public override void ShowForgePanelExecuted(ShowForgePanelCommand command)
+        {
+            _forgePanelView = ShowAvatarPanel(_forgePanelView, "UIPanelPool", "ForgePanel");
         }
 
         public override void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command)

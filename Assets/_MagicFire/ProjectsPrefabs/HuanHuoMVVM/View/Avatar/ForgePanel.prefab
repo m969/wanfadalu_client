@@ -3070,6 +3070,7 @@ MonoBehaviour:
   _sectID: 0
   _skillKeyOptions: 
   _BindOnTargetItemListReturn: 1
+  _materialsPanel: {fileID: 224752498712781022}
 --- !u!114 &114359156451352360
 MonoBehaviour:
   m_ObjectHideFlags: 1

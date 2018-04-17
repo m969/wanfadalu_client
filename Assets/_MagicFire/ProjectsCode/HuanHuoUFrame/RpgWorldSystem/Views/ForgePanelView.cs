@@ -14,6 +14,7 @@
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.EventSystems;
+    using UniRx.Triggers;
 
 
     public class ForgePanelView : ForgePanelViewBase {
@@ -32,23 +33,31 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            Transform itemTrans = null;
             this.OnEvent<OnBagItemBeginDragEvent>().Subscribe(x => {
+                //Debug.Log("ForgePanelView:OnBagItemBeginDragEvent");
                 foreach (Transform item in _materialsPanel)
                 {
-                    item.GetComponent<EventTrigger>().AsObservableOfPointerEnter().Subscribe(_x => {
-                        Debug.Log("ForgePanelView:PointerEnter");
+                    item.GetComponent<Button>().OnPointerEnterAsObservable().Subscribe(_x => {
+                        //Debug.Log("ForgePanelView:PointerEnter");
                         var backgroundOutline = item.Find("Background").GetComponent<Outline>();
                         backgroundOutline.effectColor = Color.yellow;
-                    });
-                    item.GetComponent<EventTrigger>().AsObservableOfEndDrag().Subscribe(_x => {
-                        Debug.Log("ForgePanelView:EndDrag");
-                        var itemImage = item.Find("Foreground").GetComponent<Image>();
-                        Sprite tempType = itemImage.sprite;
-                        itemImage.sprite = x.BagItem.GetComponent<Image>().sprite;
-                        var itemText = item.Find("Text").GetComponent<Text>();
+                        if (itemTrans)
+                        {
+                            backgroundOutline = itemTrans.Find("Background").GetComponent<Outline>();
+                            backgroundOutline.effectColor = Color.white;
+                        }
+                        itemTrans = item;
                     });
                 }
-            });
+            }).DisposeWith(this);
+            this.OnEvent<OnBagItemEndDragEvent>().Subscribe(x => {
+                //Debug.Log("ForgePanelView:OnBagItemBeginDragEvent");
+                var itemImage = itemTrans.Find("Foreground").GetComponent<Image>();
+                itemImage.color = Color.white;
+                itemImage.sprite = x.BagItem.Find("Foreground").GetComponent<Image>().sprite;
+                var itemText = itemTrans.Find("Text").GetComponent<Text>();
+            }).DisposeWith(this);
         }
 
         public override void OnTargetItemListReturnExecuted(OnTargetItemListReturnCommand command)

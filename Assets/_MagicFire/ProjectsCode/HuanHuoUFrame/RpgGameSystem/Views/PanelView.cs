@@ -17,8 +17,8 @@
     [RequireComponent(typeof(RectTransform))]
     public class PanelView : PanelViewBase {
         [SerializeField]
-        private Image _headBar;
-        private Vector3 _lastPosition;
+        protected Image _headBar;
+        protected Vector3 _lastPosition;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -37,10 +37,8 @@
             _headBar.OnBeginDragAsObservable().Subscribe(evt =>
             {
                 Vector3 currentPosition;
-
                 RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(),
                     evt.position, evt.pressEventCamera, out currentPosition);
-
                 var v = GameObject.Find("MasterCanvas").GetComponent<RectTransform>().rect.size / 2;
                 _lastPosition = currentPosition - new Vector3(v.x, v.y) - this.transform.localPosition;
             }).DisposeWith(this);
@@ -48,14 +46,11 @@
             _headBar.OnDragAsObservable().Subscribe(evt =>
             {
                 Vector3 currentPosition;
-
                 RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(),
                     evt.position, evt.pressEventCamera, out currentPosition);
-
                 var point = this.transform.localPosition;
                 var v = GameObject.Find("MasterCanvas").GetComponent<RectTransform>().rect.size / 2;
                 this.transform.localPosition = currentPosition - new Vector3(v.x, v.y) - _lastPosition;
-
             }).DisposeWith(this);
         }
     }

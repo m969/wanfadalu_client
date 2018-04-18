@@ -44,22 +44,23 @@
             var gongFaMap = this.Avatar.DecodeGongFaListObject(arg1);
             foreach (var item in gongFaMap)
             {
+                var gongFaID = item.Value.gongFaID;
                 var gongFaItem = Instantiate(_gongFaItemPrefab);
                 gongFaItem.SetParent(_gongFaContentTransform);
                 var itemImage = gongFaItem.Find("GongFaImage").GetComponent<Image>();
                 var tempType = itemImage.sprite;
-                Debug.Log(item.Key);
-                var srcName = "GongFaImages/gongfa_" + item.Key;
+                var srcName = "GongFaImages/gongfa_" + gongFaID;
                 itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
                 var skillList = gongFaItem.Find("GongFaInfoPanel").Find("SkillList");
-                gongFaItem.Find("GongFaInfoPanel").Find("GongFaName").GetComponent<Text>().text = item.Key.ToString();
+                gongFaItem.Find("GongFaInfoPanel").Find("GongFaName").GetComponent<Text>().text = WorldViewService.ConfigTableMap["gongFa_config_Table"][gongFaID.ToString()]["name"].ToString();
                 foreach (var skill in item.Value.skillList)
                 {
+                    var skillID = gongFaID * 10 + skill.Key;
                     var skillItem = Instantiate(_skillItemPrefab);
                     skillItem.SetParent(skillList);
                     var skillImage = skillItem.GetComponent<Image>();
                     tempType = skillImage.sprite;
-                    srcName = "SkillImages/skill_" + (item.Key * 10 + skill.Key);
+                    srcName = "SkillImages/skill_" + skillID;
                     skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
                 }
             }

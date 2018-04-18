@@ -19,7 +19,7 @@
 
     public class MainAvatarInfoPanelView : MainAvatarInfoPanelViewBase {
         [SerializeField]
-        private GameObject _gongFaListParent;
+        private Transform _skillListParent;
         [SerializeField]
         private Image _hpSliderImage;
         [SerializeField]
@@ -66,7 +66,7 @@
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;
             var rect = GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(0, 50);
+            rect.anchoredPosition = new Vector2(0, 32);
         }
 
         public override void HPChanged(int arg1)
@@ -153,16 +153,34 @@
             }
         }
 
+        public override void skillKeyOptionsChanged(string arg1)
+        {
+            var skillKeyOptions = JObject.Parse(arg1);
+            foreach (var item in skillKeyOptions)
+            {
+                var keyCode = item.Key;
+                var skillID = int.Parse(item.Value.ToString());
+                if (skillID == 0)
+                    continue;
+                var skillItem = _skillListParent.Find(keyCode);
+                var skillImage = skillItem.GetComponent<Image>();
+                var tempType = skillImage.sprite;
+                var srcName = "SkillImages/skill_" + skillID;
+                skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                skillImage.color = Color.white;
+            }
+        }
+
         public override void gongFaListChanged(object arg1)
         {
             var gongFaMap = this.Avatar.DecodeGongFaListObject(arg1);
             foreach (var item in gongFaMap)
             {
-                var child = _gongFaListParent.transform.GetChild(item.Value.index);
-                var srcName = "GongFaImages/gongfa_" + item.Value.gongFaID;
-                var itemImage = child.GetComponent<Image>();
-                var tempType = itemImage.sprite;
-                itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                //var child = _gongFaListParent.GetChild(item.Value.index);
+                //var srcName = "GongFaImages/gongfa_" + item.Value.gongFaID;
+                //var itemImage = child.GetComponent<Image>();
+                //var tempType = itemImage.sprite;
+                //itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
 
                 //var gongFaItem = Instantiate(_gongFaItemPrefab);
                 //gongFaItem.SetParent(_gongFaContentTransform);

@@ -14,9 +14,12 @@ namespace MagicFire.HuanHuoUFrame{
     using PathologicalGames;
     using uFrame.MVVM.Views;
     using uFrame.ECS.Components;
+    using Newtonsoft.Json.Linq;
 
 
     public class WorldViewService : WorldViewServiceBase {
+        public static Dictionary<string, JObject> ConfigTableMap = new Dictionary<string, JObject>();
+
         [SerializeField]
         private GameObject _playerTargetPrefab;
         private SceneState _loginSceneState = SceneState.Loaded;
@@ -72,6 +75,7 @@ namespace MagicFire.HuanHuoUFrame{
             // this.OnEvent<MyEvent>().Subscribe(myEventInstance => { TODO });
             MasterCanvas.ToString();
             Canvas3D.ToString();
+            LoadAllConfigTable();
             var tipsText = MasterCanvas.transform.Find("TipsText").GetComponent<UnityEngine.UI.Text>();
             this.OnEvent<ShowTipsEvent>().Subscribe(evt => { tipsText.text = evt.TipsContent; tipsText.gameObject.SetActive(true); });
             this.OnEvent<OnMainAvatarEnterSpaceEvent>().ObserveOnMainThread().Subscribe(OnMainAvatarEnterSpace);
@@ -85,6 +89,30 @@ namespace MagicFire.HuanHuoUFrame{
             this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
             Skill.InitSkillTypeMap();
             PropSystemController.InitPropConfigTable();
+        }
+
+        private void LoadAllConfigTable()
+        {
+            LoadConfigTable("arena_config_Table");
+            LoadConfigTable("dialog_config_Table");
+            LoadConfigTable("forge_config_Table");
+            LoadConfigTable("gongFa_config_Table");
+            LoadConfigTable("npc_config_Table");
+            LoadConfigTable("prop_config_Table");
+            LoadConfigTable("sect_config_Table");
+            LoadConfigTable("skill_config_Table");
+            LoadConfigTable("space_config_Table");
+            LoadConfigTable("store_config_Table");
+            LoadConfigTable("trigger_config_Table");
+        }
+
+        private JObject LoadConfigTable(string tableName)
+        {
+            var resPath = "JsonConfigDatas/" + tableName;
+            var jsonText = Resources.Load<TextAsset>(resPath);
+            var configJson = JObject.Parse(jsonText.text);
+            ConfigTableMap.Add(tableName, configJson);
+            return configJson;
         }
 
         private void OnLoginSceneDestructed(SceneLoaderEvent @event)

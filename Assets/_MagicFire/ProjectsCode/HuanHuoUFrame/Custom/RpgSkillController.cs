@@ -62,6 +62,8 @@
             if (Avatar != null)
             {
                 var skillID = int.Parse(Avatar.SkillKeyOptions[keyCode.ToString()].ToString());
+                if (skillID == 0)
+                    return;
                 Skill skill;
                 if (Avatar.SkillMap.TryGetValue(skillID, out skill))
                 {

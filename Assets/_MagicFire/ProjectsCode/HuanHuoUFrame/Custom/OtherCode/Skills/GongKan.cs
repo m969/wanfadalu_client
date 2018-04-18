@@ -9,13 +9,12 @@ namespace MagicFire.HuanHuoUFrame
     {
         public GongKan(SkillEntityView spellcaster):base(spellcaster)
         {
-            GongFaID = 1001;
-            SkillIndex = 1;
         }
 
         public override void Ready(AvatarView spellcaster)
         {
-            base.Ready(spellcaster);
+            this.Conjure();
+            SkillController.CancelReady();
         }
 
         public override void Conjure(params object[] args)
@@ -27,8 +26,6 @@ namespace MagicFire.HuanHuoUFrame
 
         public override void OnCast(string argsString)
         {
-            //var args = argsString.Split(":");
-            //Spellcaster.transform.LookAt(new Vector3(int.Parse(args[0]), int.Parse(args[1]), int.Parse(args[2])));
             ((AvatarView)Spellcaster).Animator.SetTrigger("Attack_2");
         }
     }

@@ -46,6 +46,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowAvatarBagPanelbutton")]
         protected UnityEngine.UI.Button _ShowAvatarBagPanelButton;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowForgePanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowForgePanel = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("ShowForgePanel")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowForgePanelbutton")]
+        protected UnityEngine.UI.Button _ShowForgePanelButton;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("ExitGame")]
         [UnityEngine.HideInInspector()]
         public bool _BindExitGame = true;
@@ -140,6 +150,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindShowAvatarBagPanel) {
                 this.BindButtonToCommand(_ShowAvatarBagPanelButton, this.RpgMainScreen.ShowAvatarBagPanel);
             }
+            if (_BindShowForgePanel) {
+                this.BindButtonToCommand(_ShowForgePanelButton, this.RpgMainScreen.ShowForgePanel);
+            }
             if (_BindExitGame) {
                 this.BindCommandExecuted(this.RpgMainScreen.ExitGame, this.ExitGameExecuted);
             }
@@ -169,6 +182,9 @@ namespace MagicFire.HuanHuoUFrame {
             }
             if (_BindExitGame) {
                 this.BindButtonToCommand(_ExitGameButton, this.RpgMainScreen.ExitGame);
+            }
+            if (_BindShowForgePanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowForgePanel, this.ShowForgePanelExecuted);
             }
             if (_BindShowCharacterInfoPanel) {
                 this.BindButtonToCommand(_ShowCharacterInfoPanelButton, this.RpgMainScreen.ShowCharacterInfoPanel);
@@ -202,6 +218,9 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ShowSectPanelExecuted(ShowSectPanelCommand command) {
         }
         
+        public virtual void ShowForgePanelExecuted(ShowForgePanelCommand command) {
+        }
+        
         public virtual void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command) {
         }
         
@@ -224,6 +243,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteExitArena(ExitArenaCommand command) {
             command.Sender = RpgMainScreen;
             RpgMainScreen.ExitArena.OnNext(command);
+        }
+        
+        public virtual void ExecuteShowForgePanel(ShowForgePanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowForgePanel.OnNext(command);
         }
         
         public virtual void ExecuteShowRankingListPanel(ShowRankingListPanelCommand command) {

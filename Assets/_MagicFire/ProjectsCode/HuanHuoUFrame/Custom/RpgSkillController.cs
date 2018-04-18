@@ -12,7 +12,6 @@
     public partial class RpgSkillController
     {
         public AvatarView Avatar { get; set; }
-        private readonly Dictionary<string, Skill> _skillMap = new Dictionary<string, Skill>();
         private SkillState CurrentSkillState { get; set; }
         private SkillReadyState _skillReadyState;
         private SkillEmptyState _skillEmptyState;
@@ -21,65 +20,58 @@
         public void Init(AvatarView avatar)
         {
             Avatar = avatar;
-            //_skillMap.Add(1, new SkillQ(Avatar));
-            //_skillMap.Add(2, new SkillW(Avatar));
-            //_skillMap.Add(3, new SkillE(Avatar));
-            //_skillMap.Add(4, new GongKan(Avatar));
-
-            //AddSkill(new SkillQ(Avatar));
-            //AddSkill(new SkillW(Avatar));
-            //AddSkill(new SkillE(Avatar));
-            //AddSkill(new GongKan(Avatar));
-
             _skillEmptyState = new SkillEmptyState(Avatar);
             _skillReadyState = new SkillReadyState(Avatar);
             CurrentSkillState = _skillEmptyState;
-
+            if (!Avatar.Avatar.isPlayer())
+                return;
             Observable.EveryUpdate()
                 .Subscribe(evt =>
                 {
-                    CurrentSkillState.Run();
-
                     if (Input.GetKeyDown(KeyCode.Q))
-                        SkillReady(1001, 0);
+                        SkillReady((int)KeyCode.Q);
                     if (Input.GetKeyDown(KeyCode.W))
-                        SkillReady(1003, 0);
+                        SkillReady((int)KeyCode.W);
                     if (Input.GetKeyDown(KeyCode.E))
-                        SkillReady(1002, 0);
-                    if (Input.GetKeyDown(KeyCode.R))
-                        GetSkillRef(1001, 1).Conjure();
+                        SkillReady((int)KeyCode.E);
+                    if (Input.GetKeyDown(KeyCode.A))
+                        SkillReady((int)KeyCode.A);
+                    if (Input.GetKeyDown(KeyCode.S))
+                        SkillReady((int)KeyCode.S);
+                    if (Input.GetKeyDown(KeyCode.D))
+                        SkillReady((int)KeyCode.D);
+                    if (Input.GetKeyDown(KeyCode.Z))
+                        SkillReady((int)KeyCode.Z);
+                    if (Input.GetKeyDown(KeyCode.X))
+                        SkillReady((int)KeyCode.X);
+                    if (Input.GetKeyDown(KeyCode.C))
+                        SkillReady((int)KeyCode.C);
+                    CurrentSkillState.Run();
                 });
-
             Observable.EveryUpdate()
                 .Where(evt => { return Input.GetMouseButtonDown(1); })
                 .Subscribe(evt =>
                 {
                     this.CancelReady();
                 });
-
-            Observable.EveryUpdate()
-                .Where(evt => { return Input.GetMouseButtonDown(0); })
-                .Subscribe(evt =>
-                {
-                    //this.CancelReady();
-                });
         }
 
-        public void AddSkill(Skill skill)
-        {
-            skill.SkillController = this;
-            _skillMap.Add(skill.GongFaID + ":" + skill.SkillIndex, skill);
-        }
-
-        public void SkillReady(int gongfaID, int skillIndex)
+        public void SkillReady(int keyCode)
         {
             CancelReady();
             if (Avatar != null)
             {
+                var skillID = int.Parse(Avatar.SkillKeyOptions[keyCode.ToString()].ToString());
                 Skill skill;
-                Avatar.SkillMap.TryGetValue(gongfaID + ":" + skillIndex, out skill);
-                _skillReadyState.CurrentReadySkill = skill;
-                CurrentSkillState = _skillReadyState;
+                if (Avatar.SkillMap.TryGetValue(skillID, out skill))
+                {
+                    _skillReadyState.CurrentReadySkill = skill;
+                    CurrentSkillState = _skillReadyState;
+                }
+                else
+                {
+                    Debug.LogError("RpgSkillController:SkillReady Error! Not Found Skill " + skillID);
+                }
             }
         }
 
@@ -99,12 +91,6 @@
             CurrentSkillState = _skillEmptyState;
         }
 
-        public Skill GetSkillRef(int gongfaID, int skillIndex)
-        {
-            Skill skill = null;
-            Avatar.SkillMap.TryGetValue(gongfaID + ":" + skillIndex, out skill);
-            return skill;
-        }
 
         private class SkillState
         {

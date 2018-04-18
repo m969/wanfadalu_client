@@ -12,20 +12,20 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
-    using GongFaID = System.Int32;
-    using SkillID = System.Int32;
+    using GongFaIndex = System.Int32;
+    using SkillIndex = System.Int32;
 
     public class GongFa
     {
         public int index;
         public int gongFaID;
-        public Dictionary<SkillID, ASkill> skillList;
+        public Dictionary<SkillIndex, ASkill> skillList;
     }
 
     public partial class GongFaEntityViewModel : GongFaEntityViewModelBase {
-        public Dictionary<GongFaID, GongFa> DecodeGongFaListObject(object gongFaListObject)
+        public Dictionary<GongFaIndex, GongFa> DecodeGongFaListObject(object gongFaListObject)
         {
-            var gongFaMap = new Dictionary<GongFaID, GongFa>();
+            var gongFaMap = new Dictionary<GongFaIndex, GongFa>();
             var gongFaList = ((Dictionary<string, object>)gongFaListObject)["values"] as List<object>;
             foreach (var gongFaInfo in gongFaList)
             {
@@ -33,7 +33,7 @@
                 var skillList = ((Dictionary<string, object>)gongFaInfo)["values"] as List<object>;
                 var gongFaID = (int)((Dictionary<string, object>)gongFaInfo)["gongFaID"];
                 var index = (int)((Dictionary<string, object>)gongFaInfo)["index"];
-                var skillMap = new Dictionary<SkillID, ASkill>();
+                var skillMap = new Dictionary<SkillIndex, ASkill>();
                 foreach (var skillInfo in skillList)
                 {
                     var skill = new ASkill();
@@ -46,7 +46,7 @@
                 gongFa.index = index;
                 gongFa.gongFaID = gongFaID;
                 gongFa.skillList = skillMap;
-                gongFaMap[gongFaID] = gongFa;
+                gongFaMap[index] = gongFa;
             }
             return gongFaMap;
         }

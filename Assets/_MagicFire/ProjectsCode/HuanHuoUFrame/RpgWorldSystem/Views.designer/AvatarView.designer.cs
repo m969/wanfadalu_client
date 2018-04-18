@@ -36,6 +36,11 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public Int32 _sectID;
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public String _skillKeyOptions;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("OnDialogItemsReturn")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnDialogItemsReturn = true;
@@ -82,6 +87,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
         protected bool _sectIDOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("skillKeyOptions")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindskillKeyOptions = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("skillKeyOptions")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_skillKeyOptionsonlyWhenChanged")]
+        protected bool _skillKeyOptionsOnlyWhenChanged;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -108,6 +123,7 @@ namespace MagicFire.HuanHuoUFrame {
             var avatarview = ((AvatarViewModel)model);
             avatarview.lingshiAmount = this._lingshiAmount;
             avatarview.sectID = this._sectID;
+            avatarview.skillKeyOptions = this._skillKeyOptions;
         }
         
         public override void Bind() {
@@ -135,6 +151,9 @@ namespace MagicFire.HuanHuoUFrame {
             }
             if (_BindsectID) {
                 this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
+            }
+            if (_BindskillKeyOptions) {
+                this.BindProperty(this.Avatar.skillKeyOptionsProperty, this.skillKeyOptionsChanged, _skillKeyOptionsOnlyWhenChanged);
             }
         }
         
@@ -193,6 +212,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void sectIDChanged(Int32 arg1) {
+        }
+        
+        public virtual void skillKeyOptionsChanged(String arg1) {
         }
         
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {

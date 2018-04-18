@@ -36,6 +36,11 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public Int32 _sectID;
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public String _skillKeyOptions;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -62,6 +67,7 @@ namespace MagicFire.HuanHuoUFrame {
             var storepanelview = ((AvatarViewModel)model);
             storepanelview.lingshiAmount = this._lingshiAmount;
             storepanelview.sectID = this._sectID;
+            storepanelview.skillKeyOptions = this._skillKeyOptions;
         }
         
         public override void Bind() {

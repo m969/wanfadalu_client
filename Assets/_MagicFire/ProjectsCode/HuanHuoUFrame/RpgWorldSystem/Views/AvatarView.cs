@@ -32,6 +32,7 @@
         [SerializeField]
         private Transform _weaponListNode;
         private Dictionary<ulong, Prop> _magicWeaponList;
+        public JObject SkillKeyOptions;
 
 
         public bool ClientControl
@@ -100,7 +101,7 @@
             //var v = new Vector3(ViewModelObject.position.x, 5, ViewModelObject.position.z);
             //transform.position = v;
             //ViewModelObject.position = v;
-
+            //
             //var ray = new Ray();
             //ray.origin = ViewModelObject.position + Vector3.up * 10;
             //ray.direction = Vector3.down;
@@ -191,7 +192,7 @@
                 foreach (var item in tmpPropList)
                 {
                     var propObject = (Dictionary<string, object>)item;
-                    var propData = JObject.Parse(propObject["propData"] as string);
+                    var propData = JObject.Parse(propObject["propData"].ToString());
                     var prop = new Prop();
                     prop.propUUID = (ulong)propObject["propUUID"];
                     prop.index = (int)propObject["index"];
@@ -204,15 +205,11 @@
                     weapon.localPosition = Vector3.zero;
                 }
             }
-            //foreach (var item in _magicWeaponList)
-            //{
-            //    var child = _weaponListParent.transform.GetChild(item.Value.index);
-            //    var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
-            //    //Debug.Log(srcName);
-            //    var itemImage = child.GetComponent<Image>();
-            //    var tempType = itemImage.sprite;
-            //    itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
-            //}
+        }
+
+        public override void skillKeyOptionsChanged(string arg1)
+        {
+            SkillKeyOptions = JObject.Parse(arg1);
         }
     }
 }

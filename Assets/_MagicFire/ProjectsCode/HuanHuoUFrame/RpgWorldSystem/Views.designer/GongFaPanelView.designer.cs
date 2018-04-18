@@ -36,6 +36,11 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public Int32 _sectID;
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public String _skillKeyOptions;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("gongFaList")]
         [UnityEngine.HideInInspector()]
         public bool _BindgongFaList = true;
@@ -72,6 +77,7 @@ namespace MagicFire.HuanHuoUFrame {
             var gongfapanelview = ((AvatarViewModel)model);
             gongfapanelview.lingshiAmount = this._lingshiAmount;
             gongfapanelview.sectID = this._sectID;
+            gongfapanelview.skillKeyOptions = this._skillKeyOptions;
         }
         
         public override void Bind() {

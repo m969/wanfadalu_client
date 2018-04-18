@@ -16,12 +16,10 @@ namespace MagicFire.HuanHuoUFrame
     using UnityEngine;
     using System.Collections;
 
-    public class Shoot : Skill
+    public class ArrowExplode : Skill
     {
-        public Shoot(SkillEntityView spellcaster) : base(spellcaster)
+        public ArrowExplode(SkillEntityView spellcaster) : base(spellcaster)
         {
-            GongFaID = 1001;
-            SkillIndex = 0;
         }
 
         public override void Ready(AvatarView spellcaster)

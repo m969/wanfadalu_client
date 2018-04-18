@@ -10,6 +10,8 @@ GameObject:
   - component: {fileID: 401310}
   - component: {fileID: 14311594}
   - component: {fileID: 114289981950343318}
+  - component: {fileID: 114346696964395610}
+  - component: {fileID: 114764431665194592}
   m_Layer: 0
   m_Name: AvatarView
   m_TagString: Avatar
@@ -4455,7 +4457,6 @@ MonoBehaviour:
   _canMoveOnlyWhenChanged: 0
   _BindgongFaList: 1
   _gongFaListOnlyWhenChanged: 0
-  _weaponListNode: {fileID: 4029486660944010}
   _isIceFreezing: 0
   _BindisIceFreezing: 1
   _isIceFreezingOnlyWhenChanged: 0
@@ -4472,6 +4473,8 @@ MonoBehaviour:
   _avatarStateOnlyWhenChanged: 0
   _BindOnPullStorePropListReturn: 1
   _BindTeleport: 1
+  _BindmagicWeaponList: 1
+  _magicWeaponListOnlyWhenChanged: 0
   _BindOnJoinSectResult: 1
   _BindsectID: 1
   _sectIDOnlyWhenChanged: 0
@@ -4480,6 +4483,7 @@ MonoBehaviour:
   _animator: {fileID: 95099928238457846}
   _animation: {fileID: 0}
   _characterController: {fileID: 14311594}
+  _weaponListNode: {fileID: 4029486660944010}
 --- !u!114 &114300417603106346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4583,6 +4587,19 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
+--- !u!114 &114346696964395610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c0699fc82d2114fad185105a93add3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProxyFor: {fileID: 0}
+  _entityId: 0
 --- !u!114 &114382748219345422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4892,6 +4909,18 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
+--- !u!114 &114764431665194592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf21911512fd8043bb41abea53a9b4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Entity: {fileID: 114346696964395610}
 --- !u!114 &114987963535967786
 MonoBehaviour:
   m_ObjectHideFlags: 1

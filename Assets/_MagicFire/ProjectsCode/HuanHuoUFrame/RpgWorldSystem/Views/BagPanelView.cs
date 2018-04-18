@@ -16,6 +16,8 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     using UnityEngine.UI;
     using Newtonsoft.Json.Linq;
+    using UnityEngine.EventSystems;
+    using UniRx.Triggers;
 
 
     public class BagPanelView : BagPanelViewBase
@@ -23,9 +25,13 @@ namespace MagicFire.HuanHuoUFrame {
         [SerializeField]
         private Transform _itemsPanel;
         [SerializeField]
-        private Transform _propItemPrefab;
-        [SerializeField]
         private Text _lingshiAmountText;
+        [SerializeField]
+        private Button _sellButton;
+        //[SerializeField]
+        //private Image _headBar2;
+
+        private int _currentSelectProp = 0;
 
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
@@ -40,27 +46,111 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            //_headBar2.OnBeginDragAsObservable().Subscribe(evt =>
+            //{
+            //    Debug.Log("BagPanelView:OnBeginDragAsObservable");
+            //}).DisposeWith(this);
+
+            //_headBar2.OnBeginDragAsObservable().Subscribe(evt =>
+            //{
+            //    Debug.Log("PanelView:OnBeginDragAsObservable");
+            //}).DisposeWith(this);
+            //_headBar2.OnDragAsObservable().Subscribe(evt =>
+            //{
+            //    Debug.Log("PanelView:OnDragAsObservable");
+            //}).DisposeWith(this);
+
+            _sellButton.OnClickAsObservable().Subscribe(x => {
+                if (_currentSelectProp > 0)
+                {
+                    Avatar.cellCall("requestSellProp", _currentSelectProp);
+                }
+                else
+                {
+                    this.Publish(new ShowTipsEvent()
+                    {
+                        TipsContent = "请选择一个道具"
+                    });
+                }
+            });
+        }
+
+        private void ClearItems()
+        {
+            foreach (Transform item in _itemsPanel)
+            {
+                item.Find("Foreground").GetComponent<Image>().color = Color.black;
+                item.Find("Text").GetComponent<Text>().text = "";
+                item.GetComponent<Button>().interactable = false;
+                item.GetComponent<Button>().onClick.RemoveAllListeners();
+            }
         }
 
         public override void propListChanged(object arg1)
         {
             //Debug.Log("BagPanelView:propListChanged");
-            _itemsPanel.DestroyChildren();
+            ClearItems();
+            var i = 0;
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            Transform dragPropItem = null;
+            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
             if (tmpPropList != null)
             {
                 foreach (var item in tmpPropList)
                 {
                     var prop = (Dictionary<string, object>)item;
                     JObject propData = JObject.Parse(prop["propData"] as string);
-                    var propItem = Instantiate(_propItemPrefab);
-                    //Debug.Log(prop["propUUID"] + " " + propItem);
-                    propItem.name = prop["propUUID"] as string;
-                    var srcName = "PropImages/prop_" + int.Parse(propData["id"].ToString());
-                    var itemImage = propItem.Find("Background").GetComponent<Image>();
+                    var propItem = _itemsPanel.GetChild(i);
+                    var itemImage = propItem.Find("Foreground").GetComponent<Image>();
+                    var propID = int.Parse(propData["id"].ToString());
+                    var srcName = "PropImages/prop_" + propID;
                     Sprite tempType = itemImage.sprite;
                     itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
-                    propItem.SetParent(_itemsPanel);
+                    itemImage.color = Color.white;
+                    var itemText = propItem.Find("Text").GetComponent<Text>();
+                    itemText.text = PropSystemController.PropConfigList[propID].name;
+                    var propItemButton = propItem.GetComponent<Button>();
+                    propItemButton.interactable = true;
+                    propItemButton.OnBeginDragAsObservable()
+                        .Where(x => { return x.button == PointerEventData.InputButton.Left; })
+                        .Subscribe(x =>
+                        {
+                            //Debug.Log("BagPanelView:OnBeginDragAsObservable ");
+                            var spawnPool = PoolManager.Pools["UIPanelPool"];
+                            dragPropItem = Instantiate(spawnPool.Spawn(spawnPool.prefabs["DragPropItem"]));
+                            dragPropItem.SetParent(worldViewService.MasterCanvas.transform);
+                            dragPropItem.Find("Foreground").GetComponent<Image>().sprite = itemImage.sprite;
+                            Vector3 currentPosition;
+                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
+                                x.position, x.pressEventCamera, out currentPosition);
+                            dragPropItem.position = currentPosition;
+                            this.Publish(new OnBagItemBeginDragEvent() { BagItem = propItem });
+                        }).DisposeWith(this);
+                    propItemButton.OnDragAsObservable().Subscribe(evt =>
+                        {
+                            //Debug.Log("BagPanelView:OnDragAsObservable");
+                            Vector3 currentPos;
+                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
+                                evt.position, evt.pressEventCamera, out currentPos);
+                            var point = this.transform.localPosition;
+                            var v1 = worldViewService.MasterCanvas.GetComponent<RectTransform>().rect.size / 2;
+                            dragPropItem.localPosition = currentPos - new Vector3(v1.x, v1.y);
+                        }).DisposeWith(this);
+                    propItemButton.OnEndDragAsObservable().Subscribe(evt =>
+                    {
+                        //Debug.Log("BagPanelView:OnEndDragAsObservable");
+                        Destroy(dragPropItem.gameObject);
+                        this.Publish(new OnBagItemEndDragEvent() { BagItem = dragPropItem });
+                    }).DisposeWith(this);
+
+                    //var propItem = Instantiate(_propItemPrefab);
+                    //Debug.Log(prop["propUUID"] + " " + propItem);
+                    //propItem.name = prop["propUUID"] as string;
+                    //var srcName = "PropImages/prop_" + int.Parse(propData["id"].ToString());
+                    //var itemImage = propItem.Find("Background").GetComponent<Image>();
+                    //Sprite tempType = itemImage.sprite;
+                    //itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                    //propItem.SetParent(_itemsPanel);
                 }
             }
         }

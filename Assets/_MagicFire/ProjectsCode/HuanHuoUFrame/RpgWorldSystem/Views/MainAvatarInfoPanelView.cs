@@ -17,14 +17,6 @@
     using PathologicalGames;
 
 
-    public struct Prop
-    {
-        public ulong propUUID;
-        public int index;
-        public JObject propData;
-    }
-
-
     public class MainAvatarInfoPanelView : MainAvatarInfoPanelViewBase {
         [SerializeField]
         private GameObject _gongFaListParent;

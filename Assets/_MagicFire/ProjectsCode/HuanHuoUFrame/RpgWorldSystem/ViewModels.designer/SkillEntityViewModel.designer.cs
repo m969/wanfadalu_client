@@ -119,18 +119,18 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnSkillStartSing.OnNext(argument);
         }
         
-        public virtual void OnSkillStartCast_(String skillName, String argsString, Single castTime) {
+        public virtual void OnSkillStartCast_(Int32 skillID, String argsString, Single castTime) {
             var cmd = new OnSkillStartCastCommand();
-            cmd.skillName = skillName;
+            cmd.skillID = skillID;
             cmd.argsString = argsString;
             cmd.castTime = castTime;
             this.OnSkillStartCast.OnNext(cmd);
         }
         
-        public virtual void OnSkillEndCast_(String argsString, String skillName) {
+        public virtual void OnSkillEndCast_(Int32 skillID, String argsString) {
             var cmd = new OnSkillEndCastCommand();
+            cmd.skillID = skillID;
             cmd.argsString = argsString;
-            cmd.skillName = skillName;
             this.OnSkillEndCast.OnNext(cmd);
         }
         

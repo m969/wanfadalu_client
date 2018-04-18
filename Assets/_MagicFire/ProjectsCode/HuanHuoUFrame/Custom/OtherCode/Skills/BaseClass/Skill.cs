@@ -3,8 +3,11 @@
     using UnityEngine;
     using System.Collections;
     using PathologicalGames;
+    using System.Collections.Generic;
+    using System;
+    using Newtonsoft.Json.Linq;
 
-    public class Skill
+    public abstract class Skill
     {
         public int GongFaID = 0;
         public int SkillIndex = 0;
@@ -15,6 +18,29 @@
         public RaycastHit RaycastHit;
         public const int RaycastHitDist = 500;
 
+        public static readonly Dictionary<int, Type> SkillTypeMap = new Dictionary<int, Type>();
+
+        public static void InitSkillTypeMap()
+        {
+            var skillJsonText = Resources.Load<TextAsset>("JsonConfigDatas/skill_config_Table");
+            var skillConfigJson = JObject.Parse(skillJsonText.text);
+            foreach (var item in skillConfigJson)
+            {
+                var skillID = int.Parse(item.Key);
+                var skillScript = item.Value["script"].ToString();
+                foreach (System.Reflection.Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    var script = ass.GetType("MagicFire.HuanHuoUFrame." + skillScript);
+                    if (script != null)
+                    {
+                        SkillTypeMap.Add(skillID, script);
+                        break;
+                    }
+                }
+                if (!SkillTypeMap.ContainsKey(skillID))
+                    Debug.LogError("Error: not find MagicFire.HuanHuoUFrame." + skillScript);
+            }
+        }
 
         protected Skill(SkillEntityView spellcaster)
         {
@@ -47,7 +73,8 @@
         //取消技能预备
         public virtual void CancelReady()
         {
-            SkillTrajectory.SetActive(false);
+            if (SkillTrajectory != null)
+                SkillTrajectory.SetActive(false);
         }
 
         //技能施放

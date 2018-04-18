@@ -25,6 +25,20 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class OnDestroyCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class RequestPullStorePropListCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _StoreNpcID;
+        
+        public Int32 StoreNpcID {
+            get {
+                return _StoreNpcID;
+            }
+            set {
+                _StoreNpcID = value;
+            }
+        }
+    }
+    
     public partial class RequestMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Vector3 _Point;
@@ -43,6 +57,45 @@ namespace MagicFire.HuanHuoUFrame {
     }
     
     public partial class OnDeadCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
+    public partial class SelectDialogItemCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _DialogID;
+        
+        public Int32 DialogID {
+            get {
+                return _DialogID;
+            }
+            set {
+                _DialogID = value;
+            }
+        }
+    }
+    
+    public partial class OnPullStorePropListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _NpcID;
+        
+        private object _StorePropList;
+        
+        public Int32 NpcID {
+            get {
+                return _NpcID;
+            }
+            set {
+                _NpcID = value;
+            }
+        }
+        
+        public object StorePropList {
+            get {
+                return _StorePropList;
+            }
+            set {
+                _StorePropList = value;
+            }
+        }
     }
     
     public partial class onMainAvatarEnterSpaceCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
@@ -140,6 +193,20 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class OnRequestForgeResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _Result;
+        
+        public Int32 Result {
+            get {
+                return _Result;
+            }
+            set {
+                _Result = value;
+            }
+        }
+    }
+    
     public partial class RequestExitArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
@@ -147,6 +214,45 @@ namespace MagicFire.HuanHuoUFrame {
     }
     
     public partial class RequestSelfRankingCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
+    public partial class OnJoinSectResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _SectID;
+        
+        private Int32 _Result;
+        
+        public Int32 SectID {
+            get {
+                return _SectID;
+            }
+            set {
+                _SectID = value;
+            }
+        }
+        
+        public Int32 Result {
+            get {
+                return _Result;
+            }
+            set {
+                _Result = value;
+            }
+        }
+    }
+    
+    public partial class OnErrorCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _ErrorCode;
+        
+        public Int32 ErrorCode {
+            get {
+                return _ErrorCode;
+            }
+            set {
+                _ErrorCode = value;
+            }
+        }
     }
     
     public partial class RequestEnterArenaCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
@@ -159,6 +265,20 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _ArenaID = value;
+            }
+        }
+    }
+    
+    public partial class OnDialogItemsReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _DialogItemsObject;
+        
+        public object DialogItemsObject {
+            get {
+                return _DialogItemsObject;
+            }
+            set {
+                _DialogItemsObject = value;
             }
         }
     }
@@ -319,10 +439,38 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class OnTargetItemListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _TargetItemListObject;
+        
+        public object TargetItemListObject {
+            get {
+                return _TargetItemListObject;
+            }
+            set {
+                _TargetItemListObject = value;
+            }
+        }
+    }
+    
     public partial class RequestRankingListCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
     public partial class onMainAvatarLeaveSpaceCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
+    public partial class RequestDialogCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private Int32 _NpcID;
+        
+        public Int32 NpcID {
+            get {
+                return _NpcID;
+            }
+            set {
+                _NpcID = value;
+            }
+        }
     }
     
     public partial class DoMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

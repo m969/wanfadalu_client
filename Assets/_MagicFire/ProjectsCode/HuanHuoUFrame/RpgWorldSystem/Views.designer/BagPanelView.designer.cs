@@ -26,6 +26,26 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class BagPanelViewBase : PanelView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _lingshiAmount;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("lingshiAmount")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindlingshiAmount = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("lingshiAmount")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_lingshiAmountonlyWhenChanged")]
+        protected bool _lingshiAmountOnlyWhenChanged;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("propList")]
         [UnityEngine.HideInInspector()]
         public bool _BindpropList = true;
@@ -60,6 +80,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var bagpanelview = ((AvatarViewModel)model);
+            bagpanelview.lingshiAmount = this._lingshiAmount;
+            bagpanelview.sectID = this._sectID;
         }
         
         public override void Bind() {
@@ -67,17 +89,48 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindlingshiAmount) {
+                this.BindProperty(this.Avatar.lingshiAmountProperty, this.lingshiAmountChanged, _lingshiAmountOnlyWhenChanged);
+            }
             if (_BindpropList) {
                 this.BindProperty(this.Avatar.propListProperty, this.propListChanged, _propListOnlyWhenChanged);
             }
         }
         
+        public virtual void lingshiAmountChanged(Int32 arg1) {
+        }
+        
         public virtual void propListChanged(object arg1) {
+        }
+        
+        public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnDialogItemsReturn.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnError(OnErrorCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnError.OnNext(command);
+        }
+        
+        public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
+            command.Sender = Avatar;
+            Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnTargetItemListReturn.OnNext(command);
         }
         
         public virtual void ExecuteTeleport(TeleportCommand command) {
             command.Sender = Avatar;
             Avatar.Teleport.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestDialog(RequestDialogCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestDialog.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
@@ -88,6 +141,16 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnJoinSectResult(OnJoinSectResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnJoinSectResult.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnRequestForgeResult(OnRequestForgeResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnRequestForgeResult.OnNext(command);
         }
     }
 }

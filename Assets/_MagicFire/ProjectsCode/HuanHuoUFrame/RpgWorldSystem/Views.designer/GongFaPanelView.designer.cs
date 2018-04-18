@@ -26,6 +26,16 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class GongFaPanelViewBase : PanelView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _lingshiAmount;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("gongFaList")]
         [UnityEngine.HideInInspector()]
         public bool _BindgongFaList = true;
@@ -60,6 +70,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var gongfapanelview = ((AvatarViewModel)model);
+            gongfapanelview.lingshiAmount = this._lingshiAmount;
+            gongfapanelview.sectID = this._sectID;
         }
         
         public override void Bind() {
@@ -75,9 +87,34 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void gongFaListChanged(object arg1) {
         }
         
+        public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnDialogItemsReturn.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnError(OnErrorCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnError.OnNext(command);
+        }
+        
+        public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
+            command.Sender = Avatar;
+            Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnTargetItemListReturn.OnNext(command);
+        }
+        
         public virtual void ExecuteTeleport(TeleportCommand command) {
             command.Sender = Avatar;
             Avatar.Teleport.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestDialog(RequestDialogCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestDialog.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
@@ -88,6 +125,16 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnJoinSectResult(OnJoinSectResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnJoinSectResult.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnRequestForgeResult(OnRequestForgeResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnRequestForgeResult.OnNext(command);
         }
     }
 }

@@ -28,11 +28,29 @@ namespace MagicFire.HuanHuoUFrame {
         
         private AvatarStateMachine _avatarStateProperty;
         
+        private P<Int32> _lingshiAmountProperty;
+        
+        private P<Int32> _sectIDProperty;
+        
+        private Signal<OnDialogItemsReturnCommand> _OnDialogItemsReturn;
+        
+        private Signal<OnErrorCommand> _OnError;
+        
+        private Signal<SelectDialogItemCommand> _SelectDialogItem;
+        
+        private Signal<OnTargetItemListReturnCommand> _OnTargetItemListReturn;
+        
         private Signal<TeleportCommand> _Teleport;
+        
+        private Signal<RequestDialogCommand> _RequestDialog;
         
         private Signal<onMainAvatarEnterSpaceCommand> _onMainAvatarEnterSpace;
         
         private Signal<onMainAvatarLeaveSpaceCommand> _onMainAvatarLeaveSpace;
+        
+        private Signal<OnJoinSectResultCommand> _OnJoinSectResult;
+        
+        private Signal<OnRequestForgeResultCommand> _OnRequestForgeResult;
         
         public AvatarViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
@@ -56,12 +74,93 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual P<Int32> lingshiAmountProperty {
+            get {
+                return _lingshiAmountProperty;
+            }
+            set {
+                _lingshiAmountProperty = value;
+            }
+        }
+        
+        public virtual P<Int32> sectIDProperty {
+            get {
+                return _sectIDProperty;
+            }
+            set {
+                _sectIDProperty = value;
+            }
+        }
+        
+        public virtual Int32 lingshiAmount {
+            get {
+                return lingshiAmountProperty.Value;
+            }
+            set {
+                lingshiAmountProperty.Value = value;
+            }
+        }
+        
+        public virtual Int32 sectID {
+            get {
+                return sectIDProperty.Value;
+            }
+            set {
+                sectIDProperty.Value = value;
+            }
+        }
+        
+        public virtual Signal<OnDialogItemsReturnCommand> OnDialogItemsReturn {
+            get {
+                return _OnDialogItemsReturn;
+            }
+            set {
+                _OnDialogItemsReturn = value;
+            }
+        }
+        
+        public virtual Signal<OnErrorCommand> OnError {
+            get {
+                return _OnError;
+            }
+            set {
+                _OnError = value;
+            }
+        }
+        
+        public virtual Signal<SelectDialogItemCommand> SelectDialogItem {
+            get {
+                return _SelectDialogItem;
+            }
+            set {
+                _SelectDialogItem = value;
+            }
+        }
+        
+        public virtual Signal<OnTargetItemListReturnCommand> OnTargetItemListReturn {
+            get {
+                return _OnTargetItemListReturn;
+            }
+            set {
+                _OnTargetItemListReturn = value;
+            }
+        }
+        
         public virtual Signal<TeleportCommand> Teleport {
             get {
                 return _Teleport;
             }
             set {
                 _Teleport = value;
+            }
+        }
+        
+        public virtual Signal<RequestDialogCommand> RequestDialog {
+            get {
+                return _RequestDialog;
+            }
+            set {
+                _RequestDialog = value;
             }
         }
         
@@ -83,16 +182,63 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<OnJoinSectResultCommand> OnJoinSectResult {
+            get {
+                return _OnJoinSectResult;
+            }
+            set {
+                _OnJoinSectResult = value;
+            }
+        }
+        
+        public virtual Signal<OnRequestForgeResultCommand> OnRequestForgeResult {
+            get {
+                return _OnRequestForgeResult;
+            }
+            set {
+                _OnRequestForgeResult = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
+            this.OnDialogItemsReturn = new Signal<OnDialogItemsReturnCommand>(this);
+            this.OnError = new Signal<OnErrorCommand>(this);
+            this.SelectDialogItem = new Signal<SelectDialogItemCommand>(this);
+            this.OnTargetItemListReturn = new Signal<OnTargetItemListReturnCommand>(this);
             this.Teleport = new Signal<TeleportCommand>(this);
+            this.RequestDialog = new Signal<RequestDialogCommand>(this);
             this.onMainAvatarEnterSpace = new Signal<onMainAvatarEnterSpaceCommand>(this);
             this.onMainAvatarLeaveSpace = new Signal<onMainAvatarLeaveSpaceCommand>(this);
+            this.OnJoinSectResult = new Signal<OnJoinSectResultCommand>(this);
+            this.OnRequestForgeResult = new Signal<OnRequestForgeResultCommand>(this);
+            _lingshiAmountProperty = new P<Int32>(this, "lingshiAmount");
+            _sectIDProperty = new P<Int32>(this, "sectID");
             _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
+        }
+        
+        public virtual void Execute(OnDialogItemsReturnCommand argument) {
+            this.OnDialogItemsReturn.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnErrorCommand argument) {
+            this.OnError.OnNext(argument);
+        }
+        
+        public virtual void Execute(SelectDialogItemCommand argument) {
+            this.SelectDialogItem.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnTargetItemListReturnCommand argument) {
+            this.OnTargetItemListReturn.OnNext(argument);
         }
         
         public virtual void Execute(TeleportCommand argument) {
             this.Teleport.OnNext(argument);
+        }
+        
+        public virtual void Execute(RequestDialogCommand argument) {
+            this.RequestDialog.OnNext(argument);
         }
         
         public virtual void Execute(onMainAvatarEnterSpaceCommand argument) {
@@ -103,10 +249,48 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace.OnNext(argument);
         }
         
+        public virtual void Execute(OnJoinSectResultCommand argument) {
+            this.OnJoinSectResult.OnNext(argument);
+        }
+        
+        public virtual void Execute(OnRequestForgeResultCommand argument) {
+            this.OnRequestForgeResult.OnNext(argument);
+        }
+        
+        public virtual void OnDialogItemsReturn_(object DialogItemsObject) {
+            var cmd = new OnDialogItemsReturnCommand();
+            cmd.DialogItemsObject = DialogItemsObject;
+            this.OnDialogItemsReturn.OnNext(cmd);
+        }
+        
+        public virtual void OnError_(Int32 ErrorCode) {
+            var cmd = new OnErrorCommand();
+            cmd.ErrorCode = ErrorCode;
+            this.OnError.OnNext(cmd);
+        }
+        
+        public virtual void SelectDialogItem_(Int32 DialogID) {
+            var cmd = new SelectDialogItemCommand();
+            cmd.DialogID = DialogID;
+            this.SelectDialogItem.OnNext(cmd);
+        }
+        
+        public virtual void OnTargetItemListReturn_(object TargetItemListObject) {
+            var cmd = new OnTargetItemListReturnCommand();
+            cmd.TargetItemListObject = TargetItemListObject;
+            this.OnTargetItemListReturn.OnNext(cmd);
+        }
+        
         public virtual void Teleport_(Vector3 Position) {
             var cmd = new TeleportCommand();
             cmd.Position = Position;
             this.Teleport.OnNext(cmd);
+        }
+        
+        public virtual void RequestDialog_(Int32 NpcID) {
+            var cmd = new RequestDialogCommand();
+            cmd.NpcID = NpcID;
+            this.RequestDialog.OnNext(cmd);
         }
         
         public virtual void onMainAvatarEnterSpace_(Int32 SpaceId, String SpaceName) {
@@ -121,25 +305,53 @@ namespace MagicFire.HuanHuoUFrame {
             this.onMainAvatarLeaveSpace.OnNext(cmd);
         }
         
+        public virtual void OnJoinSectResult_(Int32 SectID, Int32 Result) {
+            var cmd = new OnJoinSectResultCommand();
+            cmd.SectID = SectID;
+            cmd.Result = Result;
+            this.OnJoinSectResult.OnNext(cmd);
+        }
+        
+        public virtual void OnRequestForgeResult_(Int32 Result) {
+            var cmd = new OnRequestForgeResultCommand();
+            cmd.Result = Result;
+            this.OnRequestForgeResult.OnNext(cmd);
+        }
+        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this.lingshiAmount = stream.DeserializeInt("lingshiAmount");;
+            this.sectID = stream.DeserializeInt("sectID");;
             this._avatarStateProperty.SetState(stream.DeserializeString("avatarState"));
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeInt("lingshiAmount", this.lingshiAmount);
+            stream.SerializeInt("sectID", this.sectID);
             stream.SerializeString("avatarState", this.avatarState.Name);;
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("OnDialogItemsReturn", OnDialogItemsReturn) { ParameterType = typeof(OnDialogItemsReturnCommand) });
+            list.Add(new ViewModelCommandInfo("OnError", OnError) { ParameterType = typeof(OnErrorCommand) });
+            list.Add(new ViewModelCommandInfo("SelectDialogItem", SelectDialogItem) { ParameterType = typeof(SelectDialogItemCommand) });
+            list.Add(new ViewModelCommandInfo("OnTargetItemListReturn", OnTargetItemListReturn) { ParameterType = typeof(OnTargetItemListReturnCommand) });
             list.Add(new ViewModelCommandInfo("Teleport", Teleport) { ParameterType = typeof(TeleportCommand) });
+            list.Add(new ViewModelCommandInfo("RequestDialog", RequestDialog) { ParameterType = typeof(RequestDialogCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarEnterSpace", onMainAvatarEnterSpace) { ParameterType = typeof(onMainAvatarEnterSpaceCommand) });
             list.Add(new ViewModelCommandInfo("onMainAvatarLeaveSpace", onMainAvatarLeaveSpace) { ParameterType = typeof(onMainAvatarLeaveSpaceCommand) });
+            list.Add(new ViewModelCommandInfo("OnJoinSectResult", OnJoinSectResult) { ParameterType = typeof(OnJoinSectResultCommand) });
+            list.Add(new ViewModelCommandInfo("OnRequestForgeResult", OnRequestForgeResult) { ParameterType = typeof(OnRequestForgeResultCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_lingshiAmountProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_sectIDProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_avatarStateProperty, false, false, false, false));
         }

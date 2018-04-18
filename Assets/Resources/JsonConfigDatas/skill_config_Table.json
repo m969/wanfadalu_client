@@ -1,0 +1,19 @@
+﻿{
+"10010":{ "id":10010, "gongFa":1001, "name":"平射", "type":2, "script":"Shoot", "quality":10, "levelSpLimit":[100,200,300,400,500,600,700,800,900], "strategies":["一次伤害策略"]},
+"10011":{ "id":10011, "gongFa":1001, "name":"弓砍", "type":2, "script":"GongKan", "quality":10, "levelSpLimit":[100,200,300,400,500,600,700,800,900], "strategies":["伤害策略"]},
+"10012":{ "id":10012, "gongFa":1001, "name":"箭爆", "type":2, "script":"ArrowExplode", "quality":10, "levelSpLimit":[100,200,300,400,500,600,700,800,900], "strategies":["伤害策略","爆炸策略"]},
+"10020":{ "id":10020, "gongFa":1002, "name":"霜禁", "type":2, "script":"SkillE", "quality":10, "levelSpLimit":[100,200,300,400,500,600,700,800,900], "strategies":["伤害策略","禁锢策略","冰霜策略"]},
+"10030":{ "id":10030, "gongFa":1003, "name":"土裂", "type":2, "script":"SkillW", "quality":10, "levelSpLimit":[100,200,300,400,500,600,700,800,900], "strategies":["伤害策略"]},
+"10040":{ "id":10040, "gongFa":1004, "name":"金盾防", "type":2, "script":"SkillW", "quality":10, "levelSpLimit":[100,200,300,400,500,600,700,800,900], "strategies":["伤害策略"]}
+}
+
+
+
+
+
+
+
+
+
+
+

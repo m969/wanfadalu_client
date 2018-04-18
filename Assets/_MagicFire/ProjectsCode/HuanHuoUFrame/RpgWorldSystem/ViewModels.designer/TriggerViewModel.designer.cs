@@ -26,7 +26,7 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class TriggerViewModelBase : EntityCommonViewModel {
         
-        private P<Int32> _triggerSizeProperty;
+        private P<Single> _triggerSizeProperty;
         
         private P<String> _triggerTypeProperty;
         
@@ -42,7 +42,7 @@ namespace MagicFire.HuanHuoUFrame {
                 base(aggregator) {
         }
         
-        public virtual P<Int32> triggerSizeProperty {
+        public virtual P<Single> triggerSizeProperty {
             get {
                 return _triggerSizeProperty;
             }
@@ -96,7 +96,7 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual Int32 triggerSize {
+        public virtual Single triggerSize {
             get {
                 return triggerSizeProperty.Value;
             }
@@ -152,7 +152,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
-            _triggerSizeProperty = new P<Int32>(this, "triggerSize");
+            _triggerSizeProperty = new P<Single>(this, "triggerSize");
             _triggerTypeProperty = new P<String>(this, "triggerType");
             _circleTriggerProperty = new P<Int32>(this, "circleTrigger");
             _campNameProperty = new P<String>(this, "campName");
@@ -162,7 +162,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
-            this.triggerSize = stream.DeserializeInt("triggerSize");;
+            this.triggerSize = stream.DeserializeFloat("triggerSize");;
             this.triggerType = stream.DeserializeString("triggerType");;
             this.circleTrigger = stream.DeserializeInt("circleTrigger");;
             this.campName = stream.DeserializeString("campName");;
@@ -172,7 +172,7 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
-            stream.SerializeInt("triggerSize", this.triggerSize);
+            stream.SerializeFloat("triggerSize", this.triggerSize);
             stream.SerializeString("triggerType", this.triggerType);
             stream.SerializeInt("circleTrigger", this.circleTrigger);
             stream.SerializeString("campName", this.campName);

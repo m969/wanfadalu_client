@@ -70,6 +70,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ExitArenabutton")]
         protected UnityEngine.UI.Button _ExitArenaButton;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowStorePanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowStorePanel = true;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("ShowCharacterInfoPanel")]
         [UnityEngine.HideInInspector()]
         public bool _BindShowCharacterInfoPanel = true;
@@ -83,6 +87,10 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_ShowSectPanelbutton")]
         protected UnityEngine.UI.Button _ShowSectPanelButton;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowDialogPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowDialogPanel = true;
         
         [uFrame.MVVM.Attributes.UFGroup("ExitGame")]
         [UnityEngine.SerializeField()]
@@ -144,11 +152,17 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindShowRankingListPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowRankingListPanel, this.ShowRankingListPanelExecuted);
             }
+            if (_BindShowStorePanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowStorePanel, this.ShowStorePanelExecuted);
+            }
             if (_BindShowCharacterInfoPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowCharacterInfoPanel, this.ShowCharacterInfoPanelExecuted);
             }
             if (_BindShowSectPanel) {
                 this.BindButtonToCommand(_ShowSectPanelButton, this.RpgMainScreen.ShowSectPanel);
+            }
+            if (_BindShowDialogPanel) {
+                this.BindCommandExecuted(this.RpgMainScreen.ShowDialogPanel, this.ShowDialogPanelExecuted);
             }
             if (_BindShowSectPanel) {
                 this.BindCommandExecuted(this.RpgMainScreen.ShowSectPanel, this.ShowSectPanelExecuted);
@@ -176,7 +190,13 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command) {
         }
         
+        public virtual void ShowStorePanelExecuted(ShowStorePanelCommand command) {
+        }
+        
         public virtual void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command) {
+        }
+        
+        public virtual void ShowDialogPanelExecuted(ShowDialogPanelCommand command) {
         }
         
         public virtual void ShowSectPanelExecuted(ShowSectPanelCommand command) {
@@ -216,9 +236,19 @@ namespace MagicFire.HuanHuoUFrame {
             RpgMainScreen.ShowCharacterInfoPanel.OnNext(command);
         }
         
+        public virtual void ExecuteShowStorePanel(ShowStorePanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowStorePanel.OnNext(command);
+        }
+        
         public virtual void ExecuteShowGongFaPanel(ShowGongFaPanelCommand command) {
             command.Sender = RpgMainScreen;
             RpgMainScreen.ShowGongFaPanel.OnNext(command);
+        }
+        
+        public virtual void ExecuteShowDialogPanel(ShowDialogPanelCommand command) {
+            command.Sender = RpgMainScreen;
+            RpgMainScreen.ShowDialogPanel.OnNext(command);
         }
         
         public virtual void ExecuteExitGame(ExitGameCommand command) {

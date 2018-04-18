@@ -24,7 +24,7 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public partial class ArenaSystemViewModelBase : CampEntityViewModel {
+    public partial class ArenaSystemViewModelBase : MagicWeaponSystemViewModel {
         
         private Signal<RequestSelfRankingCommand> _RequestSelfRanking;
         

@@ -19,14 +19,15 @@
 
     public struct Prop
     {
-        public string propUUID;
+        public ulong propUUID;
+        public int index;
         public JObject propData;
     }
 
 
     public class MainAvatarInfoPanelView : MainAvatarInfoPanelViewBase {
         [SerializeField]
-        private GameObject _weaponListParent;
+        private GameObject _gongFaListParent;
         [SerializeField]
         private Image _hpSliderImage;
         [SerializeField]
@@ -54,8 +55,7 @@
         private int? _msp;
         private int? _mspMax;
 
-        private Dictionary<string, Prop> _propList;
-        private Dictionary<int, string> _magicWeaponList;
+        private Dictionary<ulong, Prop> _magicWeaponList;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -69,13 +69,7 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-
-            this.OnEvent<ExitArenaEvent>()
-                .Subscribe(evt =>
-                {
-                    this.Avatar.Execute(new RequestExitArenaCommand());
-                });
-
+            this.OnEvent<ExitArenaEvent>().Subscribe(evt => { this.Avatar.Execute(new RequestExitArenaCommand()); });
             transform.SetParent(WorldViewService.MasterCanvas.transform);
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;
@@ -167,64 +161,74 @@
             }
         }
 
-        public override void propListChanged(object arg1)
+        public override void gongFaListChanged(object arg1)
         {
-            base.propListChanged(arg1);
-            Debug.Log("MainAvatarInfoPanelView:propListChanged ");
-            var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            var propList = new Dictionary<string, Prop>();
-            if (tmpPropList != null)
+            var gongFaMap = this.Avatar.DecodeGongFaListObject(arg1);
+            foreach (var item in gongFaMap)
             {
-                foreach (var item in tmpPropList)
-                {
-                    var propObject = (Dictionary<string, object>)item;
-                    var propData = JObject.Parse(propObject["propData"] as string);
-                    var prop = new Prop();
-                    prop.propUUID = propObject["propUUID"] as string;
-                    prop.propData = propData;
-                    propList.Add(prop.propUUID, prop);
-                }
+                var child = _gongFaListParent.transform.GetChild(item.Value.index);
+                var srcName = "GongFaImages/gongfa_" + item.Value.gongFaID;
+                var itemImage = child.GetComponent<Image>();
+                var tempType = itemImage.sprite;
+                itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+
+                //var gongFaItem = Instantiate(_gongFaItemPrefab);
+                //gongFaItem.SetParent(_gongFaContentTransform);
+                //var itemImage = gongFaItem.Find("GongFaImage").GetComponent<Image>();
+                //var tempType = itemImage.sprite;
+                //Debug.Log(item.Key);
+                //var srcName = "GongFaImages/gongfa_" + item.Key;
+                //itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                //var skillList = gongFaItem.Find("GongFaInfoPanel").Find("SkillList");
+                //gongFaItem.Find("GongFaInfoPanel").Find("GongFaName").GetComponent<Text>().text = item.Key.ToString();
+                //foreach (var skill in item.Value)
+                //{
+                //    var skillItem = Instantiate(_skillItemPrefab);
+                //    skillItem.SetParent(skillList);
+                //    var skillImage = skillItem.GetComponent<Image>();
+                //    tempType = skillImage.sprite;
+                //    srcName = "SkillImages/skill_" + (item.Key * 10 + skill.Key);
+                //    skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                //}
             }
-            if (_propList == null)
-            {
-                if (_magicWeaponList != null)
-                {
-                    foreach (var item in _magicWeaponList)
-                    {
-                        _weaponListParent.transform.GetChild(item.Key).Find("Text").GetComponent<Text>().text = propList[item.Value].propData["id"].ToString();
-                    }
-                }
-            }
-            _propList = propList;
+            //foreach (var item in _magicWeaponList)
+            //{
+            //    var child = _weaponListParent.transform.GetChild(item.Value.index);
+            //    var srcName = "GongFaImages/gongfa_" + item.Value.propData["id"].ToString();
+            //    //Debug.Log(srcName);
+            //    var itemImage = child.GetComponent<Image>();
+            //    var tempType = itemImage.sprite;
+            //    itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+            //}
         }
 
-        public override void magicWeaponListChanged(object arg1)
-        {
-            base.magicWeaponListChanged(arg1);
-            Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
-            var tmpList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            if (_magicWeaponList == null)
-                _magicWeaponList = new Dictionary<int, string>();
-            if (tmpList != null)
-            {
-                foreach (var item in tmpList)
-                {
-                    var value = (Dictionary<string, object>)item;
-                    _magicWeaponList.Add((int)value["index"], value["propUUID"] as string);
-                }
-            }
-            if (_propList == null)
-                return;
-            foreach (var item in _magicWeaponList)
-            {
-                Prop prop;
-                if (_propList.TryGetValue(item.Value, out prop))
-                {
-                    var index = item.Key;
-                    var propID = (int)prop.propData["id"];
-                    _weaponListParent.transform.GetChild(index).Find("Text").GetComponent<Text>().text = propID.ToString();
-                }
-            }
-        }
+        //public override void magicWeaponListChanged(object arg1)
+        //{
+        //    //Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
+        //    var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+        //    _magicWeaponList = new Dictionary<ulong, Prop>();
+        //    if (tmpPropList != null)
+        //    {
+        //        foreach (var item in tmpPropList)
+        //        {
+        //            var propObject = (Dictionary<string, object>)item;
+        //            var propData = JObject.Parse(propObject["propData"] as string);
+        //            var prop = new Prop();
+        //            prop.propUUID = (ulong)propObject["propUUID"];
+        //            prop.index = (int)propObject["index"];
+        //            prop.propData = propData;
+        //            _magicWeaponList.Add(prop.propUUID, prop);
+        //        }
+        //    }
+        //    foreach (var item in _magicWeaponList)
+        //    {
+        //        var child = _weaponListParent.transform.GetChild(item.Value.index);
+        //        var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
+        //        //Debug.Log(srcName);
+        //        var itemImage = child.GetComponent<Image>();
+        //        var tempType = itemImage.sprite;
+        //        itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+        //    }
+        //}
     }
 }

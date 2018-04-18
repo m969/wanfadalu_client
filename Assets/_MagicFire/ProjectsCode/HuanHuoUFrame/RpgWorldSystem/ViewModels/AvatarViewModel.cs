@@ -16,7 +16,6 @@ namespace MagicFire.HuanHuoUFrame{
     
     public partial class AvatarViewModel : AvatarViewModelBase
     {
-
         public string CurrentSkillName;
         public string CurrentSkillArgs;
 
@@ -49,15 +48,15 @@ namespace MagicFire.HuanHuoUFrame{
                 KBEngine.Event.registerIn("updatePlayer", this, "updatePlayer");
                 //KBEngine.Event.registerIn("RequestMove", this, "RequestMove");
                 //KBEngine.Event.registerIn("StopMove", this, "StopMove");
-                KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
-                KBEngine.Event.registerIn("RequestBuyGoods", this, "RequestBuyGoods");
+                //KBEngine.Event.registerIn("RequestDialog", this, "RequestDialog");
+                //KBEngine.Event.registerIn("RequestBuyGoods", this, "RequestBuyGoods");
                 //KBEngine.Event.registerIn("RequestCastSkillByName", this, "RequestCastSkillByName");
                 KBEngine.Event.registerIn("OnLeaveSpaceClientInputInValid", this, "OnLeaveSpaceClientInputInValid");
-                KBEngine.Event.registerIn("SendChatMessage", this, "SendChatMessage");
-                KBEngine.Event.registerIn("SendVoiceSample", this, "SendVoiceSample");
-                KBEngine.Event.registerIn("FindFriends", this, "FindFriends");
-                KBEngine.Event.registerIn("AddFriends", this, "AddFriends");
-                KBEngine.Event.registerIn("DeleteFriends", this, "DeleteFriends");
+                //KBEngine.Event.registerIn("SendChatMessage", this, "SendChatMessage");
+                //KBEngine.Event.registerIn("SendVoiceSample", this, "SendVoiceSample");
+                //KBEngine.Event.registerIn("FindFriends", this, "FindFriends");
+                //KBEngine.Event.registerIn("AddFriends", this, "AddFriends");
+                //KBEngine.Event.registerIn("DeleteFriends", this, "DeleteFriends");
             }
         }
 
@@ -107,25 +106,25 @@ namespace MagicFire.HuanHuoUFrame{
             this.avatarStateProperty.Stand.OnNext(true);
         }
 
-        public void DoDialog(System.String npcName, System.String dialog)
-        {
-            KBEngine.Event.fireOut("DoDialog", new object[] { this, npcName, dialog });
-        }
+        //public void DoDialog(System.String npcName, System.String dialog)
+        //{
+        //    KBEngine.Event.fireOut("DoDialog", new object[] { this, npcName, dialog });
+        //}
 
-        public void BuyResult(int result)
-        {
-            KBEngine.Event.fireOut("BuyResult", new object[] { this, System.Convert.ToBoolean(result) });
-        }
+        //public void BuyResult(int result)
+        //{
+        //    KBEngine.Event.fireOut("BuyResult", new object[] { this, System.Convert.ToBoolean(result) });
+        //}
 
-        public void DoStore(Dictionary<string, object> storeGoodsIdListObject)
-        {
-            List<System.Int32> storeGoodsIdList = (List<System.Int32>)storeGoodsIdListObject["values"];
-            foreach (var item in storeGoodsIdList)
-            {
-                Debug.Log(item);
-            }
-            KBEngine.Event.fireOut("DoStore", new object[] { this });
-        }
+        //public void DoStore(Dictionary<string, object> storeGoodsIdListObject)
+        //{
+        //    List<System.Int32> storeGoodsIdList = (List<System.Int32>)storeGoodsIdListObject["values"];
+        //    foreach (var item in storeGoodsIdList)
+        //    {
+        //        Debug.Log(item);
+        //    }
+        //    KBEngine.Event.fireOut("DoStore", new object[] { this });
+        //}
 
         #endregion
 
@@ -141,28 +140,28 @@ namespace MagicFire.HuanHuoUFrame{
             direction.y = dir_z;
         }
 
-        public override void Execute(RequestEnterArenaCommand argument)
-        {
-            base.Execute(argument);
-            //this.cellCall("requestEnterArena", new object[] { argument.ArenaID });
-        }
+        //public override void Execute(RequestEnterArenaCommand argument)
+        //{
+        //    base.Execute(argument);
+        //    //this.cellCall("requestEnterArena", new object[] { argument.ArenaID });
+        //}
 
         public void OnLeaveSpaceClientInputInValid()
         {
             cellCall("onLeaveSpaceClientInputInValid");
         }
 
-        public override void Execute(RequestMoveCommand argument)
-        {
-            base.Execute(argument);
-            cellCall("requestMove", new object[] { argument.Point });
-        }
+        //public override void Execute(RequestMoveCommand argument)
+        //{
+        //    base.Execute(argument);
+        //    cellCall("requestMove", new object[] { argument.Point });
+        //}
 
-        public override void Execute(RequestStopMoveCommand argument)
-        {
-            base.Execute(argument);
-            cellCall("requestStopMove");
-        }
+        //public override void Execute(RequestStopMoveCommand argument)
+        //{
+        //    base.Execute(argument);
+        //    cellCall("requestStopMove");
+        //}
 
         //public void RequestMove(Vector3 point)
         //{
@@ -174,52 +173,52 @@ namespace MagicFire.HuanHuoUFrame{
         //    cellCall("stopMove");
         //}
 
-        public void RequestDialog(uint spaceId, string npcName)
-        {
-            cellCall("requestDialog", new object[] { spaceId, npcName });
-        }
+        //public void RequestDialog(uint spaceId, string npcName)
+        //{
+        //    cellCall("requestDialog", new object[] { spaceId, npcName });
+        //}
 
-        public void RequestBuyGoods(uint spaceId, string npcName, int goodsId)
-        {
-            cellCall("requestBuyGoods", new object[] { spaceId, npcName, goodsId });
-        }
+        //public void RequestBuyGoods(uint spaceId, string npcName, int goodsId)
+        //{
+        //    cellCall("requestBuyGoods", new object[] { spaceId, npcName, goodsId });
+        //}
 
         //public void RequestCastSkillByName(string skillName, string argsString)
         //{
         //    cellCall("requestCastSkill", new object[] { skillName, argsString });
         //}
 
-        public void SendChatMessage(string message)
-        {
-            cellCall("sendChatMessage", new object[] { getDefinedProperty("entityName"), message });
-        }
+        //public void SendChatMessage(string message)
+        //{
+        //    cellCall("sendChatMessage", new object[] { getDefinedProperty("entityName"), message });
+        //}
 
-        public void SendVoiceSample(byte[] data, int length, ulong packetId)
-        {
-            Debug.Log("SendVoiceSample");
-            Debug.Log("length " + length);
-            cellCall("sendVoiceSample", data, length, packetId);
-        }
+        //public void SendVoiceSample(byte[] data, int length, ulong packetId)
+        //{
+        //    Debug.Log("SendVoiceSample");
+        //    Debug.Log("length " + length);
+        //    cellCall("sendVoiceSample", data, length, packetId);
+        //}
 
-        public void FindFriends()
-        {
-            cellCall("findFriends");
-        }
+        //public void FindFriends()
+        //{
+        //    cellCall("findFriends");
+        //}
 
-        public void AddFriends(string goldxFriendsName)
-        {
-            cellCall("addFriends", new object[] { goldxFriendsName });
-        }
+        //public void AddFriends(string goldxFriendsName)
+        //{
+        //    cellCall("addFriends", new object[] { goldxFriendsName });
+        //}
 
-        public void DeleteFriends(string goldxFriendsName)
-        {
-            cellCall("deleteFriends", new object[] { goldxFriendsName });
-        }
+        //public void DeleteFriends(string goldxFriendsName)
+        //{
+        //    cellCall("deleteFriends", new object[] { goldxFriendsName });
+        //}
 
-        public void ShowAllFriends()
-        {
-            cellCall("showAllFriends");
-        }
+        //public void ShowAllFriends()
+        //{
+        //    cellCall("showAllFriends");
+        //}
 
         #endregion
     }

@@ -14,9 +14,6 @@
     
     
     public class ArenaView : ArenaViewBase {
-        [SerializeField]
-        private GameObject _arenaNpc;
-        
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.

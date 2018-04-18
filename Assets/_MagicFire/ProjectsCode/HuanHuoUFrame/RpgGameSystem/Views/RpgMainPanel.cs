@@ -14,12 +14,16 @@ namespace MagicFire.HuanHuoUFrame {
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
-    
-    
+    using UnityEngine.UI;
+
+
     public class RpgMainPanel : RpgMainPanelBase
     {
         [Inject("WorldViewService")]
         public WorldViewService WorldViewService;
+
+        [SerializeField]
+        private GameObject _escapeButton;
 
         private BagPanelView 
             _bagPanelView;
@@ -31,8 +35,12 @@ namespace MagicFire.HuanHuoUFrame {
             _rankingListPanelView;
         private SectPanelView 
             _sectPanelView;
+        private DialogPanelView
+            _dialogPanelView;
+        private StorePanelView
+            _storePanelView;
 
-        protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
+        protected override void InitializeViewModel(ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
             // var vm = model as RpgMainScreenViewModel;
@@ -44,6 +52,8 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.RpgMainScreen to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            this.OnEvent<OnEnterArenaCommand>().Where(cmd=> { return cmd.Sender.isPlayer(); }).Subscribe(cmd => { _escapeButton.SetActive(true); }).DisposeWith(this);
+            this.OnEvent<OnExitArenaCommand>().Where(cmd => { return cmd.Sender.isPlayer(); }).Subscribe(cmd => { _escapeButton.SetActive(false); }).DisposeWith(this);
         }
 
         private T ShowAvatarPanel<T>(T panelView, string poolName, string panelName) where T : PanelView
@@ -51,7 +61,7 @@ namespace MagicFire.HuanHuoUFrame {
             if (panelView == null)
             {
                 var spawnPool = PoolManager.Pools[poolName];
-                panelView = spawnPool.SpawnView(spawnPool.prefabs[panelName], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<T>();
+                panelView = spawnPool.SpawnView<T>(spawnPool.prefabs[panelName], KBEngine.KBEngineApp.app.player() as ViewModel).GetComponent<T>();
                 panelView.transform.SetParent(WorldViewService.MasterCanvas.transform);
                 panelView.transform.localScale = new Vector3(1, 1, 1);
                 var rect = panelView.GetComponent<RectTransform>();
@@ -60,56 +70,61 @@ namespace MagicFire.HuanHuoUFrame {
             else
             {
                 if (panelView.isActiveAndEnabled)
-                {
                     panelView.gameObject.SetActive(false);
-                }
                 else
-                {
                     panelView.gameObject.SetActive(true);
-                }
             }
             return panelView;
         }
 
         public override void ShowAvatarBagPanelExecuted(ShowAvatarBagPanelCommand command)
         {
-            base.ShowAvatarBagPanelExecuted(command);
-            _bagPanelView = ShowAvatarPanel(_bagPanelView, "AvatarViewPool", "BagPanel");
+            _bagPanelView = ShowAvatarPanel(_bagPanelView, "UIPanelPool", "BagPanel");
         }
 
         public override void ShowCharacterInfoPanelExecuted(ShowCharacterInfoPanelCommand command)
         {
-            base.ShowCharacterInfoPanelExecuted(command);
-            _characterInfoPanelView = ShowAvatarPanel(_characterInfoPanelView, "AvatarViewPool", "CharacterInfoPanel");
+            _characterInfoPanelView = ShowAvatarPanel(_characterInfoPanelView, "UIPanelPool", "CharacterInfoPanel");
         }
 
         public override void ShowGongFaPanelExecuted(ShowGongFaPanelCommand command)
         {
-            base.ShowGongFaPanelExecuted(command);
-            _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "AvatarViewPool", "GongFaPanel");
+            _gongFaPanelView = ShowAvatarPanel(_gongFaPanelView, "UIPanelPool", "GongFaPanel");
         }
 
         public override void ShowRankingListPanelExecuted(ShowRankingListPanelCommand command)
         {
-            base.ShowRankingListPanelExecuted(command);
-            _rankingListPanelView = ShowAvatarPanel(_rankingListPanelView, "AvatarViewPool", "RankingListPanel");
+            _rankingListPanelView = ShowAvatarPanel(_rankingListPanelView, "UIPanelPool", "RankingListPanel");
         }
 
         public override void ShowSectPanelExecuted(ShowSectPanelCommand command)
         {
-            base.ShowSectPanelExecuted(command);
-            _sectPanelView = ShowAvatarPanel(_sectPanelView, "AvatarViewPool", "SectPanel");
+            _sectPanelView = ShowAvatarPanel(_sectPanelView, "UIPanelPool", "SectPanel");
+        }
+
+        public override void ShowDialogPanelExecuted(ShowDialogPanelCommand command)
+        {
+            Debug.Log("RpgMainPanel:ShowDialogPanelExecuted");
+            _dialogPanelView = ShowAvatarPanel(_dialogPanelView, "UIPanelPool", "DialogPanel");
+            if (_dialogPanelView.isActiveAndEnabled)
+                _dialogPanelView.RefreshPanel(command.DialogItemsObject);
+        }
+
+        public override void ShowStorePanelExecuted(ShowStorePanelCommand command)
+        {
+            Debug.Log("RpgMainPanel:ShowStorePanelExecuted");
+            _storePanelView = ShowAvatarPanel(_storePanelView, "UIPanelPool", "StorePanel");
+            if (_storePanelView.isActiveAndEnabled)
+                _storePanelView.RefreshPanel(command.StorePropListReturnCommand.NpcID, command.StorePropListReturnCommand.StorePropList);
         }
 
         public override void ExitArenaExecuted(ExitArenaCommand command)
         {
-            base.ExitArenaExecuted(command);
             Debug.Log("RpgMainPanel:ExitArenaExecuted");
         }
 
         public override void ExitGameExecuted(ExitGameCommand command)
         {
-            base.ExitGameExecuted(command);
             Debug.Log("RpgMainPanel:ExitGameExecuted");
         }
     }

@@ -36,7 +36,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         private Signal<ShowCharacterInfoPanelCommand> _ShowCharacterInfoPanel;
         
+        private Signal<ShowStorePanelCommand> _ShowStorePanel;
+        
         private Signal<ShowGongFaPanelCommand> _ShowGongFaPanel;
+        
+        private Signal<ShowDialogPanelCommand> _ShowDialogPanel;
         
         private Signal<ExitGameCommand> _ExitGame;
         
@@ -89,12 +93,30 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<ShowStorePanelCommand> ShowStorePanel {
+            get {
+                return _ShowStorePanel;
+            }
+            set {
+                _ShowStorePanel = value;
+            }
+        }
+        
         public virtual Signal<ShowGongFaPanelCommand> ShowGongFaPanel {
             get {
                 return _ShowGongFaPanel;
             }
             set {
                 _ShowGongFaPanel = value;
+            }
+        }
+        
+        public virtual Signal<ShowDialogPanelCommand> ShowDialogPanel {
+            get {
+                return _ShowDialogPanel;
+            }
+            set {
+                _ShowDialogPanel = value;
             }
         }
         
@@ -114,7 +136,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.ExitArena = new Signal<ExitArenaCommand>(this);
             this.ShowRankingListPanel = new Signal<ShowRankingListPanelCommand>(this);
             this.ShowCharacterInfoPanel = new Signal<ShowCharacterInfoPanelCommand>(this);
+            this.ShowStorePanel = new Signal<ShowStorePanelCommand>(this);
             this.ShowGongFaPanel = new Signal<ShowGongFaPanelCommand>(this);
+            this.ShowDialogPanel = new Signal<ShowDialogPanelCommand>(this);
             this.ExitGame = new Signal<ExitGameCommand>(this);
         }
         
@@ -138,8 +162,16 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowCharacterInfoPanel.OnNext(argument);
         }
         
+        public virtual void Execute(ShowStorePanelCommand argument) {
+            this.ShowStorePanel.OnNext(argument);
+        }
+        
         public virtual void Execute(ShowGongFaPanelCommand argument) {
             this.ShowGongFaPanel.OnNext(argument);
+        }
+        
+        public virtual void Execute(ShowDialogPanelCommand argument) {
+            this.ShowDialogPanel.OnNext(argument);
         }
         
         public virtual void Execute(ExitGameCommand argument) {
@@ -171,9 +203,21 @@ namespace MagicFire.HuanHuoUFrame {
             this.ShowCharacterInfoPanel.OnNext(cmd);
         }
         
+        public virtual void ShowStorePanel_(OnPullStorePropListReturnCommand StorePropListReturnCommand) {
+            var cmd = new ShowStorePanelCommand();
+            cmd.StorePropListReturnCommand = StorePropListReturnCommand;
+            this.ShowStorePanel.OnNext(cmd);
+        }
+        
         public virtual void ShowGongFaPanel_() {
             var cmd = new ShowGongFaPanelCommand();
             this.ShowGongFaPanel.OnNext(cmd);
+        }
+        
+        public virtual void ShowDialogPanel_(object DialogItemsObject) {
+            var cmd = new ShowDialogPanelCommand();
+            cmd.DialogItemsObject = DialogItemsObject;
+            this.ShowDialogPanel.OnNext(cmd);
         }
         
         public virtual void ExitGame_() {
@@ -196,7 +240,9 @@ namespace MagicFire.HuanHuoUFrame {
             list.Add(new ViewModelCommandInfo("ExitArena", ExitArena) { ParameterType = typeof(ExitArenaCommand) });
             list.Add(new ViewModelCommandInfo("ShowRankingListPanel", ShowRankingListPanel) { ParameterType = typeof(ShowRankingListPanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowCharacterInfoPanel", ShowCharacterInfoPanel) { ParameterType = typeof(ShowCharacterInfoPanelCommand) });
+            list.Add(new ViewModelCommandInfo("ShowStorePanel", ShowStorePanel) { ParameterType = typeof(ShowStorePanelCommand) });
             list.Add(new ViewModelCommandInfo("ShowGongFaPanel", ShowGongFaPanel) { ParameterType = typeof(ShowGongFaPanelCommand) });
+            list.Add(new ViewModelCommandInfo("ShowDialogPanel", ShowDialogPanel) { ParameterType = typeof(ShowDialogPanelCommand) });
             list.Add(new ViewModelCommandInfo("ExitGame", ExitGame) { ParameterType = typeof(ExitGameCommand) });
         }
         

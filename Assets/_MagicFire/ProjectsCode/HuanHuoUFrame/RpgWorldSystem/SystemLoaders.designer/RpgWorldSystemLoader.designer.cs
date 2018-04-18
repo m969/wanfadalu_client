@@ -24,8 +24,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class RpgWorldSystemLoaderBase : uFrame.Kernel.SystemLoader {
         
-        private SectSystemController _SectSystemController;
-        
         private MagicWeaponSystemController _MagicWeaponSystemController;
         
         private SuperPowerEntityController _SuperPowerEntityController;
@@ -54,8 +52,6 @@ namespace MagicFire.HuanHuoUFrame {
         
         private SkillEntityController _SkillEntityController;
         
-        private CampEntityController _CampEntityController;
-        
         private AvatarController _AvatarController;
         
         private GongFaEntityController _GongFaEntityController;
@@ -65,19 +61,6 @@ namespace MagicFire.HuanHuoUFrame {
         private ArenaController _ArenaController;
         
         private MonsterController _MonsterController;
-        
-        [uFrame.IOC.InjectAttribute()]
-        public virtual SectSystemController SectSystemController {
-            get {
-                if (_SectSystemController==null) {
-                    _SectSystemController = Container.CreateInstance(typeof(SectSystemController)) as SectSystemController;;
-                }
-                return _SectSystemController;
-            }
-            set {
-                _SectSystemController = value;
-            }
-        }
         
         [uFrame.IOC.InjectAttribute()]
         public virtual MagicWeaponSystemController MagicWeaponSystemController {
@@ -262,19 +245,6 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         [uFrame.IOC.InjectAttribute()]
-        public virtual CampEntityController CampEntityController {
-            get {
-                if (_CampEntityController==null) {
-                    _CampEntityController = Container.CreateInstance(typeof(CampEntityController)) as CampEntityController;;
-                }
-                return _CampEntityController;
-            }
-            set {
-                _CampEntityController = value;
-            }
-        }
-        
-        [uFrame.IOC.InjectAttribute()]
         public virtual AvatarController AvatarController {
             get {
                 if (_AvatarController==null) {
@@ -340,8 +310,6 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public override void Load() {
-            Container.RegisterViewModelManager<SectSystemViewModel>(new ViewModelManager<SectSystemViewModel>());
-            Container.RegisterController<SectSystemController>(SectSystemController);
             Container.RegisterViewModelManager<MagicWeaponSystemViewModel>(new ViewModelManager<MagicWeaponSystemViewModel>());
             Container.RegisterController<MagicWeaponSystemController>(MagicWeaponSystemController);
             Container.RegisterViewModelManager<SuperPowerEntityViewModel>(new ViewModelManager<SuperPowerEntityViewModel>());
@@ -370,8 +338,6 @@ namespace MagicFire.HuanHuoUFrame {
             Container.RegisterController<ArenaSystemController>(ArenaSystemController);
             Container.RegisterViewModelManager<SkillEntityViewModel>(new ViewModelManager<SkillEntityViewModel>());
             Container.RegisterController<SkillEntityController>(SkillEntityController);
-            Container.RegisterViewModelManager<CampEntityViewModel>(new ViewModelManager<CampEntityViewModel>());
-            Container.RegisterController<CampEntityController>(CampEntityController);
             Container.RegisterViewModelManager<AvatarViewModel>(new ViewModelManager<AvatarViewModel>());
             Container.RegisterController<AvatarController>(AvatarController);
             Container.RegisterViewModelManager<GongFaEntityViewModel>(new ViewModelManager<GongFaEntityViewModel>());

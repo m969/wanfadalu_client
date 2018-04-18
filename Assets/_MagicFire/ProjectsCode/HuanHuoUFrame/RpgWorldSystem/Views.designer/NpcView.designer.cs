@@ -23,7 +23,77 @@ namespace MagicFire.HuanHuoUFrame {
     using UnityEngine;
     
     
-    public class NpcViewBase : EntityCommonView {
+    public class NpcViewBase : EntityModelView {
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _npcID;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _npcType;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _arenaID;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("npcID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindnpcID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("npcID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_npcIDonlyWhenChanged")]
+        protected bool _npcIDOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("npcType")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindnpcType = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("npcType")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_npcTypeonlyWhenChanged")]
+        protected bool _npcTypeOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindsectID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("sectID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
+        protected bool _sectIDOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("entityName")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindentityName = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("entityName")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_entityNameonlyWhenChanged")]
+        protected bool _entityNameOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("arenaID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindarenaID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("arenaID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_arenaIDonlyWhenChanged")]
+        protected bool _arenaIDOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -48,6 +118,11 @@ namespace MagicFire.HuanHuoUFrame {
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
             // var vm = model as NpcViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
+            var npcview = ((NpcViewModel)model);
+            npcview.sectID = this._sectID;
+            npcview.npcID = this._npcID;
+            npcview.npcType = this._npcType;
+            npcview.arenaID = this._arenaID;
         }
         
         public override void Bind() {
@@ -55,6 +130,36 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Npc to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindnpcID) {
+                this.BindProperty(this.Npc.npcIDProperty, this.npcIDChanged, _npcIDOnlyWhenChanged);
+            }
+            if (_BindnpcType) {
+                this.BindProperty(this.Npc.npcTypeProperty, this.npcTypeChanged, _npcTypeOnlyWhenChanged);
+            }
+            if (_BindsectID) {
+                this.BindProperty(this.Npc.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
+            }
+            if (_BindentityName) {
+                this.BindProperty(this.Npc.entityNameProperty, this.entityNameChanged, _entityNameOnlyWhenChanged);
+            }
+            if (_BindarenaID) {
+                this.BindProperty(this.Npc.arenaIDProperty, this.arenaIDChanged, _arenaIDOnlyWhenChanged);
+            }
+        }
+        
+        public virtual void npcIDChanged(Int32 arg1) {
+        }
+        
+        public virtual void npcTypeChanged(Int32 arg1) {
+        }
+        
+        public virtual void sectIDChanged(Int32 arg1) {
+        }
+        
+        public virtual void entityNameChanged(String arg1) {
+        }
+        
+        public virtual void arenaIDChanged(Int32 arg1) {
         }
     }
 }

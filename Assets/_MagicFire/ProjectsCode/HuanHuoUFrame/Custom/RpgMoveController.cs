@@ -107,7 +107,7 @@
                     .Subscribe(evt =>
                     {
                         if (MainAvatarController.transform.position.y < -4)
-                            MainAvatarController.transform.position = new Vector3(MainAvatarController.transform.position.x, 2, MainAvatarController.transform.position.z);
+                            MainAvatarController.transform.position = new Vector3(MainAvatarController.transform.position.x, 22, MainAvatarController.transform.position.z);
 
                         if (MainAvatarController.transform.eulerAngles.x != 0 || MainAvatarController.transform.eulerAngles.z != 0)
                             MainAvatarController.transform.eulerAngles = new Vector3(0, MainAvatarController.transform.eulerAngles.y, 0);
@@ -115,7 +115,7 @@
                         if (MainAvatarController.isGrounded)
                             MoveVector = new Vector3(MoveVector.x, 0, MoveVector.z);
                         else
-                            MoveVector = new Vector3(MoveVector.x, -1.5f, MoveVector.z);
+                            MoveVector = new Vector3(MoveVector.x, -4.0f, MoveVector.z);
                         MainAvatarController.Move(MoveVector);
                     }).DisposeWith(this);
             }
@@ -147,7 +147,7 @@
                         //KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
                         //MainAvatarController.transform.DOLookAt(new Vector3(hit.point.x, MainAvatarController.transform.position.y, hit.point.z), 0.0f);
                         MainAvatarController.transform.LookAt(new Vector3(hit.point.x, MainAvatarController.transform.position.y, hit.point.z));
-                        MoveVector = MainAvatarController.transform.forward * 0.4f;
+                        MoveVector = MainAvatarController.transform.forward * 0.2f * MainAvatarView.Speed;
                     }
                 }
                 else

@@ -13,25 +13,25 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
+    using Newtonsoft.Json.Linq;
+    using PathologicalGames;
 
 
     public class AvatarView : AvatarViewBase {
-
         [SerializeField]
         [Range(0.1f, 1.0f)]
         private float _speed;
-
         [SerializeField]
         private bool _clientControl = false;
-
         [SerializeField]
         private Animator _animator;
-
         [SerializeField]
         private Animation _animation;
-
         [SerializeField]
         private CharacterController _characterController;
+        [SerializeField]
+        private Transform _weaponListNode;
+        private Dictionary<ulong, Prop> _magicWeaponList;
 
 
         public bool ClientControl
@@ -97,6 +97,19 @@
                         });
                 }
             }
+            //var v = new Vector3(ViewModelObject.position.x, 5, ViewModelObject.position.z);
+            //transform.position = v;
+            //ViewModelObject.position = v;
+
+            //var ray = new Ray();
+            //ray.origin = ViewModelObject.position + Vector3.up * 10;
+            //ray.direction = Vector3.down;
+            //RaycastHit raycastHit;
+            //Physics.Raycast(ray, out raycastHit, 20, 1 << LayerMask.NameToLayer("Terrian"));
+            //transform.position = raycastHit.point;
+            //Debug.Log("raycastHit.point " + raycastHit.point);
+            //Debug.Log("ViewModelObject.position " + ViewModelObject.position);
+            //Debug.Log("transform.position " + transform.position);
             Observable.EveryUpdate().Subscribe(evt =>{ transform.GetChild(0).localPosition = Vector3.zero; });
         }
 
@@ -110,6 +123,11 @@
         {
             base.canMoveChanged(arg1);
             this._canMove = arg1;
+        }
+
+        public override void sectIDChanged(int arg1)
+        {
+            _sectID = arg1;
         }
 
         public override void OnIdleState()
@@ -144,6 +162,57 @@
         {
             base.OnCastSkillState();
             //.OnCastSkill(Avatar.CurrentSkillName, Avatar.CurrentSkillArgs);
+        }
+
+        public override void OnDialogItemsReturnExecuted(OnDialogItemsReturnCommand command)
+        {
+            Debug.Log("AvatarView:OnDialogItemsReturnExecuted " + command);
+            this.Publish(new ShowDialogPanelEvent() { DialogItemsObject = command.DialogItemsObject });
+        }
+
+        public override void OnPullStorePropListReturnExecuted(OnPullStorePropListReturnCommand command)
+        {
+            Debug.Log("AvatarView:OnPullStorePropListReturnExecuted " + command);
+            this.Publish(new ShowStorePanelEvent() { StorePropListReturnCommand = command });
+        }
+
+        public override void OnJoinSectResultExecuted(OnJoinSectResultCommand command)
+        {
+            Debug.Log("AvatarView:OnJoinSectResultExecuted " + command);
+        }
+
+        public override void magicWeaponListChanged(object arg1)
+        {
+            //Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
+            var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            _magicWeaponList = new Dictionary<ulong, Prop>();
+            if (tmpPropList != null)
+            {
+                foreach (var item in tmpPropList)
+                {
+                    var propObject = (Dictionary<string, object>)item;
+                    var propData = JObject.Parse(propObject["propData"] as string);
+                    var prop = new Prop();
+                    prop.propUUID = (ulong)propObject["propUUID"];
+                    prop.index = (int)propObject["index"];
+                    prop.propData = propData;
+                    _magicWeaponList.Add(prop.propUUID, prop);
+                    var spawnPool = PoolManager.Pools["MagicWeaponPool"];
+                    var weapon = spawnPool.Spawn(spawnPool.prefabs["weapon_" + propData["id"]]);
+                    weapon.SetParent(_weaponListNode.GetChild(prop.index));
+                    weapon.localScale = Vector3.one;
+                    weapon.localPosition = Vector3.zero;
+                }
+            }
+            //foreach (var item in _magicWeaponList)
+            //{
+            //    var child = _weaponListParent.transform.GetChild(item.Value.index);
+            //    var srcName = "PropImages/prop_" + item.Value.propData["id"].ToString();
+            //    //Debug.Log(srcName);
+            //    var itemImage = child.GetComponent<Image>();
+            //    var tempType = itemImage.sprite;
+            //    itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+            //}
         }
     }
 }

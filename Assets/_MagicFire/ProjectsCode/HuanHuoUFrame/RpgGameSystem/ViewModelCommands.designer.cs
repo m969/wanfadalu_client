@@ -40,6 +40,20 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class Test03LoginCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class ShowStorePanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private OnPullStorePropListReturnCommand _StorePropListReturnCommand;
+        
+        public OnPullStorePropListReturnCommand StorePropListReturnCommand {
+            get {
+                return _StorePropListReturnCommand;
+            }
+            set {
+                _StorePropListReturnCommand = value;
+            }
+        }
+    }
+    
     public partial class ShowRegistePanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private MagicFire.HuanHuoUFrame.RegistePanel _RegistePanel;
@@ -87,6 +101,20 @@ namespace MagicFire.HuanHuoUFrame {
     }
     
     public partial class ShowCharacterInfoPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
+    public partial class ShowDialogPanelCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+        
+        private object _DialogItemsObject;
+        
+        public object DialogItemsObject {
+            get {
+                return _DialogItemsObject;
+            }
+            set {
+                _DialogItemsObject = value;
+            }
+        }
     }
     
     public partial class CloseMessageCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

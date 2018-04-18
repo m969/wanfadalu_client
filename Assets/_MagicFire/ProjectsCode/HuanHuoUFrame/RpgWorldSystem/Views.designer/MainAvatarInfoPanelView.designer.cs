@@ -26,6 +26,16 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class MainAvatarInfoPanelViewBase : EntityCommonView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _lingshiAmount;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("HP")]
         [UnityEngine.HideInInspector()]
         public bool _BindHP = true;
@@ -36,6 +46,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_HPonlyWhenChanged")]
         protected bool _HPOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("gongFaList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindgongFaList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("gongFaList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_gongFaListonlyWhenChanged")]
+        protected bool _gongFaListOnlyWhenChanged;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("HP_Max")]
         [UnityEngine.HideInInspector()]
         public bool _BindHP_Max = true;
@@ -45,16 +65,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_HP_MaxonlyWhenChanged")]
         protected bool _HP_MaxOnlyWhenChanged;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("magicWeaponList")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindmagicWeaponList = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("magicWeaponList")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_magicWeaponListonlyWhenChanged")]
-        protected bool _magicWeaponListOnlyWhenChanged;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("MSP_Max")]
         [UnityEngine.HideInInspector()]
@@ -130,6 +140,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var mainavatarinfopanelview = ((AvatarViewModel)model);
+            mainavatarinfopanelview.lingshiAmount = this._lingshiAmount;
+            mainavatarinfopanelview.sectID = this._sectID;
         }
         
         public override void Bind() {
@@ -140,11 +152,11 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindHP) {
                 this.BindProperty(this.Avatar.HPProperty, this.HPChanged, _HPOnlyWhenChanged);
             }
+            if (_BindgongFaList) {
+                this.BindProperty(this.Avatar.gongFaListProperty, this.gongFaListChanged, _gongFaListOnlyWhenChanged);
+            }
             if (_BindHP_Max) {
                 this.BindProperty(this.Avatar.HP_MaxProperty, this.HP_MaxChanged, _HP_MaxOnlyWhenChanged);
-            }
-            if (_BindmagicWeaponList) {
-                this.BindProperty(this.Avatar.magicWeaponListProperty, this.magicWeaponListChanged, _magicWeaponListOnlyWhenChanged);
             }
             if (_BindMSP_Max) {
                 this.BindProperty(this.Avatar.MSP_MaxProperty, this.MSP_MaxChanged, _MSP_MaxOnlyWhenChanged);
@@ -166,10 +178,10 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void HPChanged(Int32 arg1) {
         }
         
-        public virtual void HP_MaxChanged(Int32 arg1) {
+        public virtual void gongFaListChanged(object arg1) {
         }
         
-        public virtual void magicWeaponListChanged(object arg1) {
+        public virtual void HP_MaxChanged(Int32 arg1) {
         }
         
         public virtual void MSP_MaxChanged(Int32 arg1) {
@@ -187,9 +199,34 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void MSPChanged(Int32 arg1) {
         }
         
+        public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnDialogItemsReturn.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnError(OnErrorCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnError.OnNext(command);
+        }
+        
+        public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
+            command.Sender = Avatar;
+            Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnTargetItemListReturn.OnNext(command);
+        }
+        
         public virtual void ExecuteTeleport(TeleportCommand command) {
             command.Sender = Avatar;
             Avatar.Teleport.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestDialog(RequestDialogCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestDialog.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
@@ -200,6 +237,16 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnJoinSectResult(OnJoinSectResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnJoinSectResult.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnRequestForgeResult(OnRequestForgeResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnRequestForgeResult.OnNext(command);
         }
     }
 }

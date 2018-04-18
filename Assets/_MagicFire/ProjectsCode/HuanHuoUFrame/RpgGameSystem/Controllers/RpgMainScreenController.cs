@@ -15,7 +15,8 @@
             this.OnEvent<ShowAvatarBagEvent>().Subscribe(ShowAvatarBag);
             this.OnEvent<ShowCharacterInfoPanelEvent>().Subscribe(ShowCharacterInfoPanel);
             this.OnEvent<ShowGongFaPanelEvent>().Subscribe(ShowGongFaPanel);
-            //this.OnEvent<ExitArenaEvent>().Subscribe(ShowGongFaPanel);
+            this.OnEvent<ShowDialogPanelEvent>().Subscribe(ShowDialogPanel);
+            this.OnEvent<ShowStorePanelEvent>().Subscribe(ShowStorePanel);
         }
 
         private void ShowAvatarBag(ShowAvatarBagEvent evt)
@@ -30,7 +31,20 @@
 
         private void ShowGongFaPanel(ShowGongFaPanelEvent evt)
         {
-            this.ShowGongFaPanel(this.RpgMainScreen, new ShowGongFaPanelCommand());
+            this.RpgMainScreen.Execute(new ShowGongFaPanelCommand());
+            //this.ShowGongFaPanel(this.RpgMainScreen, new ShowGongFaPanelCommand());
+        }
+
+        private void ShowDialogPanel(ShowDialogPanelEvent evt)
+        {
+            Debug.Log("RpgMainScreenController:ShowDialogPanelEvent");
+            this.RpgMainScreen.Execute(new ShowDialogPanelCommand() { DialogItemsObject = evt.DialogItemsObject });
+        }
+
+        private void ShowStorePanel(ShowStorePanelEvent evt)
+        {
+            Debug.Log("RpgMainScreenController:ShowDialogPanelEvent");
+            this.RpgMainScreen.Execute(new ShowStorePanelCommand() { StorePropListReturnCommand = evt.StorePropListReturnCommand });
         }
 
         public override void ExitArena(RpgMainScreenViewModel viewModel, ExitArenaCommand arg)

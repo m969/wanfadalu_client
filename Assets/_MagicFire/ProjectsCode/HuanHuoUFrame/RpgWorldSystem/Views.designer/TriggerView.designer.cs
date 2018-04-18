@@ -28,7 +28,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public Int32 _triggerSize;
+        public Single _triggerSize;
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
@@ -120,7 +120,7 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual void triggerSizeChanged(Int32 arg1) {
+        public virtual void triggerSizeChanged(Single arg1) {
         }
         
         public virtual void campNameChanged(String arg1) {

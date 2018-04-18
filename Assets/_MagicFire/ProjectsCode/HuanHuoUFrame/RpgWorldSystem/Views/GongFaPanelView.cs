@@ -21,6 +21,8 @@
         private Transform _gongFaContentTransform;
         [SerializeField]
         private Transform _gongFaItemPrefab;
+        [SerializeField]
+        private Transform _skillItemPrefab;
 
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
@@ -42,10 +44,24 @@
             var gongFaMap = this.Avatar.DecodeGongFaListObject(arg1);
             foreach (var item in gongFaMap)
             {
-                //Debug.Log(item.Key + ":" + item.Value);
                 var gongFaItem = Instantiate(_gongFaItemPrefab);
                 gongFaItem.SetParent(_gongFaContentTransform);
-                gongFaItem.Find("Text").GetComponent<Text>().text = item.Key.ToString();
+                var itemImage = gongFaItem.Find("GongFaImage").GetComponent<Image>();
+                var tempType = itemImage.sprite;
+                Debug.Log(item.Key);
+                var srcName = "GongFaImages/gongfa_" + item.Key;
+                itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                var skillList = gongFaItem.Find("GongFaInfoPanel").Find("SkillList");
+                gongFaItem.Find("GongFaInfoPanel").Find("GongFaName").GetComponent<Text>().text = item.Key.ToString();
+                foreach (var skill in item.Value.skillList)
+                {
+                    var skillItem = Instantiate(_skillItemPrefab);
+                    skillItem.SetParent(skillList);
+                    var skillImage = skillItem.GetComponent<Image>();
+                    tempType = skillImage.sprite;
+                    srcName = "SkillImages/skill_" + (item.Key * 10 + skill.Key);
+                    skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                }
             }
         }
     }

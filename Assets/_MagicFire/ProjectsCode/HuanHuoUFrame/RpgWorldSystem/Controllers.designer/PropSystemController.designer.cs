@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -56,12 +57,28 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializePropSystem(PropSystemViewModel viewModel) {
             // This is called when a PropSystemViewModel is created
+            viewModel.OnPullStorePropListReturn.Action = this.OnPullStorePropListReturnHandler;
+            viewModel.RequestPullStorePropList.Action = this.RequestPullStorePropListHandler;
             PropSystemViewModelManager.Add(viewModel);
         }
         
         public override void DisposingViewModel(uFrame.MVVM.ViewModels.ViewModel viewModel) {
             base.DisposingViewModel(viewModel);
             PropSystemViewModelManager.Remove(viewModel);
+        }
+        
+        public virtual void OnPullStorePropListReturnHandler(OnPullStorePropListReturnCommand command) {
+            this.OnPullStorePropListReturn(command.Sender as PropSystemViewModel, command);
+        }
+        
+        public virtual void RequestPullStorePropListHandler(RequestPullStorePropListCommand command) {
+            this.RequestPullStorePropList(command.Sender as PropSystemViewModel, command);
+        }
+        
+        public virtual void OnPullStorePropListReturn(PropSystemViewModel viewModel, OnPullStorePropListReturnCommand arg) {
+        }
+        
+        public virtual void RequestPullStorePropList(PropSystemViewModel viewModel, RequestPullStorePropListCommand arg) {
         }
     }
 }

@@ -26,20 +26,112 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class NpcViewModelBase : EntityCommonViewModel {
         
+        private P<Int32> _sectIDProperty;
+        
+        private P<Int32> _npcIDProperty;
+        
+        private P<Int32> _npcTypeProperty;
+        
+        private P<Int32> _arenaIDProperty;
+        
         public NpcViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
         
+        public virtual P<Int32> sectIDProperty {
+            get {
+                return _sectIDProperty;
+            }
+            set {
+                _sectIDProperty = value;
+            }
+        }
+        
+        public virtual P<Int32> npcIDProperty {
+            get {
+                return _npcIDProperty;
+            }
+            set {
+                _npcIDProperty = value;
+            }
+        }
+        
+        public virtual P<Int32> npcTypeProperty {
+            get {
+                return _npcTypeProperty;
+            }
+            set {
+                _npcTypeProperty = value;
+            }
+        }
+        
+        public virtual P<Int32> arenaIDProperty {
+            get {
+                return _arenaIDProperty;
+            }
+            set {
+                _arenaIDProperty = value;
+            }
+        }
+        
+        public virtual Int32 sectID {
+            get {
+                return sectIDProperty.Value;
+            }
+            set {
+                sectIDProperty.Value = value;
+            }
+        }
+        
+        public virtual Int32 npcID {
+            get {
+                return npcIDProperty.Value;
+            }
+            set {
+                npcIDProperty.Value = value;
+            }
+        }
+        
+        public virtual Int32 npcType {
+            get {
+                return npcTypeProperty.Value;
+            }
+            set {
+                npcTypeProperty.Value = value;
+            }
+        }
+        
+        public virtual Int32 arenaID {
+            get {
+                return arenaIDProperty.Value;
+            }
+            set {
+                arenaIDProperty.Value = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
+            _sectIDProperty = new P<Int32>(this, "sectID");
+            _npcIDProperty = new P<Int32>(this, "npcID");
+            _npcTypeProperty = new P<Int32>(this, "npcType");
+            _arenaIDProperty = new P<Int32>(this, "arenaID");
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this.sectID = stream.DeserializeInt("sectID");;
+            this.npcID = stream.DeserializeInt("npcID");;
+            this.npcType = stream.DeserializeInt("npcType");;
+            this.arenaID = stream.DeserializeInt("arenaID");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeInt("sectID", this.sectID);
+            stream.SerializeInt("npcID", this.npcID);
+            stream.SerializeInt("npcType", this.npcType);
+            stream.SerializeInt("arenaID", this.arenaID);
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
@@ -48,6 +140,14 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_sectIDProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_npcIDProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_npcTypeProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_arenaIDProperty, false, false, false, false));
         }
     }
     

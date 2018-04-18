@@ -15,6 +15,13 @@
     
     
     public class RankingListPanelView : RankingListPanelViewBase {
+        [SerializeField]
+        private GameObject _rankingItemsPanel;
+        [SerializeField]
+        private GameObject _selfRankingPanel;
+        [SerializeField]
+        private GameObject _rankingItem;
+
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -27,18 +34,37 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            this.Avatar.Execute(new RequestRankingListCommand());
+            this.Avatar.Execute(new RequestSelfRankingCommand());
+            //this.Avatar.RequestRankingList.OnNext(new RequestRankingListCommand());
+            //this.Avatar.RequestSelfRanking.OnNext(new RequestSelfRankingCommand());
+        }
+
+        private void OnEnable()
+        {
+            if (this.Avatar == null) return;
+            this.Avatar.Execute(new RequestRankingListCommand());
+            this.Avatar.Execute(new RequestSelfRankingCommand());
         }
 
         public override void OnRequestRankingListReturnExecuted(OnRequestRankingListReturnCommand command)
         {
             Debug.Log("RankingListPanelView:OnRequestRankingListReturnExecuted");
-            Debug.Log(command.RankingList);
+            var rankingList = ((Dictionary<string, object>)command.RankingList)["values"] as List<object>;
+            foreach (var item in rankingList)
+            {
+                var rankingItemInfo = (Dictionary<string, object>)item;
+                var spawnPool = PathologicalGames.PoolManager.Pools["UIPanelPool"];
+                var rankingItem = _rankingItemsPanel.transform.GetChild((int)(ulong)rankingItemInfo["ranking"] - 1);
+                rankingItem.Find("Text").GetComponent<UnityEngine.UI.Text>().text = rankingItemInfo["ranking"] + "：" + rankingItemInfo["avatarName"] + " 胜利场次：" + rankingItemInfo["winAmount"];
+            }
         }
 
         public override void OnRequestSelfRankingReturnExecuted(OnRequestSelfRankingReturnCommand command)
         {
             Debug.Log("RankingListPanelView:OnRequestSelfRankingReturnExecuted");
-            Debug.Log(command.RankingInfo);
+            var rankingInfo = (Dictionary<string, object>)command.RankingInfo;
+            _selfRankingPanel.transform.Find("Text").GetComponent<UnityEngine.UI.Text>().text = rankingInfo["avatarName"] + " 第" + rankingInfo["ranking"] + "名" + " 胜利场次：" + rankingInfo["winAmount"];
         }
     }
 }

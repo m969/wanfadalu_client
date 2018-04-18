@@ -19,16 +19,16 @@
         public override void __init__()
         {
             base.__init__();
-            if (this.isPlayer())
-            {
-                this.Aggregator.GetEvent<ResponseEvent>().Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestEnterArena"; })
-                    .Subscribe(evt =>
-                    {
-                        var arenaID = ((ArenaView)evt.RpgInteractiveComponent.EntityView).Arena.arenaID;
-                        var command = new RequestEnterArenaCommand() { ArenaID = arenaID };
-                        this.Execute(command);
-                    });
-            }
+            //if (this.isPlayer())
+            //{
+            //    this.Aggregator.GetEvent<ResponseEvent>().Where(evt => { return evt.RpgInteractiveComponent.RemoteCallName == "requestEnterArena"; })
+            //        .Subscribe(evt =>
+            //        {
+            //            var arenaID = ((ArenaView)evt.RpgInteractiveComponent.EntityView).Arena.arenaID;
+            //            var command = new RequestEnterArenaCommand() { ArenaID = arenaID };
+            //            this.Execute(command);
+            //        });
+            //}
         }
     }
 }

@@ -26,6 +26,20 @@ namespace MagicFire.HuanHuoUFrame {
     
     public class AvatarViewBase : ArenaSystemView {
         
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _lingshiAmount;
+        
+        [UnityEngine.SerializeField()]
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _sectID;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnDialogItemsReturn")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnDialogItemsReturn = true;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("avatarState")]
         [UnityEngine.HideInInspector()]
         public bool _BindavatarState = true;
@@ -36,9 +50,37 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_avatarStateonlyWhenChanged")]
         protected bool _avatarStateOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnPullStorePropListReturn")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnPullStorePropListReturn = true;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("Teleport")]
         [UnityEngine.HideInInspector()]
         public bool _BindTeleport = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("magicWeaponList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindmagicWeaponList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("magicWeaponList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_magicWeaponListonlyWhenChanged")]
+        protected bool _magicWeaponListOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnJoinSectResult")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnJoinSectResult = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("sectID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindsectID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("sectID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
+        protected bool _sectIDOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -64,6 +106,8 @@ namespace MagicFire.HuanHuoUFrame {
             // var vm = model as AvatarViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var avatarview = ((AvatarViewModel)model);
+            avatarview.lingshiAmount = this._lingshiAmount;
+            avatarview.sectID = this._sectID;
         }
         
         public override void Bind() {
@@ -71,12 +115,30 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindOnDialogItemsReturn) {
+                this.BindCommandExecuted(this.Avatar.OnDialogItemsReturn, this.OnDialogItemsReturnExecuted);
+            }
             if (_BindavatarState) {
                 this.BindStateProperty(this.Avatar.avatarStateProperty, this.avatarStateChanged, _avatarStateOnlyWhenChanged);
+            }
+            if (_BindOnPullStorePropListReturn) {
+                this.BindCommandExecuted(this.Avatar.OnPullStorePropListReturn, this.OnPullStorePropListReturnExecuted);
             }
             if (_BindTeleport) {
                 this.BindCommandExecuted(this.Avatar.Teleport, this.TeleportExecuted);
             }
+            if (_BindmagicWeaponList) {
+                this.BindProperty(this.Avatar.magicWeaponListProperty, this.magicWeaponListChanged, _magicWeaponListOnlyWhenChanged);
+            }
+            if (_BindOnJoinSectResult) {
+                this.BindCommandExecuted(this.Avatar.OnJoinSectResult, this.OnJoinSectResultExecuted);
+            }
+            if (_BindsectID) {
+                this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
+            }
+        }
+        
+        public virtual void OnDialogItemsReturnExecuted(OnDialogItemsReturnCommand command) {
         }
         
         public virtual void avatarStateChanged(uFrame.MVVM.StateMachines.State arg1) {
@@ -118,12 +180,49 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void OnWalkState() {
         }
         
+        public virtual void OnPullStorePropListReturnExecuted(OnPullStorePropListReturnCommand command) {
+        }
+        
         public virtual void TeleportExecuted(TeleportCommand command) {
+        }
+        
+        public virtual void magicWeaponListChanged(object arg1) {
+        }
+        
+        public virtual void OnJoinSectResultExecuted(OnJoinSectResultCommand command) {
+        }
+        
+        public virtual void sectIDChanged(Int32 arg1) {
+        }
+        
+        public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnDialogItemsReturn.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnError(OnErrorCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnError.OnNext(command);
+        }
+        
+        public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
+            command.Sender = Avatar;
+            Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnTargetItemListReturn.OnNext(command);
         }
         
         public virtual void ExecuteTeleport(TeleportCommand command) {
             command.Sender = Avatar;
             Avatar.Teleport.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestDialog(RequestDialogCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestDialog.OnNext(command);
         }
         
         public virtual void ExecuteonMainAvatarEnterSpace(onMainAvatarEnterSpaceCommand command) {
@@ -134,6 +233,16 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteonMainAvatarLeaveSpace(onMainAvatarLeaveSpaceCommand command) {
             command.Sender = Avatar;
             Avatar.onMainAvatarLeaveSpace.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnJoinSectResult(OnJoinSectResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnJoinSectResult.OnNext(command);
+        }
+        
+        public virtual void ExecuteOnRequestForgeResult(OnRequestForgeResultCommand command) {
+            command.Sender = Avatar;
+            Avatar.OnRequestForgeResult.OnNext(command);
         }
     }
 }

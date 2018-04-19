@@ -209,7 +209,9 @@
 
         public override void skillKeyOptionsChanged(string arg1)
         {
-            SkillKeyOptions = JObject.Parse(arg1);
+            //Debug.Log("AvatarView:skillKeyOptionsChanged");
+            if (arg1 != null)
+                SkillKeyOptions = JObject.Parse(arg1);
         }
     }
 }

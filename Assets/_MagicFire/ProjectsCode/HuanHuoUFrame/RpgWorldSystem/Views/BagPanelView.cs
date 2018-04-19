@@ -101,6 +101,7 @@ namespace MagicFire.HuanHuoUFrame {
                     var prop = (Dictionary<string, object>)item;
                     JObject propData = JObject.Parse(prop["propData"] as string);
                     var propItem = _itemsPanel.GetChild(i);
+                    i++;
                     var itemImage = propItem.Find("Foreground").GetComponent<Image>();
                     var propID = int.Parse(propData["id"].ToString());
                     var srcName = "PropImages/prop_" + propID;
@@ -142,15 +143,6 @@ namespace MagicFire.HuanHuoUFrame {
                         Destroy(dragPropItem.gameObject);
                         this.Publish(new OnBagItemEndDragEvent() { BagItem = dragPropItem });
                     }).DisposeWith(this);
-
-                    //var propItem = Instantiate(_propItemPrefab);
-                    //Debug.Log(prop["propUUID"] + " " + propItem);
-                    //propItem.name = prop["propUUID"] as string;
-                    //var srcName = "PropImages/prop_" + int.Parse(propData["id"].ToString());
-                    //var itemImage = propItem.Find("Background").GetComponent<Image>();
-                    //Sprite tempType = itemImage.sprite;
-                    //itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
-                    //propItem.SetParent(_itemsPanel);
                 }
             }
         }

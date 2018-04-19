@@ -121,6 +121,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSPonlyWhenChanged")]
         protected bool _MSPOnlyWhenChanged;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("skillKeyOptions")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindskillKeyOptions = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("skillKeyOptions")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_skillKeyOptionsonlyWhenChanged")]
+        protected bool _skillKeyOptionsOnlyWhenChanged;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -179,6 +189,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindMSP) {
                 this.BindProperty(this.Avatar.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
             }
+            if (_BindskillKeyOptions) {
+                this.BindProperty(this.Avatar.skillKeyOptionsProperty, this.skillKeyOptionsChanged, _skillKeyOptionsOnlyWhenChanged);
+            }
         }
         
         public virtual void HPChanged(Int32 arg1) {
@@ -203,6 +216,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void MSPChanged(Int32 arg1) {
+        }
+        
+        public virtual void skillKeyOptionsChanged(String arg1) {
         }
         
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {

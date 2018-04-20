@@ -39,6 +39,12 @@ namespace MagicFire.HuanHuoUFrame {
         public void AddSkill(Skill skill)
         {
             skill.SkillController = GetComponent<RpgSkillController>();
+            var skillID = skill.GongFaID * 10 + skill.SkillIndex;
+            if (SkillMap.ContainsKey(skillID))
+            {
+                Debug.LogError("SkillMap already exits skill " + skillID);
+                return;
+            }
             SkillMap.Add(skill.GongFaID * 10 + skill.SkillIndex, skill);
         }
 
@@ -80,7 +86,7 @@ namespace MagicFire.HuanHuoUFrame {
 
         public override void gongFaListChanged(object arg1)
         {
-            base.gongFaListChanged(arg1);
+            SkillMap.Clear();
             var gongFaMap = this.SkillEntity.DecodeGongFaListObject(arg1);
             foreach (var item in gongFaMap)
             {

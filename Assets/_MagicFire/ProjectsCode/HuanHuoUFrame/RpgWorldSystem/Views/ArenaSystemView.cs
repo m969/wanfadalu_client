@@ -34,7 +34,7 @@
             base.OnEnterArenaExecuted(command);
             Debug.Log("ArenaView:OnEnterArenaExecuted");
             //this.transform.position = command.CenterPosition;
-            this.Publish(new OnEnterArenaCommand());
+            this.Publish(new OnEnterArenaCommand() { Sender = ArenaSystem });
         }
 
         public override void OnExitArenaExecuted(OnExitArenaCommand command)
@@ -42,6 +42,7 @@
             base.OnExitArenaExecuted(command);
             Debug.Log("ArenaView:OnExitArenaExecuted");
             //this.transform.position = command.OutPosition;
+            this.Publish(new OnExitArenaCommand() { Sender = ArenaSystem });
         }
 
         public override void OnMatchEndExecuted(OnMatchEndCommand command)

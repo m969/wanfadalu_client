@@ -654,7 +654,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: "\u5B97\u95E8\u4FE1\u606F:\u672A\u52A0\u5165\u5B97\u95E8"
 --- !u!114 &114628181677982414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -672,9 +672,12 @@ MonoBehaviour:
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
   _headBar: {fileID: 11492440}
+  _lingshiAmount: 0
   _sectID: 0
+  _skillKeyOptions: 
   _BindsectID: 1
   _sectIDOnlyWhenChanged: 0
+  _sectInfoText: {fileID: 114583001214503392}
 --- !u!114 &114954219030998312
 MonoBehaviour:
   m_ObjectHideFlags: 1

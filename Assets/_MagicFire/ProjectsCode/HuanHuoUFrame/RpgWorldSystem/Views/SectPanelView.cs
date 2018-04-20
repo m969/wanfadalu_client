@@ -12,13 +12,13 @@
     using uFrame.MVVM.ViewModels;
     using UniRx;
     using UnityEngine;
-    
-    
+    using UnityEngine.UI;
+
+
     public class SectPanelView : SectPanelViewBase {
-        
-        public override void sectIDChanged(Int32 arg1) {
-        }
-        
+        [SerializeField]
+        private Text _sectInfoText;
+
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
@@ -31,6 +31,15 @@
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+        }
+
+        public override void sectIDChanged(Int32 arg1)
+        {
+            _sectID = arg1;
+            if (_sectID == 0)
+                return;
+            var sectName = WorldViewService.ConfigTableMap["sect_config_Table"][_sectID.ToString()]["sectName"];
+            _sectInfoText.text = "宗门ID：" + arg1 + ", 宗门名称：" + sectName;
         }
     }
 }

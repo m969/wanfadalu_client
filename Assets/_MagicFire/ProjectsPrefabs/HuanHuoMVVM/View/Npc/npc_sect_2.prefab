@@ -282,8 +282,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 456194}
+  - component: {fileID: 65054462482968280}
   m_Layer: 0
-  m_Name: arena
+  m_Name: npc_sect_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1929,7 +1930,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -22.42, y: 8.3645425e-16, z: 11.429447}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 441598}
@@ -2983,3 +2984,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 128302}
   m_IsPrefabParent: 1
+--- !u!65 &65054462482968280
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128302}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 256.2, y: 83.3, z: 21.5}
+  m_Center: {x: 7.5242085, y: 16.428799, z: 12.51}

@@ -37,7 +37,7 @@ namespace eMagicFire.HuanHuoUFram {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            _damageHintText.GetComponent<DOTweenAnimation>().onStepComplete.AddListener(() => { _damageHintText.gameObject.SetActive(false); });    //掉血动画结束后隐藏动画
+            //_damageHintText.GetComponent<DOTweenAnimation>().onStepComplete.AddListener(() => { _damageHintText.gameObject.SetActive(false); });    //掉血动画结束后隐藏动画
         }
 
         public override void HPChanged(int arg1)

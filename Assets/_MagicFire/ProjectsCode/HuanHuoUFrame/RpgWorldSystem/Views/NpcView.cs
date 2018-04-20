@@ -35,7 +35,12 @@
                 KBEngine.KBEngineApp.app.player().cellCall("requestDialog", Npc.id);
             }).DisposeWith(this);
             var viewPool = PoolManager.Pools["NpcViewPool"];
-            _npcModel = viewPool.Spawn(viewPool.prefabs[_entityName]);
+            if (_npcType == 2)
+                _npcModel = viewPool.Spawn(viewPool.prefabs["npc_arena"]);
+            else if (_npcType == 3)
+                _npcModel = viewPool.Spawn(viewPool.prefabs["npc_sect_" + _sectID]);
+            else
+                _npcModel = viewPool.Spawn(viewPool.prefabs["npc_" + _npcID]);
             if (_npcModel != null)
             {
                 _npcModel.SetParent(transform);

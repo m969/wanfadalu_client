@@ -1066,7 +1066,9 @@ MonoBehaviour:
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
   _headBar: {fileID: 11492440}
+  _lingshiAmount: 0
   _sectID: 0
+  _skillKeyOptions: 
   _BindOnRequestRankingListReturn: 1
   _BindOnRequestSelfRankingReturn: 1
   _rankingItemsPanel: {fileID: 1093540046296418}
@@ -1105,7 +1107,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: "\u6392\u540D\u4FE1\u606F"
 --- !u!114 &114204449716205288
 MonoBehaviour:
   m_ObjectHideFlags: 1

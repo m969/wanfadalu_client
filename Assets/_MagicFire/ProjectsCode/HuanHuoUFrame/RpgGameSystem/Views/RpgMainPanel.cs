@@ -54,7 +54,7 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.RpgMainScreen to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            this.OnEvent<OnEnterArenaCommand>().Where(cmd=> { return cmd.Sender.isPlayer(); }).Subscribe(cmd => { _escapeButton.SetActive(true); }).DisposeWith(this);
+            this.OnEvent<OnEnterArenaCommand>().Where(cmd => { return cmd.Sender.isPlayer(); }).Subscribe(cmd => { _escapeButton.SetActive(true); }).DisposeWith(this);
             this.OnEvent<OnExitArenaCommand>().Where(cmd => { return cmd.Sender.isPlayer(); }).Subscribe(cmd => { _escapeButton.SetActive(false); }).DisposeWith(this);
         }
 

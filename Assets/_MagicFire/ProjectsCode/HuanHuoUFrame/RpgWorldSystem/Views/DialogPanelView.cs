@@ -17,6 +17,10 @@
     
     public class DialogPanelView : DialogPanelViewBase {
         [SerializeField]
+        private Text _npcNameText;
+        [SerializeField]
+        private Text _npcDialogText;
+        [SerializeField]
         private GameObject _npcPanel;
         [SerializeField]
         private GameObject _playerPanel;

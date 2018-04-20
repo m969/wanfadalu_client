@@ -150,9 +150,9 @@ MonoBehaviour:
   onStepComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: HideDamageHint
-        m_Mode: 1
+      - m_Target: {fileID: 1031110935781270}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -221,7 +221,7 @@ MonoBehaviour:
   autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: 70, z: 0}
+  endValueV3: {x: 0, y: 10, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -500,6 +500,7 @@ MonoBehaviour:
   _skillSingingBar: {fileID: 114174618786910912}
   _lingshiAmount: 0
   _sectID: 0
+  _skillKeyOptions: 
   _damageHintText: {fileID: 114948383266631320}
 --- !u!114 &114791400744788538
 MonoBehaviour:

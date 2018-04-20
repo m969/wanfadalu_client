@@ -283,7 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 456194}
   m_Layer: 0
-  m_Name: store
+  m_Name: npc_1001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

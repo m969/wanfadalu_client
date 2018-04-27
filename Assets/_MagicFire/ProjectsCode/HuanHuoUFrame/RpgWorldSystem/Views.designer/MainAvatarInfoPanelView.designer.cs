@@ -41,6 +41,16 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public String _skillKeyOptions;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("skillKeyOptions")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindskillKeyOptions = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("skillKeyOptions")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_skillKeyOptionsonlyWhenChanged")]
+        protected bool _skillKeyOptionsOnlyWhenChanged;
+        
         [uFrame.MVVM.Attributes.UFToggleGroup("HP")]
         [UnityEngine.HideInInspector()]
         public bool _BindHP = true;
@@ -121,16 +131,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_MSPonlyWhenChanged")]
         protected bool _MSPOnlyWhenChanged;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("skillKeyOptions")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindskillKeyOptions = true;
-        
-        [uFrame.MVVM.Attributes.UFGroup("skillKeyOptions")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_skillKeyOptionsonlyWhenChanged")]
-        protected bool _skillKeyOptionsOnlyWhenChanged;
-        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -165,6 +165,9 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindskillKeyOptions) {
+                this.BindProperty(this.Avatar.skillKeyOptionsProperty, this.skillKeyOptionsChanged, _skillKeyOptionsOnlyWhenChanged);
+            }
             if (_BindHP) {
                 this.BindProperty(this.Avatar.HPProperty, this.HPChanged, _HPOnlyWhenChanged);
             }
@@ -189,9 +192,9 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindMSP) {
                 this.BindProperty(this.Avatar.MSPProperty, this.MSPChanged, _MSPOnlyWhenChanged);
             }
-            if (_BindskillKeyOptions) {
-                this.BindProperty(this.Avatar.skillKeyOptionsProperty, this.skillKeyOptionsChanged, _skillKeyOptionsOnlyWhenChanged);
-            }
+        }
+        
+        public virtual void skillKeyOptionsChanged(String arg1) {
         }
         
         public virtual void HPChanged(Int32 arg1) {
@@ -218,7 +221,9 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void MSPChanged(Int32 arg1) {
         }
         
-        public virtual void skillKeyOptionsChanged(String arg1) {
+        public virtual void ExecuteRequestTargetItemList(RequestTargetItemListCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestTargetItemList.OnNext(command);
         }
         
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
@@ -234,6 +239,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
             command.Sender = Avatar;
             Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestForge(RequestForgeCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestForge.OnNext(command);
         }
         
         public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {

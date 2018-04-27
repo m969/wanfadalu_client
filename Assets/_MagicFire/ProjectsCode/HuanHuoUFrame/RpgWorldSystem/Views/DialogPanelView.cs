@@ -64,7 +64,10 @@
         public void RefreshPanel(object DialogItemsObject)
         {
             ClearDialogItem();
-            var itemList = ((Dictionary<string, object>)DialogItemsObject)["values"] as List<object>;
+            var dialogItems = (Dictionary<string, object>)DialogItemsObject;
+            var itemList = dialogItems["values"] as List<object>;
+            _npcNameText.text = dialogItems["npcName"] as string;
+            _npcDialogText.text = dialogItems["npcDialog"] as string;
             foreach (var item in itemList)
             {
                 var itemInfo = item as Dictionary<string, object>;

@@ -45,6 +45,26 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public bool _BindOnTargetItemListReturn = true;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("RequestTargetItemList")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindRequestTargetItemList = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("RequestTargetItemList")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_RequestTargetItemListbutton")]
+        protected UnityEngine.UI.Button _RequestTargetItemListButton;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("RequestForge")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindRequestForge = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("RequestForge")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_RequestForgebutton")]
+        protected UnityEngine.UI.Button _RequestForgeButton;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -82,9 +102,32 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindOnTargetItemListReturn) {
                 this.BindCommandExecuted(this.Avatar.OnTargetItemListReturn, this.OnTargetItemListReturnExecuted);
             }
+            if (_BindRequestTargetItemList) {
+                this.BindButtonToCommand(_RequestTargetItemListButton, this.Avatar.RequestTargetItemList);
+            }
+            if (_BindRequestForge) {
+                this.BindCommandExecuted(this.Avatar.RequestForge, this.RequestForgeExecuted);
+            }
+            if (_BindRequestForge) {
+                this.BindButtonToCommand(_RequestForgeButton, this.Avatar.RequestForge);
+            }
+            if (_BindRequestTargetItemList) {
+                this.BindCommandExecuted(this.Avatar.RequestTargetItemList, this.RequestTargetItemListExecuted);
+            }
         }
         
         public virtual void OnTargetItemListReturnExecuted(OnTargetItemListReturnCommand command) {
+        }
+        
+        public virtual void RequestForgeExecuted(RequestForgeCommand command) {
+        }
+        
+        public virtual void RequestTargetItemListExecuted(RequestTargetItemListCommand command) {
+        }
+        
+        public virtual void ExecuteRequestTargetItemList(RequestTargetItemListCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestTargetItemList.OnNext(command);
         }
         
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
@@ -100,6 +143,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
             command.Sender = Avatar;
             Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestForge(RequestForgeCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestForge.OnNext(command);
         }
         
         public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {

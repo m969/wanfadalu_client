@@ -4,6 +4,7 @@ namespace MagicFire.HuanHuoUFrame{
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
+    using Newtonsoft.Json.Linq;
     
     
     public class AvatarController : AvatarControllerBase {
@@ -36,6 +37,18 @@ namespace MagicFire.HuanHuoUFrame{
         {
             Debug.Log("AvatarController:SelectDialogItem");
             viewModel.cellCall("selectDialogItem", arg.DialogID);
+        }
+
+        public override void RequestTargetItemList(AvatarViewModel viewModel, RequestTargetItemListCommand arg)
+        {
+            Debug.Log("AvatarController:RequestTargetItemList");
+            //viewModel.cellCall("requestTargetItemList");
+        }
+
+        public override void RequestForge(AvatarViewModel viewModel, RequestForgeCommand arg)
+        {
+            Debug.Log("AvatarController:RequestForge");
+            //viewModel.cellCall("requestForge");
         }
     }
 }

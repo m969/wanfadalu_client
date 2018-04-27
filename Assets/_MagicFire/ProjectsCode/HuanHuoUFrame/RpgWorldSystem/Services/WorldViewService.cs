@@ -87,6 +87,7 @@ namespace MagicFire.HuanHuoUFrame{
             this.OnEvent<updatePositionEvent>().ObserveOnMainThread().Subscribe(UpdatePosition);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.Name == "LoginScene").Where(x => x.State == SceneState.Destructed).Subscribe(OnLoginSceneDestructed);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
+            this.OnEvent<OnMatchEndCommand>().Subscribe(x => { });
             Skill.InitSkillTypeMap();
             PropSystemController.InitPropConfigTable();
         }

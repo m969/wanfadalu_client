@@ -49,6 +49,7 @@
         {
             base.OnMatchEndExecuted(command);
             Debug.Log("ArenaView:OnMatchEndExecuted IsWin = " + command.IsWin);
+            this.Publish(command);
         }
     }
 }

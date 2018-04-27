@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8d3373c6efa5240b5a867c79f47963, type: 3}
   m_Name: DUISettings
   m_EditorClassIdentifier: 
-  InternalSettings_ExecutedUpgrade: 0
+  InternalSettings_ExecutedUpgrade: 1
   HierarchyManager_Enabled: 1
   HierarchyManager_PlaymakerEventDispatcher_ShowIcon: 0
   HierarchyManager_UITrigger_ShowIcon: 1

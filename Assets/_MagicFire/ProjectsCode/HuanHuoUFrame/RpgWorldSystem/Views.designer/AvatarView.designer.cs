@@ -217,6 +217,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void skillKeyOptionsChanged(String arg1) {
         }
         
+        public virtual void ExecuteRequestTargetItemList(RequestTargetItemListCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestTargetItemList.OnNext(command);
+        }
+        
         public virtual void ExecuteOnDialogItemsReturn(OnDialogItemsReturnCommand command) {
             command.Sender = Avatar;
             Avatar.OnDialogItemsReturn.OnNext(command);
@@ -230,6 +235,11 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void ExecuteSelectDialogItem(SelectDialogItemCommand command) {
             command.Sender = Avatar;
             Avatar.SelectDialogItem.OnNext(command);
+        }
+        
+        public virtual void ExecuteRequestForge(RequestForgeCommand command) {
+            command.Sender = Avatar;
+            Avatar.RequestForge.OnNext(command);
         }
         
         public virtual void ExecuteOnTargetItemListReturn(OnTargetItemListReturnCommand command) {

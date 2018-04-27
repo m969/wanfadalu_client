@@ -216,6 +216,9 @@ namespace MagicFire.HuanHuoUFrame {
     public partial class RequestSelfRankingCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
+    public partial class RequestForgeCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class OnJoinSectResultCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Int32 _SectID;
@@ -441,14 +444,14 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class OnTargetItemListReturnCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
-        private object _TargetItemListObject;
+        private String _TargetItemListJson;
         
-        public object TargetItemListObject {
+        public String TargetItemListJson {
             get {
-                return _TargetItemListObject;
+                return _TargetItemListJson;
             }
             set {
-                _TargetItemListObject = value;
+                _TargetItemListJson = value;
             }
         }
     }
@@ -471,6 +474,9 @@ namespace MagicFire.HuanHuoUFrame {
                 _NpcID = value;
             }
         }
+    }
+    
+    public partial class RequestTargetItemListCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
     public partial class DoMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

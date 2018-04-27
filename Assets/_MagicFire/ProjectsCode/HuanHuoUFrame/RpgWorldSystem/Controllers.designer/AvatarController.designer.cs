@@ -57,9 +57,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeAvatar(AvatarViewModel viewModel) {
             // This is called when a AvatarViewModel is created
+            viewModel.RequestTargetItemList.Action = this.RequestTargetItemListHandler;
             viewModel.OnDialogItemsReturn.Action = this.OnDialogItemsReturnHandler;
             viewModel.OnError.Action = this.OnErrorHandler;
             viewModel.SelectDialogItem.Action = this.SelectDialogItemHandler;
+            viewModel.RequestForge.Action = this.RequestForgeHandler;
             viewModel.OnTargetItemListReturn.Action = this.OnTargetItemListReturnHandler;
             viewModel.Teleport.Action = this.TeleportHandler;
             viewModel.RequestDialog.Action = this.RequestDialogHandler;
@@ -75,6 +77,10 @@ namespace MagicFire.HuanHuoUFrame {
             AvatarViewModelManager.Remove(viewModel);
         }
         
+        public virtual void RequestTargetItemListHandler(RequestTargetItemListCommand command) {
+            this.RequestTargetItemList(command.Sender as AvatarViewModel, command);
+        }
+        
         public virtual void OnDialogItemsReturnHandler(OnDialogItemsReturnCommand command) {
             this.OnDialogItemsReturn(command.Sender as AvatarViewModel, command);
         }
@@ -85,6 +91,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void SelectDialogItemHandler(SelectDialogItemCommand command) {
             this.SelectDialogItem(command.Sender as AvatarViewModel, command);
+        }
+        
+        public virtual void RequestForgeHandler(RequestForgeCommand command) {
+            this.RequestForge(command.Sender as AvatarViewModel, command);
         }
         
         public virtual void OnTargetItemListReturnHandler(OnTargetItemListReturnCommand command) {
@@ -115,6 +125,9 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnRequestForgeResult(command.Sender as AvatarViewModel, command);
         }
         
+        public virtual void RequestTargetItemList(AvatarViewModel viewModel, RequestTargetItemListCommand arg) {
+        }
+        
         public virtual void OnDialogItemsReturn(AvatarViewModel viewModel, OnDialogItemsReturnCommand arg) {
         }
         
@@ -122,6 +135,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
         
         public virtual void SelectDialogItem(AvatarViewModel viewModel, SelectDialogItemCommand arg) {
+        }
+        
+        public virtual void RequestForge(AvatarViewModel viewModel, RequestForgeCommand arg) {
         }
         
         public virtual void OnTargetItemListReturn(AvatarViewModel viewModel, OnTargetItemListReturnCommand arg) {

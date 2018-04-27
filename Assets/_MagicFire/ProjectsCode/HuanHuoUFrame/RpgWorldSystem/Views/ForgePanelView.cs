@@ -15,11 +15,15 @@
     using UnityEngine.UI;
     using UnityEngine.EventSystems;
     using UniRx.Triggers;
+    using Newtonsoft.Json.Linq;
 
 
     public class ForgePanelView : ForgePanelViewBase {
         [SerializeField]
         private Transform _materialsPanel;
+        [SerializeField]
+        private Transform _targetItemListPanel;
+        private int _currentSelectPropID = 0;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
@@ -60,8 +64,75 @@
             }).DisposeWith(this);
         }
 
+        public override void RequestTargetItemListExecuted(RequestTargetItemListCommand command)
+        {
+            Debug.Log("ForgePanelView:RequestTargetItemListExecuted");
+            var itemUUIDList = new List<ulong>();
+            foreach (Transform item in _materialsPanel)
+            {
+                itemUUIDList.Add(ulong.Parse(item.name));
+            }
+            var itemUUIDList_json = JsonUtility.ToJson(itemUUIDList);
+            Debug.Log(itemUUIDList_json);
+            this.Avatar.cellCall("requestTargetItemList", itemUUIDList_json);
+        }
+
+        public override void RequestForgeExecuted(RequestForgeCommand command)
+        {
+            Debug.Log("ForgePanelView:RequestForgeExecuted");
+            var itemUUIDList = new List<ulong>();
+            foreach (Transform item in _materialsPanel)
+            {
+                itemUUIDList.Add(ulong.Parse(item.name));
+            }
+            var itemUUIDList_json = JsonUtility.ToJson(itemUUIDList);
+            Debug.Log(itemUUIDList_json);
+            if (_currentSelectPropID == 0)
+            {
+                this.Publish(new ShowTipsEvent()
+                {
+                    TipsContent = "请选择一个目标道具"
+                });
+                return;
+            }
+            this.Avatar.cellCall("requestForge", itemUUIDList_json, _currentSelectPropID);
+        }
+
+        private void ClearItems()
+        {
+            foreach (Transform item in _targetItemListPanel)
+            {
+                item.Find("Foreground").GetComponent<Image>().color = Color.black;
+                item.Find("Text").GetComponent<Text>().text = "";
+                item.GetComponent<Button>().interactable = false;
+                item.GetComponent<Button>().onClick.RemoveAllListeners();
+            }
+        }
+
         public override void OnTargetItemListReturnExecuted(OnTargetItemListReturnCommand command)
         {
+            Debug.Log("ForgePanelView:OnTargetItemListReturnExecuted");
+            ClearItems();
+            Debug.Log(command.TargetItemListJson);
+            var targetItemList = JObject.Parse(command.TargetItemListJson);
+            Debug.Log(targetItemList);
+            var i = 0;
+            foreach (var item in targetItemList)
+            {
+                var propItem = _targetItemListPanel.GetChild(i);
+                i++;
+                var itemImage = propItem.Find("Foreground").GetComponent<Image>();
+                var propID = int.Parse(item.Value.ToString());
+                var srcName = "PropImages/prop_" + propID;
+                Sprite tempType = itemImage.sprite;
+                itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                itemImage.color = Color.white;
+                var itemText = propItem.Find("Text").GetComponent<Text>();
+                itemText.text = PropSystemController.PropConfigList[propID].name;
+                var propItemButton = propItem.GetComponent<Button>();
+                propItemButton.interactable = true;
+                propItemButton.OnClickAsObservable().Subscribe(x => { _currentSelectPropID = propID; });
+            }
         }
     }
 }

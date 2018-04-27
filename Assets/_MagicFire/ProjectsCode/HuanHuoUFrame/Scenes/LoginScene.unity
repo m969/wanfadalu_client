@@ -773,6 +773,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114421791264158934, guid: 6688cc85a51aa4c43aa7cfc8ea8b00b0,
+        type: 2}
+      propertyPath: debugGameEvents
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114421791264158934, guid: 6688cc85a51aa4c43aa7cfc8ea8b00b0,
+        type: 2}
+      propertyPath: debugUIButtons
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114421791264158934, guid: 6688cc85a51aa4c43aa7cfc8ea8b00b0,
+        type: 2}
+      propertyPath: debugUIElements
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114421791264158934, guid: 6688cc85a51aa4c43aa7cfc8ea8b00b0,
+        type: 2}
+      propertyPath: debugUINotifications
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6688cc85a51aa4c43aa7cfc8ea8b00b0, type: 2}
   m_IsPrefabParent: 0

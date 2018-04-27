@@ -34,11 +34,15 @@ namespace MagicFire.HuanHuoUFrame {
         
         private P<String> _skillKeyOptionsProperty;
         
+        private Signal<RequestTargetItemListCommand> _RequestTargetItemList;
+        
         private Signal<OnDialogItemsReturnCommand> _OnDialogItemsReturn;
         
         private Signal<OnErrorCommand> _OnError;
         
         private Signal<SelectDialogItemCommand> _SelectDialogItem;
+        
+        private Signal<RequestForgeCommand> _RequestForge;
         
         private Signal<OnTargetItemListReturnCommand> _OnTargetItemListReturn;
         
@@ -130,6 +134,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public virtual Signal<RequestTargetItemListCommand> RequestTargetItemList {
+            get {
+                return _RequestTargetItemList;
+            }
+            set {
+                _RequestTargetItemList = value;
+            }
+        }
+        
         public virtual Signal<OnDialogItemsReturnCommand> OnDialogItemsReturn {
             get {
                 return _OnDialogItemsReturn;
@@ -154,6 +167,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _SelectDialogItem = value;
+            }
+        }
+        
+        public virtual Signal<RequestForgeCommand> RequestForge {
+            get {
+                return _RequestForge;
+            }
+            set {
+                _RequestForge = value;
             }
         }
         
@@ -222,9 +244,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Bind() {
             base.Bind();
+            this.RequestTargetItemList = new Signal<RequestTargetItemListCommand>(this);
             this.OnDialogItemsReturn = new Signal<OnDialogItemsReturnCommand>(this);
             this.OnError = new Signal<OnErrorCommand>(this);
             this.SelectDialogItem = new Signal<SelectDialogItemCommand>(this);
+            this.RequestForge = new Signal<RequestForgeCommand>(this);
             this.OnTargetItemListReturn = new Signal<OnTargetItemListReturnCommand>(this);
             this.Teleport = new Signal<TeleportCommand>(this);
             this.RequestDialog = new Signal<RequestDialogCommand>(this);
@@ -238,6 +262,10 @@ namespace MagicFire.HuanHuoUFrame {
             _avatarStateProperty = new AvatarStateMachine(this, "avatarState");
         }
         
+        public virtual void Execute(RequestTargetItemListCommand argument) {
+            this.RequestTargetItemList.OnNext(argument);
+        }
+        
         public virtual void Execute(OnDialogItemsReturnCommand argument) {
             this.OnDialogItemsReturn.OnNext(argument);
         }
@@ -248,6 +276,10 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void Execute(SelectDialogItemCommand argument) {
             this.SelectDialogItem.OnNext(argument);
+        }
+        
+        public virtual void Execute(RequestForgeCommand argument) {
+            this.RequestForge.OnNext(argument);
         }
         
         public virtual void Execute(OnTargetItemListReturnCommand argument) {
@@ -278,6 +310,11 @@ namespace MagicFire.HuanHuoUFrame {
             this.OnRequestForgeResult.OnNext(argument);
         }
         
+        public virtual void RequestTargetItemList_() {
+            var cmd = new RequestTargetItemListCommand();
+            this.RequestTargetItemList.OnNext(cmd);
+        }
+        
         public virtual void OnDialogItemsReturn_(object DialogItemsObject) {
             var cmd = new OnDialogItemsReturnCommand();
             cmd.DialogItemsObject = DialogItemsObject;
@@ -296,9 +333,14 @@ namespace MagicFire.HuanHuoUFrame {
             this.SelectDialogItem.OnNext(cmd);
         }
         
-        public virtual void OnTargetItemListReturn_(object TargetItemListObject) {
+        public virtual void RequestForge_() {
+            var cmd = new RequestForgeCommand();
+            this.RequestForge.OnNext(cmd);
+        }
+        
+        public virtual void OnTargetItemListReturn_(String TargetItemListJson) {
             var cmd = new OnTargetItemListReturnCommand();
-            cmd.TargetItemListObject = TargetItemListObject;
+            cmd.TargetItemListJson = TargetItemListJson;
             this.OnTargetItemListReturn.OnNext(cmd);
         }
         
@@ -357,9 +399,11 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("RequestTargetItemList", RequestTargetItemList) { ParameterType = typeof(RequestTargetItemListCommand) });
             list.Add(new ViewModelCommandInfo("OnDialogItemsReturn", OnDialogItemsReturn) { ParameterType = typeof(OnDialogItemsReturnCommand) });
             list.Add(new ViewModelCommandInfo("OnError", OnError) { ParameterType = typeof(OnErrorCommand) });
             list.Add(new ViewModelCommandInfo("SelectDialogItem", SelectDialogItem) { ParameterType = typeof(SelectDialogItemCommand) });
+            list.Add(new ViewModelCommandInfo("RequestForge", RequestForge) { ParameterType = typeof(RequestForgeCommand) });
             list.Add(new ViewModelCommandInfo("OnTargetItemListReturn", OnTargetItemListReturn) { ParameterType = typeof(OnTargetItemListReturnCommand) });
             list.Add(new ViewModelCommandInfo("Teleport", Teleport) { ParameterType = typeof(TeleportCommand) });
             list.Add(new ViewModelCommandInfo("RequestDialog", RequestDialog) { ParameterType = typeof(RequestDialogCommand) });

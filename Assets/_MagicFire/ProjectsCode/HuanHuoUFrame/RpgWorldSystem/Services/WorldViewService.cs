@@ -87,7 +87,7 @@ namespace MagicFire.HuanHuoUFrame{
             this.OnEvent<updatePositionEvent>().ObserveOnMainThread().Subscribe(UpdatePosition);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.Name == "LoginScene").Where(x => x.State == SceneState.Destructed).Subscribe(OnLoginSceneDestructed);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
-            this.OnEvent<OnMatchEndCommand>().Subscribe(x => { });
+            this.OnEvent<OnMatchEndCommand>().Subscribe(OnMatchEndEvent);
             Skill.InitSkillTypeMap();
             PropSystemController.InitPropConfigTable();
         }
@@ -297,6 +297,21 @@ namespace MagicFire.HuanHuoUFrame{
             //EntityCommonView EntityCommonView = ((UnityEngine.GameObject)entity.renderObj).GetComponent<EntityCommonView>();
             //GameObject go = ((UnityEngine.GameObject)entity.renderObj);
             //EntityCommonView.destPosition = new Vector3(entity.position.x, entity.position.z, go.transform.position.z);
+        }
+
+        private void OnMatchEndEvent(OnMatchEndCommand cmd)
+        {
+            var matchResultPanel = MasterCanvas.transform.Find("MatchResultPanel");
+            if (cmd.IsWin == 1)
+            {
+                matchResultPanel.Find("Win").gameObject.SetActive(true);
+                matchResultPanel.Find("Lose").gameObject.SetActive(false);
+            }
+            else
+            {
+                matchResultPanel.Find("Lose").gameObject.SetActive(true);
+                matchResultPanel.Find("Win").gameObject.SetActive(false);
+            }
         }
     }
 }

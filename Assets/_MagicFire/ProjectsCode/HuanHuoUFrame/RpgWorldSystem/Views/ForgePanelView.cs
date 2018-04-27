@@ -23,6 +23,8 @@
         private Transform _materialsPanel;
         [SerializeField]
         private Transform _targetItemListPanel;
+        [SerializeField]
+        private Button _clearMaterialsPanelButton;
         private int _currentSelectPropID = 0;
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
@@ -46,47 +48,72 @@
                         //Debug.Log("ForgePanelView:PointerEnter");
                         var backgroundOutline = item.Find("Background").GetComponent<Outline>();
                         backgroundOutline.effectColor = Color.yellow;
-                        if (itemTrans)
-                        {
-                            backgroundOutline = itemTrans.Find("Background").GetComponent<Outline>();
-                            backgroundOutline.effectColor = Color.white;
-                        }
                         itemTrans = item;
+                    });
+                    item.GetComponent<Button>().OnPointerExitAsObservable().Subscribe(_x => {
+                        //Debug.Log("ForgePanelView:OnPointerExit");
+                        var backgroundOutline = item.Find("Background").GetComponent<Outline>();
+                        backgroundOutline.effectColor = Color.white;
+                        itemTrans = null;
                     });
                 }
             }).DisposeWith(this);
             this.OnEvent<OnBagItemEndDragEvent>().Subscribe(x => {
                 //Debug.Log("ForgePanelView:OnBagItemBeginDragEvent");
+                if (!itemTrans)
+                    return;
                 var itemImage = itemTrans.Find("Foreground").GetComponent<Image>();
                 itemImage.color = Color.white;
                 itemImage.sprite = x.BagItem.Find("Foreground").GetComponent<Image>().sprite;
+                itemTrans.name = x.BagItem.name;
                 var itemText = itemTrans.Find("Text").GetComponent<Text>();
             }).DisposeWith(this);
+            _clearMaterialsPanelButton.OnClickAsObservable().Subscribe(ClearMaterialsPanel);
+        }
+
+        private void ClearMaterialsPanel(Unit unit)
+        {
+            var i = 0;
+            foreach (Transform item in _materialsPanel)
+            {
+                item.Find("Background").GetComponent<Outline>().effectColor = Color.white;
+                item.Find("Foreground").GetComponent<Image>().color = Color.black;
+                item.name = "BagItem_" + i;
+                i++;
+            }
         }
 
         public override void RequestTargetItemListExecuted(RequestTargetItemListCommand command)
         {
             Debug.Log("ForgePanelView:RequestTargetItemListExecuted");
-            var itemUUIDList = new List<ulong>();
+            var jo = new JObject();
+            var i = 0;
             foreach (Transform item in _materialsPanel)
             {
-                itemUUIDList.Add(ulong.Parse(item.name));
+                ulong propUUID;
+                if (ulong.TryParse(item.name, out propUUID))
+                {
+                    jo.Add(new JProperty(i.ToString(), propUUID));
+                    i++;
+                }
             }
-            var itemUUIDList_json = JsonUtility.ToJson(itemUUIDList);
-            Debug.Log(itemUUIDList_json);
-            this.Avatar.cellCall("requestTargetItemList", itemUUIDList_json);
+            Debug.Log(jo);
+            this.Avatar.cellCall("requestTargetItemList", jo.ToString());
         }
 
         public override void RequestForgeExecuted(RequestForgeCommand command)
         {
             Debug.Log("ForgePanelView:RequestForgeExecuted");
-            var itemUUIDList = new List<ulong>();
+            var ja = new JArray();
             foreach (Transform item in _materialsPanel)
             {
-                itemUUIDList.Add(ulong.Parse(item.name));
+                ulong propUUID;
+                if (ulong.TryParse(item.name, out propUUID))
+                {
+                    ja.Add(new JValue(propUUID));
+                }
             }
-            var itemUUIDList_json = JsonUtility.ToJson(itemUUIDList);
-            Debug.Log(itemUUIDList_json);
+            Debug.Log(ja);
             if (_currentSelectPropID == 0)
             {
                 this.Publish(new ShowTipsEvent()
@@ -95,7 +122,7 @@
                 });
                 return;
             }
-            this.Avatar.cellCall("requestForge", itemUUIDList_json, _currentSelectPropID);
+            this.Avatar.cellCall("requestForge", ja.ToString(), _currentSelectPropID);
         }
 
         private void ClearItems()
@@ -103,7 +130,7 @@
             foreach (Transform item in _targetItemListPanel)
             {
                 item.Find("Foreground").GetComponent<Image>().color = Color.black;
-                item.Find("Text").GetComponent<Text>().text = "";
+                item.Find("Text").GetComponent<Text>().text = "物品";
                 item.GetComponent<Button>().interactable = false;
                 item.GetComponent<Button>().onClick.RemoveAllListeners();
             }

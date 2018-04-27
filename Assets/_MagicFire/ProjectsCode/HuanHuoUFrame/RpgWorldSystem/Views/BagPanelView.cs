@@ -103,7 +103,9 @@ namespace MagicFire.HuanHuoUFrame {
                     var propItem = _itemsPanel.GetChild(i);
                     i++;
                     var itemImage = propItem.Find("Foreground").GetComponent<Image>();
-                    var propID = int.Parse(propData["id"].ToString());
+                    var propID = int.Parse(prop["id"].ToString());
+                    var propUUID = ulong.Parse(prop["propUUID"].ToString());
+                    propItem.name = propUUID.ToString();
                     var srcName = "PropImages/prop_" + propID;
                     Sprite tempType = itemImage.sprite;
                     itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
@@ -121,6 +123,7 @@ namespace MagicFire.HuanHuoUFrame {
                             dragPropItem = Instantiate(spawnPool.Spawn(spawnPool.prefabs["DragPropItem"]));
                             dragPropItem.SetParent(worldViewService.MasterCanvas.transform);
                             dragPropItem.Find("Foreground").GetComponent<Image>().sprite = itemImage.sprite;
+                            dragPropItem.name = propUUID.ToString();
                             Vector3 currentPosition;
                             RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
                                 x.position, x.pressEventCamera, out currentPosition);

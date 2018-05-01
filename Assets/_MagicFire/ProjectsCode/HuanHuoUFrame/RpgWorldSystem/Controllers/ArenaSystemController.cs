@@ -41,5 +41,10 @@
             Debug.Log("ArenaSystemController:RequestSelfRanking");
             viewModel.baseCall("requestSelfRanking");
         }
+
+        public override void OnMatchEnd(ArenaSystemViewModel viewModel, OnMatchEndCommand arg)
+        {
+            base.OnMatchEnd(viewModel, arg);
+        }
     }
 }

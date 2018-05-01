@@ -122,6 +122,7 @@
                 });
                 return;
             }
+            Debug.Log(ja.ToString() + " " + _currentSelectPropID);
             this.Avatar.cellCall("requestForge", ja.ToString(), _currentSelectPropID);
         }
 

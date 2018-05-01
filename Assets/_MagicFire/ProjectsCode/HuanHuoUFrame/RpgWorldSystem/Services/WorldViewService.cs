@@ -15,6 +15,7 @@ namespace MagicFire.HuanHuoUFrame{
     using uFrame.MVVM.Views;
     using uFrame.ECS.Components;
     using Newtonsoft.Json.Linq;
+    using DG.Tweening;
 
 
     public class WorldViewService : WorldViewServiceBase {
@@ -227,6 +228,14 @@ namespace MagicFire.HuanHuoUFrame{
                     viewPrefab = viewPool.prefabs[entityType + "RingView"];
                     viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
                 }
+                if (entity.className == "NpcViewModel")
+                {
+                    var entityType = entity.className.Replace("ViewModel", "");
+                    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
+                    var viewModel = entity as EntityCommonViewModel;
+                    var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
+                    viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
+                }
             }
         }
 
@@ -301,7 +310,10 @@ namespace MagicFire.HuanHuoUFrame{
 
         private void OnMatchEndEvent(OnMatchEndCommand cmd)
         {
+            Debug.Log("WorldViewService:OnMatchEndEvent " + cmd.IsWin);
             var matchResultPanel = MasterCanvas.transform.Find("MatchResultPanel");
+            //matchResultPanel.localScale = Vector3.one;
+            matchResultPanel.gameObject.SetActive(true);
             if (cmd.IsWin == 1)
             {
                 matchResultPanel.Find("Win").gameObject.SetActive(true);
@@ -312,6 +324,8 @@ namespace MagicFire.HuanHuoUFrame{
                 matchResultPanel.Find("Lose").gameObject.SetActive(true);
                 matchResultPanel.Find("Win").gameObject.SetActive(false);
             }
+            //var tweens = DOTween.TweensById("1");
+            //tweens[0].Play();
         }
     }
 }

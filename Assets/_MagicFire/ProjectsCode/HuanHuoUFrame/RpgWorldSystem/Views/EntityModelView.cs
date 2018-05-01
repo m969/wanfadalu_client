@@ -37,10 +37,11 @@ namespace MagicFire.HuanHuoUFrame {
                         transform.DOMove(ViewModelObject.position, 0.2f);
                         var dir = ViewModelObject.direction;
                         transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
+                        if (this.EntityCommon.className == "Avatar")
+                            Debug.Log("EntityModelView: " + transform.eulerAngles);
                     })
                 );
             }
-            Debug.Log(this.ViewModelType.Name + " " + ViewModelObject.direction);
             ViewModelObject.renderObj = gameObject;
             //transform.position = ViewModelObject.position;
             //var dirt = ViewModelObject.direction;

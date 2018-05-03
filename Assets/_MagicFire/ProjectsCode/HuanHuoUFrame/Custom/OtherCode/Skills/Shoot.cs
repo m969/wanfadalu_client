@@ -16,9 +16,9 @@ namespace MagicFire.HuanHuoUFrame
     using UnityEngine;
     using System.Collections;
 
-    public class ArrowExplode : Skill
+    public class Shoot : Skill
     {
-        public ArrowExplode(SkillEntityView spellcaster) : base(spellcaster)
+        public Shoot(SkillEntityView spellcaster) : base(spellcaster)
         {
         }
 

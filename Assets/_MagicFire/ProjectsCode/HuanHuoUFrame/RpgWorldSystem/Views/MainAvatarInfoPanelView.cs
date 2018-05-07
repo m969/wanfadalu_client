@@ -71,8 +71,6 @@
 
         public override void HPChanged(int arg1)
         {
-            base.HPChanged(arg1);
-
             _hp = arg1;
             if (_hp.HasValue && _hpMax.HasValue)
             {
@@ -85,8 +83,6 @@
 
         public override void HP_MaxChanged(int arg1)
         {
-            base.HP_MaxChanged(arg1);
-
             _hpMax = arg1;
             if (_hp.HasValue && _hpMax.HasValue)
             {
@@ -99,8 +95,6 @@
 
         public override void SPChanged(int arg1)
         {
-            base.SPChanged(arg1);
-
             _sp = arg1;
             if (_sp.HasValue && _spMax.HasValue)
             {
@@ -113,8 +107,6 @@
 
         public override void SP_MaxChanged(int arg1)
         {
-            base.SP_MaxChanged(arg1);
-            
             _spMax = arg1;
             if (_sp.HasValue && _spMax.HasValue)
             {
@@ -127,8 +119,6 @@
 
         public override void MSPChanged(int arg1)
         {
-            base.MSPChanged(arg1);
-
             _msp = arg1;
             if (_msp.HasValue && _mspMax.HasValue)
             {
@@ -141,8 +131,6 @@
 
         public override void MSP_MaxChanged(int arg1)
         {
-            base.MSP_MaxChanged(arg1);
-
             _mspMax = arg1;
             if (_msp.HasValue && _mspMax.HasValue)
             {

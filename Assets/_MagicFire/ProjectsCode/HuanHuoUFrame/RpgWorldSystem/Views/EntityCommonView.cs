@@ -43,15 +43,6 @@ namespace MagicFire.HuanHuoUFrame {
             //Debug.Log("EntityCommonView:OnDestroyExecuted");
             ParentSpawnPool.DespawnEntityCommonView(this);
             ViewModelObject = null;
-            //if (gameObject.activeSelf)
-            //{
-            //    ParentSpawnPool.Despawn(this.transform);
-            //}
-            //if (gameObject.activeSelf)
-            //{
-            //    Debug.Log(name + " SetActive(false)");
-            //    gameObject.SetActive(false);
-            //}
         }
 
         public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)

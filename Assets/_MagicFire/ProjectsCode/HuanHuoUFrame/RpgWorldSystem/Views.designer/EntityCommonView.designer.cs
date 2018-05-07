@@ -27,6 +27,9 @@ namespace MagicFire.HuanHuoUFrame {
     public class EntityCommonViewBase : uFrame.MVVM.Views.ViewBase {
         
         [UnityEngine.SerializeField()]
+        private NewViewComponentNode _NewViewComponentNode;
+        
+        [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
         public String _entityName;
@@ -54,6 +57,12 @@ namespace MagicFire.HuanHuoUFrame {
         public EntityCommonViewModel EntityCommon {
             get {
                 return (EntityCommonViewModel)ViewModelObject;
+            }
+        }
+        
+        public virtual NewViewComponentNode NewViewComponentNode {
+            get {
+                return _NewViewComponentNode ?? (_NewViewComponentNode = this.gameObject.EnsureComponent<NewViewComponentNode>());
             }
         }
         

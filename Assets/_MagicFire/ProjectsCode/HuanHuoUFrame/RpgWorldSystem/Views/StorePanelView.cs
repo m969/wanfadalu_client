@@ -72,7 +72,7 @@
                 var itemInfo = item as Dictionary<string, object>;
                 var childItem = _itemListPanel.GetChild(index);
                 childItem.name = index.ToString();
-                childItem.Find("Describtion").GetComponent<Text>().text = itemInfo["propID"].ToString();
+                childItem.Find("Describtion").GetComponent<Text>().text = WorldViewService.ConfigTableMap["prop_config_Table"][itemInfo["propID"].ToString()]["name"].ToString();
                 childItem.GetComponent<Button>().interactable = true;
                 var srcName = "PropImages/prop_" + itemInfo["propID"];
                 var itemImage = childItem.GetComponent<Image>();

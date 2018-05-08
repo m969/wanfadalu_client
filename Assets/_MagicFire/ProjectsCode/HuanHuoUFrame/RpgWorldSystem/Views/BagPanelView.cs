@@ -28,10 +28,7 @@ namespace MagicFire.HuanHuoUFrame {
         private Text _lingshiAmountText;
         [SerializeField]
         private Button _sellButton;
-        //[SerializeField]
-        //private Image _headBar2;
-
-        private int _currentSelectProp = 0;
+        private ulong _currentSelectProp = 0;
 
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
@@ -46,32 +43,11 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            //_headBar2.OnBeginDragAsObservable().Subscribe(evt =>
-            //{
-            //    Debug.Log("BagPanelView:OnBeginDragAsObservable");
-            //}).DisposeWith(this);
-
-            //_headBar2.OnBeginDragAsObservable().Subscribe(evt =>
-            //{
-            //    Debug.Log("PanelView:OnBeginDragAsObservable");
-            //}).DisposeWith(this);
-            //_headBar2.OnDragAsObservable().Subscribe(evt =>
-            //{
-            //    Debug.Log("PanelView:OnDragAsObservable");
-            //}).DisposeWith(this);
-
             _sellButton.OnClickAsObservable().Subscribe(x => {
                 if (_currentSelectProp > 0)
-                {
                     Avatar.cellCall("requestSellProp", _currentSelectProp);
-                }
                 else
-                {
-                    this.Publish(new ShowTipsEvent()
-                    {
-                        TipsContent = "请选择一个道具"
-                    });
-                }
+                    this.Publish(new ShowTipsEvent() { TipsContent = "请选择一个道具" });
             });
         }
 
@@ -114,6 +90,10 @@ namespace MagicFire.HuanHuoUFrame {
                     itemText.text = PropSystemController.PropConfigList[propID].name;
                     var propItemButton = propItem.GetComponent<Button>();
                     propItemButton.interactable = true;
+                    propItemButton.OnClickAsObservable()
+                        .Subscribe(x => {
+                            _currentSelectProp = propUUID;
+                        });
                     propItemButton.OnBeginDragAsObservable()
                         .Where(x => { return x.button == PointerEventData.InputButton.Left; })
                         .Subscribe(x =>
@@ -130,7 +110,8 @@ namespace MagicFire.HuanHuoUFrame {
                             dragPropItem.position = currentPosition;
                             this.Publish(new OnBagItemBeginDragEvent() { BagItem = propItem });
                         }).DisposeWith(this);
-                    propItemButton.OnDragAsObservable().Subscribe(evt =>
+                    propItemButton.OnDragAsObservable()
+                        .Subscribe(evt =>
                         {
                             //Debug.Log("BagPanelView:OnDragAsObservable");
                             Vector3 currentPos;
@@ -140,12 +121,13 @@ namespace MagicFire.HuanHuoUFrame {
                             var v1 = worldViewService.MasterCanvas.GetComponent<RectTransform>().rect.size / 2;
                             dragPropItem.localPosition = currentPos - new Vector3(v1.x, v1.y);
                         }).DisposeWith(this);
-                    propItemButton.OnEndDragAsObservable().Subscribe(evt =>
-                    {
-                        //Debug.Log("BagPanelView:OnEndDragAsObservable");
-                        Destroy(dragPropItem.gameObject);
-                        this.Publish(new OnBagItemEndDragEvent() { BagItem = dragPropItem });
-                    }).DisposeWith(this);
+                    propItemButton.OnEndDragAsObservable()
+                        .Subscribe(evt =>
+                        {
+                            //Debug.Log("BagPanelView:OnEndDragAsObservable");
+                            Destroy(dragPropItem.gameObject);
+                            this.Publish(new OnBagItemEndDragEvent() { BagItem = dragPropItem });
+                        }).DisposeWith(this);
                 }
             }
         }
@@ -156,13 +138,9 @@ namespace MagicFire.HuanHuoUFrame {
             {
                 var change = arg1 - _lingshiAmount;
                 if (change < 0)
-                {
                     this.Publish(new ShowTipsEvent() { TipsContent = string.Format("失去{0}灵石", change) });
-                }
                 else
-                {
                     this.Publish(new ShowTipsEvent() { TipsContent = string.Format("得到{0}灵石", change) });
-                }
             }
             _lingshiAmount = arg1;
             _lingshiAmountText.text = arg1.ToString();

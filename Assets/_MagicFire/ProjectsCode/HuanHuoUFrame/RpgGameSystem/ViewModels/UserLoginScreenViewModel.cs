@@ -43,7 +43,7 @@ namespace MagicFire.HuanHuoUFrame{
                         CurrentServerIp = "127.0.0.1";
                         break;
                 }
-                KBEngine.KBEngineApp.app.getInitArgs().ip = CurrentServerIp;
+                //KBEngine.KBEngineApp.app.getInitArgs().ip = CurrentServerIp;
             }
         }
     }

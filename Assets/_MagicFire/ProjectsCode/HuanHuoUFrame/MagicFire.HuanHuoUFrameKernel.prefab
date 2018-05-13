@@ -172,11 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d56bfb45fe2b9b4893fe065e8c64de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _masterCanvasPrefab: {fileID: 1763524313671762, guid: fe9d9f75ef7f08f449698c3f4c68a728,
-    type: 2}
-  _eventSystemPrefab: {fileID: 130950, guid: 0d4c015442c100645bee07538fbc4882, type: 2}
-  _canvas3DPrefab: {fileID: 1967756560139054, guid: 26da052d1324c4d4f84caaa9ff3786d0,
-    type: 2}
   _playerTargetPrefab: {fileID: 121918, guid: 10d66bf4b0cf8df4482d90d04584d076, type: 2}
 --- !u!114 &114285526179396260
 MonoBehaviour:
@@ -280,7 +275,7 @@ MonoBehaviour:
   debugLevel: 3
   kbeMvvmNameSpace: MagicFire.HuanHuoUFrame
   isMultiThreads: 0
-  ip: 127.0.0.1
+  ip: 47.94.18.88
   port: 20013
   clientType: 2
   persistentDataPath: Application.persistentDataPath

@@ -46,8 +46,10 @@
                         _currentSelectItem.Find("Describtion").gameObject.SetActive(false);
                     _currentSelectItem = (Transform)item;
                     _currentSelectItem.Find("Describtion").gameObject.SetActive(true);
-                    var propID = int.Parse(_currentSelectItem.name);
-                    _itemInfoPanel.Find("Text").GetComponent<Text>().text = WorldViewService.ConfigTableMap["prop_config_Table"][propID.ToString()]["description"].ToString();
+                    var propID = int.Parse(_currentSelectItem.name.Split("_".ToCharArray())[0]);
+                    var propPrice = int.Parse(_currentSelectItem.name.Split("_".ToCharArray())[1]);
+                    _itemInfoPanel.Find("ItemInfo/Description/Text").GetComponent<Text>().text = WorldViewService.ConfigTableMap["prop_config_Table"][propID.ToString()]["description"].ToString();
+                    _itemInfoPanel.Find("ItemInfo/LingshiAmount").GetComponent<Text>().text = propPrice.ToString();
                     //_outlineImage.gameObject.SetActive(true);
                     //_outlineImage.SetParent(_currentSelectItem);
                 });
@@ -60,7 +62,8 @@
         {
             foreach (var item in _itemListPanel)
             {
-                var button = ((Transform)item).GetComponent<Button>().interactable = false;
+                var button = ((Transform)item).GetComponent<Button>();
+                button.interactable = false;
             }
             //_outlineImage.gameObject.SetActive(false);
             if (_currentSelectItem != null)
@@ -73,7 +76,7 @@
                 var index = itemList.IndexOf(item);
                 var itemInfo = item as Dictionary<string, object>;
                 var childItem = _itemListPanel.GetChild(index);
-                childItem.name = index.ToString();
+                childItem.name = itemInfo["propID"] + "_" + itemInfo["propPrice"] + "_" + index;
                 childItem.Find("Describtion").GetComponent<Text>().text = WorldViewService.ConfigTableMap["prop_config_Table"][itemInfo["propID"].ToString()]["name"].ToString();
                 childItem.GetComponent<Button>().interactable = true;
                 var srcName = "PropImages/prop_" + itemInfo["propID"];
@@ -86,7 +89,7 @@
         public void Buy()
         {
             if (_currentSelectItem != null)
-                KBEngine.KBEngineApp.app.player().cellCall("requestBuyProp", _npcID, int.Parse(_currentSelectItem.name));
+                KBEngine.KBEngineApp.app.player().cellCall("requestBuyProp", _npcID, int.Parse(_currentSelectItem.name.Split("_".ToCharArray())[2]));
         }
     }
 }

@@ -185,26 +185,26 @@
         public override void magicWeaponListChanged(object arg1)
         {
             //Debug.Log("MainAvatarInfoPanelView:magicWeaponListChanged ");
-            var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
-            _magicWeaponList = new Dictionary<ulong, Prop>();
-            if (tmpPropList != null)
-            {
-                foreach (var item in tmpPropList)
-                {
-                    var propObject = (Dictionary<string, object>)item;
-                    var propData = JObject.Parse(propObject["propData"].ToString());
-                    var prop = new Prop();
-                    prop.propUUID = (ulong)propObject["propUUID"];
-                    prop.index = (int)propObject["index"];
-                    prop.propData = propData;
-                    _magicWeaponList.Add(prop.propUUID, prop);
-                    var spawnPool = PoolManager.Pools["MagicWeaponPool"];
-                    var weapon = spawnPool.Spawn(spawnPool.prefabs["weapon_" + propData["id"]]);
-                    weapon.SetParent(_weaponListNode.GetChild(prop.index));
-                    weapon.localScale = Vector3.one;
-                    weapon.localPosition = Vector3.zero;
-                }
-            }
+            //var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
+            //_magicWeaponList = new Dictionary<ulong, Prop>();
+            //if (tmpPropList != null)
+            //{
+            //    foreach (var item in tmpPropList)
+            //    {
+            //        var propObject = (Dictionary<string, object>)item;
+            //        var propData = JObject.Parse(propObject["propData"].ToString());
+            //        var prop = new Prop();
+            //        prop.propUUID = (ulong)propObject["propUUID"];
+            //        prop.index = (int)propObject["index"];
+            //        prop.propData = propData;
+            //        _magicWeaponList.Add(prop.propUUID, prop);
+            //        var spawnPool = PoolManager.Pools["MagicWeaponPool"];
+            //        var weapon = spawnPool.Spawn(spawnPool.prefabs["weapon_" + propData["id"]]);
+            //        weapon.SetParent(_weaponListNode.GetChild(prop.index));
+            //        weapon.localScale = Vector3.one;
+            //        weapon.localPosition = Vector3.zero;
+            //    }
+            //}
         }
 
         public override void skillKeyOptionsChanged(string arg1)

@@ -143,6 +143,14 @@
 
         public override void skillKeyOptionsChanged(string arg1)
         {
+            foreach (Transform item in _skillListParent)
+            {
+                var skillImage = item.GetComponent<Image>();
+                var tempType = skillImage.sprite;
+                var srcName = "Square";
+                skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                skillImage.color = Color.black;
+            }
             var skillKeyOptions = JObject.Parse(arg1);
             foreach (var item in skillKeyOptions)
             {

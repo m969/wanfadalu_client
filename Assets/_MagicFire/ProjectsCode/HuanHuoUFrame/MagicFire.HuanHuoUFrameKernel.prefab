@@ -275,7 +275,7 @@ MonoBehaviour:
   debugLevel: 3
   kbeMvvmNameSpace: MagicFire.HuanHuoUFrame
   isMultiThreads: 0
-  ip: 47.94.18.88
+  ip: 127.0.0.1
   port: 20013
   clientType: 2
   persistentDataPath: Application.persistentDataPath

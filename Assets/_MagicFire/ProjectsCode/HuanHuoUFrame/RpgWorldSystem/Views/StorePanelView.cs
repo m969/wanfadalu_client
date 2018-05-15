@@ -46,6 +46,8 @@
                         _currentSelectItem.Find("Describtion").gameObject.SetActive(false);
                     _currentSelectItem = (Transform)item;
                     _currentSelectItem.Find("Describtion").gameObject.SetActive(true);
+                    var propID = int.Parse(_currentSelectItem.name);
+                    _itemInfoPanel.Find("Text").GetComponent<Text>().text = WorldViewService.ConfigTableMap["prop_config_Table"][propID.ToString()]["description"].ToString();
                     //_outlineImage.gameObject.SetActive(true);
                     //_outlineImage.SetParent(_currentSelectItem);
                 });

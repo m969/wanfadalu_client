@@ -62,6 +62,7 @@
                     tempType = skillImage.sprite;
                     srcName = "SkillImages/skill_" + skillID;
                     skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                    skillItem.Find("Text").GetComponent<Text>().text = WorldViewService.ConfigTableMap["skill_config_Table"][skillID.ToString()]["name"].ToString();
                 }
             }
         }

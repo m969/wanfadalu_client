@@ -38,8 +38,8 @@
             _sectID = arg1;
             if (_sectID == 0)
                 return;
-            var sectName = WorldViewService.ConfigTableMap["sect_config_Table"][_sectID.ToString()]["sectName"];
-            _sectInfoText.text = "宗门ID：" + arg1 + ", 宗门名称：" + sectName;
+            var description = WorldViewService.ConfigTableMap["sect_config_Table"][_sectID.ToString()]["description"];
+            _sectInfoText.text = "宗门描述：" + description;
         }
     }
 }

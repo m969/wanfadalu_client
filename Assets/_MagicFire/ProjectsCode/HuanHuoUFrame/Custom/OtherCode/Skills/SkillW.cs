@@ -26,7 +26,7 @@ namespace MagicFire.HuanHuoUFrame
         {
             base.Ready(spellcaster);
             SkillTrajectory.transform.eulerAngles = new Vector3(90, 0, 0);
-            SkillTrajectory.transform.position = new Vector3(RaycastHit.point.x, RaycastHit.point.y + 1.0f, RaycastHit.point.z);
+            SkillTrajectory.transform.position = new Vector3(RaycastHit.point.x, spellcaster.transform.position.y + 0.1f, RaycastHit.point.z);
             if (Input.GetMouseButtonDown(0))
                 Conjure();
         }

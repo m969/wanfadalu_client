@@ -25,7 +25,7 @@ namespace MagicFire.HuanHuoUFrame
         public override void Ready(AvatarView spellcaster)
         {
             base.Ready(spellcaster);
-            SkillTrajectory.transform.position = new Vector3(spellcaster.transform.position.x, spellcaster.transform.position.y + 0.5f, spellcaster.transform.position.z);
+            SkillTrajectory.transform.position = new Vector3(spellcaster.transform.position.x, spellcaster.transform.position.y + 0.1f, spellcaster.transform.position.z);
             SkillTrajectory.transform.LookAt(new Vector3(RaycastHit.point.x, SkillTrajectory.transform.position.y, RaycastHit.point.z));
             if (Input.GetMouseButtonDown(0))
                 Conjure();

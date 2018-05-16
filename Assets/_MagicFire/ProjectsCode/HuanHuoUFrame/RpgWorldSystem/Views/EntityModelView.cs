@@ -37,8 +37,9 @@ namespace MagicFire.HuanHuoUFrame {
                         transform.DOMove(ViewModelObject.position, 0.2f);
                         var dir = ViewModelObject.direction;
                         transform.eulerAngles = new Vector3(dir.x, dir.z, dir.y);
-                        if (this.EntityCommon.className == "Avatar")
-                            Debug.Log("EntityModelView: " + transform.eulerAngles);
+                        var dirr = (Vector3)EntityCommon.getDefinedProperty("direction");
+                        //if (this.EntityCommon.className == "AvatarViewModel")
+                        //    Debug.Log("EntityModelView:AvatarViewModel ViewModelObject.direction:" + dir + " transform.eulerAngles:" + transform.eulerAngles + " direction" + dirr);
                     })
                 );
             }

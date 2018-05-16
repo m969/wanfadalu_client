@@ -100,8 +100,10 @@
                 Observable.EveryUpdate()
                     .Subscribe(evt =>
                     {
-                        //Debug.Log("updatePlayer: " + MainAvatarController.transform.eulerAngles.y);
-                        KBEngine.Event.fireIn("updatePlayer", MainAvatarController.transform.position.x, MainAvatarController.transform.position.y, MainAvatarController.transform.position.z, MainAvatarController.transform.eulerAngles.y, MainAvatarController.transform.eulerAngles.z);
+                        var p = MainAvatarController.transform.position;
+                        var e = MainAvatarController.transform.eulerAngles;
+                        //Debug.Log("updatePlayer: " + e);
+                        KBEngine.Event.fireIn("updatePlayer", p.x, p.y, p.z, e.y, e.z);
                     }).DisposeWith(this);
 
                 Observable.EveryFixedUpdate()

@@ -19,6 +19,8 @@
 
     public class MainAvatarInfoPanelView : MainAvatarInfoPanelViewBase {
         [SerializeField]
+        private Transform _gongFaListParent;
+        [SerializeField]
         private Transform _skillListParent;
         [SerializeField]
         private Image _hpSliderImage;
@@ -143,7 +145,7 @@
 
         public override void skillKeyOptionsChanged(string arg1)
         {
-            foreach (Transform item in _skillListParent)
+            foreach (Transform item in _gongFaListParent)
             {
                 var skillImage = item.GetComponent<Image>();
                 var tempType = skillImage.sprite;
@@ -158,7 +160,7 @@
                 var skillID = int.Parse(item.Value.ToString());
                 if (skillID == 0)
                     continue;
-                var skillItem = _skillListParent.Find(keyCode);
+                var skillItem = _gongFaListParent.Find(keyCode);
                 var skillImage = skillItem.GetComponent<Image>();
                 var tempType = skillImage.sprite;
                 var srcName = "SkillImages/skill_" + skillID;

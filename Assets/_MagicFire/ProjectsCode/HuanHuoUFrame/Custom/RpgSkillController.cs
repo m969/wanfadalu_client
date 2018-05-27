@@ -28,24 +28,44 @@
             Observable.EveryUpdate()
                 .Subscribe(evt =>
                 {
-                    if (Input.GetKeyDown(KeyCode.Q))
-                        SkillReady((int)KeyCode.Q);
-                    if (Input.GetKeyDown(KeyCode.W))
-                        SkillReady((int)KeyCode.W);
-                    if (Input.GetKeyDown(KeyCode.E))
-                        SkillReady((int)KeyCode.E);
-                    if (Input.GetKeyDown(KeyCode.A))
+                    //功法
+                    if (Input.GetKeyDown(KeyCode.A))//97
                         SkillReady((int)KeyCode.A);
-                    if (Input.GetKeyDown(KeyCode.S))
+                    if (Input.GetKeyDown(KeyCode.S))//115
                         SkillReady((int)KeyCode.S);
-                    if (Input.GetKeyDown(KeyCode.D))
+                    if (Input.GetKeyDown(KeyCode.D))//100
                         SkillReady((int)KeyCode.D);
-                    if (Input.GetKeyDown(KeyCode.Z))
-                        SkillReady((int)KeyCode.Z);
-                    if (Input.GetKeyDown(KeyCode.X))
-                        SkillReady((int)KeyCode.X);
-                    if (Input.GetKeyDown(KeyCode.C))
-                        SkillReady((int)KeyCode.C);
+                    if (Input.GetKeyDown(KeyCode.F))//102
+                        SkillReady((int)KeyCode.F);
+                    if (Input.GetKeyDown(KeyCode.G))//103
+                        SkillReady((int)KeyCode.G);
+                    if (Input.GetKeyDown(KeyCode.H))//104
+                        SkillReady((int)KeyCode.H);
+                    if (Input.GetKeyDown(KeyCode.J))//106
+                        SkillReady((int)KeyCode.J);
+                    if (Input.GetKeyDown(KeyCode.K))//107
+                        SkillReady((int)KeyCode.K);
+                    if (Input.GetKeyDown(KeyCode.L))//108
+                        SkillReady((int)KeyCode.L);
+                    //技能
+                    if (Input.GetKeyDown(KeyCode.Q))//113
+                        SkillReady((int)KeyCode.Q);
+                    if (Input.GetKeyDown(KeyCode.W))//119
+                        SkillReady((int)KeyCode.W);
+                    if (Input.GetKeyDown(KeyCode.E))//101
+                        SkillReady((int)KeyCode.E);
+                    if (Input.GetKeyDown(KeyCode.R))//114
+                        SkillReady((int)KeyCode.R);
+                    if (Input.GetKeyDown(KeyCode.T))//116
+                        SkillReady((int)KeyCode.T);
+                    if (Input.GetKeyDown(KeyCode.Y))//121
+                        SkillReady((int)KeyCode.Y);
+                    if (Input.GetKeyDown(KeyCode.U))//117
+                        SkillReady((int)KeyCode.U);
+                    if (Input.GetKeyDown(KeyCode.I))//105
+                        SkillReady((int)KeyCode.I);
+                    if (Input.GetKeyDown(KeyCode.O))//111
+                        SkillReady((int)KeyCode.O);
                     CurrentSkillState.Run();
                 });
             Observable.EveryUpdate()

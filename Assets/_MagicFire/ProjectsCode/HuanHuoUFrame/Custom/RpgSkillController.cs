@@ -76,6 +76,23 @@
                 });
         }
 
+        private void SelectGongFa(int keyCode)
+        {
+            var skillID = int.Parse(Avatar.SkillKeyOptions[keyCode.ToString()].ToString());
+            if (skillID == 0)
+                return;
+            Skill skill;
+            if (Avatar.SkillMap.TryGetValue(skillID, out skill))
+            {
+                _skillReadyState.CurrentReadySkill = skill;
+                CurrentSkillState = _skillReadyState;
+            }
+            else
+            {
+                Debug.LogError("RpgSkillController:SkillReady Error! Not Found Skill " + skillID);
+            }
+        }
+
         public void SkillReady(int keyCode)
         {
             CancelReady();

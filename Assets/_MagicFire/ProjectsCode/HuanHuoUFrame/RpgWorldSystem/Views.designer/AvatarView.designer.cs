@@ -39,7 +39,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _skillKeyOptions;
+        public String _gongFaKeyOptions;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("OnDialogItemsReturn")]
         [UnityEngine.HideInInspector()]
@@ -87,15 +87,15 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_sectIDonlyWhenChanged")]
         protected bool _sectIDOnlyWhenChanged;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("skillKeyOptions")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("gongFaKeyOptions")]
         [UnityEngine.HideInInspector()]
-        public bool _BindskillKeyOptions = true;
+        public bool _BindgongFaKeyOptions = true;
         
-        [uFrame.MVVM.Attributes.UFGroup("skillKeyOptions")]
+        [uFrame.MVVM.Attributes.UFGroup("gongFaKeyOptions")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_skillKeyOptionsonlyWhenChanged")]
-        protected bool _skillKeyOptionsOnlyWhenChanged;
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_gongFaKeyOptionsonlyWhenChanged")]
+        protected bool _gongFaKeyOptionsOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -123,7 +123,7 @@ namespace MagicFire.HuanHuoUFrame {
             var avatarview = ((AvatarViewModel)model);
             avatarview.lingshiAmount = this._lingshiAmount;
             avatarview.sectID = this._sectID;
-            avatarview.skillKeyOptions = this._skillKeyOptions;
+            avatarview.gongFaKeyOptions = this._gongFaKeyOptions;
         }
         
         public override void Bind() {
@@ -152,8 +152,8 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindsectID) {
                 this.BindProperty(this.Avatar.sectIDProperty, this.sectIDChanged, _sectIDOnlyWhenChanged);
             }
-            if (_BindskillKeyOptions) {
-                this.BindProperty(this.Avatar.skillKeyOptionsProperty, this.skillKeyOptionsChanged, _skillKeyOptionsOnlyWhenChanged);
+            if (_BindgongFaKeyOptions) {
+                this.BindProperty(this.Avatar.gongFaKeyOptionsProperty, this.gongFaKeyOptionsChanged, _gongFaKeyOptionsOnlyWhenChanged);
             }
         }
         
@@ -214,7 +214,7 @@ namespace MagicFire.HuanHuoUFrame {
         public virtual void sectIDChanged(Int32 arg1) {
         }
         
-        public virtual void skillKeyOptionsChanged(String arg1) {
+        public virtual void gongFaKeyOptionsChanged(String arg1) {
         }
         
         public virtual void ExecuteRequestTargetItemList(RequestTargetItemListCommand command) {

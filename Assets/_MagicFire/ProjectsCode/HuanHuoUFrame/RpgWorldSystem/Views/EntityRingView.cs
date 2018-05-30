@@ -40,7 +40,8 @@ namespace MagicFire.HuanHuoUFrame {
                     transform.DOLocalMove(entityObj.transform.position, 0.01f);
                 })
             );
-            transform.SetParent(WorldViewService.Canvas3D.transform);
+            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+            transform.SetParent(worldViewService.Canvas3D.transform);
             //var entity3DPanelPosition = new Vector3(ViewModelObject.position.x, ViewModelObject.position.z, -1);
             //transform.localPosition = entity3DPanelPosition;
             transform.localEulerAngles = new Vector3(90, 0, 0);

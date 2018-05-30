@@ -19,9 +19,6 @@ namespace MagicFire.HuanHuoUFrame {
     
     
     public class EntityCommonView : EntityCommonViewBase {
-        [Inject("WorldViewService")]
-        public WorldViewService WorldViewService;
-
         public SpawnPool ParentSpawnPool { get; set; }
 
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {

@@ -39,7 +39,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _skillKeyOptions;
+        public String _gongFaKeyOptions;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("OnRequestRankingListReturn")]
         [UnityEngine.HideInInspector()]
@@ -75,7 +75,7 @@ namespace MagicFire.HuanHuoUFrame {
             var rankinglistpanelview = ((AvatarViewModel)model);
             rankinglistpanelview.lingshiAmount = this._lingshiAmount;
             rankinglistpanelview.sectID = this._sectID;
-            rankinglistpanelview.skillKeyOptions = this._skillKeyOptions;
+            rankinglistpanelview.gongFaKeyOptions = this._gongFaKeyOptions;
         }
         
         public override void Bind() {

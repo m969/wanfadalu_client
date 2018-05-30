@@ -39,17 +39,17 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _skillKeyOptions;
+        public String _gongFaKeyOptions;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("skillKeyOptions")]
+        [uFrame.MVVM.Attributes.UFToggleGroup("gongFaKeyOptions")]
         [UnityEngine.HideInInspector()]
-        public bool _BindskillKeyOptions = true;
+        public bool _BindgongFaKeyOptions = true;
         
-        [uFrame.MVVM.Attributes.UFGroup("skillKeyOptions")]
+        [uFrame.MVVM.Attributes.UFGroup("gongFaKeyOptions")]
         [UnityEngine.SerializeField()]
         [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_skillKeyOptionsonlyWhenChanged")]
-        protected bool _skillKeyOptionsOnlyWhenChanged;
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_gongFaKeyOptionsonlyWhenChanged")]
+        protected bool _gongFaKeyOptionsOnlyWhenChanged;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("HP")]
         [UnityEngine.HideInInspector()]
@@ -157,7 +157,7 @@ namespace MagicFire.HuanHuoUFrame {
             var mainavatarinfopanelview = ((AvatarViewModel)model);
             mainavatarinfopanelview.lingshiAmount = this._lingshiAmount;
             mainavatarinfopanelview.sectID = this._sectID;
-            mainavatarinfopanelview.skillKeyOptions = this._skillKeyOptions;
+            mainavatarinfopanelview.gongFaKeyOptions = this._gongFaKeyOptions;
         }
         
         public override void Bind() {
@@ -165,8 +165,8 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindskillKeyOptions) {
-                this.BindProperty(this.Avatar.skillKeyOptionsProperty, this.skillKeyOptionsChanged, _skillKeyOptionsOnlyWhenChanged);
+            if (_BindgongFaKeyOptions) {
+                this.BindProperty(this.Avatar.gongFaKeyOptionsProperty, this.gongFaKeyOptionsChanged, _gongFaKeyOptionsOnlyWhenChanged);
             }
             if (_BindHP) {
                 this.BindProperty(this.Avatar.HPProperty, this.HPChanged, _HPOnlyWhenChanged);
@@ -194,7 +194,7 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual void skillKeyOptionsChanged(String arg1) {
+        public virtual void gongFaKeyOptionsChanged(String arg1) {
         }
         
         public virtual void HPChanged(Int32 arg1) {

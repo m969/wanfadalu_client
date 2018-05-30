@@ -4427,11 +4427,10 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
+  _NewViewComponentNode: {fileID: 0}
   _entityName: 
   _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
-  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
-    type: 2}
   _HP_Max: 0
   _HP: 0
   _BindOnDead: 1
@@ -4468,6 +4467,7 @@ MonoBehaviour:
   _BindOnMatchEnd: 1
   _lingshiAmount: 0
   _sectID: 0
+  _gongFaKeyOptions: 
   _BindOnDialogItemsReturn: 1
   _BindavatarState: 1
   _avatarStateOnlyWhenChanged: 0
@@ -4478,6 +4478,8 @@ MonoBehaviour:
   _BindOnJoinSectResult: 1
   _BindsectID: 1
   _sectIDOnlyWhenChanged: 0
+  _BindgongFaKeyOptions: 1
+  _gongFaKeyOptionsOnlyWhenChanged: 0
   _speed: 1
   _clientControl: 1
   _animator: {fileID: 95099928238457846}

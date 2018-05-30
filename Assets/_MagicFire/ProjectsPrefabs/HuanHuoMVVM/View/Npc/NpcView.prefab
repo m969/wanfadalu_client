@@ -142,11 +142,11 @@ MonoBehaviour:
   _BindOnStart: 1
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
+  _NewViewComponentNode: {fileID: 0}
   _entityName: 
   _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
-  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
-    type: 2}
+  _sectID: 0
   _npcID: 0
   _npcType: 0
   _arenaID: 0
@@ -154,6 +154,8 @@ MonoBehaviour:
   _npcIDOnlyWhenChanged: 0
   _BindnpcType: 1
   _npcTypeOnlyWhenChanged: 0
+  _BindsectID: 1
+  _sectIDOnlyWhenChanged: 0
   _BindentityName: 1
   _entityNameOnlyWhenChanged: 0
   _BindarenaID: 1

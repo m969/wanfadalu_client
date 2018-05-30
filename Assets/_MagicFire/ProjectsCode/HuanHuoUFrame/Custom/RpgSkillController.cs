@@ -15,6 +15,7 @@
         private SkillState CurrentSkillState { get; set; }
         private SkillReadyState _skillReadyState;
         private SkillEmptyState _skillEmptyState;
+        private int _currentGongFaID;
 
 
         public void Init(AvatarView avatar)
@@ -30,42 +31,42 @@
                 {
                     //功法
                     if (Input.GetKeyDown(KeyCode.A))//97
-                        SkillReady((int)KeyCode.A);
+                        SelectGongFa((int)KeyCode.A);
                     if (Input.GetKeyDown(KeyCode.S))//115
-                        SkillReady((int)KeyCode.S);
+                        SelectGongFa((int)KeyCode.S);
                     if (Input.GetKeyDown(KeyCode.D))//100
-                        SkillReady((int)KeyCode.D);
+                        SelectGongFa((int)KeyCode.D);
                     if (Input.GetKeyDown(KeyCode.F))//102
-                        SkillReady((int)KeyCode.F);
+                        SelectGongFa((int)KeyCode.F);
                     if (Input.GetKeyDown(KeyCode.G))//103
-                        SkillReady((int)KeyCode.G);
+                        SelectGongFa((int)KeyCode.G);
                     if (Input.GetKeyDown(KeyCode.H))//104
-                        SkillReady((int)KeyCode.H);
+                        SelectGongFa((int)KeyCode.H);
                     if (Input.GetKeyDown(KeyCode.J))//106
-                        SkillReady((int)KeyCode.J);
+                        SelectGongFa((int)KeyCode.J);
                     if (Input.GetKeyDown(KeyCode.K))//107
-                        SkillReady((int)KeyCode.K);
+                        SelectGongFa((int)KeyCode.K);
                     if (Input.GetKeyDown(KeyCode.L))//108
-                        SkillReady((int)KeyCode.L);
+                        SelectGongFa((int)KeyCode.L);
                     //技能
                     if (Input.GetKeyDown(KeyCode.Q))//113
-                        SkillReady((int)KeyCode.Q);
+                        SkillReady(0);
                     if (Input.GetKeyDown(KeyCode.W))//119
-                        SkillReady((int)KeyCode.W);
+                        SkillReady(1);
                     if (Input.GetKeyDown(KeyCode.E))//101
-                        SkillReady((int)KeyCode.E);
+                        SkillReady(2);
                     if (Input.GetKeyDown(KeyCode.R))//114
-                        SkillReady((int)KeyCode.R);
+                        SkillReady(3);
                     if (Input.GetKeyDown(KeyCode.T))//116
-                        SkillReady((int)KeyCode.T);
+                        SkillReady(4);
                     if (Input.GetKeyDown(KeyCode.Y))//121
-                        SkillReady((int)KeyCode.Y);
+                        SkillReady(5);
                     if (Input.GetKeyDown(KeyCode.U))//117
-                        SkillReady((int)KeyCode.U);
+                        SkillReady(6);
                     if (Input.GetKeyDown(KeyCode.I))//105
-                        SkillReady((int)KeyCode.I);
+                        SkillReady(7);
                     if (Input.GetKeyDown(KeyCode.O))//111
-                        SkillReady((int)KeyCode.O);
+                        SkillReady(8);
                     CurrentSkillState.Run();
                 });
             Observable.EveryUpdate()
@@ -78,27 +79,19 @@
 
         private void SelectGongFa(int keyCode)
         {
-            var skillID = int.Parse(Avatar.SkillKeyOptions[keyCode.ToString()].ToString());
-            if (skillID == 0)
+            var gongFaID = int.Parse(Avatar.GongFaKeyOptions[keyCode.ToString()].ToString());
+            if (gongFaID == 0)
                 return;
-            Skill skill;
-            if (Avatar.SkillMap.TryGetValue(skillID, out skill))
-            {
-                _skillReadyState.CurrentReadySkill = skill;
-                CurrentSkillState = _skillReadyState;
-            }
-            else
-            {
-                Debug.LogError("RpgSkillController:SkillReady Error! Not Found Skill " + skillID);
-            }
+            _currentGongFaID = gongFaID;
+            this.Publish(new OnSelectGongFaEvent(){ GongFaID = gongFaID });
         }
 
-        public void SkillReady(int keyCode)
+        public void SkillReady(int index)
         {
             CancelReady();
             if (Avatar != null)
             {
-                var skillID = int.Parse(Avatar.SkillKeyOptions[keyCode.ToString()].ToString());
+                var skillID = _currentGongFaID * 10 + index;
                 if (skillID == 0)
                     return;
                 Skill skill;

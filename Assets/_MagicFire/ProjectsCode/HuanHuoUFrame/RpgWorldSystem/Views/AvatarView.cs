@@ -32,7 +32,7 @@
         [SerializeField]
         private Transform _weaponListNode;
         private Dictionary<ulong, Prop> _magicWeaponList;
-        public JObject SkillKeyOptions;
+        public JObject GongFaKeyOptions;
 
 
         public bool ClientControl
@@ -207,11 +207,11 @@
             //}
         }
 
-        public override void skillKeyOptionsChanged(string arg1)
+        public override void gongFaKeyOptionsChanged(string arg1)
         {
-            //Debug.Log("AvatarView:skillKeyOptionsChanged");
+            //Debug.Log("AvatarView:gongFaKeyOptionsChanged");
             if (arg1 != null)
-                SkillKeyOptions = JObject.Parse(arg1);
+                GongFaKeyOptions = JObject.Parse(arg1);
         }
     }
 }

@@ -289,11 +289,10 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
+  _NewViewComponentNode: {fileID: 0}
   _entityName: 
   _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
-  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
-    type: 2}
   _HP_Max: 0
   _HP: 0
   _BindHP_Max: 1
@@ -314,10 +313,9 @@ MonoBehaviour:
   _SP_MaxOnlyWhenChanged: 0
   _BindMSP: 1
   _MSPOnlyWhenChanged: 0
-  _campName: 
-  _BindcampName: 1
-  _campNameOnlyWhenChanged: 0
-  _campImage: {fileID: 114647615436860340}
+  _lingshiAmount: 0
+  _sectID: 0
+  _gongFaKeyOptions: 
   _hpImage: {fileID: 114210945359460252}
   _dpImage: {fileID: 114695281666360364}
 --- !u!114 &114497971433449634

@@ -42,7 +42,8 @@ namespace MagicFire.HuanHuoUFrame {
                     }
                 })
             );
-            transform.SetParent(WorldViewService.Canvas3D.transform);
+            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+            transform.SetParent(worldViewService.Canvas3D.transform);
         }
     }
 }

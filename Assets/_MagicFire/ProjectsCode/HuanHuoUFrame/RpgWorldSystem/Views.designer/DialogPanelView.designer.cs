@@ -39,7 +39,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _skillKeyOptions;
+        public String _gongFaKeyOptions;
         
         public override string DefaultIdentifier {
             get {
@@ -67,7 +67,7 @@ namespace MagicFire.HuanHuoUFrame {
             var dialogpanelview = ((AvatarViewModel)model);
             dialogpanelview.lingshiAmount = this._lingshiAmount;
             dialogpanelview.sectID = this._sectID;
-            dialogpanelview.skillKeyOptions = this._skillKeyOptions;
+            dialogpanelview.gongFaKeyOptions = this._gongFaKeyOptions;
         }
         
         public override void Bind() {

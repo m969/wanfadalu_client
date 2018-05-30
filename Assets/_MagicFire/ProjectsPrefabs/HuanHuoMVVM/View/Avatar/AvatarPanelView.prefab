@@ -472,11 +472,10 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
+  _NewViewComponentNode: {fileID: 0}
   _entityName: 
   _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
-  WorldViewService: {fileID: 114284185130481178, guid: 368ce7ec77276594db6d293e3760f366,
-    type: 2}
   _BindentityName: 1
   _entityNameInput: {fileID: 114305236948236126}
   _HP_Max: 0
@@ -500,7 +499,7 @@ MonoBehaviour:
   _skillSingingBar: {fileID: 114174618786910912}
   _lingshiAmount: 0
   _sectID: 0
-  _skillKeyOptions: 
+  _gongFaKeyOptions: 
   _damageHintText: {fileID: 114948383266631320}
 --- !u!114 &114791400744788538
 MonoBehaviour:

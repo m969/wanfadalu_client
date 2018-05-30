@@ -39,7 +39,7 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
         [UnityEngine.HideInInspector()]
-        public String _skillKeyOptions;
+        public String _gongFaKeyOptions;
         
         [uFrame.MVVM.Attributes.UFToggleGroup("lingshiAmount")]
         [UnityEngine.HideInInspector()]
@@ -87,7 +87,7 @@ namespace MagicFire.HuanHuoUFrame {
             var bagpanelview = ((AvatarViewModel)model);
             bagpanelview.lingshiAmount = this._lingshiAmount;
             bagpanelview.sectID = this._sectID;
-            bagpanelview.skillKeyOptions = this._skillKeyOptions;
+            bagpanelview.gongFaKeyOptions = this._gongFaKeyOptions;
         }
         
         public override void Bind() {

@@ -64,7 +64,9 @@
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
             this.OnEvent<ExitArenaEvent>().Subscribe(evt => { this.Avatar.Execute(new RequestExitArenaCommand()); });
-            transform.SetParent(WorldViewService.MasterCanvas.transform);
+            this.OnEvent<OnSelectGongFaEvent>().Subscribe(OnSelectGongFa);
+            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+            transform.SetParent(worldViewService.MasterCanvas.transform);
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;
             var rect = GetComponent<RectTransform>();
@@ -143,7 +145,33 @@
             }
         }
 
-        public override void skillKeyOptionsChanged(string arg1)
+        private void OnSelectGongFa(OnSelectGongFaEvent evt)
+        {
+            foreach (Transform item in _skillListParent)
+            {
+                var skillImage = item.GetComponent<Image>();
+                var tempType = skillImage.sprite;
+                var srcName = "Square";
+                skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                skillImage.color = Color.black;
+            }
+            var gongFaID = evt.GongFaID;
+            Observable.Range(0, 8).Subscribe(index => {
+                var skillID = gongFaID * 10 + index;
+                JToken skillToken = null;
+                if (WorldViewService.ConfigTableMap["skill_config_Table"].TryGetValue(skillID.ToString(), out skillToken))
+                {
+                    var skillItem = _skillListParent.Find(index.ToString());
+                    var skillImage = skillItem.GetComponent<Image>();
+                    var tempType = skillImage.sprite;
+                    var srcName = "SkillImages/skill_" + skillID;
+                    skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                    skillImage.color = Color.white;
+                }
+            });
+        }
+
+        public override void gongFaKeyOptionsChanged(string arg1)
         {
             foreach (Transform item in _gongFaListParent)
             {
@@ -153,24 +181,25 @@
                 skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
                 skillImage.color = Color.black;
             }
-            var skillKeyOptions = JObject.Parse(arg1);
-            foreach (var item in skillKeyOptions)
+            var gongFaKeyOptions = JObject.Parse(arg1);
+            foreach (var item in gongFaKeyOptions)
             {
                 var keyCode = item.Key;
-                var skillID = int.Parse(item.Value.ToString());
-                if (skillID == 0)
+                var gongFaID = int.Parse(item.Value.ToString());
+                if (gongFaID == 0)
                     continue;
                 var skillItem = _gongFaListParent.Find(keyCode);
-                var skillImage = skillItem.GetComponent<Image>();
-                var tempType = skillImage.sprite;
-                var srcName = "SkillImages/skill_" + skillID;
-                skillImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
-                skillImage.color = Color.white;
+                var gongFaImage = skillItem.GetComponent<Image>();
+                var tempType = gongFaImage.sprite;
+                var srcName = "GongFaImages/gongfa_" + gongFaID;
+                gongFaImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                gongFaImage.color = Color.white;
             }
         }
 
         public override void gongFaListChanged(object arg1)
         {
+            Debug.Log("MainAvatarInfoPanelView:gongFaListChanged");
             var gongFaMap = this.Avatar.DecodeGongFaListObject(arg1);
             foreach (var item in gongFaMap)
             {
@@ -179,6 +208,7 @@
                 //var itemImage = child.GetComponent<Image>();
                 //var tempType = itemImage.sprite;
                 //itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
+                //itemImage.color = Color.white;
 
                 //var gongFaItem = Instantiate(_gongFaItemPrefab);
                 //gongFaItem.SetParent(_gongFaContentTransform);

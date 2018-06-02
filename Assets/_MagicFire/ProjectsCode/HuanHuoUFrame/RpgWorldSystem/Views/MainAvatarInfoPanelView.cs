@@ -70,7 +70,7 @@
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;
             var rect = GetComponent<RectTransform>();
-            rect.anchoredPosition = new Vector2(0, 32);
+            rect.anchoredPosition = new Vector2(0, 45);
         }
 
         public override void HPChanged(int arg1)

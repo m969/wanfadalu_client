@@ -102,7 +102,7 @@
                 }
                 else
                 {
-                    Debug.LogError("RpgSkillController:SkillReady Error! Not Found Skill " + skillID);
+                    //Debug.LogError("RpgSkillController:SkillReady Error! Not Found Skill " + skillID);
                 }
             }
         }

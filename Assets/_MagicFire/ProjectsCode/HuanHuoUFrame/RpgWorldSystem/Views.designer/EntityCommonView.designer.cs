@@ -27,7 +27,9 @@ namespace MagicFire.HuanHuoUFrame {
     public class EntityCommonViewBase : uFrame.MVVM.Views.ViewBase {
         
         [UnityEngine.SerializeField()]
-        private NewViewComponentNode _NewViewComponentNode;
+        [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
+        [UnityEngine.HideInInspector()]
+        public Int32 _typeID;
         
         [UnityEngine.SerializeField()]
         [uFrame.MVVM.Attributes.UFGroup("View Model Properties")]
@@ -41,6 +43,16 @@ namespace MagicFire.HuanHuoUFrame {
         [uFrame.MVVM.Attributes.UFToggleGroup("OnDestroy")]
         [UnityEngine.HideInInspector()]
         public bool _BindOnDestroy = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("typeID")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindtypeID = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("typeID")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_typeIDonlyWhenChanged")]
+        protected bool _typeIDOnlyWhenChanged;
         
         public override string DefaultIdentifier {
             get {
@@ -60,18 +72,13 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
-        public virtual NewViewComponentNode NewViewComponentNode {
-            get {
-                return _NewViewComponentNode ?? (_NewViewComponentNode = this.gameObject.EnsureComponent<NewViewComponentNode>());
-            }
-        }
-        
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);
             // NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
             // var vm = model as EntityCommonViewModel;
             // This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
             var entitycommonview = ((EntityCommonViewModel)model);
+            entitycommonview.typeID = this._typeID;
             entitycommonview.entityName = this._entityName;
         }
         
@@ -86,12 +93,18 @@ namespace MagicFire.HuanHuoUFrame {
             if (_BindOnDestroy) {
                 this.BindCommandExecuted(this.EntityCommon.OnDestroy, this.OnDestroyExecuted);
             }
+            if (_BindtypeID) {
+                this.BindProperty(this.EntityCommon.typeIDProperty, this.typeIDChanged, _typeIDOnlyWhenChanged);
+            }
         }
         
         public virtual void OnLeaveWorldExecuted(OnLeaveWorldCommand command) {
         }
         
         public virtual void OnDestroyExecuted(OnDestroyCommand command) {
+        }
+        
+        public virtual void typeIDChanged(Int32 arg1) {
         }
         
         public virtual void ExecuteOnDestroy(OnDestroyCommand command) {

@@ -65,8 +65,8 @@
             // Any designer bindings are created in the base implementation.
             this.OnEvent<ExitArenaEvent>().Subscribe(evt => { this.Avatar.Execute(new RequestExitArenaCommand()); });
             this.OnEvent<OnSelectGongFaEvent>().Subscribe(OnSelectGongFa);
-            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
-            transform.SetParent(worldViewService.MasterCanvas.transform);
+            //var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+            transform.SetParent(WorldViewService.Instance.MasterCanvas.transform);
             transform.localScale = new Vector3(1, 1, 1);
             transform.localEulerAngles = Vector3.zero;
             var rect = GetComponent<RectTransform>();
@@ -161,7 +161,7 @@
                 JToken skillToken = null;
                 if (WorldViewService.ConfigTableMap["skill_config_Table"].TryGetValue(skillID.ToString(), out skillToken))
                 {
-                    var skillItem = _skillListParent.Find(index.ToString());
+                    var skillItem = _skillListParent.GetChild(index);
                     var skillImage = skillItem.GetComponent<Image>();
                     var tempType = skillImage.sprite;
                     var srcName = "SkillImages/skill_" + skillID;

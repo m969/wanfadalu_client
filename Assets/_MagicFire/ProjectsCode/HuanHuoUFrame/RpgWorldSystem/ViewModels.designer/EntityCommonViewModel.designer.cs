@@ -26,6 +26,8 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class EntityCommonViewModelBase : uFrame.MVVM.ViewModels.ViewModel {
         
+        private P<Int32> _typeIDProperty;
+        
         private P<String> _entityNameProperty;
         
         private Signal<OnDestroyCommand> _OnDestroy;
@@ -36,12 +38,30 @@ namespace MagicFire.HuanHuoUFrame {
                 base(aggregator) {
         }
         
+        public virtual P<Int32> typeIDProperty {
+            get {
+                return _typeIDProperty;
+            }
+            set {
+                _typeIDProperty = value;
+            }
+        }
+        
         public virtual P<String> entityNameProperty {
             get {
                 return _entityNameProperty;
             }
             set {
                 _entityNameProperty = value;
+            }
+        }
+        
+        public virtual Int32 typeID {
+            get {
+                return typeIDProperty.Value;
+            }
+            set {
+                typeIDProperty.Value = value;
             }
         }
         
@@ -76,6 +96,7 @@ namespace MagicFire.HuanHuoUFrame {
             base.Bind();
             this.OnDestroy = new Signal<OnDestroyCommand>(this);
             this.OnLeaveWorld = new Signal<OnLeaveWorldCommand>(this);
+            _typeIDProperty = new P<Int32>(this, "typeID");
             _entityNameProperty = new P<String>(this, "entityName");
         }
         
@@ -99,11 +120,13 @@ namespace MagicFire.HuanHuoUFrame {
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
+            this.typeID = stream.DeserializeInt("typeID");;
             this.entityName = stream.DeserializeString("entityName");;
         }
         
         public override void Write(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeInt("typeID", this.typeID);
             stream.SerializeString("entityName", this.entityName);
         }
         
@@ -115,6 +138,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_typeIDProperty, false, false, false, false));
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_entityNameProperty, false, false, false, false));
         }

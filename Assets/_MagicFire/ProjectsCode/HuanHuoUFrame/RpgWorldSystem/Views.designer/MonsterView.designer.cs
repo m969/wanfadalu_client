@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -24,6 +25,14 @@ namespace MagicFire.HuanHuoUFrame {
     
     
     public class MonsterViewBase : SuperPowerEntityView {
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("StopMove")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindStopMove = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("StartMove")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindStartMove = true;
         
         public override string DefaultIdentifier {
             get {
@@ -55,6 +64,28 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Monster to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindStopMove) {
+                this.BindCommandExecuted(this.Monster.StopMove, this.StopMoveExecuted);
+            }
+            if (_BindStartMove) {
+                this.BindCommandExecuted(this.Monster.StartMove, this.StartMoveExecuted);
+            }
+        }
+        
+        public virtual void StopMoveExecuted(StopMoveCommand command) {
+        }
+        
+        public virtual void StartMoveExecuted(StartMoveCommand command) {
+        }
+        
+        public virtual void ExecuteStartMove(StartMoveCommand command) {
+            command.Sender = Monster;
+            Monster.StartMove.OnNext(command);
+        }
+        
+        public virtual void ExecuteStopMove(StopMoveCommand command) {
+            command.Sender = Monster;
+            Monster.StopMove.OnNext(command);
         }
     }
 }

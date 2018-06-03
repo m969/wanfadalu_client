@@ -98,6 +98,9 @@ namespace MagicFire.HuanHuoUFrame {
         }
     }
     
+    public partial class StopMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
+    }
+    
     public partial class onMainAvatarEnterSpaceCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
         
         private Int32 _SpaceId;
@@ -390,6 +393,9 @@ namespace MagicFire.HuanHuoUFrame {
                 _argsString = value;
             }
         }
+    }
+    
+    public partial class StartMoveCommand : uFrame.MVVM.ViewModels.ViewModelCommand {
     }
     
     public partial class OnSkillStartCastCommand : uFrame.MVVM.ViewModels.ViewModelCommand {

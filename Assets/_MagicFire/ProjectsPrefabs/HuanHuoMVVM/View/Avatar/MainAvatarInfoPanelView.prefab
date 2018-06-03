@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 114466821240015604}
   - component: {fileID: 114865982527107810}
   m_Layer: 5
-  m_Name: 1
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 114113330255259620}
   - component: {fileID: 114723669893005830}
   m_Layer: 5
-  m_Name: 3
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 114260283115215248}
   - component: {fileID: 114677060097800934}
   m_Layer: 5
-  m_Name: 7
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 114429016198389078}
   - component: {fileID: 114130017822047146}
   m_Layer: 5
-  m_Name: 6
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 114279635382414822}
   - component: {fileID: 114372751909088484}
   m_Layer: 5
-  m_Name: 9
+  m_Name: 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 114513403817035692}
   - component: {fileID: 114694883514401584}
   m_Layer: 5
-  m_Name: 4
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 114138593876602238}
   - component: {fileID: 114185534129252064}
   m_Layer: 5
-  m_Name: 8
+  m_Name: 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1429,7 +1429,7 @@ GameObject:
   - component: {fileID: 114902765985599440}
   - component: {fileID: 114790284822428960}
   m_Layer: 5
-  m_Name: 5
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,7 +1467,7 @@ GameObject:
   - component: {fileID: 114042978493122224}
   - component: {fileID: 114728286463164604}
   m_Layer: 5
-  m_Name: 2
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6013,10 +6013,12 @@ MonoBehaviour:
   _BindOnStart: 0
   _DisposeViewModelOnDestroy: 1
   _overrideViewModel: 0
-  _NewViewComponentNode: {fileID: 0}
+  _typeID: 0
   _entityName: 
   _BindOnLeaveWorld: 1
   _BindOnDestroy: 1
+  _BindtypeID: 1
+  _typeIDOnlyWhenChanged: 0
   _lingshiAmount: 0
   _sectID: 0
   _gongFaKeyOptions: 

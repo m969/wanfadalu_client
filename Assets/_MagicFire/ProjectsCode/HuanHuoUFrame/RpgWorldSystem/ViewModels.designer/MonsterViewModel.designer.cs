@@ -26,12 +26,54 @@ namespace MagicFire.HuanHuoUFrame {
     
     public partial class MonsterViewModelBase : SuperPowerEntityViewModel {
         
+        private Signal<StartMoveCommand> _StartMove;
+        
+        private Signal<StopMoveCommand> _StopMove;
+        
         public MonsterViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
         
+        public virtual Signal<StartMoveCommand> StartMove {
+            get {
+                return _StartMove;
+            }
+            set {
+                _StartMove = value;
+            }
+        }
+        
+        public virtual Signal<StopMoveCommand> StopMove {
+            get {
+                return _StopMove;
+            }
+            set {
+                _StopMove = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
+            this.StartMove = new Signal<StartMoveCommand>(this);
+            this.StopMove = new Signal<StopMoveCommand>(this);
+        }
+        
+        public virtual void Execute(StartMoveCommand argument) {
+            this.StartMove.OnNext(argument);
+        }
+        
+        public virtual void Execute(StopMoveCommand argument) {
+            this.StopMove.OnNext(argument);
+        }
+        
+        public virtual void StartMove_() {
+            var cmd = new StartMoveCommand();
+            this.StartMove.OnNext(cmd);
+        }
+        
+        public virtual void StopMove_() {
+            var cmd = new StopMoveCommand();
+            this.StopMove.OnNext(cmd);
         }
         
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
@@ -44,6 +86,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelCommandInfo> list) {
             base.FillCommands(list);
+            list.Add(new ViewModelCommandInfo("StartMove", StartMove) { ParameterType = typeof(StartMoveCommand) });
+            list.Add(new ViewModelCommandInfo("StopMove", StopMove) { ParameterType = typeof(StopMoveCommand) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModels.ViewModelPropertyInfo> list) {

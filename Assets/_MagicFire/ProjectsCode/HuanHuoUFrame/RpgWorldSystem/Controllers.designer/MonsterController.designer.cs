@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace MagicFire.HuanHuoUFrame {
+    using MagicFire.HuanHuoUFrame;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -56,12 +57,28 @@ namespace MagicFire.HuanHuoUFrame {
         
         public virtual void InitializeMonster(MonsterViewModel viewModel) {
             // This is called when a MonsterViewModel is created
+            viewModel.StartMove.Action = this.StartMoveHandler;
+            viewModel.StopMove.Action = this.StopMoveHandler;
             MonsterViewModelManager.Add(viewModel);
         }
         
         public override void DisposingViewModel(uFrame.MVVM.ViewModels.ViewModel viewModel) {
             base.DisposingViewModel(viewModel);
             MonsterViewModelManager.Remove(viewModel);
+        }
+        
+        public virtual void StartMoveHandler(StartMoveCommand command) {
+            this.StartMove(command.Sender as MonsterViewModel, command);
+        }
+        
+        public virtual void StopMoveHandler(StopMoveCommand command) {
+            this.StopMove(command.Sender as MonsterViewModel, command);
+        }
+        
+        public virtual void StartMove(MonsterViewModel viewModel, StartMoveCommand arg) {
+        }
+        
+        public virtual void StopMove(MonsterViewModel viewModel, StopMoveCommand arg) {
         }
     }
 }

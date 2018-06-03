@@ -66,6 +66,15 @@ namespace MagicFire.HuanHuoUFrame{
         private RpgMainPanel _rpgMainPanel;
 
 
+        public static WorldViewService Instance
+        {
+            get
+            {
+                return uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+            }
+        }
+
+
         /// <summary>
         /// This method is invoked whenever the kernel is loading
         /// Since the kernel lives throughout the entire lifecycle  of the game, this will only be invoked once.
@@ -179,6 +188,7 @@ namespace MagicFire.HuanHuoUFrame{
 
         private EntityCommonView InstantiateModelView(KBEngine.Entity entity)
         {
+            //Debug.Log("WorldViewService:InstantiateModelView className=" + entity.className);
             var viewModel = entity as EntityCommonViewModel;
             var entityType = entity.className.Replace("ViewModel", "");
             var viewPool = PoolManager.Pools[entityType + "ViewPool"];
@@ -188,6 +198,8 @@ namespace MagicFire.HuanHuoUFrame{
                 viewName = "AvatarView";
             else if (entity.className == "NpcViewModel")
                 viewName = "NpcView";
+            else if (entity.className == "MonsterViewModel")
+                viewName = "MonsterView";
             else if (entity.className == "SectViewModel")
                 viewName = "SectView";
             else

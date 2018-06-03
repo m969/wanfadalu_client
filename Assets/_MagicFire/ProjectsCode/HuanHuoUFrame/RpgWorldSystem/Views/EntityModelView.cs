@@ -16,6 +16,7 @@ namespace MagicFire.HuanHuoUFrame {
     
     
     public class EntityModelView : EntityModelViewBase {
+        protected Animator ModelAnimator;
         
         protected override void InitializeViewModel(uFrame.MVVM.ViewModels.ViewModel model) {
             base.InitializeViewModel(model);

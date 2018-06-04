@@ -69,7 +69,7 @@ namespace MagicFire.HuanHuoUFrame {
             var i = 0;
             var tmpPropList = ((Dictionary<string, object>)arg1)["values"] as List<object>;
             Transform dragPropItem = null;
-            var worldViewService = uFrameKernel.Instance.Services.Find(_x => { return _x.GetType().Equals(typeof(WorldViewService)); }) as WorldViewService;
+            var worldViewService = WorldViewService.Instance;
             if (tmpPropList != null)
             {
                 foreach (var item in tmpPropList)
@@ -90,6 +90,18 @@ namespace MagicFire.HuanHuoUFrame {
                     itemText.text = PropSystemController.PropConfigList[propID].name;
                     var propItemButton = propItem.GetComponent<Button>();
                     propItemButton.interactable = true;
+                    if (((int)WorldViewService.ConfigTableMap["prop_config_Table"][propID.ToString()]["type"]) == 3)
+                    {
+                        propItemButton.OnPointerClickAsObservable()
+                            .Where(x => { return x.button == PointerEventData.InputButton.Right; })
+                            .Subscribe(x => {
+                                Debug.Log("BagPanelView:propListChanged:OnPointerClickAsObservable");
+                                var spawnPool = PoolManager.Pools["UIPanelPool"];
+                                var rightKeyItem = spawnPool.Spawn(spawnPool.prefabs["RightKeyItem"]);
+                                rightKeyItem.SetParent(worldViewService.MasterCanvas.transform);
+                                rightKeyItem.position = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                        });
+                    }
                     propItemButton.OnClickAsObservable()
                         .Subscribe(x => {
                             _currentSelectProp = propUUID;

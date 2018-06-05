@@ -99,8 +99,13 @@ namespace MagicFire.HuanHuoUFrame {
                                 var spawnPool = PoolManager.Pools["UIPanelPool"];
                                 var rightKeyItem = spawnPool.Spawn(spawnPool.prefabs["RightKeyItem"]);
                                 rightKeyItem.SetParent(worldViewService.MasterCanvas.transform);
-                                rightKeyItem.position = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-                        });
+                                //Vector3 currentPosition;
+                                //RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
+                                //    x.position, x.pressEventCamera, out currentPosition);
+                                //rightKeyItem.localPosition = currentPosition;
+                                //rightKeyItem.localPosition = x.pointerCurrentRaycast.screenPosition;
+                                rightKeyItem.localPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                            });
                     }
                     propItemButton.OnClickAsObservable()
                         .Subscribe(x => {

@@ -61,19 +61,21 @@
         {
             base.Start();
 
-            Observable.EveryUpdate()
-                .Where(evt => { return Input.GetMouseButtonDown(1); })
-                .Subscribe(evt =>
-                {
-                    OnRightMouseButtonDown();
-                }).DisposeWith(this);
+            //Observable.EveryUpdate()
+            //    .Where(evt => { return Input.GetMouseButtonDown(1); })
+            //    .Subscribe(evt =>
+            //    {
+            //        OnRightMouseButtonDown();
+            //    }).DisposeWith(this);
 
-            Observable.EveryUpdate()
-                .Where(evt => { return Input.GetMouseButtonDown(0); })
-                .Subscribe(evt => 
-                {
-                    OnLeftMouseButtonDown();
-                }).DisposeWith(this);
+            this.OnEvent<StartMoveEvent>().Subscribe(StartMoveEvent);
+
+            //Observable.EveryUpdate()
+            //    .Where(evt => { return Input.GetMouseButtonDown(0); })
+            //    .Subscribe(evt => 
+            //    {
+            //        OnLeftMouseButtonDown();
+            //    }).DisposeWith(this);
 
             if (MainAvatarView.ClientControl)
             {
@@ -121,6 +123,36 @@
                             MoveVector = new Vector3(MoveVector.x, -4.0f, MoveVector.z);
                         MainAvatarController.Move(MoveVector);
                     }).DisposeWith(this);
+            }
+        }
+
+        private void StartMoveEvent(StartMoveEvent evt)
+        {
+            if (_clickPointObject == null)
+            {
+                var viewPool = PoolManager.Pools["AuxiliaryPool"];
+                _clickPointObject = viewPool.Spawn("RpgMovePointMarker").gameObject;
+            }
+            if (!_clickPointObject.activeInHierarchy)
+            {
+                _clickPointObject.SetActive(true);
+            }
+            _clickPointObject.transform.position = evt.Point;
+
+            if (MainAvatarView.ClientControl)
+            {
+                if (_canMove)
+                {
+                    MainAvatarView.Avatar.Execute(new RequestMoveCommand() { Point = evt.Point });
+                    //KBEngine.Event.fireIn("RequestMove", new object[] { hit.point });
+                    //MainAvatarController.transform.DOLookAt(new Vector3(hit.point.x, MainAvatarController.transform.position.y, hit.point.z), 0.0f);
+                    MainAvatarController.transform.LookAt(new Vector3(evt.Point.x, MainAvatarController.transform.position.y, evt.Point.z));
+                    MoveVector = MainAvatarController.transform.forward * 0.2f * MainAvatarView.Speed;
+                }
+            }
+            else
+            {
+                MainAvatarView.Avatar.Execute(new RequestMoveCommand() { Point = evt.Point });
             }
         }
 

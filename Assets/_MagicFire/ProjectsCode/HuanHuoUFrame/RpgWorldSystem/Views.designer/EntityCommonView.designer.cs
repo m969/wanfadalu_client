@@ -36,14 +36,6 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         public String _entityName;
         
-        [uFrame.MVVM.Attributes.UFToggleGroup("OnLeaveWorld")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindOnLeaveWorld = true;
-        
-        [uFrame.MVVM.Attributes.UFToggleGroup("OnDestroy")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindOnDestroy = true;
-        
         [uFrame.MVVM.Attributes.UFToggleGroup("typeID")]
         [UnityEngine.HideInInspector()]
         public bool _BindtypeID = true;
@@ -53,6 +45,14 @@ namespace MagicFire.HuanHuoUFrame {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_typeIDonlyWhenChanged")]
         protected bool _typeIDOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnLeaveWorld")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnLeaveWorld = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("OnDestroy")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindOnDestroy = true;
         
         public override string DefaultIdentifier {
             get {
@@ -87,24 +87,24 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.EntityCommon to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindtypeID) {
+                this.BindProperty(this.EntityCommon.typeIDProperty, this.typeIDChanged, _typeIDOnlyWhenChanged);
+            }
             if (_BindOnLeaveWorld) {
                 this.BindCommandExecuted(this.EntityCommon.OnLeaveWorld, this.OnLeaveWorldExecuted);
             }
             if (_BindOnDestroy) {
                 this.BindCommandExecuted(this.EntityCommon.OnDestroy, this.OnDestroyExecuted);
             }
-            if (_BindtypeID) {
-                this.BindProperty(this.EntityCommon.typeIDProperty, this.typeIDChanged, _typeIDOnlyWhenChanged);
-            }
+        }
+        
+        public virtual void typeIDChanged(Int32 arg1) {
         }
         
         public virtual void OnLeaveWorldExecuted(OnLeaveWorldCommand command) {
         }
         
         public virtual void OnDestroyExecuted(OnDestroyCommand command) {
-        }
-        
-        public virtual void typeIDChanged(Int32 arg1) {
         }
         
         public virtual void ExecuteOnDestroy(OnDestroyCommand command) {

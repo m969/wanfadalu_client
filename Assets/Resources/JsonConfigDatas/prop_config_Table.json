@@ -8,7 +8,7 @@
 "1007":{ "id":1007, "name":"寒冰石", "type":1, "gongFa":0, "zhenFa":0, "sellPrice":8, "description":"寒冰石"},
 "1008":{ "id":1008, "name":"铁精", "type":1, "gongFa":0, "zhenFa":0, "sellPrice":8, "description":"铁精"},
 "1009":{ "id":1009, "name":"铁岩石", "type":1, "gongFa":0, "zhenFa":0, "sellPrice":8, "description":"铁岩石"},
-"1010":{ "id":1010, "name":"落石阵阵盘", "type":3, "gongFa":0, "zhenFa":1001, "sellPrice":8, "description":"落石阵阵盘"}
+"1010":{ "id":1010, "name":"落石阵阵旗", "type":3, "gongFa":0, "zhenFa":1001, "sellPrice":8, "description":"落石阵阵旗"}
 }
 
 

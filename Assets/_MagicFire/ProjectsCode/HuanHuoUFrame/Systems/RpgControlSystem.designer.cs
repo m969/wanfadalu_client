@@ -27,6 +27,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private IEcsComponentManagerOf<RpgLookAtPlayerComponent> _RpgLookAtPlayerComponentManager;
         
+        private IEcsComponentManagerOf<RpgTerrainComponent> _RpgTerrainComponentManager;
+        
         private IEcsComponentManagerOf<RpgSkillController> _RpgSkillControllerManager;
         
         private IEcsComponentManagerOf<RpgInteractiveComponent> _RpgInteractiveComponentManager;
@@ -48,6 +50,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
             set {
                 _RpgLookAtPlayerComponentManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<RpgTerrainComponent> RpgTerrainComponentManager {
+            get {
+                return _RpgTerrainComponentManager;
+            }
+            set {
+                _RpgTerrainComponentManager = value;
             }
         }
         
@@ -82,6 +93,7 @@ namespace MagicFire.HuanHuoUFrame {
             base.Setup();
             RpgMoveControllerManager = ComponentSystem.RegisterComponent<RpgMoveController>(1);
             RpgLookAtPlayerComponentManager = ComponentSystem.RegisterComponent<RpgLookAtPlayerComponent>(8);
+            RpgTerrainComponentManager = ComponentSystem.RegisterComponent<RpgTerrainComponent>(11);
             RpgSkillControllerManager = ComponentSystem.RegisterComponent<RpgSkillController>(7);
             RpgInteractiveComponentManager = ComponentSystem.RegisterComponent<RpgInteractiveComponent>(10);
             RpgMovePointMarkerManager = ComponentSystem.RegisterComponent<RpgMovePointMarker>(9);

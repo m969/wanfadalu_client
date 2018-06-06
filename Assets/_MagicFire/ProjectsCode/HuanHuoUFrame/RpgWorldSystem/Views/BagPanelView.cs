@@ -75,7 +75,7 @@ namespace MagicFire.HuanHuoUFrame {
                 foreach (var item in tmpPropList)
                 {
                     var prop = (Dictionary<string, object>)item;
-                    JObject propData = JObject.Parse(prop["propData"] as string);
+                    var propData = JObject.Parse(prop["propData"] as string);
                     var propItem = _itemsPanel.GetChild(i);
                     i++;
                     var itemImage = propItem.Find("Foreground").GetComponent<Image>();
@@ -83,7 +83,7 @@ namespace MagicFire.HuanHuoUFrame {
                     var propUUID = ulong.Parse(prop["propUUID"].ToString());
                     propItem.name = propUUID.ToString();
                     var srcName = "PropImages/prop_" + propID;
-                    Sprite tempType = itemImage.sprite;
+                    var tempType = itemImage.sprite;
                     itemImage.sprite = Resources.Load(srcName, tempType.GetType()) as Sprite;
                     itemImage.color = Color.white;
                     var itemText = propItem.Find("Text").GetComponent<Text>();
@@ -96,15 +96,28 @@ namespace MagicFire.HuanHuoUFrame {
                             .Where(x => { return x.button == PointerEventData.InputButton.Right; })
                             .Subscribe(x => {
                                 Debug.Log("BagPanelView:propListChanged:OnPointerClickAsObservable");
-                                var spawnPool = PoolManager.Pools["UIPanelPool"];
-                                var rightKeyItem = spawnPool.Spawn(spawnPool.prefabs["RightKeyItem"]);
-                                rightKeyItem.SetParent(worldViewService.MasterCanvas.transform);
+                                var rightKeyItem = worldViewService.MasterCanvas.transform.Find("RightKeyItem");
+                                if (rightKeyItem == null)
+                                {
+                                    var spawnPool = PoolManager.Pools["UIPanelPool"];
+                                    rightKeyItem = spawnPool.Spawn(spawnPool.prefabs["RightKeyItem"]);
+                                    rightKeyItem.SetParent(worldViewService.MasterCanvas.transform);
+                                    rightKeyItem.name = "RightKeyItem";
+                                }
+                                rightKeyItem.gameObject.SetActive(true);
+                                Vector3 currentPos;
+                                RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(), x.position, x.pressEventCamera, out currentPos);
+                                var point = this.transform.localPosition;
+                                var v1 = worldViewService.MasterCanvas.GetComponent<RectTransform>().rect.size / 2;
+                                rightKeyItem.localPosition = currentPos - new Vector3(v1.x, v1.y) - new Vector3(-40, 40);
+                                rightKeyItem.GetComponent<RightKeyMenuComponent>().ZhenFa = (int)WorldViewService.ConfigTableMap["prop_config_Table"][propID.ToString()]["zhenFa"];
                                 //Vector3 currentPosition;
                                 //RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
                                 //    x.position, x.pressEventCamera, out currentPosition);
                                 //rightKeyItem.localPosition = currentPosition;
                                 //rightKeyItem.localPosition = x.pointerCurrentRaycast.screenPosition;
-                                rightKeyItem.localPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+                                //rightKeyItem.localPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
                             });
                     }
                     propItemButton.OnClickAsObservable()
@@ -122,23 +135,23 @@ namespace MagicFire.HuanHuoUFrame {
                             dragPropItem.Find("Foreground").GetComponent<Image>().sprite = itemImage.sprite;
                             dragPropItem.name = propUUID.ToString();
                             Vector3 currentPosition;
-                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
-                                x.position, x.pressEventCamera, out currentPosition);
+                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(), x.position, x.pressEventCamera, out currentPosition);
                             dragPropItem.position = currentPosition;
                             this.Publish(new OnBagItemBeginDragEvent() { BagItem = propItem });
                         }).DisposeWith(this);
                     propItemButton.OnDragAsObservable()
+                        .Where(x => { return x.button == PointerEventData.InputButton.Left; })
                         .Subscribe(evt =>
                         {
                             //Debug.Log("BagPanelView:OnDragAsObservable");
                             Vector3 currentPos;
-                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(),
-                                evt.position, evt.pressEventCamera, out currentPos);
+                            RectTransformUtility.ScreenPointToWorldPointInRectangle(worldViewService.MasterCanvas.GetComponent<RectTransform>(), evt.position, evt.pressEventCamera, out currentPos);
                             var point = this.transform.localPosition;
                             var v1 = worldViewService.MasterCanvas.GetComponent<RectTransform>().rect.size / 2;
                             dragPropItem.localPosition = currentPos - new Vector3(v1.x, v1.y);
                         }).DisposeWith(this);
                     propItemButton.OnEndDragAsObservable()
+                        .Where(x => { return x.button == PointerEventData.InputButton.Left; })
                         .Subscribe(evt =>
                         {
                             //Debug.Log("BagPanelView:OnEndDragAsObservable");

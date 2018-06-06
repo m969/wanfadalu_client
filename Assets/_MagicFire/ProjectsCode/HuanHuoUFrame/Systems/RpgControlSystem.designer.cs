@@ -35,6 +35,8 @@ namespace MagicFire.HuanHuoUFrame {
         
         private IEcsComponentManagerOf<RpgMovePointMarker> _RpgMovePointMarkerManager;
         
+        private IEcsComponentManagerOf<RightKeyMenuComponent> _RightKeyMenuComponentManager;
+        
         public IEcsComponentManagerOf<RpgMoveController> RpgMoveControllerManager {
             get {
                 return _RpgMoveControllerManager;
@@ -89,6 +91,15 @@ namespace MagicFire.HuanHuoUFrame {
             }
         }
         
+        public IEcsComponentManagerOf<RightKeyMenuComponent> RightKeyMenuComponentManager {
+            get {
+                return _RightKeyMenuComponentManager;
+            }
+            set {
+                _RightKeyMenuComponentManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
             RpgMoveControllerManager = ComponentSystem.RegisterComponent<RpgMoveController>(1);
@@ -97,6 +108,7 @@ namespace MagicFire.HuanHuoUFrame {
             RpgSkillControllerManager = ComponentSystem.RegisterComponent<RpgSkillController>(7);
             RpgInteractiveComponentManager = ComponentSystem.RegisterComponent<RpgInteractiveComponent>(10);
             RpgMovePointMarkerManager = ComponentSystem.RegisterComponent<RpgMovePointMarker>(9);
+            RightKeyMenuComponentManager = ComponentSystem.RegisterComponent<RightKeyMenuComponent>(12);
         }
     }
     

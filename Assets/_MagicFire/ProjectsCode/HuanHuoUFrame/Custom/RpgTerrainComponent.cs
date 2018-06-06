@@ -13,16 +13,6 @@
 
     public partial class RpgTerrainComponent : uFrame.ECS.Components.EcsComponent, IPointerDownHandler
     {
-        protected override void Start()
-        {
-            base.Start();
-            //this.OnMouseEvent(MouseEventType.OnMouseDown).Subscribe(evt =>
-            //{
-            //    Debug.Log("NpcView:OnMouseDown");
-            //    KBEngine.KBEngineApp.app.player().cellCall("requestDialog", Npc.id);
-            //}).DisposeWith(this);
-        }
-
         public void OnPointerDown(PointerEventData eventData)
         {
             //Debug.Log("RpgTerrainComponent:OnPointerDown " + eventData.button);

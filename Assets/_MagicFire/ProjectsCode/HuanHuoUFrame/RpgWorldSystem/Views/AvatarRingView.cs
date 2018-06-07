@@ -18,11 +18,7 @@ namespace MagicFire.HuanHuoUFrame {
     public class AvatarRingView : AvatarRingViewBase
     {
         [SerializeField]
-        private Image _hpImage;
-        [SerializeField]
         private Image _dpImage;
-        private int? _hp;
-        private int? _hpMax;
         private int? _dp;
         private int? _dpMax;
 
@@ -38,24 +34,6 @@ namespace MagicFire.HuanHuoUFrame {
             // Use this.Avatar to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-        }
-
-        public override void HP_MaxChanged(int arg1)
-        {
-            base.HP_MaxChanged(arg1);
-
-            _hpMax = arg1;
-            if (_hp.HasValue && _hpMax.HasValue)
-                _hpImage.fillAmount = ((float)_hp.Value / _hpMax.Value) * 0.25f;
-        }
-
-        public override void HPChanged(int arg1)
-        {
-            base.HPChanged(arg1);
-
-            _hp = arg1;
-            if (_hp.HasValue && _hpMax.HasValue)
-                _hpImage.fillAmount = ((float)_hp.Value / _hpMax.Value) * 0.25f;
         }
 
         public override void SP_MaxChanged(int arg1)

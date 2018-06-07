@@ -1,6 +1,6 @@
 ﻿{
-"1":{ "id":1, "entity_type":"Monster", "typeID":1001, "spawnPos":[371.0,0.0,235.0]},
-"2":{ "id":2, "entity_type":"Monster", "typeID":1002, "spawnPos":[70.0,22.0,60.0]}
+"1":{ "id":1, "entity_type":"Monster", "typeID":1001, "spawnPos":[366.0,0.0,246.0]},
+"2":{ "id":2, "entity_type":"Monster", "typeID":1002, "spawnPos":[373.0,0.0,255.0]}
 }
 
 

@@ -213,16 +213,18 @@ namespace MagicFire.HuanHuoUFrame{
             if (entity.className != "CampViewModel" && entity.className != "SpaceViewModel" && entity.renderObj == null)
             {
                 var modelView = InstantiateModelView(entity);
+                var entityType = entity.className.Replace("ViewModel", "");
+                var viewPool = PoolManager.Pools[entityType + "ViewPool"];
+                var viewModel = entity as EntityCommonViewModel;
                 if (entity.isPlayer())
                 {
                     var playerTarget = Instantiate(_playerTargetPrefab).GetComponent<RpgLookAtPlayerComponent>();
                     playerTarget.Target = modelView.transform;
-                    var viewPool = PoolManager.Pools["UIPanelPool"];
-                    if (viewPool != null)
+                    var uiViewPool = PoolManager.Pools["UIPanelPool"];
+                    if (uiViewPool != null)
                     {
-                        var viewModel = entity as EntityCommonViewModel;
-                        var viewPrefab = viewPool.prefabs["MainAvatarInfoPanelView"];
-                        var mainAvatarInfoPanelView = viewPool.SpawnView<MainAvatarInfoPanelView>(viewPrefab, viewModel);
+                        var viewPrefab = uiViewPool.prefabs["MainAvatarInfoPanelView"];
+                        var mainAvatarInfoPanelView = uiViewPool.SpawnView<MainAvatarInfoPanelView>(viewPrefab, viewModel);
                         var moveContoller = mainAvatarInfoPanelView.GetComponent<RpgMoveController>();
                         moveContoller.MainAvatarController = modelView.GetComponent<CharacterController>();
                         moveContoller.MainAvatarView = modelView.GetComponent<AvatarView>();
@@ -232,19 +234,21 @@ namespace MagicFire.HuanHuoUFrame{
                 {
                     var skillContoller = modelView.GetComponent<RpgSkillController>();
                     skillContoller.Init(modelView as AvatarView);
-                    var entityType = entity.className.Replace("ViewModel", "");
-                    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-                    var viewModel = entity as EntityCommonViewModel;
+                }
+                if (entity.className == "AvatarViewModel" || entity.className == "MonsterViewModel")
+                {
                     var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
                     viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
                     viewPrefab = viewPool.prefabs[entityType + "RingView"];
                     viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
                 }
+                //if (entity.className == "MonsterViewModel")
+                //{
+                //    var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
+                //    viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
+                //}
                 if (entity.className == "NpcViewModel")
                 {
-                    var entityType = entity.className.Replace("ViewModel", "");
-                    var viewPool = PoolManager.Pools[entityType + "ViewPool"];
-                    var viewModel = entity as EntityCommonViewModel;
                     var viewPrefab = viewPool.prefabs[entityType + "PanelView"];
                     viewPool.SpawnEntityCommonView<EntityCommonView>(viewPrefab, viewModel);
                 }

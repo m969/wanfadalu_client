@@ -122,6 +122,7 @@
 
         public override void canMoveChanged(int arg1)
         {
+            //Debug.Log("AvatarView:canMoveChanged arg1=" + arg1);
             base.canMoveChanged(arg1);
             this._canMove = arg1;
         }
@@ -133,13 +134,16 @@
 
         public override void OnIdleState()
         {
+            //Debug.Log("AvatarView:OnIdleState");
             base.OnIdleState();
+            Animator.Play("Idle");
             Animator.SetFloat("Speed", 0.0f);
         }
 
         public override void OnDeadState()
         {
-            base.OnDeadState();
+            //Debug.Log("AvatarView:OnDeadState");
+            Animator.SetTrigger("Death");
         }
 
         public override void OnWalkState()

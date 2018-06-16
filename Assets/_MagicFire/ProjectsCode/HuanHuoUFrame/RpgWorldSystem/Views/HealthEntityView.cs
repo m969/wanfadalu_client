@@ -43,7 +43,8 @@
         {
             base.OnDeadExecuted(command);
             Debug.Log("HealthEntityView:OnDeadExecuted");
-            //this.Publish(new ShowDeadPanelEvent());
+            if (this.HealthEntity.isPlayer())
+                this.Publish(new ShowDeadPanelEvent());
         }
 
         public override void OnRespawnExecuted(OnRespawnCommand command)

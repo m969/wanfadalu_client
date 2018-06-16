@@ -74,6 +74,18 @@ namespace MagicFire.HuanHuoUFrame{
             this.Aggregator.Publish(new OnMainAvatarLeaveSpaceEvent());
         }
 
+        public override void OnDead_()
+        {
+            base.OnDead_();
+            this.avatarStateProperty.Dead.OnNext(true);
+        }
+
+        public override void OnRespawn_(Vector3 RespawnPosition)
+        {
+            base.OnRespawn_(RespawnPosition);
+            this.avatarStateProperty.Stand.OnNext(true);
+        }
+
         public override void DoMove_(Vector3 Point)
         {
             base.DoMove_(Point);

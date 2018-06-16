@@ -15,16 +15,17 @@
     {
         public void OnPointerDown(PointerEventData eventData)
         {
-            //Debug.Log("RpgTerrainComponent:OnPointerDown " + eventData.button);
+            //Debug.Log("RpgTerrainComponent:OnPointerDown " + eventData);
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                var layerMask = 1 << LayerMask.NameToLayer("Terrian");
-                if (Physics.Raycast(ray, out hit, RpgMoveController.RayCastHitDist, layerMask))
-                {
-                    this.Publish(new StartMoveEvent() { Point = hit.point });
-                }
+                //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //RaycastHit hit;
+                //var layerMask = 1 << LayerMask.NameToLayer("Terrian");
+                //if (Physics.Raycast(ray, out hit, RpgMoveController.RayCastHitDist, layerMask))
+                //{
+                //    this.Publish(new StartMoveEvent() { Point = hit.point });
+                //}
+                this.Publish(new StartMoveEvent() { Point = eventData.pointerCurrentRaycast.worldPosition });
             }
         }
     }

@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 224856867737552562}
   - component: {fileID: 222240090625334900}
   - component: {fileID: 114199324136787026}
+  - component: {fileID: 114269424214620182}
   m_Layer: 5
   m_Name: ItemInfoPanel
   m_TagString: Untagged
@@ -3517,6 +3518,25 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u7269\u54C1"
+--- !u!114 &114269424214620182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1240434728211248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 140
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &114287191541027324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4148,7 +4168,7 @@ MonoBehaviour:
   _headBar: {fileID: 114144028990418900}
   _lingshiAmount: 0
   _sectID: 0
-  _skillKeyOptions: 
+  _gongFaKeyOptions: 
   _BindOnTargetItemListReturn: 1
   _BindRequestTargetItemList: 1
   _RequestTargetItemListButton: {fileID: 114115650269353202}
@@ -7377,7 +7397,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7269\u54C1\u63CF\u8FF0\uFF1A"
+  m_Text: "\u6CD5\u5B9D\u953B\u9020\u6240\u9700\u6750\u6599\uFF1A\n\u7075\u6728\u5F13\uFF1A\u6728\u6750\u3001\u94C1\u7CBE\n\u51B0\u971C\u5927\u5251\uFF1A\u6728\u6750\u3001\u94C1\u7CBE\u3001\u5BD2\u51B0\u77F3\n\u5CA9\u571F\u76FE\uFF1A\u94C1\u7CBE\u3001\u94C1\u5CA9\u77F3\n\u79D8\u672F\u6CD5\u6756\uFF1A\u6728\u6750\u3001\u94C1\u5CA9\u77F3"
 --- !u!114 &114753143017674356
 MonoBehaviour:
   m_ObjectHideFlags: 1

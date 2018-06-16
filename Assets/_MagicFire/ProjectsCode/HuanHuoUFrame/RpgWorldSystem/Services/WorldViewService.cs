@@ -98,6 +98,7 @@ namespace MagicFire.HuanHuoUFrame{
             this.OnEvent<SceneLoaderEvent>().Where(x => x.Name == "LoginScene").Where(x => x.State == SceneState.Destructed).Subscribe(OnLoginSceneDestructed);
             this.OnEvent<SceneLoaderEvent>().Where(x => x.State == SceneState.Loaded).Subscribe(OnSceneLoaded);
             this.OnEvent<OnMatchEndCommand>().Subscribe(OnMatchEndEvent);
+            this.OnEvent<ShowDeadPanelEvent>().Subscribe(ShowDeadPanelEvent);
             Skill.InitSkillTypeMap();
             PropSystemController.InitPropConfigTable();
         }
@@ -334,14 +335,24 @@ namespace MagicFire.HuanHuoUFrame{
             {
                 matchResultPanel.Find("Win").gameObject.SetActive(true);
                 matchResultPanel.Find("Lose").gameObject.SetActive(false);
+                matchResultPanel.Find("Dead").gameObject.SetActive(false);
             }
             else
             {
                 matchResultPanel.Find("Lose").gameObject.SetActive(true);
                 matchResultPanel.Find("Win").gameObject.SetActive(false);
+                matchResultPanel.Find("Dead").gameObject.SetActive(false);
             }
-            //var tweens = DOTween.TweensById("1");
-            //tweens[0].Play();
+        }
+
+        private void ShowDeadPanelEvent(ShowDeadPanelEvent evt)
+        {
+            Debug.Log("WorldViewService:ShowDeadPanelEvent " + evt);
+            var matchResultPanel = MasterCanvas.transform.Find("MatchResultPanel");
+            matchResultPanel.gameObject.SetActive(true);
+            matchResultPanel.Find("Lose").gameObject.SetActive(false);
+            matchResultPanel.Find("Win").gameObject.SetActive(false);
+            matchResultPanel.Find("Dead").gameObject.SetActive(true);
         }
     }
 }

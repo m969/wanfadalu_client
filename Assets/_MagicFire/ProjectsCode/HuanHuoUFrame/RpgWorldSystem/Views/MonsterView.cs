@@ -43,6 +43,34 @@
             }
         }
 
+        public override void OnDestroyExecuted(OnDestroyCommand command)
+        {
+            Debug.Log("MonsterView:OnDestroyExecuted");
+            if (_monsterModel.gameObject.activeInHierarchy)
+            {
+                _monsterModel.SetParent(ParentSpawnPool.transform);
+                ParentSpawnPool.Despawn(_monsterModel);
+            }
+            //Monster.renderObj = null;
+            base.OnDestroyExecuted(command);
+            //DestroyImmediate(gameObject);
+            //DestroyImmediate(_monsterModel.gameObject);
+        }
+
+        public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)
+        {
+            Debug.Log("MonsterView:OnLeaveWorldExecuted");
+            if (_monsterModel.gameObject.activeInHierarchy)
+            {
+                _monsterModel.SetParent(ParentSpawnPool.transform);
+                ParentSpawnPool.Despawn(_monsterModel);
+            }
+            //Monster.renderObj = null;
+            base.OnLeaveWorldExecuted(command);
+            //DestroyImmediate(gameObject);
+            //DestroyImmediate(_monsterModel.gameObject);
+        }
+
         public override void typeIDChanged(int arg1)
         {
             _typeID = arg1;
@@ -50,12 +78,12 @@
 
         public override void StartMoveExecuted(StartMoveCommand command)
         {
-            ModelAnimator.Play("idle");
+            ModelAnimator.Play("walk");
         }
 
         public override void StopMoveExecuted(StopMoveCommand command)
         {
-            ModelAnimator.Play("walk");
+            ModelAnimator.Play("idle");
         }
     }
 }

@@ -97,9 +97,10 @@
                 _npcModel.SetParent(ParentSpawnPool.transform);
                 ParentSpawnPool.Despawn(_npcModel);
             }
-            Npc.renderObj = null;
-            //base.OnDestroyExecuted(command);
-            DestroyImmediate(gameObject);
+            //Npc.renderObj = null;
+            base.OnDestroyExecuted(command);
+            //DestroyImmediate(gameObject);
+            //DestroyImmediate(_npcModel.gameObject);
         }
 
         public override void OnLeaveWorldExecuted(OnLeaveWorldCommand command)
@@ -110,9 +111,10 @@
                 _npcModel.SetParent(ParentSpawnPool.transform);
                 ParentSpawnPool.Despawn(_npcModel);
             }
-            Npc.renderObj = null;
-            //base.OnLeaveWorldExecuted(command);
-            DestroyImmediate(gameObject);
+            //Npc.renderObj = null;
+            base.OnLeaveWorldExecuted(command);
+            //DestroyImmediate(gameObject);
+            //DestroyImmediate(_npcModel.gameObject);
         }
     }
 }

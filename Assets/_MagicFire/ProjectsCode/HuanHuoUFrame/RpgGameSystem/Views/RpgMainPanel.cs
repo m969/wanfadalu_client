@@ -133,6 +133,7 @@ namespace MagicFire.HuanHuoUFrame {
         public override void ExitGameExecuted(ExitGameCommand command)
         {
             Debug.Log("RpgMainPanel:ExitGameExecuted");
+            Application.Quit();
         }
     }
 }

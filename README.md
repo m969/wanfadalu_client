@@ -2,7 +2,7 @@
 ==
 客户端 Unity 2017.3.1  (Scripting Runtime Version: .Net 4.6)
 
-服务端 KBEngine v1.0.0
+服务端资产地址：https://github.com/m969/wanfadalu_server
 
 
 测试步骤：
